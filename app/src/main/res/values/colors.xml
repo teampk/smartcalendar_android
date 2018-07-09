@@ -3,6 +3,8 @@
     <color name="colorPrimary">#A3A1A1</color>
     <color name="colorPrimaryDark">#E3DEDE</color>
     <color name="colorAccent">#CC0000</color>
+
+
     <color name="colorFab">#F0E5DE</color>
     <color name="colorFabPressed">#c1a492</color>
 

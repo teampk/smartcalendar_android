@@ -90,7 +90,7 @@
 
             </LinearLayout>
 
-            <!-- Static or Dynamic -->
+            <!-- Switch Static or Dynamic -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -99,7 +99,7 @@
                 android:layout_marginRight="20dp">
 
                 <TextView
-                    android:id="@+id/tv_static_or_dynamic"
+                    android:id="@+id/tv_static_dynamic"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Static"
@@ -116,7 +116,7 @@
                 </RelativeLayout>
 
                 <Switch
-                    android:id="@+id/sw_dynamic"
+                    android:id="@+id/sw_static_dynamic"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"/>
@@ -137,123 +137,231 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- 하루종일 -->
+                <!-- for dynamic -->
                 <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_dynamic"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="하루 종일"
-                        android:gravity="left|center"
-                        android:textSize="16dp"
-                        android:textColor="#000000"
-                        />
+                    <!-- Deadline -->
+                    <LinearLayout
+                        android:id="@+id/ll_time_deadline"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="데드라인"
+                            android:gravity="left|center"
+                            android:textSize="16dp"
+                            android:textColor="#000000"
+                            />
 
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                    <Switch
-                        android:id="@+id/sw_all_day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"/>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/tv_time_deadline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:text="2018.7.9    01:00"
+                            android:textColor="#000000"
+                            android:textSize="16dp"/>
+
+                    </LinearLayout>
+
+                    <!--divider-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/colorLightGray"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <!-- 필요시간 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="필요시간"
+                            android:gravity="left|center"
+                            android:textSize="16dp"
+                            android:textColor="#000000"
+                            android:background="@null"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </RelativeLayout>
+
+                        <EditText
+                            android:id="@+id/et_needtime"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:inputType="numberSigned"
+                            android:gravity="center|right"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="시간"
+                            android:textColor="#000000"
+                            android:textSize="16dp"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
-
-                <!-- 시작 -->
+                <!-- for static -->
                 <LinearLayout
-                    android:id="@+id/ll_time_start"
+                    android:id="@+id/ll_static"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!-- 하루종일 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="시작"
-                        android:gravity="left|center"
-                        android:textSize="16dp"
-                        android:textColor="#000000"
-                        />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="하루 종일"
+                            android:gravity="left|center"
+                            android:textSize="16dp"
+                            android:textColor="#000000"
+                            />
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                    </RelativeLayout>
+                        </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_time_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="2018.7.9    01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"/>
+                        <Switch
+                            android:id="@+id/sw_all_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"/>
 
-                </LinearLayout>
+                    </LinearLayout>
 
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
+                    <!--divider-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/colorLightGray"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"/>
 
-                <!-- 종료 -->
-                <LinearLayout
-                    android:id="@+id/ll_time_end"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    <!-- 시작 -->
+                    <LinearLayout
+                        android:id="@+id/ll_time_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="종료"
-                        android:gravity="left|center"
-                        android:textSize="16dp"
-                        android:textColor="#000000"
-                        />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="시작"
+                            android:gravity="left|center"
+                            android:textSize="16dp"
+                            android:textColor="#000000"
+                            />
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                    </RelativeLayout>
+                        </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_time_end"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="2018.7.9    03:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"/>
+                        <TextView
+                            android:id="@+id/tv_time_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:text="2018.7.9    01:00"
+                            android:textColor="#000000"
+                            android:textSize="16dp"/>
+
+                    </LinearLayout>
+
+                    <!--divider-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/colorLightGray"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <!-- 종료 -->
+                    <LinearLayout
+                        android:id="@+id/ll_time_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="종료"
+                            android:gravity="left|center"
+                            android:textSize="16dp"
+                            android:textColor="#000000"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/tv_time_end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:text="2018.7.9    03:00"
+                            android:textColor="#000000"
+                            android:textSize="16dp"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -454,7 +562,7 @@
                 android:id="@+id/btn_add"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:text="확인"
+                android:text="등록"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16dp"
                 android:background="#00000000"

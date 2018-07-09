@@ -2,7 +2,9 @@ package com.pkteam.smartcalendar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,12 +44,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
-        holder.itemCategory.setBackgroundColor(getCategoryColor(this.mDataSet.get(position).mCategory));
+        holder.itemCategory.setImageDrawable(getCategoryDrawable(this.mDataSet.get(position).mCategory));
         holder.itemTitle.setText(this.mDataSet.get(position).mTitle);
         holder.itemTime.setText(this.mDataSet.get(position).mTime);
-
-
-
 
 
         holder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +55,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), AddItemActivity.class);
                 view.getContext().startActivity(intent);
-
-
-
 
             }
         });
@@ -70,7 +66,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout itemCategory;
+        ImageView itemCategory;
         TextView itemTitle, itemTime;
         RelativeLayout itemParent;
 
@@ -86,7 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
     }
-    public int getCategoryColor(int category){
+    private int getCategoryColor(int category){
         int categoryColor=0;
         switch (category){
             case 1:
@@ -107,6 +103,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
         return categoryColor;
+
+    }
+
+    private Drawable getCategoryDrawable(int category){
+        Drawable categoryDrawable = null;
+        switch (category){
+            case 1:
+                categoryDrawable = ContextCompat.getDrawable(mContext, R.drawable.ic_category_1_24dp);
+                break;
+            case 2:
+                categoryDrawable = ContextCompat.getDrawable(mContext, R.drawable.ic_category_2_24dp);
+                break;
+            case 3:
+                categoryDrawable = ContextCompat.getDrawable(mContext, R.drawable.ic_category_3_24dp);
+                break;
+            case 4:
+                categoryDrawable = ContextCompat.getDrawable(mContext, R.drawable.ic_category_4_24dp);
+                break;
+            case 5:
+                categoryDrawable = ContextCompat.getDrawable(mContext, R.drawable.ic_category_5_24dp);
+                break;
+
+        }
+
+
+        return categoryDrawable;
 
     }
 }

@@ -6,11 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_parent">
 
+
     <RelativeLayout
-        android:id="@+id/item_category"
-        android:layout_width="10dp"
+        android:layout_width="15dp"
         android:layout_height="80dp"
-        android:background="@color/colorCategory1">
+        android:gravity="center"
+        android:layout_marginLeft="10dp">
+
+        <ImageView
+            android:id="@+id/item_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_category_1_24dp"
+
+            />
 
 
     </RelativeLayout>

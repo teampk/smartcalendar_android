@@ -8,6 +8,9 @@
     <string name="button_cancel">취소</string>
     <string name="button_add">추가</string>
 
+    <string name="string_static">Static</string>
+    <string name="string_dynamic">Dynamic</string>
+
     <!-- from library -->
     <string name="label_custom_color">Custom colors</string>
     <string name="label_scheduling">스케쥴링</string>
