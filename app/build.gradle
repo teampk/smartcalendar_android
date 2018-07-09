@@ -36,9 +36,14 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     // Moving Floating Action Button
     compile 'com.melnykov:floatingactionbutton:1.3.0'
+    // Date and Time Picker
+    compile 'com.github.florent37:singledateandtimepicker:2.0.5'
     // nested scroll view
     implementation 'com.simmorsal.library:concealer_nested_scroll_view:2.0.0'
     // floating button
     implementation "com.leinardi.android:speed-dial:1.0.2"
+
+
+
 
 }
