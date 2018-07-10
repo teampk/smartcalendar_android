@@ -88,6 +88,7 @@ public class FragmentHome extends Fragment {
                     .setLabelBackgroundColor(Color.WHITE)
                     .setTheme(R.style.AppTheme_Purple)
                     .create());
+            mSpeedDialView.getUseReverseAnimationOnClose();
 
         }
 
@@ -126,6 +127,18 @@ public class FragmentHome extends Fragment {
         });
 
     }
+    /*
+    @Override
+    public void onBackPressed() {
+        //Closes menu if its opened.
+        if (mSpeedDialView.isOpen()) {
+            mSpeedDialView.close();
+        } else {
+            super.onBackPressed();
+        }
+
+    }
+    */
 
     public void bindingView(View mView){
 

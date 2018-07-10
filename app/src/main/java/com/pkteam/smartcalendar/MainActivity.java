@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.pkteam.smartcalendar.Fragments.FragmentCalendar;
 import com.pkteam.smartcalendar.Fragments.FragmentHome;
@@ -62,5 +63,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    long pressTime;
+    @Override
+    public void onBackPressed() {
+
+        if(System.currentTimeMillis() - pressTime <2000){
+            finish();
+            return;
+        }
+        Toast.makeText(this,"한번 더 누르시면 앱이 종료됩니다.",Toast.LENGTH_SHORT).show();
+        pressTime = System.currentTimeMillis();
+
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package com.pkteam.smartcalendar;
 
-/**
+/*
  * Created by paeng on 2018. 7. 5..
  */
 

@@ -47,8 +47,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.itemCategory.setImageDrawable(getCategoryDrawable(this.mDataSet.get(position).mCategory));
         holder.itemTitle.setText(this.mDataSet.get(position).mTitle);
         holder.itemTime.setText(this.mDataSet.get(position).mTime);
-
-
         holder.itemParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
