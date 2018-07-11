@@ -44,7 +44,7 @@
                         android:hint="제목"
                         android:gravity="left|center"
                         android:textSize="16dp"
-                        android:textColor="@color/colorLightGray"
+                        android:textColor="#000000"
                         android:background="@null"
                         />
 
@@ -73,12 +73,10 @@
                         android:hint="위치"
                         android:gravity="left|center"
                         android:textSize="16dp"
-                        android:textColor="@color/colorLightGray"
+                        android:textColor="#000000"
                         android:background="@null"/>
 
                 </LinearLayout>
-
-
 
             </LinearLayout>
 
@@ -171,11 +169,21 @@
                         </RelativeLayout>
 
                         <TextView
+                            android:id="@+id/tv_date_deadline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:text="2018.7.9"
+                            android:textColor="#000000"
+                            android:textSize="16dp"
+                            android:layout_marginRight="15dp"/>
+
+                        <TextView
                             android:id="@+id/tv_time_deadline"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:text="2018.7.9    01:00"
+                            android:text="01:00"
                             android:textColor="#000000"
                             android:textSize="16dp"/>
 
@@ -309,11 +317,21 @@
                         </RelativeLayout>
 
                         <TextView
+                            android:id="@+id/tv_date_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:text="2018.7.9"
+                            android:textColor="#000000"
+                            android:textSize="16dp"
+                            android:layout_marginRight="15dp"/>
+
+                        <TextView
                             android:id="@+id/tv_time_start"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:text="2018.7.9    01:00"
+                            android:text="01:00"
                             android:textColor="#000000"
                             android:textSize="16dp"/>
 
@@ -353,11 +371,21 @@
                         </RelativeLayout>
 
                         <TextView
+                            android:id="@+id/tv_date_end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:text="2018.7.9"
+                            android:textColor="#000000"
+                            android:textSize="16dp"
+                            android:layout_marginRight="15dp"/>
+
+                        <TextView
                             android:id="@+id/tv_time_end"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:text="2018.7.9    03:00"
+                            android:text="01:00"
                             android:textColor="#000000"
                             android:textSize="16dp"/>
 

@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_home:
                     selectedFragment = new FragmentHome();
                     break;
-
                 case R.id.nav_calendar:
                     selectedFragment = new FragmentCalendar();
                     break;
