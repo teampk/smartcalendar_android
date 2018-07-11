@@ -1,5 +1,7 @@
 package com.pkteam.smartcalendar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +40,8 @@ public class AddItemActivity extends AppCompatActivity {
     private static final int ADD_MODE = 111;
     private static final int EDIT_MODE = 112;
 
+    private static final int REQUEST_REPEAT = 11;
+
 
     ConcealerNestedScrollView concealerNSV;
     CardView crdHeaderView;
@@ -50,8 +54,8 @@ public class AddItemActivity extends AppCompatActivity {
     Switch swStaticDynamic, swAllday;
 
     // Date and Time picker
-    LinearLayout llTimeStart, llTimeEnd, llTimeDeadline, llStatic, llDynamic;
-    TextView tvTimeStart, tvTimeEnd, tvDateStart, tvDateEnd, tvDateDeadline, tvTimeDeadline;
+    LinearLayout llTimeStart, llTimeEnd, llTimeDeadline, llStatic, llDynamic, llRepeat, llCategory;
+    TextView tvTimeStart, tvTimeEnd, tvDateStart, tvDateEnd, tvDateDeadline, tvTimeDeadline, tvRepeat;
     SingleDateAndTimePickerDialog.Builder singleBuilder;
     SimpleDateFormat simpleTimeFormat;
     String[] dateString;
@@ -73,6 +77,7 @@ public class AddItemActivity extends AppCompatActivity {
     private String item9_Memo;
     private int item10_needTime;
 
+    private int repeatMode;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -329,16 +334,38 @@ public class AddItemActivity extends AppCompatActivity {
                         selectDateAndTime(5);
                     }else{
                         selectDateAndTime(2);
-
                     }
                     break;
                 case R.id.ll_time_deadline:
                     selectDateAndTime(3);
                     break;
+                case R.id.ll_repeat:
+                    Intent intentRepeat = new Intent(AddItemActivity.this, AddItemActivityRepeat.class);
+                    intentRepeat.putExtra("repeatMode", tvRepeat.getText().toString());
+                    startActivityForResult(intentRepeat, REQUEST_REPEAT);
+                    break;
+                case R.id.ll_category:
+                    Intent intentCategory = new Intent(AddItemActivity.this, AddItemActivityCategory.class);
+                    startActivity(intentCategory);
+                    break;
 
             }
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_REPEAT) {
+            if(resultCode == Activity.RESULT_OK){
+                tvRepeat.setText(data.getStringExtra("repeatResult"));
+                data.getIntExtra("repeatResultInteger", repeatMode);
+            }
+            else if (resultCode == Activity.RESULT_CANCELED) {
+                Log.d("ActivityResult", "CANCELED");
+            }
+        }
+    }//onActivityResult
 
     public String getCurrentDate(){
         // get Current Date and Time
@@ -376,10 +403,17 @@ public class AddItemActivity extends AppCompatActivity {
         tvTimeEnd = findViewById(R.id.tv_time_end);
         tvDateDeadline = findViewById(R.id.tv_date_deadline);
         tvTimeDeadline = findViewById(R.id.tv_time_deadline);
+        llRepeat = findViewById(R.id.ll_repeat);
+        llCategory = findViewById(R.id.ll_category);
+
         llTimeStart.setOnClickListener(listener);
         llTimeEnd.setOnClickListener(listener);
         llTimeDeadline.setOnClickListener(listener);
+        llRepeat.setOnClickListener(listener);
+        llCategory.setOnClickListener(listener);
         this.simpleTimeFormat = new SimpleDateFormat("YYYY.MM.dd/HH:mm", Locale.getDefault());
+
+        tvRepeat = findViewById(R.id.tv_repeat);
 
 
 

@@ -11,6 +11,12 @@
     <string name="string_static">Static</string>
     <string name="string_dynamic">Dynamic</string>
 
+    <string name="repeat_mode_1">안 함</string>
+    <string name="repeat_mode_2">매일</string>
+    <string name="repeat_mode_3">매주</string>
+    <string name="repeat_mode_4">매월</string>
+    <string name="repeat_mode_5">매년</string>
+
     <!-- from library -->
     <string name="label_custom_color">Custom colors</string>
     <string name="label_scheduling">스케쥴링</string>
