@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar;
+package com.pkteam.smartcalendar.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.pkteam.smartcalendar.R;
 
 /**
  * Created by paeng on 2018. 7. 11..
@@ -109,7 +111,7 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                     break;
                 case R.id.btn_submit:
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra("repeatResultInteger", checkedRepeat);
+                    returnIntent.putExtra("repeatInteger", checkedRepeat);
                     returnIntent.putExtra("repeatResult",getRepeatString(checkedRepeat));
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();

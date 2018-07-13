@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.pkteam.smartcalendar.model.MyData;
+import com.pkteam.smartcalendar.view.AddItemActivity;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /*
  * Created by paeng on 2018. 7. 5..
@@ -46,16 +49,51 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.itemCategory.setImageDrawable(getCategoryDrawable(this.mDataSet.get(position).mCategory));
         holder.itemTitle.setText(this.mDataSet.get(position).mTitle);
-        holder.itemTime.setText(this.mDataSet.get(position).mTime);
+        if (this.mDataSet.get(position).mIsDynamic){
+            holder.itemTime.setText(getShowingTimeDynamic(this.mDataSet.get(position).mTime.split("\\.")));
+        }else{
+            holder.itemTime.setText(getShowingTimeStatic(this.mDataSet.get(position).mTime.split("\\.")));
+        }
+
         holder.itemParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), mDataSet.get(position).mTime.split("\\.")[2], Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), AddItemActivity.class);
+                intent.putExtra("mode",2);
+                intent.putExtra("id", mDataSet.get(position).mId);
                 view.getContext().startActivity(intent);
-
             }
         });
+    }
+    private String getShowingTimeDynamic(String[] input){
+        Calendar tday = Calendar.getInstance();
+        Calendar dday = Calendar.getInstance();
+        //20180725
+
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String[] mDate = sdf.format(date).split("/");
+        tday.set(Integer.valueOf(mDate[0]),
+                Integer.valueOf(mDate[1]),
+                Integer.valueOf(mDate[2]));
+
+        dday.set(Integer.valueOf(input[2].substring(0,4)),
+                Integer.valueOf(input[2].substring(4,6)),
+                Integer.valueOf(input[2].substring(6,8)));
+
+        int count = (int)((tday.getTimeInMillis()/86400000) - (dday.getTimeInMillis()/86400000));
+        String output = "D"+String.valueOf(count);
+
+        return output;
+    }
+    @NonNull
+    private String getShowingTimeStatic(String[] input){
+
+        String startTime = input[0].substring(8,12);
+        String endTime = input[1].substring(8,12);
+        return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
     }
 
     @Override
@@ -75,33 +113,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemCategory = itemView.findViewById(R.id.item_category);
             itemTitle = itemView.findViewById(R.id.item_text);
             itemTime = itemView.findViewById(R.id.item_time);
-
-
         }
-
-    }
-    private int getCategoryColor(int category){
-        int categoryColor=0;
-        switch (category){
-            case 1:
-                categoryColor = mContext.getResources().getColor(R.color.colorCategory1);
-                break;
-            case 2:
-                categoryColor = mContext.getResources().getColor(R.color.colorCategory2);
-                break;
-            case 3:
-                categoryColor = mContext.getResources().getColor(R.color.colorCategory3);
-                break;
-            case 4:
-                categoryColor = mContext.getResources().getColor(R.color.colorCategory4);
-                break;
-            case 5:
-                categoryColor = mContext.getResources().getColor(R.color.colorCategory5);
-                break;
-
-        }
-        return categoryColor;
-
     }
 
     private Drawable getCategoryDrawable(int category){

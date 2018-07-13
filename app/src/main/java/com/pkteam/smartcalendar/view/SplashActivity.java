@@ -1,11 +1,12 @@
-package com.pkteam.smartcalendar;
+package com.pkteam.smartcalendar.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.pkteam.smartcalendar.R;
 
 /*
  * Created by paeng on 2018. 7. 5..

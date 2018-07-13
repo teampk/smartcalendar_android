@@ -1,14 +1,12 @@
-package com.pkteam.smartcalendar.Fragments;
+package com.pkteam.smartcalendar.view.Fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +18,9 @@ import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
-import com.pkteam.smartcalendar.AddItemActivity;
-import com.pkteam.smartcalendar.MyData;
+import com.pkteam.smartcalendar.view.AddItemActivity;
+import com.pkteam.smartcalendar.DBHelper;
+import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
 
@@ -44,16 +43,14 @@ public class FragmentHome extends Fragment {
 
     private SpeedDialView mSpeedDialView;
 
-
+    private View mView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.fragment_home, container, false);
-        bindingView(mView);
+        mView = inflater.inflate(R.layout.fragment_home, container, false);
+        bindingView();
         initSpeedDial(savedInstanceState == null, mView);
-
-
 
         return mView;
     }
@@ -67,6 +64,13 @@ public class FragmentHome extends Fragment {
         super.onCreate(savedInstanceState);
         initDataset();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initDataset();
+        initRecyclerView(mView);
     }
 
     private void initSpeedDial(boolean addActionItems, View mView) {
@@ -114,6 +118,7 @@ public class FragmentHome extends Fragment {
                 switch (actionItem.getId()) {
                     case R.id.fab_add_item:
                         Intent intent = new Intent(getContext(), AddItemActivity.class);
+                        intent.putExtra("mode", 1);
                         startActivity(intent);
                         return false; // closes without animation (same as mSpeedDialView.close(false); return false;)
                     case R.id.fab_auto_scheduling:
@@ -127,20 +132,8 @@ public class FragmentHome extends Fragment {
         });
 
     }
-    /*
-    @Override
-    public void onBackPressed() {
-        //Closes menu if its opened.
-        if (mSpeedDialView.isOpen()) {
-            mSpeedDialView.close();
-        } else {
-            super.onBackPressed();
-        }
 
-    }
-    */
-
-    public void bindingView(View mView){
+    public void bindingView(){
 
         tvTime = mView.findViewById(R.id.tv_time);
         tvTime.setText(getCurrentDate());
@@ -157,25 +150,12 @@ public class FragmentHome extends Fragment {
     }
 
 
-
-
     private void initDataset(){
+        DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
         staticData = new ArrayList<>();
         dynamicData = new ArrayList<>();
-
-        staticData.add(new MyData(1, "찬일이랑 점심", "12:00~13:00"));
-        staticData.add(new MyData(2, "찬일이랑 코노", "13:00~14:00"));
-        staticData.add(new MyData(3, "찬일이랑 카페", "14:00~15:00"));
-        staticData.add(new MyData(2, "찬일이랑 배그", "15:00~17:00"));
-        staticData.add(new MyData(1, "찬일이랑 헬스", "17:00~19:00"));
-        staticData.add(new MyData(1, "찬일이랑 저녁", "19:00~20:00"));
-        staticData.add(new MyData(4, "찬일이랑 스타트업 회의", "20:00~22:00"));
-
-        dynamicData.add(new MyData(4, "유튜브 업로드", "D-1"));
-        dynamicData.add(new MyData(3, "클로버 인공지능 아이디어 서류 제출", "D-3"));
-        dynamicData.add(new MyData(3, "스마트캘린더 뼈대 코딩", "D-5"));
-        dynamicData.add(new MyData(3, "Always-On 중간 제출", "D-19"));
-        dynamicData.add(new MyData(1, "PET COMM 사업계획서 제출", "D-24"));
+        staticData = dbHelper.getTodoStaticData();
+        dynamicData = dbHelper.getTodoDynamicData();
 
     }
 
