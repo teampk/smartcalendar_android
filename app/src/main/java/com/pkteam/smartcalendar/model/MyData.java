@@ -32,4 +32,10 @@ public class MyData {
         this.mMemo = memo;
         this.mNeedTime = needTime;
     }
+    public void setmId(int id) {
+        this.mId = id;
+    }
+    public int getmId(){
+        return mId;
+    }
 }

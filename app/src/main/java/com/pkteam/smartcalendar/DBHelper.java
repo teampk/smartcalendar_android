@@ -18,13 +18,25 @@ import java.util.ArrayList;
 // 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)
 
 public class DBHelper extends SQLiteOpenHelper {
+    private static final String basicCg1 = "기본";
+    private static final String basicCg2 = "약속";
+    private static final String basicCg3 = "공부";
+    private static final String basicCg4 = "활동";
+    private static final String basicCg5 = "기타";
+
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE TODOLIST (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT," +
-                " isDynamic BOOLEAN, isAllday BOOLEAN, time TEXT, repeatId INTEGER, category TEXT, todoMemo TEXT, todoNeedtime TEXT);");
+                " isDynamic BOOLEAN, isAllday BOOLEAN, time TEXT, repeatId INTEGER, category TEXT, memo TEXT, needTime TEXT);");
+        db.execSQL("CREATE TABLE CATEGORY (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
+        db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg1 + "');");
+        db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg2 + "');");
+        db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg3 + "');");
+        db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg4 + "');");
+        db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg5 + "');");
     }
 
     @Override
@@ -34,6 +46,38 @@ public class DBHelper extends SQLiteOpenHelper {
     public void todoDataInsert(String title, String location, boolean isDynamic, boolean isAllday, String time, int repeatId, int category, String memo, int needtime){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + title + "', '" + location + "', '" + isDynamic + "' , '"+isAllday+"' , '"+time+"', '"+repeatId+"', '"+category+"', '"+memo+"','"+needtime+"');");
+        db.close();
+    }
+    public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, String time, int repeatId, int category, String memo, int needTime) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE TODOLIST SET title='" + title + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET location='" + location + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET isDynamic='" + isDynamic + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET isAllday='" + isAllday + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET time='" + time + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET repeatId='" + repeatId + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET category='" + category + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET memo='" + memo + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET needTime='" + needTime + "' WHERE _id='" + id + "';");
+        db.close();
+    }
+    public ArrayList<String> getAllCategory(){
+        ArrayList<String> categoryList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY;", null);
+        while (cursor.moveToNext()){
+            categoryList.add(cursor.getString(1));
+        }
+        return categoryList;
+    }
+
+    public void categoryUpdate(String cg1, String cg2, String cg3, String cg4, String cg5){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE CATEGORY SET name='"+cg1+"' WHERE _id='" + 0 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg2+"' WHERE _id='" + 1 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg3+"' WHERE _id='" + 2 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg4+"' WHERE _id='" + 3 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg5+"' WHERE _id='" + 4 + "';");
         db.close();
     }
     public ArrayList<MyData> getTodoData(){

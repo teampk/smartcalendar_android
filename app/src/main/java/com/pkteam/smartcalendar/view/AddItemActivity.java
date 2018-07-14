@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import com.pkteam.smartcalendar.model.MyData;
 import com.simmorsal.library.ConcealerNestedScrollView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -44,8 +46,8 @@ public class AddItemActivity extends AppCompatActivity {
     private static final int ALL_DAY_MODE = 1113;
     private static final int NOT_ALL_DAY_MODE = 1114;
 
-    private static final int ADD_MODE = 111;
-    private static final int EDIT_MODE = 112;
+    private static final int ADD_MODE = 1;
+    private static final int EDIT_MODE = 2;
 
     private static final int REQUEST_REPEAT = 11;
     private static final int REQUEST_CATEGORY = 12;
@@ -103,32 +105,17 @@ public class AddItemActivity extends AppCompatActivity {
         setupConcealerNSV();
     }
 
-    public void setViewFromId(int id){
-        DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-        itemElement = dbHelper.getDataById(id);
-
-        etTitle.setText(itemElement.mTitle);
-        etLoc.setText(itemElement.mLocation);
-        etMemo.setText(itemElement.mMemo);
-        swStaticDynamic.setChecked(itemElement.mIsDynamic);
-
-        if(!itemElement.mIsDynamic){
-            setSwitchToStatic();
-        }else{
-            setSwitchToDynamic();
-        }
-
-
-    }
-
     public void initSet(int isEdit, int dataId){
+        modeStaticDynamic = STATIC_MODE;
+        modeAllDay = NOT_ALL_DAY_MODE;
+        categoryMode = 1;
+        item4_isDynamic = false;
+        item5_isAllDay = false;
 
-        // 수정하는 경우
-        if(isEdit==1){
+        // 추가하는 경우
+        if(isEdit==ADD_MODE){
             etTitle.requestFocus();
             linFooterView.setVisibility(View.GONE);
-            modeStaticDynamic = STATIC_MODE;
-            modeAllDay = NOT_ALL_DAY_MODE;
             String date[] = getCurrentDate().split("/");
             tvDateStart.setText(date[0]);
             tvTimeStart.setText(date[1]);
@@ -137,14 +124,11 @@ public class AddItemActivity extends AppCompatActivity {
             tvDateDeadline.setText(date[0]);
             tvTimeDeadline.setText(date[1]);
         }
-        // 추가하는 경우
-        else if (isEdit==2){
+        // 수정하는 경우
+        else if (isEdit==EDIT_MODE){
             linFooterView.setVisibility(View.VISIBLE);
             setViewFromId(dataId);
-
         }
-
-
 
         swStaticDynamic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -167,6 +151,57 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    // 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)
+    // 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)
+    // 수정하는 경우 데이터 받아오는 함수
+    public void setViewFromId(int id){
+        DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
+        item1_id =id;
+        itemElement = dbHelper.getDataById(id);
+
+        etTitle.setText(itemElement.mTitle);
+        etLoc.setText(itemElement.mLocation);
+        swStaticDynamic.setChecked(itemElement.mIsDynamic);
+        categoryMode = itemElement.mCategory;
+        ArrayList<String> categoryList = dbHelper.getAllCategory();
+        tvCategory.setText(categoryList.get(categoryMode - 1));
+        ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
+
+        etMemo.setText(itemElement.mMemo);
+        String timeSplit[] = itemElement.mTime.split("\\.");
+
+        if(!itemElement.mIsDynamic){
+            setSwitchToStatic();
+            tvDateStart.setText(getDateFromData(timeSplit[0]));
+            tvDateEnd.setText(getDateFromData(timeSplit[1]));
+            if(itemElement.mIsAllday){
+                swAllday.setChecked(true);
+                setSwitchToAllDay();
+            }else{
+                tvTimeStart.setText(getTimeFromData(timeSplit[0]));
+                tvTimeEnd.setText(getTimeFromData(timeSplit[1]));
+            }
+            modeStaticDynamic = STATIC_MODE;
+            item4_isDynamic = false;
+        }else{
+            setSwitchToDynamic();
+            tvDateDeadline.setText(getDateFromData(timeSplit[2]));
+            tvTimeDeadline.setText(getTimeFromData(timeSplit[2]));
+            Log.d("PaengNeedTime", String.valueOf(itemElement.mNeedTime));
+            etNeedTime.setText(String.valueOf(itemElement.mNeedTime));
+            modeStaticDynamic = DYNAMIC_MODE;
+            item4_isDynamic = true;
+
+        }
+    }
+    @NonNull
+    private String getDateFromData(String input){
+        return input.substring(0,4)+"."+input.substring(4,6)+"."+input.substring(6,8);
+    }
+    @NonNull
+    private String getTimeFromData(String input){
+        return input.substring(8,10)+":"+input.substring(10,12);
     }
 
     // for Switch
@@ -232,15 +267,11 @@ public class AddItemActivity extends AppCompatActivity {
                 .bottomSheet()
                 .curved()
                 .defaultDate(defaultDate);
-
-
                 //.titleTextColor(Color.GREEN)
                 //.backgroundColor(Color.BLACK)
                 //.mainColor(Color.GREEN)
                 //.minDateRange()
                 //.maxDateRange()
-
-
                 if (ver==1||ver==2||ver==3){
                     singleBuilder.displayMinutes(true);
                     singleBuilder.displayHours(true);
@@ -369,10 +400,10 @@ public class AddItemActivity extends AppCompatActivity {
 
     private boolean checkItem(){
         if (etTitle.getText().toString().replace(" ", "").equals("")) {
-            Toast.makeText(AddItemActivity.this, "제목을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddItemActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
-        }else if (etNeedTime.getText().toString().replace(" ", "").equals("") && item4_isDynamic){
-            Toast.makeText(AddItemActivity.this, "필요 시간을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+        }else if (String.valueOf(etNeedTime.getText()).replace(" ", "").equals("") && item4_isDynamic){
+            Toast.makeText(AddItemActivity.this, "필요시간을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -434,7 +465,7 @@ public class AddItemActivity extends AppCompatActivity {
             switch (view.getId()){
                 case R.id.btn_add:
                     // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
-                    // 6.time(String)   7.repeatId(Int)     8.category(Int)     9.Memo(String)  10.NeedTime(int)
+                    // 6.time(String)  7.repeatId(Int)     8.category(Int)     9.Memo(String)  10.NeedTime(int)
                     if (checkItem()){
                         //2
                         item2_title = etTitle.getText().toString();
@@ -469,14 +500,30 @@ public class AddItemActivity extends AppCompatActivity {
                         item7_repeatId=1;
                         item8_category = categoryMode;
                         item9_Memo = etMemo.getText().toString();
-                    }
-                    String testing = item2_title + item3_loc + String.valueOf(item4_isDynamic) + String.valueOf(item5_isAllDay)+"\n"+item6_time+"\n";
-                    testing += item8_category+item9_Memo;
-                    Toast.makeText(getApplicationContext(), testing, Toast.LENGTH_SHORT).show();
+                        if (modeAddEdit == ADD_MODE){
+                            Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                            DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
+                            dbHelper.todoDataInsert(item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
+                            finish();
+                        }else if (modeAddEdit == EDIT_MODE){
+                            Toast.makeText(getApplicationContext(), "일정이 수정되었습니다", Toast.LENGTH_SHORT).show();
+                            Log.d("PaengTesting", String.valueOf(item1_id)+
+                                    item2_title+
+                                    item3_loc+
+                                    String.valueOf(item4_isDynamic)+
+                                    String.valueOf(item5_isAllDay)+
+                                    item6_time+
+                                    "repeatId" + String.valueOf(item7_repeatId)+
+                                    String.valueOf(item8_category)+
+                                    "memo" + item9_Memo+
+                                    String.valueOf(item10_needTime));
+                            DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
+                            dbHelper.todoDataUpdate(item1_id, item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
+                            finish();
+                        }
 
-                    DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-                    dbHelper.todoDataInsert(item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
-                    finish();
+                    }
+
                     break;
                 case R.id.btn_cancel:
                     finish();

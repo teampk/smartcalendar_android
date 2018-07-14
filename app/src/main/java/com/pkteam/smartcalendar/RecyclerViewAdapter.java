@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +59,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.itemParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-                Toast.makeText(view.getContext(), mDataSet.get(position).mTime.split("\\.")[2], Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), AddItemActivity.class);
                 intent.putExtra("mode",2);
                 intent.putExtra("id", mDataSet.get(position).mId);
@@ -90,6 +89,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     @NonNull
     private String getShowingTimeStatic(String[] input){
+        Log.d("PaengDataCheck0", input[0]);
+        Log.d("PaengDataCheck1", input[0]);
+        Log.d("PaengDataCheck2", input[0]);
 
         String startTime = input[0].substring(8,12);
         String endTime = input[1].substring(8,12);
