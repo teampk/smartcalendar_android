@@ -181,4 +181,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM TODOLIST;");
         db.close();
     }
+    public void deleteTodoDataById(int id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM TODOLIST WHERE _id = '" + id + "';");
+        db.close();
+    }
 }

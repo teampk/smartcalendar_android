@@ -40,9 +40,7 @@ public class FragmentHome extends Fragment {
     private TextView tvTime;
     private Toast mToast;
     private Snackbar mSnackbar;
-
     private SpeedDialView mSpeedDialView;
-
     private View mView;
 
     @Nullable
@@ -51,7 +49,6 @@ public class FragmentHome extends Fragment {
         mView = inflater.inflate(R.layout.fragment_home, container, false);
         bindingView();
         initSpeedDial(savedInstanceState == null, mView);
-
         return mView;
     }
     @Override

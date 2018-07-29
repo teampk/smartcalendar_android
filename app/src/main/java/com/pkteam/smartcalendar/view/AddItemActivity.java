@@ -423,6 +423,7 @@ public class AddItemActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(listener);
         btnSubmit = findViewById(R.id.btn_add);
         btnSubmit.setOnClickListener(listener);
+        linFooterView.setOnClickListener(listener);
         //
         etTitle = findViewById(R.id.et_title);
         etLoc = findViewById(R.id.et_loc);
@@ -554,6 +555,13 @@ public class AddItemActivity extends AppCompatActivity {
                     Intent intentCategory = new Intent(AddItemActivity.this, AddItemActivityCategory.class);
                     intentCategory.putExtra("categoryMode", tvCategory.getText().toString());
                     startActivityForResult(intentCategory, REQUEST_CATEGORY);
+                    break;
+                case R.id.linFooterView:
+                    DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
+                    dbHelper.deleteTodoDataById(item1_id);
+                    finish();
+                    break;
+                default:
                     break;
             }
         }
