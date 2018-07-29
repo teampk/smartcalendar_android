@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.view.AddItemActivity;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.model.MyData;
@@ -34,6 +35,7 @@ import java.util.Date;
 
 public class FragmentHome extends Fragment {
     private ArrayList<MyData> staticData, dynamicData;
+    private ArrayList<MyData> staticDataSorted, dynamicDataSorted;
     private RecyclerView mRecyclerViewStatic, mRecyclerViewDynamic;
     private RecyclerView.LayoutManager mLayoutManagerStatic, mLayoutManagerDynamic;
     private RecyclerViewAdapter mAdapterStatic, mAdapterDynamic;
@@ -42,6 +44,7 @@ public class FragmentHome extends Fragment {
     private Snackbar mSnackbar;
     private SpeedDialView mSpeedDialView;
     private View mView;
+    private ArrayListSorting arrayListSorting = new ArrayListSorting();
 
     @Nullable
     @Override
@@ -156,6 +159,14 @@ public class FragmentHome extends Fragment {
         staticData = dbHelper.getTodoStaticData();
         dynamicData = dbHelper.getTodoDynamicData();
 
+/*
+        staticDataSorted = new ArrayList<>();
+        dynamicDataSorted = new ArrayList<>();
+        staticDataSorted = arrayListSorting.sortingForStaticForToday(staticData);
+        dynamicDataSorted = arrayListSorting.sortingForDynamicFromToday(dynamicData);
+*/
+
+
     }
 
     private void initRecyclerView(View mView){
@@ -164,7 +175,7 @@ public class FragmentHome extends Fragment {
         mRecyclerViewStatic.setHasFixedSize(true);
         mRecyclerViewStatic.setLayoutManager(mLayoutManagerStatic);
         mRecyclerViewStatic.scrollToPosition(0);
-        mAdapterStatic = new RecyclerViewAdapter(mView.getContext(), staticData);
+        mAdapterStatic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData));
         mRecyclerViewStatic.setAdapter(mAdapterStatic);
         mRecyclerViewStatic.setItemAnimator(new DefaultItemAnimator());
 
@@ -174,10 +185,11 @@ public class FragmentHome extends Fragment {
         mRecyclerViewDynamic.setHasFixedSize(true);
         mRecyclerViewDynamic.setLayoutManager(mLayoutManagerDynamic);
         mRecyclerViewDynamic.scrollToPosition(0);
-        mAdapterDynamic = new RecyclerViewAdapter(mView.getContext(), dynamicData);
+        mAdapterDynamic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData));
         mRecyclerViewDynamic.setAdapter(mAdapterDynamic);
         mRecyclerViewDynamic.setItemAnimator(new DefaultItemAnimator());
     }
+
 
     protected void showToast(String text) {
         if (mToast != null) {

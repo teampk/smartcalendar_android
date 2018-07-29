@@ -208,6 +208,7 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToDynamic(){
         llStatic.setVisibility(View.GONE);
         llDynamic.setVisibility(View.VISIBLE);
+        item4_isDynamic = true;
         tvStaticDynamic.setText("Dynamic");
         modeStaticDynamic = DYNAMIC_MODE;
     }
@@ -215,6 +216,7 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToStatic(){
         llStatic.setVisibility(View.VISIBLE);
         llDynamic.setVisibility(View.GONE);
+        item4_isDynamic = false;
         tvStaticDynamic.setText("Static");
         modeStaticDynamic = STATIC_MODE;
     }
@@ -222,12 +224,14 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToAllDay(){
         tvTimeStart.setVisibility(View.GONE);
         tvTimeEnd.setVisibility(View.GONE);
+        item5_isAllDay = true;
         modeAllDay = ALL_DAY_MODE;
     }
 
     private void setSwitchToNotAllDay(){
         tvTimeStart.setVisibility(View.VISIBLE);
         tvTimeEnd.setVisibility(View.VISIBLE);
+        item5_isAllDay = false;
         modeAllDay = NOT_ALL_DAY_MODE;
     }
 
@@ -402,7 +406,7 @@ public class AddItemActivity extends AppCompatActivity {
         if (etTitle.getText().toString().replace(" ", "").equals("")) {
             Toast.makeText(AddItemActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
-        }else if (String.valueOf(etNeedTime.getText()).replace(" ", "").equals("") && item4_isDynamic){
+        }else if (etNeedTime.getText().toString().equals("") && item4_isDynamic){
             Toast.makeText(AddItemActivity.this, "필요시간을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }

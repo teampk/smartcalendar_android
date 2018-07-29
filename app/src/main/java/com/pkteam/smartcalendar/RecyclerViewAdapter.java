@@ -83,18 +83,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Integer.valueOf(input[2].substring(6,8)));
 
         int count = (int)((tday.getTimeInMillis()/86400000) - (dday.getTimeInMillis()/86400000));
-        String output = "D"+String.valueOf(count);
+        String output;
 
+        if (count == 0){
+            output = "D-"+String.valueOf(count);
+        }else {
+            output = "D"+String.valueOf(count);
+        }
         return output;
     }
     @NonNull
     private String getShowingTimeStatic(String[] input){
-        Log.d("PaengDataCheck0", input[0]);
-        Log.d("PaengDataCheck1", input[0]);
-        Log.d("PaengDataCheck2", input[0]);
+        //201807082130
+        String startTime, endTime;
 
-        String startTime = input[0].substring(8,12);
-        String endTime = input[1].substring(8,12);
+        if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate())){
+           startTime = "0000";
+        }else{
+            startTime = input[0].substring(8,12);
+        }
+
+        if(Long.parseLong(getCurrentDate()) < Long.parseLong(input[1].substring(0,8))){
+            endTime = "2400";
+        }else{
+            endTime = input[1].substring(8,12);
+        }
+
         return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
     }
 
@@ -116,6 +130,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemTitle = itemView.findViewById(R.id.item_text);
             itemTime = itemView.findViewById(R.id.item_time);
         }
+    }
+
+    private String getCurrentDate(){
+        // get Current Date and Time
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String[] mDate = sdf.format(date).split("/");
+        return mDate[0]+mDate[1]+mDate[2];
     }
 
     private Drawable getCategoryDrawable(int category){

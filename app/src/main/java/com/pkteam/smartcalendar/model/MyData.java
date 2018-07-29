@@ -38,4 +38,10 @@ public class MyData {
     public int getmId(){
         return mId;
     }
+    public void setmTime(String time){
+        this.mTime = time;
+    }
+    public String getmTime(){
+        return this.mTime;
+    }
 }
