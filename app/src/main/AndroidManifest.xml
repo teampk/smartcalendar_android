@@ -22,6 +22,7 @@
         <activity android:name=".view.AddItemActivity"/>
         <activity android:name=".view.AddItemActivityRepeat"/>
         <activity android:name=".view.AddItemActivityCategory"/>
+        <activity android:name=".view.DataCheckActivity"/>
     </application>
 
 </manifest>

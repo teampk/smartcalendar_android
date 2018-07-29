@@ -17,12 +17,32 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btn_reset"
+            android:id="@+id/btn_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reset Data"
+            android:text="카테고리 설정"
             android:gravity="center"
-            android:background="@color/material_red_400"
+            android:background="@color/material_blue_500"
+
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_data_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="데이터 체크"
+            android:gravity="center"
+            android:background="@color/material_green_500"
 
             />
     </LinearLayout>
@@ -35,17 +55,15 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btn_category"
+            android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="카테고리 설정"
+            android:text="reset Data"
             android:gravity="center"
-            android:background="@color/material_blue_500"
+            android:background="@color/material_red_400"
 
             />
     </LinearLayout>
-
-
 
 
 

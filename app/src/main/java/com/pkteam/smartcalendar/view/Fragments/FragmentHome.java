@@ -158,15 +158,6 @@ public class FragmentHome extends Fragment {
         dynamicData = new ArrayList<>();
         staticData = dbHelper.getTodoStaticData();
         dynamicData = dbHelper.getTodoDynamicData();
-
-/*
-        staticDataSorted = new ArrayList<>();
-        dynamicDataSorted = new ArrayList<>();
-        staticDataSorted = arrayListSorting.sortingForStaticForToday(staticData);
-        dynamicDataSorted = arrayListSorting.sortingForDynamicFromToday(dynamicData);
-*/
-
-
     }
 
     private void initRecyclerView(View mView){
@@ -190,23 +181,4 @@ public class FragmentHome extends Fragment {
         mRecyclerViewDynamic.setItemAnimator(new DefaultItemAnimator());
     }
 
-
-    protected void showToast(String text) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
-        mToast = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
-        mToast.show();
-    }
-
-    protected void showSnackbar(View mView, String text) {
-        mSnackbar = Snackbar.make(mView, text, Snackbar.LENGTH_SHORT);
-        mSnackbar.setAction("Close", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSnackbar.dismiss();
-            }
-        });
-        mSnackbar.show();
-    }
 }

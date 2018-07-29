@@ -86,7 +86,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String output;
 
         if (count == 0){
-            output = "D-"+String.valueOf(count);
+            output = "D-0";
+        }else if (count > 0){
+            output = "D+"+String.valueOf(count);
         }else {
             output = "D"+String.valueOf(count);
         }

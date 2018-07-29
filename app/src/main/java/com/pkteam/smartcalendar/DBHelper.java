@@ -80,7 +80,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE CATEGORY SET name='"+cg5+"' WHERE _id='" + 4 + "';");
         db.close();
     }
-    public ArrayList<MyData> getTodoData(){
+    public ArrayList<MyData> getTodoAllData(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<MyData> alMyData = new ArrayList<>();
 

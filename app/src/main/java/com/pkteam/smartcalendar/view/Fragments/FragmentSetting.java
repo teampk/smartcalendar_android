@@ -1,5 +1,6 @@
 package com.pkteam.smartcalendar.view.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.view.DataCheckActivity;
 
 /*
  * Created by paeng on 2018. 7. 4..
@@ -18,7 +20,7 @@ import com.pkteam.smartcalendar.R;
 
 public class FragmentSetting extends Fragment {
 
-    private Button btnReset;
+    private Button btnReset, btnDataCheck;
 
     @Nullable
     @Override
@@ -31,6 +33,8 @@ public class FragmentSetting extends Fragment {
     private void bindingView(View mView){
         btnReset = mView.findViewById(R.id.btn_reset);
         btnReset.setOnClickListener(listener);
+        btnDataCheck = mView.findViewById(R.id.btn_data_check);
+        btnDataCheck.setOnClickListener(listener);
     }
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -41,7 +45,12 @@ public class FragmentSetting extends Fragment {
                     dbHelper.deleteTodoDataAll();
                     Toast.makeText(getContext(), "Delete All the Data", Toast.LENGTH_LONG).show();
                     break;
-
+                case R.id.btn_data_check:
+                    Intent mIntent = new Intent(getContext(), DataCheckActivity.class);
+                    startActivity(mIntent);
+                    break;
+                default:
+                    break;
             }
         }
     };
