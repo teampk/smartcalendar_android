@@ -409,9 +409,13 @@ public class AddItemActivity extends AppCompatActivity {
         }else if (etNeedTime.getText().toString().equals("") && item4_isDynamic){
             Toast.makeText(AddItemActivity.this, "필요시간을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
+        }else if (Double.parseDouble(getTimeData(tvDateStart)+getTimeData(tvTimeStart))>Double.parseDouble(getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)) && !item4_isDynamic){
+            Toast.makeText(AddItemActivity.this, "시작시간은 끝시간보다 빨라야 합니다.", Toast.LENGTH_SHORT).show();
+            return false;
+        }else {
+            Log.d("CheckPaeng", getTimeData(tvDateStart)+getTimeData(tvTimeStart)+"//"+getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)+"//"+String.valueOf(item4_isDynamic));
+            return true;
         }
-
-        return true;
     }
 
     public String getTimeData(TextView tv){
