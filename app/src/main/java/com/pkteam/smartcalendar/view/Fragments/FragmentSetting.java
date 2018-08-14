@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.view.DataCheckActivity;
+import com.simmorsal.library.ConcealerNestedScrollView;
 
 /*
  * Created by paeng on 2018. 7. 4..
@@ -23,7 +25,9 @@ import com.pkteam.smartcalendar.view.DataCheckActivity;
 
 public class FragmentSetting extends Fragment {
 
-    private LinearLayout llCategorySetting, llDeleteAllData, llCheckData;
+    private LinearLayout llCategorySetting, llDeleteAllData, llCheckData, llAppInformation;
+    private CardView crdHeaderView;
+    private ConcealerNestedScrollView concealerNSV;
 
     @Nullable
     @Override
@@ -41,6 +45,13 @@ public class FragmentSetting extends Fragment {
         llDeleteAllData.setOnClickListener(listener);
         llCheckData = mView.findViewById(R.id.ll_check_data);
         llCheckData.setOnClickListener(listener);
+        llAppInformation = mView.findViewById(R.id.ll_app_information);
+        llAppInformation.setOnClickListener(listener);
+        crdHeaderView = mView.findViewById(R.id.crdHeaderView);
+
+        concealerNSV = mView.findViewById(R.id.concealerNSV);
+
+        setupConcealerNSV();
     }
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -73,9 +84,28 @@ public class FragmentSetting extends Fragment {
                 case R.id.ll_category_setting:
 
                     break;
+                case R.id.ll_app_information:
+
+                    break;
                 default:
                     break;
             }
         }
     };
+
+    private void setupConcealerNSV() {
+        // if you're setting header and footer views at the very start of the layout creation (onCreate),
+        // as the views are not drawn yet, the library cant get their correct sizes, so you have to do this:
+
+        crdHeaderView.post(new Runnable() {
+            @Override
+            public void run() {
+                concealerNSV.setHeaderView(crdHeaderView, 0);
+            }
+        });
+
+
+        // pass a true to setHeaderFastHide to make views hide faster
+        concealerNSV.setHeaderFastHide(true);
+    }
 }
