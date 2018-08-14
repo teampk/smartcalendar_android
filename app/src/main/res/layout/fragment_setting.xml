@@ -21,7 +21,7 @@
             <!-- background 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="150dp"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -229,7 +229,7 @@
         android:id="@+id/crdHeaderView"
         android:layout_width="match_parent"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"

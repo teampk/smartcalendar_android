@@ -1,9 +1,11 @@
 package com.pkteam.smartcalendar.view.Fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +47,24 @@ public class FragmentSetting extends Fragment {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.ll_delete_all_data:
-                    DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
-                    dbHelper.deleteTodoDataAll();
-                    Toast.makeText(getContext(), "Delete All the Data", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("모든 데이터를 삭제합니다");
+                    builder.setMessage("추가한 모든 일정 데이터를 삭제합니다. 계속하시겠습니까?");
+                    builder.setPositiveButton("예",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
+                                    dbHelper.deleteTodoDataAll();
+                                    Toast.makeText(getContext(), "모든 데이터가 삭제되었습니다", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    builder.setNegativeButton("아니오",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                    builder.show();
+
                     break;
                 case R.id.ll_check_data:
                     Intent mIntent = new Intent(getContext(), DataCheckActivity.class);
