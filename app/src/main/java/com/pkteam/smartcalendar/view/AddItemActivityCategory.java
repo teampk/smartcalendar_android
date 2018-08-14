@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 
 /*
@@ -25,6 +26,8 @@ public class AddItemActivityCategory extends AppCompatActivity {
     private Button btnSubmit;
 
     private int categoryMode;
+
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class AddItemActivityCategory extends AppCompatActivity {
 
 
     private void bindingView(){
+        dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
         llCategory1 = findViewById(R.id.ll_category_1);
         llCategory2 = findViewById(R.id.ll_category_2);
         llCategory3 = findViewById(R.id.ll_category_3);
@@ -100,6 +104,13 @@ public class AddItemActivityCategory extends AppCompatActivity {
         tvCategory3 = findViewById(R.id.tv_category_3);
         tvCategory4 = findViewById(R.id.tv_category_4);
         tvCategory5 = findViewById(R.id.tv_category_5);
+
+        tvCategory1.setText(dbHelper.getAllCategory().get(0));
+        tvCategory2.setText(dbHelper.getAllCategory().get(1));
+        tvCategory3.setText(dbHelper.getAllCategory().get(2));
+        tvCategory4.setText(dbHelper.getAllCategory().get(3));
+        tvCategory5.setText(dbHelper.getAllCategory().get(4));
+
 
         btnSubmit = findViewById(R.id.btn_submit);
         llCancel = findViewById(R.id.ll_cancel);

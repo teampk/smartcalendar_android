@@ -32,18 +32,21 @@ public class DataCheckActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datacheck);
-
-        DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-        allData = new ArrayList<>();
-        allData = dbHelper.getTodoAllData();
-
         initRecyclerView();
 
 
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        initRecyclerView();
+    }
 
 
     private void initRecyclerView(){
+        DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
+        allData = new ArrayList<>();
+        allData = dbHelper.getTodoAllData();
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);

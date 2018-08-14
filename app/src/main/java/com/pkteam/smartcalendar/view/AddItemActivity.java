@@ -1,6 +1,8 @@
 package com.pkteam.smartcalendar.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -34,6 +36,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static java.security.AccessController.getContext;
+
 /*
  * Created by paeng on 2018. 7. 5..
  */
@@ -50,6 +54,8 @@ public class AddItemActivity extends AppCompatActivity {
 
     private static final int REQUEST_REPEAT = 11;
     private static final int REQUEST_CATEGORY = 12;
+
+    private DBHelper dbHelper;
 
 
     ConcealerNestedScrollView concealerNSV;
@@ -155,7 +161,6 @@ public class AddItemActivity extends AppCompatActivity {
     // 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)
     // 수정하는 경우 데이터 받아오는 함수
     public void setViewFromId(int id){
-        DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
         item1_id =id;
         itemElement = dbHelper.getDataById(id);
 
@@ -465,6 +470,8 @@ public class AddItemActivity extends AppCompatActivity {
         tvRepeat = findViewById(R.id.tv_repeat);
         tvCategory = findViewById(R.id.tv_category);
         ivCategory = findViewById(R.id.iv_category);
+        dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
+        tvCategory.setText(dbHelper.getAllCategory().get(0));
     }
 
     private View.OnClickListener listener = new View.OnClickListener(){
@@ -510,7 +517,6 @@ public class AddItemActivity extends AppCompatActivity {
                         item9_Memo = etMemo.getText().toString();
                         if (modeAddEdit == ADD_MODE){
                             Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
-                            DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
                             dbHelper.todoDataInsert(item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
                             finish();
                         }else if (modeAddEdit == EDIT_MODE){
@@ -525,7 +531,6 @@ public class AddItemActivity extends AppCompatActivity {
                                     String.valueOf(item8_category)+
                                     "memo" + item9_Memo+
                                     String.valueOf(item10_needTime));
-                            DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
                             dbHelper.todoDataUpdate(item1_id, item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
                             finish();
                         }
@@ -564,9 +569,26 @@ public class AddItemActivity extends AppCompatActivity {
                     startActivityForResult(intentCategory, REQUEST_CATEGORY);
                     break;
                 case R.id.linFooterView:
-                    DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-                    dbHelper.deleteTodoDataById(item1_id);
-                    finish();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+                    builder.setTitle("데이터를 삭제합니다.")
+                            .setMessage("일정 데이터가 삭제됩니다. 계속하시겠습니까?")
+                            .setPositiveButton("예",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataById(item1_id);
+                                    Toast.makeText(getApplicationContext(), "데이터가 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("아니오",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                    dialog.show();
+
                     break;
                 default:
                     break;

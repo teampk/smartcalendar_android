@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.view.DataCheckActivity;
+import com.pkteam.smartcalendar.view.SettingCategory;
 import com.simmorsal.library.ConcealerNestedScrollView;
 
 /*
@@ -82,7 +83,8 @@ public class FragmentSetting extends Fragment {
                     startActivity(mIntent);
                     break;
                 case R.id.ll_category_setting:
-
+                    Intent intent = new Intent(getContext(), SettingCategory.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_app_information:
 

@@ -5,43 +5,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.simmorsal.library.ConcealerNestedScrollView
         android:id="@+id/concealerNSV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <!-- background 1 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/colorBackGround">
-
-        </LinearLayout>
-
-        <!-- repeat items -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- 안 함 -->
+            <!-- background 1 -->
             <LinearLayout
-                android:id="@+id/ll_repeat_nothing"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/colorBackGround">
+
+            </LinearLayout>
+
+            <!-- 카테고리1 -->
+            <LinearLayout
+                android:id="@+id/ll_category_1"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
-                <TextView
+                <!-- category item -->
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="안 함"
-                    android:gravity="left|center"
-                    android:textSize="16dp"
-                    android:textColor="#000000"
-                    />
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_category_1_24dp"
+                        android:layout_marginRight="5dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_category_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="카테고리 1"
+                        android:textColor="#000000"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -50,16 +64,14 @@
 
                 </RelativeLayout>
 
+                <!-- Edit Text 1-->
 
-                <ImageView
-                    android:id="@+id/iv_repeat_check_nothing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|right"
-                    android:text="01:00"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    app:srcCompat="@drawable/ic_check_red_24dp"/>
+                <EditText
+                    android:id="@+id/et_1"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
+
+
 
             </LinearLayout>
 
@@ -71,23 +83,39 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"/>
 
-            <!-- 매일 -->
+            <!-- 카테고리2 -->
             <LinearLayout
-                android:id="@+id/ll_repeat_day"
+                android:id="@+id/ll_category_2"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
-                <TextView
+                <!-- category item -->
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="매일"
-                    android:gravity="left|center"
-                    android:textSize="16dp"
-                    android:textColor="#000000"
-                    />
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_category_2_24dp"
+                        android:layout_marginRight="5dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_category_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="카테고리 2"
+                        android:textColor="#000000"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -96,17 +124,15 @@
 
                 </RelativeLayout>
 
+                <EditText
+                    android:id="@+id/et_2"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
 
-                <ImageView
-                    android:visibility="invisible"
-                    android:id="@+id/iv_repeat_check_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|right"
-                    android:text="01:00"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    app:srcCompat="@drawable/ic_check_red_24dp"/>
+
+
+
+
 
             </LinearLayout>
 
@@ -118,23 +144,39 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"/>
 
-            <!-- 매주 -->
+            <!-- 카테고리3 -->
             <LinearLayout
-                android:id="@+id/ll_repeat_week"
+                android:id="@+id/ll_category_3"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
-                <TextView
+                <!-- category item -->
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="매주"
-                    android:gravity="left|center"
-                    android:textSize="16dp"
-                    android:textColor="#000000"
-                    />
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_category_3_24dp"
+                        android:layout_marginRight="5dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_category_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="카테고리 3"
+                        android:textColor="#000000"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -143,17 +185,15 @@
 
                 </RelativeLayout>
 
+                <EditText
+                    android:id="@+id/et_3"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
 
-                <ImageView
-                    android:visibility="invisible"
-                    android:id="@+id/iv_repeat_check_week"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|right"
-                    android:text="01:00"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    app:srcCompat="@drawable/ic_check_red_24dp"/>
+
+
+
+
 
             </LinearLayout>
 
@@ -165,23 +205,42 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"/>
 
-            <!-- 매월 -->
+            <!-- 카테고리4 -->
             <LinearLayout
-                android:id="@+id/ll_repeat_month"
+                android:id="@+id/ll_category_4"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
-                <TextView
+                <!-- category item -->
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="매월"
-                    android:gravity="left|center"
-                    android:textSize="16dp"
-                    android:textColor="#000000"
-                    />
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_category_4_24dp"
+                        android:layout_marginRight="5dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_category_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center|right"
+                        android:text="카테고리 4"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -190,17 +249,10 @@
 
                 </RelativeLayout>
 
-
-                <ImageView
-                    android:visibility="invisible"
-                    android:id="@+id/iv_repeat_check_month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|right"
-                    android:text="01:00"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    app:srcCompat="@drawable/ic_check_red_24dp"/>
+                <EditText
+                    android:id="@+id/et_4"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -212,23 +264,40 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"/>
 
-            <!-- 매년 -->
+            <!-- 카테고리5 -->
             <LinearLayout
-                android:id="@+id/ll_repeat_year"
+                android:id="@+id/ll_category_5"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
-                <TextView
+                <!-- category item -->
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="매년"
-                    android:gravity="left|center"
-                    android:textSize="16dp"
-                    android:textColor="#000000"
-                    />
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_category_5_24dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_category_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="카테고리 5"
+                        android:textColor="#000000"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -237,17 +306,10 @@
 
                 </RelativeLayout>
 
-
-                <ImageView
-                    android:visibility="invisible"
-                    android:id="@+id/iv_repeat_check_year"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|right"
-                    android:text="01:00"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    app:srcCompat="@drawable/ic_check_red_24dp"/>
+                <EditText
+                    android:id="@+id/et_5"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -258,19 +320,11 @@
                 android:background="@color/colorLightGray"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"/>
+
 
         </LinearLayout>
 
-
-        <!-- background last -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/colorBackGround">
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </com.simmorsal.library.ConcealerNestedScrollView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/crdHeaderView"
@@ -281,7 +335,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <LinearLayout
                 android:id="@+id/ll_cancel"
@@ -315,9 +368,10 @@
                 android:id="@+id/tv_top_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/btn_cancel"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="반복"
+                android:text="카테고리"
                 android:textSize="28dp"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
@@ -327,7 +381,7 @@
                 android:id="@+id/btn_submit"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:text="확인"
+                android:text="수정"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16dp"
                 android:background="#00000000"

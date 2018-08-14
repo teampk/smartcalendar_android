@@ -73,11 +73,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void categoryUpdate(String cg1, String cg2, String cg3, String cg4, String cg5){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE CATEGORY SET name='"+cg1+"' WHERE _id='" + 0 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg2+"' WHERE _id='" + 1 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg3+"' WHERE _id='" + 2 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg4+"' WHERE _id='" + 3 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg5+"' WHERE _id='" + 4 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg1+"' WHERE _id='" + 1 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg2+"' WHERE _id='" + 2 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg3+"' WHERE _id='" + 3 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg4+"' WHERE _id='" + 4 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg5+"' WHERE _id='" + 5 + "';");
         db.close();
     }
     public ArrayList<MyData> getTodoAllData(){
