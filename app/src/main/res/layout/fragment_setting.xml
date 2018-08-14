@@ -1,70 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.simmorsal.library.ConcealerNestedScrollView
+        android:id="@+id/concealerNSV"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="match_parent"
+        android:background="@color/colorBackGround"
+        >
 
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-    <LinearLayout
+            <!-- background 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@color/colorBackGround">
+
+            </LinearLayout>
+
+            <!-- 카테고리 설정 -->
+            <LinearLayout
+                android:id="@+id/ll_category_setting"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#ffffff">
+
+                <!-- category item -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_dashboard_black_24dp"
+                        android:layout_marginRight="10dp"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="카테고리"
+                        android:textColor="#000000"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+                <ImageView
+
+                    android:id="@+id/iv_category_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="01:00"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
+
+
+
+
+
+
+            </LinearLayout>
+
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorLightGray"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <!-- 데이터 체크 -->
+            <LinearLayout
+                android:id="@+id/ll_check_data"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#ffffff">
+
+                <!-- category item -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_date_range_black_24dp"
+                        android:layout_marginRight="10dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_category_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="모든 일정 데이터 보기"
+                        android:textColor="#000000"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="01:00"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
+
+            </LinearLayout>
+
+            <!-- background 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorBackGround">
+
+            </LinearLayout>
+
+            <!-- 모든 일정 데이터 삭제하기 -->
+            <LinearLayout
+                android:id="@+id/ll_delete_all_data"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#ffffff">
+
+                <!-- category item -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_delete_forever_black_24dp"
+                        android:layout_marginRight="10dp"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="모든 데이터 삭제"
+                        android:textColor="#000000"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="01:00"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
+
+            <!-- background last -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackGround">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </com.simmorsal.library.ConcealerNestedScrollView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/crdHeaderView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btn_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="카테고리 설정"
-            android:gravity="center"
-            android:background="@color/material_blue_500"
-
-            />
-    </LinearLayout>
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        android:layout_height="100dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="100dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btn_data_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="데이터 체크"
-            android:gravity="center"
-            android:background="@color/material_green_500"
-
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="100dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btn_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="reset Data"
-            android:gravity="center"
-            android:background="@color/material_red_400"
-
-            />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/btn_cancel"
+                android:layout_centerHorizontal="true"
+                android:gravity="left|bottom"
+                android:text="설정"
+                android:textSize="@dimen/top_bar_title"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:paddingLeft="20dp"
+                android:paddingBottom="20dp"/>
 
 
 
-</LinearLayout>
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>

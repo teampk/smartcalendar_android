@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
@@ -20,7 +21,7 @@ import com.pkteam.smartcalendar.view.DataCheckActivity;
 
 public class FragmentSetting extends Fragment {
 
-    private Button btnReset, btnDataCheck;
+    private LinearLayout llCategorySetting, llDeleteAllData, llCheckData;
 
     @Nullable
     @Override
@@ -31,23 +32,29 @@ public class FragmentSetting extends Fragment {
         return mView;
     }
     private void bindingView(View mView){
-        btnReset = mView.findViewById(R.id.btn_reset);
-        btnReset.setOnClickListener(listener);
-        btnDataCheck = mView.findViewById(R.id.btn_data_check);
-        btnDataCheck.setOnClickListener(listener);
+
+        llCategorySetting = mView.findViewById(R.id.ll_category_setting);
+        llCategorySetting.setOnClickListener(listener);
+        llDeleteAllData = mView.findViewById(R.id.ll_delete_all_data);
+        llDeleteAllData.setOnClickListener(listener);
+        llCheckData = mView.findViewById(R.id.ll_check_data);
+        llCheckData.setOnClickListener(listener);
     }
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.btn_reset:
+                case R.id.ll_delete_all_data:
                     DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
                     dbHelper.deleteTodoDataAll();
                     Toast.makeText(getContext(), "Delete All the Data", Toast.LENGTH_LONG).show();
                     break;
-                case R.id.btn_data_check:
+                case R.id.ll_check_data:
                     Intent mIntent = new Intent(getContext(), DataCheckActivity.class);
                     startActivity(mIntent);
+                    break;
+                case R.id.ll_category_setting:
+
                     break;
                 default:
                     break;
