@@ -114,6 +114,7 @@ public class AddItemActivity extends AppCompatActivity {
         modeStaticDynamic = STATIC_MODE;
         modeAllDay = NOT_ALL_DAY_MODE;
         categoryMode = 1;
+        repeatMode = 1;
         item4_isDynamic = false;
         item5_isAllDay = false;
 
@@ -171,6 +172,7 @@ public class AddItemActivity extends AppCompatActivity {
         ArrayList<String> categoryList = dbHelper.getAllCategory();
         tvCategory.setText(categoryList.get(categoryMode - 1));
         ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
+        item7_repeatId = itemElement.mRepeatId;
 
         etMemo.setText(itemElement.mMemo);
         String timeSplit[] = itemElement.mTime.split("\\.");
@@ -512,25 +514,38 @@ public class AddItemActivity extends AppCompatActivity {
                                     +getTimeData(tvDateDeadline)+getTimeData(tvTimeDeadline);
                             item10_needTime = Integer.parseInt(etNeedTime.getText().toString());
                         }
-                        item7_repeatId=1;
                         item8_category = categoryMode;
                         item9_Memo = etMemo.getText().toString();
                         if (modeAddEdit == ADD_MODE){
-                            Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
-                            dbHelper.todoDataInsert(item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
-                            finish();
+                            switch (repeatMode){
+                                // 반복 없음
+                                case 1:
+                                    dbHelper.updateRepeatId();
+                                    item7_repeatId = dbHelper.getCurrentRepeatId();
+                                    dbHelper.todoDataInsert(item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
+                                    Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    break;
+                                // 매일 반복
+                                case 2:
+                                    //dbHelper.updateRepeatId();
+                                    //item7_repeatId = dbHelper.getCurrentRepeatId();
+
+
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                                case 5:
+                                    break;
+                                default:
+                                    break;
+                            }
+
+
                         }else if (modeAddEdit == EDIT_MODE){
                             Toast.makeText(getApplicationContext(), "일정이 수정되었습니다", Toast.LENGTH_SHORT).show();
-                            Log.d("PaengTesting", String.valueOf(item1_id)+
-                                    item2_title+
-                                    item3_loc+
-                                    String.valueOf(item4_isDynamic)+
-                                    String.valueOf(item5_isAllDay)+
-                                    item6_time+
-                                    "repeatId" + String.valueOf(item7_repeatId)+
-                                    String.valueOf(item8_category)+
-                                    "memo" + item9_Memo+
-                                    String.valueOf(item10_needTime));
                             dbHelper.todoDataUpdate(item1_id, item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
                             finish();
                         }

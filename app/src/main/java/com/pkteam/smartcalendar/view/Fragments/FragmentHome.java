@@ -45,6 +45,7 @@ public class FragmentHome extends Fragment {
     private SpeedDialView mSpeedDialView;
     private View mView;
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
+    private DBHelper dbHelper;
 
     @Nullable
     @Override
@@ -123,7 +124,7 @@ public class FragmentHome extends Fragment {
                         return false; // closes without animation (same as mSpeedDialView.close(false); return false;)
                     case R.id.fab_auto_scheduling:
                         Toast.makeText(getContext(), "Coming soon...", Toast.LENGTH_SHORT);
-
+                        dbHelper.updateRepeatId();
 
                         return false;
                     default:
@@ -153,7 +154,7 @@ public class FragmentHome extends Fragment {
 
 
     private void initDataset(){
-        DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
+        dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
         staticData = new ArrayList<>();
         dynamicData = new ArrayList<>();
         staticData = dbHelper.getTodoStaticData();

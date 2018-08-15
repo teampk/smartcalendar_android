@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.pkteam.smartcalendar.model.MyData;
 
@@ -37,6 +38,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg3 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg4 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg5 + "');");
+
+        db.execSQL("CREATE TABLE USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, repeatID INTEGER);");
+        db.execSQL("INSERT INTO USERINFO VALUES(null, '" + 0 + "');");
+
     }
 
     @Override
@@ -70,7 +75,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return categoryList;
     }
-
     public void categoryUpdate(String cg1, String cg2, String cg3, String cg4, String cg5){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE CATEGORY SET name='"+cg1+"' WHERE _id='" + 1 + "';");
@@ -185,5 +189,24 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM TODOLIST WHERE _id = '" + id + "';");
         db.close();
+    }
+    public int getCurrentRepeatId(){
+        SQLiteDatabase dbr = getReadableDatabase();
+        Cursor cursor = dbr.rawQuery("SELECT * FROM USERINFO;", null);
+        String result = "";
+        while (cursor.moveToNext()){
+            result = cursor.getString(1);
+        }
+        return Integer.parseInt(result);
+    }
+    public void updateRepeatId(){
+        int resultInt = getCurrentRepeatId();
+        resultInt += 1;
+        SQLiteDatabase dbw = getWritableDatabase();
+        dbw.execSQL("UPDATE USERINFO SET repeatID='" + resultInt + "' WHERE _id='" + 1 + "';");
+    }
+    public void initializeRepeatId(){
+        SQLiteDatabase dbw = getWritableDatabase();
+        dbw.execSQL("UPDATE USERINFO SET repeatID='" + 0 + "' WHERE _id='" + 1 + "';");
     }
 }

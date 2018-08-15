@@ -63,6 +63,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 intent.putExtra("mode",2);
                 intent.putExtra("id", mDataSet.get(position).mId);
                 view.getContext().startActivity(intent);
+
+                // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
+                // 6.time(String)  7.repeatId(Int)     8.category(Int)     9.Memo(String)  10.NeedTime(int)
+                Log.d("PaengDataCheck", mDataSet.get(position).mId+"/"
+                        +mDataSet.get(position).mTitle+"/"
+                        +mDataSet.get(position).mLocation+"/"
+                        +mDataSet.get(position).mIsDynamic+"/"
+                        +mDataSet.get(position).mIsAllday+"/"
+                        +mDataSet.get(position).mTime+"/"
+                        +mDataSet.get(position).mRepeatId+"/"
+                        +mDataSet.get(position).mCategory+"/"
+                        +mDataSet.get(position).mMemo+"/"
+                        +mDataSet.get(position).mNeedTime+"/"
+                );
             }
         });
     }

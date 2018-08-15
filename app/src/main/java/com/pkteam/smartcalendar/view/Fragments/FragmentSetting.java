@@ -67,6 +67,7 @@ public class FragmentSetting extends Fragment {
                                 public void onClick(DialogInterface dialog, int which) {
                                     DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
                                     dbHelper.deleteTodoDataAll();
+                                    dbHelper.initializeRepeatId();
                                     Toast.makeText(getContext(), "모든 데이터가 삭제되었습니다", Toast.LENGTH_LONG).show();
                                 }
                             });
