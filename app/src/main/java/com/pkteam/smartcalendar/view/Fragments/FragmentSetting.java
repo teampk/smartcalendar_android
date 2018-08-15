@@ -88,6 +88,8 @@ public class FragmentSetting extends Fragment {
                     startActivity(intent);
                     break;
                 case R.id.ll_app_information:
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                    builder1.setMessage("");
 
                     break;
                 default:
