@@ -405,6 +405,7 @@
 
                 <!-- 반복 -->
                 <LinearLayout
+                    android:id="@+id/ll_repeat_total"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:orientation="horizontal"
@@ -627,7 +628,7 @@
 
     <LinearLayout
         android:id="@+id/linFooterView"
-        android:background="@color/colorCategory1"
+        android:background="#cc0000"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="50dp">

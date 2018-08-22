@@ -68,7 +68,7 @@ public class AddItemActivity extends AppCompatActivity {
     Switch swStaticDynamic, swAllday;
 
     // Date and Time picker
-    LinearLayout llTimeStart, llTimeEnd, llTimeDeadline, llStatic, llDynamic, llRepeat, llCategory;
+    LinearLayout llTimeStart, llTimeEnd, llTimeDeadline, llStatic, llDynamic, llRepeat, llCategory, llRepeatTotal;
     TextView tvTimeStart, tvTimeEnd, tvDateStart, tvDateEnd, tvDateDeadline, tvTimeDeadline, tvRepeat, tvCategory;
     SingleDateAndTimePickerDialog.Builder singleBuilder;
     SimpleDateFormat simpleTimeFormat;
@@ -121,6 +121,7 @@ public class AddItemActivity extends AppCompatActivity {
         if(isEdit==ADD_MODE){
             etTitle.requestFocus();
             linFooterView.setVisibility(View.GONE);
+            llRepeatTotal.setVisibility(View.VISIBLE);
             String date[] = getCurrentDate().split("/");
             tvDateStart.setText(date[0]);
             tvTimeStart.setText(date[1]);
@@ -132,6 +133,7 @@ public class AddItemActivity extends AppCompatActivity {
         // 수정하는 경우
         else if (isEdit==EDIT_MODE){
             linFooterView.setVisibility(View.VISIBLE);
+            llRepeatTotal.setVisibility(View.GONE);
             setViewFromId(dataId);
         }
 
@@ -250,6 +252,7 @@ public class AddItemActivity extends AppCompatActivity {
                 concealerNSV.setHeaderView(crdHeaderView, 0);
             }
         });
+
         linFooterView.post(new Runnable() {
             @Override
             public void run() {
@@ -259,6 +262,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         // pass a true to setHeaderFastHide to make views hide faster
         concealerNSV.setHeaderFastHide(true);
+
     }
 
     public void selectDateAndTime(int ver){
@@ -461,6 +465,8 @@ public class AddItemActivity extends AppCompatActivity {
         llCategory = findViewById(R.id.ll_category);
         etNeedTime = findViewById(R.id.et_needtime);
 
+        llRepeatTotal = findViewById(R.id.ll_repeat_total);
+
         llTimeStart.setOnClickListener(listener);
         llTimeEnd.setOnClickListener(listener);
         llTimeDeadline.setOnClickListener(listener);
@@ -530,13 +536,22 @@ public class AddItemActivity extends AppCompatActivity {
                                     //dbHelper.updateRepeatId();
                                     //item7_repeatId = dbHelper.getCurrentRepeatId();
 
+                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+                                    finish();
+
 
                                     break;
                                 case 3:
+                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+                                    finish();
                                     break;
                                 case 4:
+                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+                                    finish();
                                     break;
                                 case 5:
+                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+                                    finish();
                                     break;
                                 default:
                                     break;
