@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#A3A1A1</color>
+    <color name="colorPrimary">#8955FF</color>
     <color name="colorPrimaryDark">#E3DEDE</color>
     <color name="colorAccent">#CC0000</color>
 
@@ -166,6 +166,7 @@
     <color name="selector_blue_pressed">#442962FF</color>
     <color name="selector_purple_focused">#22AA00FF</color>
     <color name="selector_purple_pressed">#44AA00FF</color>
+
 
 
 </resources>

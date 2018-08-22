@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.pkteam.smartcalendar"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.simmorsal.library:concealer_nested_scroll_view:2.0.0'
     // floating button
     implementation "com.leinardi.android:speed-dial:1.0.2"
-
+    compile 'com.github.sundeepk:compact-calendar-view:3.0.0'
 
 
 
