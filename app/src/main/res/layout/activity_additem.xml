@@ -33,6 +33,7 @@
 
                 <!-- 제목 -->
                 <LinearLayout
+                    android:id="@+id/ll_keyboard"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:orientation="horizontal"
