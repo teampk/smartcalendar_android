@@ -1,9 +1,11 @@
 package com.pkteam.smartcalendar.view.Fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,12 +18,15 @@ import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.model.ColorCategory;
 import com.pkteam.smartcalendar.model.MyData;
+import com.pkteam.smartcalendar.view.AddItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +49,8 @@ public class FragmentCalendar extends Fragment {
     private ColorCategory colorCategory = new ColorCategory();
     private TextView tvMonth;
     private DBHelper dbHelper;
+    private SpeedDialView mSpeedDialView;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +65,7 @@ public class FragmentCalendar extends Fragment {
         initDataset();
         bindingView(mView);
         setCalendarCircle();
+        initSpeedDial(savedInstanceState == null, mView);
 
         return mView;
     }
@@ -66,6 +74,8 @@ public class FragmentCalendar extends Fragment {
     public void onResume() {
         super.onResume();
         initDataset();
+        compactCalendarView.setCurrentDate(new Date(System.currentTimeMillis()));
+        setRecyclerView(System.currentTimeMillis());
         setCalendarCircle();
     }
 
@@ -118,7 +128,7 @@ public class FragmentCalendar extends Fragment {
         mRecyclerViewStatic.setHasFixedSize(true);
         mRecyclerViewStatic.setLayoutManager(mLayoutManagerStatic);
         mRecyclerViewStatic.scrollToPosition(0);
-        mAdapterStatic = new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForStaticForCalendar(staticData, time));
+        mAdapterStatic = new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForStaticForCalendar(staticData, time),2, time);
         mRecyclerViewStatic.setAdapter(mAdapterStatic);
         mRecyclerViewStatic.setItemAnimator(new DefaultItemAnimator());
 
@@ -126,7 +136,7 @@ public class FragmentCalendar extends Fragment {
         mRecyclerViewDynamic.setHasFixedSize(true);
         mRecyclerViewDynamic.setLayoutManager(mLayoutManagerDynamic);
         mRecyclerViewDynamic.scrollToPosition(0);
-        mAdapterDynamic = new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForDynamicForCalendar(dynamicData, time));
+        mAdapterDynamic = new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForDynamicForCalendar(dynamicData, time),2);
         mRecyclerViewDynamic.setAdapter(mAdapterDynamic);
         mRecyclerViewDynamic.setItemAnimator(new DefaultItemAnimator());
 
@@ -155,8 +165,6 @@ public class FragmentCalendar extends Fragment {
     }
     private void makeCircle(int date, int category){
         int colors[] = {colorCategory.getCategory1(), colorCategory.getCategory2(), colorCategory.getCategory3(), colorCategory.getCategory4(), colorCategory.getCategory5()};
-        int colorsAndroid[] = {Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.BLACK};
-        //date = 20180324
         String dateString = String.valueOf(date);
         int year = Integer.parseInt(dateString.substring(0,4));
         int month = Integer.parseInt(dateString.substring(4,6));
@@ -187,6 +195,67 @@ public class FragmentCalendar extends Fragment {
                 break;
 
         }
+
+    }
+    private void initSpeedDial(boolean addActionItems, View mView) {
+        mSpeedDialView = mView.findViewById(R.id.speedDial);
+
+        if (addActionItems) {
+
+            mSpeedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_add_item, R.drawable.ic_add_white_24dp)
+                    .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlack, getContext().getTheme()))
+                    .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.material_white_1000, getContext().getTheme()))
+                    .setLabel(getString(R.string.label_add_item))
+                    .setLabelColor(Color.BLACK)
+                    .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.material_white_1000, getContext().getTheme()))
+                    .create());
+
+            mSpeedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_auto_scheduling, R.drawable.ic_dashboard_white_24dp)
+                    .setLabel(getString(R.string.label_scheduling))
+                    .setLabelColor(Color.BLACK)
+                    .setLabelBackgroundColor(Color.WHITE)
+                    .setTheme(R.style.AppTheme_Purple)
+                    .create());
+            mSpeedDialView.getUseReverseAnimationOnClose();
+
+        }
+
+        //Set main action clicklistener.
+        mSpeedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+
+                return false; // True to keep the Speed Dial open
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+                // 열리면 true
+                // 닫히면 false
+            }
+        });
+
+        //Set option fabs clicklisteners.
+        mSpeedDialView.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
+            @Override
+            public boolean onActionSelected(SpeedDialActionItem actionItem) {
+                switch (actionItem.getId()) {
+                    case R.id.fab_add_item:
+                        Intent intent = new Intent(getContext(), AddItemActivity.class);
+                        intent.putExtra("mode", 1);
+                        startActivity(intent);
+                        return false; // closes without animation (same as mSpeedDialView.close(false); return false;)
+                    case R.id.fab_auto_scheduling:
+                        Toast.makeText(getContext(), "Coming soon...", Toast.LENGTH_SHORT);
+                        dbHelper.updateRepeatId();
+
+                        return false;
+                    default:
+                        break;
+                }
+                return true; // To keep the Speed Dial open
+            }
+        });
 
     }
 

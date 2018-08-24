@@ -30,19 +30,33 @@ import java.util.Date;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
     private ArrayList<MyData> mDataSet = new ArrayList<>();
     private Context mContext;
+    private int mode;
+    private long date;
 
-    public RecyclerViewAdapter(Context context, ArrayList<MyData> searchDataSet){
+    public RecyclerViewAdapter(Context context, ArrayList<MyData> searchDataSet, int mode){
         this.mDataSet = searchDataSet;
         this.mContext = context;
+        this.mode = mode;
+        this.date = 0;
+    }
+    public RecyclerViewAdapter(Context context, ArrayList<MyData> searchDataSet, int mode, long date){
+        this.mDataSet = searchDataSet;
+        this.mContext = context;
+        this.mode = mode;
+        this.date = date;
     }
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        View view = null;
+        if (mode==1){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
+        }else if (mode==2){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_calendar, parent, false);
+        }
+        return new ViewHolder(view);
     }
 
     @Override
@@ -53,7 +67,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if (this.mDataSet.get(position).mIsDynamic){
             holder.itemTime.setText(getShowingTimeDynamic(this.mDataSet.get(position).mTime.split("\\.")));
         }else{
-            holder.itemTime.setText(getShowingTimeStatic(this.mDataSet.get(position).mTime.split("\\.")));
+            if (mode == 1){
+                holder.itemTime.setText(getShowingTimeStatic(this.mDataSet.get(position).mTime.split("\\.")));
+            }
+            else if (mode == 2){
+                holder.itemTime.setText(getShowingTimeStaticCalendar(this.mDataSet.get(position).mTime.split("\\.")));
+
+            }
         }
 
         holder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +147,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
     }
+    private String getShowingTimeStaticCalendar(String[] input){
+        //201807082130
+        String startTime, endTime;
+
+        if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate(this.date))){
+            startTime = "0000";
+        }else{
+            startTime = input[0].substring(8,12);
+        }
+
+        if(Long.parseLong(getCurrentDate(this.date)) < Long.parseLong(input[1].substring(0,8))){
+            endTime = "2400";
+        }else{
+            endTime = input[1].substring(8,12);
+        }
+
+        return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
+    }
 
     @Override
     public int getItemCount() {
@@ -154,6 +192,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String[] mDate = sdf.format(date).split("/");
         return mDate[0]+mDate[1]+mDate[2];
+    }
+
+    private String getCurrentDate(long time){
+        // yyyy-MM-dd hh:mm:ss
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMdd");
+
+        return simpleDate.format(new Date(time));
+
     }
 
     private Drawable getCategoryDrawable(int category){

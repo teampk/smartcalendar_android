@@ -167,7 +167,7 @@ public class FragmentHome extends Fragment {
         mRecyclerViewStatic.setHasFixedSize(true);
         mRecyclerViewStatic.setLayoutManager(mLayoutManagerStatic);
         mRecyclerViewStatic.scrollToPosition(0);
-        mAdapterStatic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData));
+        mAdapterStatic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1);
         mRecyclerViewStatic.setAdapter(mAdapterStatic);
         mRecyclerViewStatic.setItemAnimator(new DefaultItemAnimator());
 
@@ -177,7 +177,7 @@ public class FragmentHome extends Fragment {
         mRecyclerViewDynamic.setHasFixedSize(true);
         mRecyclerViewDynamic.setLayoutManager(mLayoutManagerDynamic);
         mRecyclerViewDynamic.scrollToPosition(0);
-        mAdapterDynamic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData));
+        mAdapterDynamic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),1);
         mRecyclerViewDynamic.setAdapter(mAdapterDynamic);
         mRecyclerViewDynamic.setItemAnimator(new DefaultItemAnimator());
     }

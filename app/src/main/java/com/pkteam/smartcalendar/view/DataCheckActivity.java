@@ -55,7 +55,7 @@ public class DataCheckActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.scrollToPosition(0);
-        mAdapter = new RecyclerViewAdapter(getApplicationContext(), allData);
+        mAdapter = new RecyclerViewAdapter(getApplicationContext(), allData,1);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
