@@ -279,8 +279,8 @@ public class AddItemActivity extends AppCompatActivity {
         singleBuilder = new SingleDateAndTimePickerDialog.Builder(AddItemActivity.this)
 
                 .bottomSheet()
-                .curved()
-                .defaultDate(defaultDate);
+                .curved();
+                //.defaultDate(defaultDate);
                 //.titleTextColor(Color.GREEN)
                 //.backgroundColor(Color.BLACK)
                 //.mainColor(Color.GREEN)
@@ -316,6 +316,8 @@ public class AddItemActivity extends AppCompatActivity {
                     dateString = simpleTimeFormat.format(date).split("/");
                     tvDateStart.setText(dateString[0]);
                     tvTimeStart.setText(dateString[1]);
+                    tvDateEnd.setText(dateString[0]);
+                    tvTimeEnd.setText(dateString[1]);
 
                 }
             });
