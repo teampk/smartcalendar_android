@@ -123,7 +123,7 @@ public class FragmentHome extends Fragment {
                         startActivity(intent);
                         return false; // closes without animation (same as mSpeedDialView.close(false); return false;)
                     case R.id.fab_auto_scheduling:
-                        Toast.makeText(getContext(), "Coming soon...", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "Coming soon...", Toast.LENGTH_SHORT).show();
                         dbHelper.updateRepeatId();
 
                         return false;

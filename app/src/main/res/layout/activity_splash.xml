@@ -2,12 +2,15 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="SPLASH"
-        android:gravity="center"/>
+        app:srcCompat="@drawable/sc_splash2"
+        />
+
+
 
 </android.support.constraint.ConstraintLayout>

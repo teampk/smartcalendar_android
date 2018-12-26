@@ -540,11 +540,8 @@ public class AddItemActivity extends AppCompatActivity {
                                 case 2:
                                     //dbHelper.updateRepeatId();
                                     //item7_repeatId = dbHelper.getCurrentRepeatId();
-
                                     Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
                                     finish();
-
-
                                     break;
                                 case 3:
                                     Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
@@ -561,16 +558,12 @@ public class AddItemActivity extends AppCompatActivity {
                                 default:
                                     break;
                             }
-
-
                         }else if (modeAddEdit == EDIT_MODE){
                             Toast.makeText(getApplicationContext(), "일정이 수정되었습니다", Toast.LENGTH_SHORT).show();
                             dbHelper.todoDataUpdate(item1_id, item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
                             finish();
                         }
-
                     }
-
                     break;
                 case R.id.btn_cancel:
                     finish();
