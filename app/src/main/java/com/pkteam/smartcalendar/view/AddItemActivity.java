@@ -314,6 +314,8 @@ public class AddItemActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
+
+
                     tvDateStart.setText(dateString[0]);
                     tvTimeStart.setText(dateString[1]);
                     tvDateEnd.setText(dateString[0]);
@@ -346,6 +348,7 @@ public class AddItemActivity extends AppCompatActivity {
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
                     tvDateStart.setText(dateString[0]);
+                    tvDateEnd.setText(dateString[0]);
                 }
             });
         }else if(ver==5){
@@ -382,6 +385,15 @@ public class AddItemActivity extends AppCompatActivity {
                 Log.d("ActivityResult", "CANCELED");
             }
         }
+    }
+
+    public boolean setTimeForConvenience(String startTime, String endTime){
+        //if true, change
+
+        return true;
+
+
+
     }
 
     public String getCurrentDate(){

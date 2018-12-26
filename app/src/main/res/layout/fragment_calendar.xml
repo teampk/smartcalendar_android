@@ -50,8 +50,8 @@
             <!--divider-->
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="@color/colorBlack"/>
+                android:layout_height="3px"
+                android:background="@color/colorLightGrayDivider"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_static"
@@ -64,8 +64,8 @@
             <!--divider-->
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="@color/colorBlack"/>
+                android:layout_height="3px"
+                android:background="@color/colorLightGrayDivider"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_dynamic"
