@@ -160,6 +160,7 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
     }
+
     // 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)
     // 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)
     // 수정하는 경우 데이터 받아오는 함수
@@ -203,10 +204,12 @@ public class AddItemActivity extends AppCompatActivity {
 
         }
     }
+
     @NonNull
     private String getDateFromData(String input){
         return input.substring(0,4)+"."+input.substring(4,6)+"."+input.substring(6,8);
     }
+
     @NonNull
     private String getTimeFromData(String input){
         return input.substring(8,10)+":"+input.substring(10,12);
@@ -270,7 +273,6 @@ public class AddItemActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         String date[] = getCurrentDate().split("/");
-
         calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(date[1].split(":")[0]));
         calendar.set(Calendar.MINUTE, Integer.valueOf(date[1].split(":")[1]));
 

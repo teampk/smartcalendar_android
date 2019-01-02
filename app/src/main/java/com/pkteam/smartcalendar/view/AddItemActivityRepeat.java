@@ -64,6 +64,7 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         }
         return mode;
     }
+
     private String getRepeatString(int mode){
         String returnString = "";
         switch (mode){
@@ -88,7 +89,6 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         }
         return returnString;
     }
-
 
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
