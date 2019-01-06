@@ -83,7 +83,7 @@ public class AddItemActivity extends AppCompatActivity {
     private MyData itemElement;
 
     // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
-    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.isRepeat(Boolean)   10.repeatId(Int)
+    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
     private int item0_id;
     private String item1_title;
     private String item2_loc;
@@ -93,8 +93,7 @@ public class AddItemActivity extends AppCompatActivity {
     private int item6_category;
     private String item7_Memo;
     private int item8_needTime;
-    private boolean item9_isRepeat;
-    private int item10_repeatId;
+    private int item9_repeatId;
 
     private int repeatMode, categoryMode;
     @Override
@@ -163,7 +162,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
-    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.isRepeat(Boolean)   10.repeatId(Int)
+    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
     // 수정하는 경우 데이터 받아오는 함수
     public void setViewFromId(int id){
         item0_id =id;
@@ -176,7 +175,6 @@ public class AddItemActivity extends AppCompatActivity {
         ArrayList<String> categoryList = dbHelper.getAllCategory();
         tvCategory.setText(categoryList.get(categoryMode - 1));
         ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
-        item10_repeatId = itemElement.mRepeatId;
 
         etMemo.setText(itemElement.mMemo);
         String timeSplit[] = itemElement.mTime.split("\\.");
@@ -511,7 +509,6 @@ public class AddItemActivity extends AppCompatActivity {
                     if (checkItem()){
                         item1_title = etTitle.getText().toString();
                         item2_loc = etLoc.getText().toString();
-                        item9_isRepeat = true;
                         // Static Mode 일 때
                         if (modeStaticDynamic == STATIC_MODE){
                             item3_isDynamic = false;
@@ -555,8 +552,8 @@ public class AddItemActivity extends AppCompatActivity {
                                 // 반복 없음
                                 case 1:
                                     dbHelper.updateRepeatId();
-                                    item10_repeatId = dbHelper.getCurrentRepeatId();
-                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_isRepeat,  item10_repeatId);
+                                    item9_repeatId = dbHelper.getCurrentRepeatId();
+                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
                                     Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
                                     finish();
                                     break;
@@ -584,7 +581,7 @@ public class AddItemActivity extends AppCompatActivity {
                             }
                         }else if (modeAddEdit == EDIT_MODE){
                             Toast.makeText(getApplicationContext(), "일정이 수정되었습니다", Toast.LENGTH_SHORT).show();
-                            dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_isRepeat,  item10_repeatId);
+                            dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
                             finish();
                         }
                     }
