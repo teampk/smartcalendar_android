@@ -38,6 +38,14 @@ public class DataCheckActivity extends AppCompatActivity{
         setContentView(R.layout.activity_datacheck);
         initRecyclerView();
 
+        Log.d("DataCheckPaeng", "=========================================================================");
+        Log.d("DataCheckPaeng", "Size:" + String.valueOf(allData.size()));
+        Log.d("DataCheckPaeng", "Id/Title/Location/isDynamic/isAllday/Time/Category/Memo/NeedTime/RepeatId");
+        Log.d("DataCheckPaeng", "-------------------------------------------------------------------------");
+        for (int i=0; i<allData.size(); i++){
+            Log.d("DataCheckPaeng", String.valueOf(allData.get(i).mId)+"/"+String.valueOf(allData.get(i).mTitle)+"/"+String.valueOf(allData.get(i).mLocation)+"/"+String.valueOf(allData.get(i).mIsDynamic)+"/"+String.valueOf(allData.get(i).mIsAllday)+"/"+String.valueOf(allData.get(i).mTime)+"/"+String.valueOf(allData.get(i).mCategory)+"/"+String.valueOf(allData.get(i).mMemo)+"/"+String.valueOf(allData.get(i).mNeedTime)+"/"+String.valueOf(allData.get(i).mRepeatId+"/"));
+        }
+
 
     }
     @Override
@@ -51,13 +59,7 @@ public class DataCheckActivity extends AppCompatActivity{
         DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
         allData = new ArrayList<>();
         allData = dbHelper.getTodoAllData();
-        Log.d("DataCheckPaeng", "=========================================================================");
-        Log.d("DataCheckPaeng", "Size:" + String.valueOf(allData.size()));
-        Log.d("DataCheckPaeng", "Id/Title/Location/isDynamic/isAllday/Time/Category/Memo/NeedTime/RepeatId");
-        Log.d("DataCheckPaeng", "-------------------------------------------------------------------------");
-        for (int i=0; i<allData.size(); i++){
-            Log.d("DataCheckPaeng", String.valueOf(allData.get(i).mId)+"/"+String.valueOf(allData.get(i).mTitle)+"/"+String.valueOf(allData.get(i).mLocation)+"/"+String.valueOf(allData.get(i).mIsDynamic)+"/"+String.valueOf(allData.get(i).mIsAllday)+"/"+String.valueOf(allData.get(i).mTime)+"/"+String.valueOf(allData.get(i).mCategory)+"/"+String.valueOf(allData.get(i).mMemo)+"/"+String.valueOf(allData.get(i).mNeedTime)+"/"+String.valueOf(allData.get(i).mRepeatId+"/"));
-        }
+
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);

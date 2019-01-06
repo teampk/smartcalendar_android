@@ -53,6 +53,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + title + "', '" + location + "', '" + isDynamic + "' , '"+isAllday+"' , '"+time+"', '"+category+"', '"+memo+"','"+needtime+"', '"+repeatId+"');");
         db.close();
     }
+
+
+
+
+
     public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE TODOLIST SET title='" + title + "' WHERE _id='" + id + "';");

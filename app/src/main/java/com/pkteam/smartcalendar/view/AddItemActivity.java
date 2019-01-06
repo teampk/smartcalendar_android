@@ -32,6 +32,7 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.model.MyData;
 import com.simmorsal.library.ConcealerNestedScrollView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -551,17 +552,46 @@ public class AddItemActivity extends AppCompatActivity {
                             switch (repeatMode){
                                 // 반복 없음
                                 case 1:
-                                    dbHelper.updateRepeatId();
-                                    item9_repeatId = dbHelper.getCurrentRepeatId();
+                                    item9_repeatId = 0;
                                     dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
                                     Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
                                     finish();
                                     break;
                                 // 매일 반복
                                 case 2:
-                                    //dbHelper.updateRepeatId();
-                                    //item7_repeatId = dbHelper.getCurrentRepeatId();
-                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+                                    dbHelper.updateRepeatId();
+                                    item9_repeatId = dbHelper.getCurrentRepeatId();
+                                    // item5_time : 201901070700.201901071000.000000000000
+                                    String[] givenDateString = item5_time.split("\\.");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                                    long timeInMilliseconds_s = 0;
+                                    long timeInMilliseconds_e = 0;
+                                    try {
+                                        Date mDate_start = sdf.parse(givenDateString[0]);
+                                        Date mDate_end = sdf.parse(givenDateString[1]);
+                                        timeInMilliseconds_s = mDate_start.getTime();
+                                        timeInMilliseconds_e = mDate_end.getTime();
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    // 하루 더하기
+                                    long nextTime_s = timeInMilliseconds_s + 86400000;
+                                    long nextTime_e = timeInMilliseconds_e + 86400000;
+
+                                    Date mDate1 = new Date(nextTime_s);
+                                    Date mDate2 = new Date(nextTime_e);
+                                    String nextStart = sdf.format(mDate1);
+                                    String nextEnd = sdf.format(mDate2);
+
+                                    String nextTime = String.valueOf(nextStart)+"."+String.valueOf(nextEnd)+".000000000000";
+
+                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextTime, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+
+
+                                    Toast.makeText(getApplicationContext(), "이틀 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+
+
                                     finish();
                                     break;
                                 case 3:
