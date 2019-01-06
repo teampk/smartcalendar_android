@@ -82,18 +82,19 @@ public class AddItemActivity extends AppCompatActivity {
 
     private MyData itemElement;
 
-    // 1.id(Int)    2.title(String)  3.loc(String)   4.isStatic(boolean)  5.isAllday(boolean)
-    // 6.time(String)   7.repeatId(Int)     8.category(Int)     9.Memo(String)  10.NeedTime(int)
-    private int item1_id;
-    private String item2_title;
-    private String item3_loc;
-    private boolean item4_isDynamic;
-    private boolean item5_isAllDay;
-    private String item6_time;
-    private int item7_repeatId;
-    private int item8_category;
-    private String item9_Memo;
-    private int item10_needTime;
+    // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
+    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.isRepeat(Boolean)   10.repeatId(Int)
+    private int item0_id;
+    private String item1_title;
+    private String item2_loc;
+    private boolean item3_isDynamic;
+    private boolean item4_isAllDay;
+    private String item5_time;
+    private int item6_category;
+    private String item7_Memo;
+    private int item8_needTime;
+    private boolean item9_isRepeat;
+    private int item10_repeatId;
 
     private int repeatMode, categoryMode;
     @Override
@@ -115,8 +116,8 @@ public class AddItemActivity extends AppCompatActivity {
         modeAllDay = NOT_ALL_DAY_MODE;
         categoryMode = 1;
         repeatMode = 1;
-        item4_isDynamic = false;
-        item5_isAllDay = false;
+        item3_isDynamic = false;
+        item4_isAllDay = false;
 
         // 추가하는 경우
         if(isEdit==ADD_MODE){
@@ -161,11 +162,11 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
 
-    // 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)
-    // 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)
+    // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
+    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.isRepeat(Boolean)   10.repeatId(Int)
     // 수정하는 경우 데이터 받아오는 함수
     public void setViewFromId(int id){
-        item1_id =id;
+        item0_id =id;
         itemElement = dbHelper.getDataById(id);
 
         etTitle.setText(itemElement.mTitle);
@@ -175,7 +176,7 @@ public class AddItemActivity extends AppCompatActivity {
         ArrayList<String> categoryList = dbHelper.getAllCategory();
         tvCategory.setText(categoryList.get(categoryMode - 1));
         ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
-        item7_repeatId = itemElement.mRepeatId;
+        item10_repeatId = itemElement.mRepeatId;
 
         etMemo.setText(itemElement.mMemo);
         String timeSplit[] = itemElement.mTime.split("\\.");
@@ -192,7 +193,7 @@ public class AddItemActivity extends AppCompatActivity {
                 tvTimeEnd.setText(getTimeFromData(timeSplit[1]));
             }
             modeStaticDynamic = STATIC_MODE;
-            item4_isDynamic = false;
+            item3_isDynamic = false;
         }else{
             setSwitchToDynamic();
             tvDateDeadline.setText(getDateFromData(timeSplit[2]));
@@ -200,7 +201,7 @@ public class AddItemActivity extends AppCompatActivity {
             Log.d("PaengNeedTime", String.valueOf(itemElement.mNeedTime));
             etNeedTime.setText(String.valueOf(itemElement.mNeedTime));
             modeStaticDynamic = DYNAMIC_MODE;
-            item4_isDynamic = true;
+            item3_isDynamic = true;
 
         }
     }
@@ -219,7 +220,7 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToDynamic(){
         llStatic.setVisibility(View.GONE);
         llDynamic.setVisibility(View.VISIBLE);
-        item4_isDynamic = true;
+        item3_isDynamic = true;
         tvStaticDynamic.setText("Dynamic");
         modeStaticDynamic = DYNAMIC_MODE;
     }
@@ -227,7 +228,7 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToStatic(){
         llStatic.setVisibility(View.VISIBLE);
         llDynamic.setVisibility(View.GONE);
-        item4_isDynamic = false;
+        item3_isDynamic = false;
         tvStaticDynamic.setText("Static");
         modeStaticDynamic = STATIC_MODE;
     }
@@ -235,14 +236,14 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToAllDay(){
         tvTimeStart.setVisibility(View.GONE);
         tvTimeEnd.setVisibility(View.GONE);
-        item5_isAllDay = true;
+        item4_isAllDay = true;
         modeAllDay = ALL_DAY_MODE;
     }
 
     private void setSwitchToNotAllDay(){
         tvTimeStart.setVisibility(View.VISIBLE);
         tvTimeEnd.setVisibility(View.VISIBLE);
-        item5_isAllDay = false;
+        item4_isAllDay = false;
         modeAllDay = NOT_ALL_DAY_MODE;
     }
 
@@ -432,14 +433,14 @@ public class AddItemActivity extends AppCompatActivity {
         if (etTitle.getText().toString().replace(" ", "").equals("")) {
             Toast.makeText(AddItemActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
-        }else if (etNeedTime.getText().toString().equals("") && item4_isDynamic){
+        }else if (etNeedTime.getText().toString().equals("") && item3_isDynamic){
             Toast.makeText(AddItemActivity.this, "필요시간을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
-        }else if (Double.parseDouble(getTimeData(tvDateStart)+getTimeData(tvTimeStart))>Double.parseDouble(getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)) && !item4_isDynamic){
+        }else if (Double.parseDouble(getTimeData(tvDateStart)+getTimeData(tvTimeStart))>Double.parseDouble(getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)) && !item3_isDynamic){
             Toast.makeText(AddItemActivity.this, "시작시간은 끝시간보다 빨라야 합니다.", Toast.LENGTH_SHORT).show();
             return false;
         }else {
-            Log.d("CheckPaeng", getTimeData(tvDateStart)+getTimeData(tvTimeStart)+"//"+getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)+"//"+String.valueOf(item4_isDynamic));
+            Log.d("CheckPaeng", getTimeData(tvDateStart)+getTimeData(tvTimeStart)+"//"+getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)+"//"+String.valueOf(item3_isDynamic));
             return true;
         }
     }
@@ -508,45 +509,54 @@ public class AddItemActivity extends AppCompatActivity {
                     // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
                     // 6.time(String)  7.repeatId(Int)     8.category(Int)     9.Memo(String)  10.NeedTime(int)
                     if (checkItem()){
-                        //2
-                        item2_title = etTitle.getText().toString();
-                        //3
-                        item3_loc = etLoc.getText().toString();
-                        //4, 5
+                        item1_title = etTitle.getText().toString();
+                        item2_loc = etLoc.getText().toString();
+                        item9_isRepeat = true;
+                        // Static Mode 일 때
                         if (modeStaticDynamic == STATIC_MODE){
-                            item4_isDynamic = false;
+                            item3_isDynamic = false;
+                            // All Day Mode 일 때
                             if (modeAllDay == ALL_DAY_MODE){
-                                item5_isAllDay = true;
+                                item4_isAllDay = true;
                                 //201807110000.201807120000.000000000000
-                                item6_time = getTimeData(tvDateStart)+"0000."
+                                item5_time = getTimeData(tvDateStart)+"0000."
                                         +getTimeData(tvDateEnd)+"0000.000000000000";
-                            }else if (modeAllDay == NOT_ALL_DAY_MODE){
-                                item5_isAllDay = false;
+                            }
+                            // All Day Mode 아닐 때
+                            else if (modeAllDay == NOT_ALL_DAY_MODE){
+                                item4_isAllDay = false;
                                 //201807110430.201807120630.000000000000
-                                item6_time = getTimeData(tvDateStart)
+                                item5_time = getTimeData(tvDateStart)
                                         +getTimeData(tvTimeStart)
                                         +"."+getTimeData(tvDateEnd)
                                         +getTimeData(tvTimeEnd)
                                         +".000000000000";
                             }
-                            item10_needTime = 0;
-                        }else if (modeStaticDynamic == DYNAMIC_MODE){
-                            item4_isDynamic = true;
-                            item5_isAllDay = false;
-                            //000000000000.000000000000.201807120630
-                            item6_time = "000000000000.000000000000."
-                                    +getTimeData(tvDateDeadline)+getTimeData(tvTimeDeadline);
-                            item10_needTime = Integer.parseInt(etNeedTime.getText().toString());
+                            item8_needTime = 0;
+
                         }
-                        item8_category = categoryMode;
-                        item9_Memo = etMemo.getText().toString();
+                        // Dynamic Mode 일 때
+                        else if (modeStaticDynamic == DYNAMIC_MODE){
+                            item3_isDynamic = true;
+                            item4_isAllDay = false;
+                            //000000000000.000000000000.201807120630
+                            item5_time = "000000000000.000000000000."
+                                    +getTimeData(tvDateDeadline)+getTimeData(tvTimeDeadline);
+                            item8_needTime = Integer.parseInt(etNeedTime.getText().toString());
+                        }
+                        else{
+                            Toast.makeText(AddItemActivity.this, "에러가 발생했습니다. (ERROR CODE : 1111)", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                        item6_category = categoryMode;
+                        item7_Memo = etMemo.getText().toString();
                         if (modeAddEdit == ADD_MODE){
                             switch (repeatMode){
                                 // 반복 없음
                                 case 1:
                                     dbHelper.updateRepeatId();
-                                    item7_repeatId = dbHelper.getCurrentRepeatId();
-                                    dbHelper.todoDataInsert(item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
+                                    item10_repeatId = dbHelper.getCurrentRepeatId();
+                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_isRepeat,  item10_repeatId);
                                     Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
                                     finish();
                                     break;
@@ -574,7 +584,7 @@ public class AddItemActivity extends AppCompatActivity {
                             }
                         }else if (modeAddEdit == EDIT_MODE){
                             Toast.makeText(getApplicationContext(), "일정이 수정되었습니다", Toast.LENGTH_SHORT).show();
-                            dbHelper.todoDataUpdate(item1_id, item2_title, item3_loc, item4_isDynamic, item5_isAllDay, item6_time, item7_repeatId, item8_category, item9_Memo, item10_needTime);
+                            dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_isRepeat,  item10_repeatId);
                             finish();
                         }
                     }
@@ -616,7 +626,7 @@ public class AddItemActivity extends AppCompatActivity {
                             .setPositiveButton("예",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    dbHelper.deleteTodoDataById(item1_id);
+                                    dbHelper.deleteTodoDataById(item0_id);
                                     Toast.makeText(getApplicationContext(), "데이터가 삭제되었습니다", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }

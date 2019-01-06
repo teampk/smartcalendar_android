@@ -17,6 +17,11 @@
     <string name="repeat_mode_4">매월</string>
     <string name="repeat_mode_5">매년</string>
 
+    <!--
+        ERROR CODE 1111 : 다이나믹 스태틱 스위치 오류
+    -->
+
+
     <!-- from library -->
     <string name="label_custom_color">Custom colors</string>
     <string name="label_scheduling">스케쥴링</string>
