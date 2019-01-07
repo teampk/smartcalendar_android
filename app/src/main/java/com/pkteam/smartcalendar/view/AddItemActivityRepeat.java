@@ -20,6 +20,7 @@ import com.pkteam.smartcalendar.R;
 
 public class AddItemActivityRepeat extends AppCompatActivity {
     private LinearLayout llRepeatNothing, llRepeatDay, llRepeatWeek, llRepeatMonth, llRepeatYear;
+    private LinearLayout llRepeatDayDetail, llRepeatWeekDetail, llRepeatMonthDetail, llRepeatYearDetail;
     private ImageView ivRepeatCheckNothing, ivRepeatCheckDay, ivRepeatCheckWeek, ivRepeatCheckMonth, ivRepeatCheckYear;
     private int checkedRepeat;
     private LinearLayout llCancel;
@@ -125,39 +126,60 @@ public class AddItemActivityRepeat extends AppCompatActivity {
     private int setClickedView(int ver){
         switch (ver){
             case 1:
-                ivRepeatCheckNothing.setVisibility(View.VISIBLE);
-                ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckNothing.setVisibility(View.VISIBLE);
+                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.llRepeatDayDetail.setVisibility(View.GONE);
+                this.llRepeatWeekDetail.setVisibility(View.GONE);
+                this.llRepeatMonthDetail.setVisibility(View.GONE);
+                this.llRepeatYearDetail.setVisibility(View.GONE);
+
                 break;
             case 2:
-                ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                ivRepeatCheckDay.setVisibility(View.VISIBLE);
-                ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckDay.setVisibility(View.VISIBLE);
+                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.llRepeatDayDetail.setVisibility(View.VISIBLE);
+                this.llRepeatWeekDetail.setVisibility(View.GONE);
+                this.llRepeatMonthDetail.setVisibility(View.GONE);
+                this.llRepeatYearDetail.setVisibility(View.GONE);
                 break;
             case 3:
-                ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                ivRepeatCheckWeek.setVisibility(View.VISIBLE);
-                ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckWeek.setVisibility(View.VISIBLE);
+                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.llRepeatDayDetail.setVisibility(View.GONE);
+                this.llRepeatWeekDetail.setVisibility(View.VISIBLE);
+                this.llRepeatMonthDetail.setVisibility(View.GONE);
+                this.llRepeatYearDetail.setVisibility(View.GONE);
                 break;
             case 4:
-                ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                ivRepeatCheckMonth.setVisibility(View.VISIBLE);
-                ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckMonth.setVisibility(View.VISIBLE);
+                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+                this.llRepeatDayDetail.setVisibility(View.GONE);
+                this.llRepeatWeekDetail.setVisibility(View.GONE);
+                this.llRepeatMonthDetail.setVisibility(View.VISIBLE);
+                this.llRepeatYearDetail.setVisibility(View.GONE);
                 break;
             case 5:
-                ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                ivRepeatCheckYear.setVisibility(View.VISIBLE);
+                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
+                this.ivRepeatCheckYear.setVisibility(View.VISIBLE);
+                this.llRepeatDayDetail.setVisibility(View.GONE);
+                this.llRepeatWeekDetail.setVisibility(View.GONE);
+                this.llRepeatMonthDetail.setVisibility(View.GONE);
+                this.llRepeatYearDetail.setVisibility(View.VISIBLE);
                 break;
         }
         return ver;
@@ -175,6 +197,11 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         this.llRepeatMonth.setOnClickListener(listener);
         this.llRepeatYear = findViewById(R.id.ll_repeat_year);
         this.llRepeatYear.setOnClickListener(listener);
+
+        this.llRepeatDayDetail = findViewById(R.id.ll_repeat_day_detail);
+        this.llRepeatWeekDetail = findViewById(R.id.ll_repeat_week_detail);
+        this.llRepeatMonthDetail = findViewById(R.id.ll_repeat_month_detail);
+        this.llRepeatYearDetail = findViewById(R.id.ll_repeat_year_detail);
 
         this.ivRepeatCheckNothing = findViewById(R.id.iv_repeat_check_nothing);
         this.ivRepeatCheckDay = findViewById(R.id.iv_repeat_check_day);
