@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -144,12 +145,14 @@
                             android:textStyle="bold"/>
 
                         <EditText
+                            android:id="@+id/repeat_detail_1_et1"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="1"
                             android:textSize="14dp"
-                            android:background="@null"/>
+                            android:background="@null"
+                            android:inputType="number"/>
 
                         <TextView
                             android:layout_marginStart="20dp"
@@ -183,6 +186,7 @@
                                 android:textStyle="bold"/>
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_1_cb1"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:checked="true"/>
@@ -208,6 +212,7 @@
                                 android:layout_height="match_parent" />
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_1_cb2"
                                 android:layout_width="30dp"
                                 android:layout_height="match_parent" />
 
@@ -222,12 +227,15 @@
                                 />
 
                             <EditText
+                                android:id="@+id/repeat_detail_1_et2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="10"
                                 android:textSize="14dp"
                                 android:gravity="center_vertical"
-                                android:background="@null"/>
+                                android:background="@null"
+                                android:inputType="number"/>
+
 
 
                         </LinearLayout>
@@ -326,6 +334,7 @@
                             android:textStyle="bold"/>
 
                         <EditText
+                            android:id="@+id/repeat_detail_2_et1"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -365,6 +374,7 @@
                                 android:textStyle="bold"/>
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_2_cb1"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:checked="true"/>
@@ -390,6 +400,7 @@
                                 android:layout_height="match_parent" />
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_2_cb2"
                                 android:layout_width="30dp"
                                 android:layout_height="match_parent" />
 
@@ -404,6 +415,7 @@
                                 />
 
                             <EditText
+                                android:id="@+id/repeat_detail_2_et2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="10"
@@ -508,6 +520,7 @@
                             android:textStyle="bold"/>
 
                         <EditText
+                            android:id="@+id/repeat_detail_3_et1"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -547,6 +560,7 @@
                                 android:textStyle="bold"/>
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_3_cb1"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:checked="true"/>
@@ -572,6 +586,7 @@
                                 android:layout_height="match_parent" />
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_3_cb2"
                                 android:layout_width="30dp"
                                 android:layout_height="match_parent" />
 
@@ -586,6 +601,7 @@
                                 />
 
                             <EditText
+                                android:id="@+id/repeat_detail_3_et2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="10"
@@ -658,7 +674,6 @@
 
             <!-- 매년 detail -->
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_repeat_year_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -690,6 +705,7 @@
                             android:textStyle="bold"/>
 
                         <EditText
+                            android:id="@+id/repeat_detail_4_et1"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -729,6 +745,7 @@
                                 android:textStyle="bold"/>
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_4_cb1"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:checked="true"/>
@@ -754,6 +771,7 @@
                                 android:layout_height="match_parent" />
 
                             <CheckBox
+                                android:id="@+id/repeat_detail_4_cb2"
                                 android:layout_width="30dp"
                                 android:layout_height="match_parent" />
 
@@ -768,6 +786,7 @@
                                 />
 
                             <EditText
+                                android:id="@+id/repeat_detail_4_et2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="10"

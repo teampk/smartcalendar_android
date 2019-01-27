@@ -154,7 +154,7 @@ public class AddItemActivityCategory extends AppCompatActivity {
                 case R.id.btn_submit:
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("categoryInteger", categoryMode);
-                    returnIntent.putExtra("categoryResult",getCategoryString(categoryMode));
+                    returnIntent.putExtra("categoryResult", getCategoryString(categoryMode));
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                     break;

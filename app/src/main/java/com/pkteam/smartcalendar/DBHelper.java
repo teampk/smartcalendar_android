@@ -54,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    
+
     public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE TODOLIST SET title='" + title + "' WHERE _id='" + id + "';");
