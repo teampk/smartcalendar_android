@@ -15,8 +15,8 @@ import com.pkteam.smartcalendar.model.MyData;
 import java.util.ArrayList;
 
 
-// 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)
-// 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)   10.repeatId(int)
+// 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
+// 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String basicCg1 = "기본";
@@ -54,10 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
-
-
-
+    
     public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE TODOLIST SET title='" + title + "' WHERE _id='" + id + "';");

@@ -505,8 +505,8 @@ public class AddItemActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.btn_add:
-                    // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
-                    // 6.time(String)  7.repeatId(Int)     8.category(Int)     9.Memo(String)  10.NeedTime(int)
+                    // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
+                    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
                     if (checkItem()){
                         item1_title = etTitle.getText().toString();
                         item2_loc = etLoc.getText().toString();
@@ -604,7 +604,7 @@ public class AddItemActivity extends AppCompatActivity {
                                     break;
                                 case 5:
                                     Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
-                                    
+
                                     break;
                                 default:
                                     break;
