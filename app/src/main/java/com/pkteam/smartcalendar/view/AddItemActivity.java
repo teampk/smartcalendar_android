@@ -389,15 +389,6 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
-    public boolean setTimeForConvenience(String startTime, String endTime){
-        //if true, change
-
-        return true;
-
-
-
-    }
-
     public String getCurrentDate(){
         // get Current Date and Time
         Date date = new Date(System.currentTimeMillis());
