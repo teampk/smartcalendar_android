@@ -33,6 +33,7 @@ public class AddItemActivityRepeat extends AppCompatActivity {
 
     // repeat information
     private String repeatMode;
+    // 넘기는 데이터
     private Integer repeatModeInt;
     private Integer repeatPeriod;
     private Integer repeatTimes;
@@ -73,18 +74,44 @@ public class AddItemActivityRepeat extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.ll_repeat_nothing:
                     repeatModeInt = setClickedView(1);
+                    repeatPeriod = 1;
+                    repeatTimes = 0;
                     break;
                 case R.id.ll_repeat_day:
                     repeatModeInt = setClickedView(2);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod1.getText().toString());
+                    if (checkbox1_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes1.getText().toString());
+                    }
                     break;
                 case R.id.ll_repeat_week:
                     repeatModeInt = setClickedView(3);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod2.getText().toString());
+                    if (checkbox2_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes2.getText().toString());
+                    }
                     break;
                 case R.id.ll_repeat_month:
                     repeatModeInt = setClickedView(4);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod3.getText().toString());
+                    if (checkbox3_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes3.getText().toString());
+                    }
                     break;
                 case R.id.ll_repeat_year:
                     repeatModeInt = setClickedView(5);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod4.getText().toString());
+                    if (checkbox4_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes4.getText().toString());
+                    }
                     break;
                 case R.id.ll_cancel:
                     finish();
@@ -156,9 +183,7 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         this.etRepeatTimes4 = findViewById(R.id.repeat_detail_4_et2);
 
         getInput();
-
     }
-
 
     private void getInput(){
 
@@ -411,6 +436,8 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                 this.llRepeatWeekDetail.setVisibility(View.GONE);
                 this.llRepeatMonthDetail.setVisibility(View.GONE);
                 this.llRepeatYearDetail.setVisibility(View.GONE);
+
+
 
                 break;
             case 2:

@@ -340,7 +340,8 @@
                             android:gravity="center"
                             android:text="1"
                             android:textSize="14dp"
-                            android:background="@null"/>
+                            android:background="@null"
+                            android:inputType="number"/>
 
                         <TextView
                             android:layout_marginStart="20dp"
@@ -421,7 +422,8 @@
                                 android:text="10"
                                 android:textSize="14dp"
                                 android:gravity="center_vertical"
-                                android:background="@null"/>
+                                android:background="@null"
+                                android:inputType="number"/>
 
 
                         </LinearLayout>
@@ -526,7 +528,8 @@
                             android:gravity="center"
                             android:text="1"
                             android:textSize="14dp"
-                            android:background="@null"/>
+                            android:background="@null"
+                            android:inputType="number"/>
 
                         <TextView
                             android:layout_marginStart="20dp"
@@ -607,7 +610,8 @@
                                 android:text="10"
                                 android:textSize="14dp"
                                 android:gravity="center_vertical"
-                                android:background="@null"/>
+                                android:background="@null"
+                                android:inputType="number"/>
 
 
                         </LinearLayout>
@@ -711,7 +715,8 @@
                             android:gravity="center"
                             android:text="1"
                             android:textSize="14dp"
-                            android:background="@null"/>
+                            android:background="@null"
+                            android:inputType="number"/>
 
                         <TextView
                             android:layout_marginStart="20dp"
@@ -792,7 +797,8 @@
                                 android:text="10"
                                 android:textSize="14dp"
                                 android:gravity="center_vertical"
-                                android:background="@null"/>
+                                android:background="@null"
+                                android:inputType="number"/>
 
 
                         </LinearLayout>
