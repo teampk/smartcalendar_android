@@ -533,6 +533,14 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
+    private String getNextYear(String date){
+        String startDate = date.split("\\.")[0];
+        String endDate = date.split("\\.")[1];
+        String startDateNext = String.valueOf(Integer.valueOf(date.split("\\.")[0].substring(0,4))+1)+startDate.substring(4);
+        String endDateNext = String.valueOf(Integer.valueOf(date.split("\\.")[1].substring(0,4))+1)+endDate.substring(4);
+        return startDateNext+"."+endDateNext+".000000000000";
+    }
+
 
     private void bindingView(){
         // Header, Footer
@@ -725,7 +733,25 @@ public class AddItemActivity extends AppCompatActivity {
                                 // 매년 반복
                                 case 5:
 
-                                    
+                                    dbHelper.updateRepeatId();
+                                    item9_repeatId = dbHelper.getCurrentRepeatId();
+                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+
+                                    String nextYear = item5_time;
+
+                                    // 반복 종료가 없으면
+                                    if (repeatTimes==0){
+                                        repeatTimes = REPEATAMOUNT;
+                                    }
+                                    for (int i=0;i<repeatTimes-1;i++){
+                                        nextYear = getNextYear(nextYear);
+                                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextYear, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                                    }
+
+                                    Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+
+
 
                                     break;
                                 default:
