@@ -65,76 +65,6 @@ public class AddItemActivityRepeat extends AppCompatActivity {
     }
 
 
-
-
-
-    private View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.ll_repeat_nothing:
-                    repeatModeInt = setClickedView(1);
-                    repeatPeriod = 1;
-                    repeatTimes = 0;
-                    break;
-                case R.id.ll_repeat_day:
-                    repeatModeInt = setClickedView(2);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod1.getText().toString());
-                    if (checkbox1_1.isChecked()){
-                        repeatTimes = 0;
-                    }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes1.getText().toString());
-                    }
-                    break;
-                case R.id.ll_repeat_week:
-                    repeatModeInt = setClickedView(3);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod2.getText().toString());
-                    if (checkbox2_1.isChecked()){
-                        repeatTimes = 0;
-                    }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes2.getText().toString());
-                    }
-                    break;
-                case R.id.ll_repeat_month:
-                    repeatModeInt = setClickedView(4);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod3.getText().toString());
-                    if (checkbox3_1.isChecked()){
-                        repeatTimes = 0;
-                    }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes3.getText().toString());
-                    }
-                    break;
-                case R.id.ll_repeat_year:
-                    repeatModeInt = setClickedView(5);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod4.getText().toString());
-                    if (checkbox4_1.isChecked()){
-                        repeatTimes = 0;
-                    }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes4.getText().toString());
-                    }
-                    break;
-                case R.id.ll_cancel:
-                    finish();
-                    break;
-                case R.id.btn_submit:
-                    Toast.makeText(AddItemActivityRepeat.this, String.valueOf(repeatModeInt)+","+String.valueOf(repeatPeriod)+","+String.valueOf(repeatTimes), Toast.LENGTH_SHORT).show();
-
-                    /*
-                    if(checkException()){
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra("repeatInteger", repeatModeInt);
-                        returnIntent.putExtra("repeatResult",getRepeatString(repeatModeInt));
-                        setResult(Activity.RESULT_OK, returnIntent);
-                        finish();
-                    }
-                    */
-
-                    break;
-            }
-        }
-    };
-
-
     private void bindingView(){
 
         this.llRepeatNothing = findViewById(R.id.ll_repeat_nothing);
@@ -363,10 +293,10 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         });
     }
 
-
     private boolean checkException(){
-        if (repeatTimes < 1){
-            Toast.makeText(getApplicationContext(), "1이상의 숫자로 반복이 가능합니다.", Toast.LENGTH_SHORT).show();
+        if (repeatPeriod < 1){
+            Toast.makeText(getApplicationContext(), "1이상의 주기로 반복이 가능합니다.", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         return true;
@@ -393,7 +323,7 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                 mode=5;
                 break;
             default:
-                Toast.makeText(AddItemActivityRepeat.this, "error occured in repeat", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "error occured in repeat", Toast.LENGTH_SHORT).show();
                 break;
         }
         return mode;
@@ -436,9 +366,6 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                 this.llRepeatWeekDetail.setVisibility(View.GONE);
                 this.llRepeatMonthDetail.setVisibility(View.GONE);
                 this.llRepeatYearDetail.setVisibility(View.GONE);
-
-
-
                 break;
             case 2:
                 this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
@@ -487,4 +414,71 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         }
         return ver;
     }
+
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.ll_repeat_nothing:
+                    repeatModeInt = setClickedView(1);
+                    repeatPeriod = 1;
+                    repeatTimes = 0;
+                    break;
+                case R.id.ll_repeat_day:
+                    repeatModeInt = setClickedView(2);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod1.getText().toString());
+                    if (checkbox1_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes1.getText().toString());
+                    }
+                    break;
+                case R.id.ll_repeat_week:
+                    repeatModeInt = setClickedView(3);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod2.getText().toString());
+                    if (checkbox2_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes2.getText().toString());
+                    }
+                    break;
+                case R.id.ll_repeat_month:
+                    repeatModeInt = setClickedView(4);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod3.getText().toString());
+                    if (checkbox3_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes3.getText().toString());
+                    }
+                    break;
+                case R.id.ll_repeat_year:
+                    repeatModeInt = setClickedView(5);
+                    repeatPeriod = Integer.valueOf(etRepeatPeriod4.getText().toString());
+                    if (checkbox4_1.isChecked()){
+                        repeatTimes = 0;
+                    }else{
+                        repeatTimes = Integer.valueOf(etRepeatTimes4.getText().toString());
+                    }
+                    break;
+                case R.id.ll_cancel:
+                    finish();
+                    break;
+                case R.id.btn_submit:
+
+                    // (RepeatMode, RepeatPeriod, RepeatTimes)
+                    if(checkException()){
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("repeatModeString", getRepeatString(repeatModeInt));
+                        returnIntent.putExtra("repeatMode", repeatModeInt);
+                        returnIntent.putExtra("repeatPeriod", repeatPeriod);
+                        returnIntent.putExtra("repeatTimes", repeatTimes);
+
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
+                    }
+
+                    break;
+            }
+        }
+    };
 }

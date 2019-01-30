@@ -97,6 +97,11 @@ public class AddItemActivity extends AppCompatActivity {
     private int item9_repeatId;
 
     private int repeatMode, categoryMode;
+    private int repeatPeriod, repeatTimes;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,17 +221,22 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     // for Switch
+    // Dynamic 체크 시
     private void setSwitchToDynamic(){
         llStatic.setVisibility(View.GONE);
         llDynamic.setVisibility(View.VISIBLE);
+        repeatMode = 1;
         item3_isDynamic = true;
         tvStaticDynamic.setText("Dynamic");
         modeStaticDynamic = DYNAMIC_MODE;
     }
 
+    // Static 체크 시
     private void setSwitchToStatic(){
         llStatic.setVisibility(View.VISIBLE);
         llDynamic.setVisibility(View.GONE);
+        repeatMode = getRepeatInteger(tvRepeat.getText().toString());
+        Toast.makeText(getApplicationContext(), String.valueOf(repeatMode), Toast.LENGTH_SHORT).show();
         item3_isDynamic = false;
         tvStaticDynamic.setText("Static");
         modeStaticDynamic = STATIC_MODE;
@@ -371,8 +381,10 @@ public class AddItemActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_REPEAT) {
             if(resultCode == Activity.RESULT_OK){
-                tvRepeat.setText(data.getStringExtra("repeatResult"));
-                repeatMode = data.getIntExtra("repeatInteger", 1);
+                tvRepeat.setText(data.getStringExtra("repeatModeString"));
+                repeatMode = data.getIntExtra("repeatMode", 1);
+                repeatPeriod = data.getIntExtra("repeatPeriod", 1);
+                repeatTimes = data.getIntExtra("repeatTimes", 0);
             }
             else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.d("ActivityResult", "CANCELED");
@@ -439,6 +451,61 @@ public class AddItemActivity extends AppCompatActivity {
         return tv.getText().toString().replace(".","").replace(":","");
     }
 
+    private int getRepeatInteger(String inputString){
+        int mode=0;
+
+        switch (inputString){
+            case "안 함":
+                mode=1;
+                break;
+            case "매일":
+                mode=2;
+                break;
+            case "매주":
+                mode=3;
+                break;
+            case "매월":
+                mode=4;
+                break;
+            case "매년":
+                mode=5;
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "error occured in repeat", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return mode;
+    }
+
+    // date 에 대한 milliseconds 구하기
+    // mode 1 - 시작 시간
+    // mode 2 - 끝 시간
+    private long getMsForDate(String date, int mode){
+        long dateForMs = 0;
+        try {
+            if (mode == 1){
+                dateForMs = sdf.parse(date.split("\\.")[0]).getTime();
+            }
+            else if (mode == 2){
+                dateForMs = sdf.parse(date.split("\\.")[1]).getTime();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateForMs;
+    }
+
+    private String getNextTimeByMs(long start, long end){
+
+        Date mDate1 = new Date(start);
+        Date mDate2 = new Date(end);
+        String nextStart = sdf.format(mDate1);
+        String nextEnd = sdf.format(mDate2);
+
+        return String.valueOf(nextStart)+"."+String.valueOf(nextEnd)+".000000000000";
+    }
+
+
     private void bindingView(){
         // Header, Footer
         concealerNSV = findViewById(R.id.concealerNSV);
@@ -489,7 +556,6 @@ public class AddItemActivity extends AppCompatActivity {
         tvCategory.setText(dbHelper.getAllCategory().get(0));
 
     }
-
 
     private View.OnClickListener listener = new View.OnClickListener(){
         @Override
@@ -553,35 +619,29 @@ public class AddItemActivity extends AppCompatActivity {
                                     dbHelper.updateRepeatId();
                                     item9_repeatId = dbHelper.getCurrentRepeatId();
                                     // item5_time : 201901070700.201901071000.000000000000
-                                    String[] givenDateString = item5_time.split("\\.");
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                                    long timeInMilliseconds_s = 0;
-                                    long timeInMilliseconds_e = 0;
-                                    try {
-                                        Date mDate_start = sdf.parse(givenDateString[0]);
-                                        Date mDate_end = sdf.parse(givenDateString[1]);
-                                        timeInMilliseconds_s = mDate_start.getTime();
-                                        timeInMilliseconds_e = mDate_end.getTime();
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    // 하루 더하기
-                                    long nextTime_s = timeInMilliseconds_s + 86400000;
-                                    long nextTime_e = timeInMilliseconds_e + 86400000;
-
-                                    Date mDate1 = new Date(nextTime_s);
-                                    Date mDate2 = new Date(nextTime_e);
-                                    String nextStart = sdf.format(mDate1);
-                                    String nextEnd = sdf.format(mDate2);
-
-                                    String nextTime = String.valueOf(nextStart)+"."+String.valueOf(nextEnd)+".000000000000";
 
                                     dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
-                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextTime, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                                    long nextTime_s = getMsForDate(item5_time, 1);
+                                    long nextTime_e = getMsForDate(item5_time, 2);
+
+                                    // 반복 종료가 없으면
+                                    if (repeatTimes == 0){
+                                        for (int i=0;i<10;i++){
+                                            nextTime_s += (86400000 * repeatPeriod);
+                                            nextTime_e += (86400000 * repeatPeriod);
+                                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                                        }
+                                    }
+                                    // 반복 종료가 있으면
+                                    else{
+                                        for (int i=0;i<repeatTimes;i++){
+
+                                        }
+                                    }
 
 
-                                    Toast.makeText(getApplicationContext(), "이틀 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
 
+                                    Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
 
                                     finish();
                                     break;
