@@ -587,7 +587,7 @@ public class AddItemActivity extends AppCompatActivity {
                                     break;
                                 case 3:
                                     Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
-
+                                    finish();
                                     break;
                                 case 4:
                                     Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
