@@ -121,6 +121,7 @@ public class AddItemActivity extends AppCompatActivity {
         modeAllDay = NOT_ALL_DAY_MODE;
         categoryMode = 1;
         repeatMode = 1;
+        repeatTimes = 0;
         item3_isDynamic = false;
         item4_isAllDay = false;
 
@@ -236,7 +237,6 @@ public class AddItemActivity extends AppCompatActivity {
         llStatic.setVisibility(View.VISIBLE);
         llDynamic.setVisibility(View.GONE);
         repeatMode = getRepeatInteger(tvRepeat.getText().toString());
-        Toast.makeText(getApplicationContext(), String.valueOf(repeatMode), Toast.LENGTH_SHORT).show();
         item3_isDynamic = false;
         tvStaticDynamic.setText("Static");
         modeStaticDynamic = STATIC_MODE;
@@ -625,18 +625,14 @@ public class AddItemActivity extends AppCompatActivity {
                                     long nextTime_e = getMsForDate(item5_time, 2);
 
                                     // 반복 종료가 없으면
-                                    if (repeatTimes == 0){
-                                        for (int i=0;i<10;i++){
-                                            nextTime_s += (86400000 * repeatPeriod);
-                                            nextTime_e += (86400000 * repeatPeriod);
-                                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId);
-                                        }
+                                    if (repeatTimes==0){
+                                        repeatTimes = 10;
                                     }
-                                    // 반복 종료가 있으면
-                                    else{
-                                        for (int i=0;i<repeatTimes;i++){
 
-                                        }
+                                    for (int i=0;i<repeatTimes-1;i++){
+                                        nextTime_s += (86400000 * repeatPeriod);
+                                        nextTime_e += (86400000 * repeatPeriod);
+                                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId);
                                     }
 
 
