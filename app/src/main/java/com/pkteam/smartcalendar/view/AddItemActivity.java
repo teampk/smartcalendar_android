@@ -57,6 +57,8 @@ public class AddItemActivity extends AppCompatActivity {
     private static final int REQUEST_REPEAT = 11;
     private static final int REQUEST_CATEGORY = 12;
 
+    private static final int REPEATAMOUNT = 10;
+
     private DBHelper dbHelper;
 
     ConcealerNestedScrollView concealerNSV;
@@ -605,8 +607,11 @@ public class AddItemActivity extends AppCompatActivity {
                         }
                         item6_category = categoryMode;
                         item7_Memo = etMemo.getText().toString();
+                        long nextTime_s;
+                        long nextTime_e;
                         if (modeAddEdit == ADD_MODE){
                             switch (repeatMode){
+
                                 // 반복 없음
                                 case 1:
                                     item9_repeatId = 0;
@@ -621,12 +626,12 @@ public class AddItemActivity extends AppCompatActivity {
                                     // item5_time : 201901070700.201901071000.000000000000
 
                                     dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
-                                    long nextTime_s = getMsForDate(item5_time, 1);
-                                    long nextTime_e = getMsForDate(item5_time, 2);
+                                    nextTime_s = getMsForDate(item5_time, 1);
+                                    nextTime_e = getMsForDate(item5_time, 2);
 
                                     // 반복 종료가 없으면
                                     if (repeatTimes==0){
-                                        repeatTimes = 10;
+                                        repeatTimes = REPEATAMOUNT;
                                     }
 
                                     for (int i=0;i<repeatTimes-1;i++){
@@ -635,14 +640,32 @@ public class AddItemActivity extends AppCompatActivity {
                                         dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId);
                                     }
 
-
-
                                     Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
 
                                     finish();
                                     break;
+                                // 매주 반복
                                 case 3:
-                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+                                    dbHelper.updateRepeatId();
+                                    item9_repeatId = dbHelper.getCurrentRepeatId();
+                                    // item5_time : 201901070700.201901071000.000000000000
+
+                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                                    nextTime_s = getMsForDate(item5_time, 1);
+                                    nextTime_e = getMsForDate(item5_time, 2);
+
+                                    // 반복 종료가 없으면
+                                    if (repeatTimes==0){
+                                        repeatTimes = REPEATAMOUNT;
+                                    }
+
+                                    for (int i=0;i<repeatTimes-1;i++){
+                                        nextTime_s += (86400000 * 7 * repeatPeriod);
+                                        nextTime_e += (86400000 * 7 * repeatPeriod);
+                                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                                    }
+
+                                    Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
                                     finish();
                                     break;
                                 case 4:
