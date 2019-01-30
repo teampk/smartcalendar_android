@@ -103,6 +103,9 @@ public class AddItemActivity extends AppCompatActivity {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 
+    // for testing
+    private TextView tvTopBar;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -209,8 +212,15 @@ public class AddItemActivity extends AppCompatActivity {
             etNeedTime.setText(String.valueOf(itemElement.mNeedTime));
             modeStaticDynamic = DYNAMIC_MODE;
             item3_isDynamic = true;
-
         }
+
+        // for testing
+        tvTopBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), String.valueOf(itemElement.mRepeatId), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @NonNull
@@ -482,7 +492,7 @@ public class AddItemActivity extends AppCompatActivity {
     // date 에 대한 milliseconds 구하기
     // mode 1 - 시작 시간
     // mode 2 - 끝 시간
-    private long getMsForDate(String date, int mode){
+    private long getMsByDate(String date, int mode){
         long dateForMs = 0;
         try {
             if (mode == 1){
@@ -498,13 +508,29 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private String getNextTimeByMs(long start, long end){
-
         Date mDate1 = new Date(start);
         Date mDate2 = new Date(end);
         String nextStart = sdf.format(mDate1);
         String nextEnd = sdf.format(mDate2);
 
         return String.valueOf(nextStart)+"."+String.valueOf(nextEnd)+".000000000000";
+    }
+
+    private String getNextMonth(String date){
+        String startDate = getYearMonthString(date.split("\\.")[0]) + date.split("\\.")[0].substring(6);
+        String endDate = getYearMonthString(date.split("\\.")[1]) + date.split("\\.")[1].substring(6);
+        return startDate+"."+endDate+".000000000000";
+
+    }
+
+    private String getYearMonthString(String date){
+        int nextYearMonthInt = Integer.valueOf(date.substring(0,6))+1;
+        if ((nextYearMonthInt % 100)==13){
+            return String.valueOf(Integer.valueOf(String.valueOf(nextYearMonthInt).substring(0,4))+1)+"01";
+        }else{
+            return String.valueOf(nextYearMonthInt);
+        }
+
     }
 
 
@@ -556,6 +582,10 @@ public class AddItemActivity extends AppCompatActivity {
         ivCategory = findViewById(R.id.iv_category);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
         tvCategory.setText(dbHelper.getAllCategory().get(0));
+
+        // for testing
+        tvTopBar = findViewById(R.id.tv_top_bar);
+
 
     }
 
@@ -626,8 +656,8 @@ public class AddItemActivity extends AppCompatActivity {
                                     // item5_time : 201901070700.201901071000.000000000000
 
                                     dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
-                                    nextTime_s = getMsForDate(item5_time, 1);
-                                    nextTime_e = getMsForDate(item5_time, 2);
+                                    nextTime_s = getMsByDate(item5_time, 1);
+                                    nextTime_e = getMsByDate(item5_time, 2);
 
                                     // 반복 종료가 없으면
                                     if (repeatTimes==0){
@@ -651,8 +681,8 @@ public class AddItemActivity extends AppCompatActivity {
                                     // item5_time : 201901070700.201901071000.000000000000
 
                                     dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
-                                    nextTime_s = getMsForDate(item5_time, 1);
-                                    nextTime_e = getMsForDate(item5_time, 2);
+                                    nextTime_s = getMsByDate(item5_time, 1);
+                                    nextTime_e = getMsByDate(item5_time, 2);
 
                                     // 반복 종료가 없으면
                                     if (repeatTimes==0){
@@ -668,12 +698,34 @@ public class AddItemActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
                                     finish();
                                     break;
+
+                                // 매월 반복
                                 case 4:
-                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+
+                                    dbHelper.updateRepeatId();
+                                    item9_repeatId = dbHelper.getCurrentRepeatId();
+                                    dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+
+                                    String nextMonth = item5_time;
+
+                                    // 반복 종료가 없으면
+                                    if (repeatTimes==0){
+                                        repeatTimes = REPEATAMOUNT;
+                                    }
+                                    for (int i=0;i<repeatTimes-1;i++){
+                                        nextMonth = getNextMonth(nextMonth);
+                                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextMonth, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                                    }
+
+                                    Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
 
                                     break;
+
+                                // 매년 반복
                                 case 5:
-                                    Toast.makeText(getApplicationContext(), "일정이 등록되지 않았습니다.\n현재 반복기능을 지원하지 않습니다", Toast.LENGTH_LONG).show();
+
+                                    
 
                                     break;
                                 default:
