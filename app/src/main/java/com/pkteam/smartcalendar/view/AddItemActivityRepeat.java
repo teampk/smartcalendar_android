@@ -139,8 +139,6 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         this.etRepeatTimes3.setEnabled(false);
         this.etRepeatTimes4.setEnabled(false);
 
-        // CheckBox 설정
-
         // 매일
         this.checkbox1_1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override

@@ -593,8 +593,6 @@ public class AddItemActivity extends AppCompatActivity {
 
         // for testing
         tvTopBar = findViewById(R.id.tv_top_bar);
-
-
     }
 
     private View.OnClickListener listener = new View.OnClickListener(){
