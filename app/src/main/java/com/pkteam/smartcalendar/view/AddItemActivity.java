@@ -793,25 +793,59 @@ public class AddItemActivity extends AppCompatActivity {
                     startActivityForResult(intentCategory, REQUEST_CATEGORY);
                     break;
                 case R.id.linFooterView:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
-                    builder.setTitle("데이터를 삭제합니다.")
-                            .setMessage("일정 데이터가 삭제됩니다. 계속하시겠습니까?")
-                            .setPositiveButton("예",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dbHelper.deleteTodoDataById(item0_id);
-                                    Toast.makeText(getApplicationContext(), "데이터가 삭제되었습니다", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            })
-                            .setNegativeButton("아니오",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
-                    AlertDialog dialog = builder.create();    // 알림창 객체 생성
-                    dialog.show();
+                    // 반복 아닌 일정 삭제
+                    if (itemElement.mRepeatId==0){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+                        builder.setTitle("일정 삭제")
+                                .setMessage("일정을 삭제하시겠습니까?")
+                                .setPositiveButton("삭제",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dbHelper.deleteTodoDataById(item0_id);
+                                                Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        })
+                                .setNegativeButton("취소",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                        AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                        dialog.show();
+                    }
+                    // 반복 일정 삭제
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+                        builder.setTitle("일정 삭제")
+                                .setMessage("반복된 일정을 삭제하시겠습니까?")
+                                .setPositiveButton("이 일정에만 적용",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dbHelper.deleteTodoDataById(item0_id);
+                                                Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        })
+                                .setNeutralButton("이후 일정에도 적용",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dbHelper.deleteTodoDataByRepeatId(item0_id, item9_repeatId);
+                                                Toast.makeText(getApplicationContext(), "이후 일정들이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        })
+                                .setNegativeButton("취소",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                        AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                        dialog.show();
+                    }
 
                     break;
 

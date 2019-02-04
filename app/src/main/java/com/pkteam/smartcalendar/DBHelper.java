@@ -192,6 +192,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM TODOLIST WHERE _id = '" + id + "';");
         db.close();
     }
+    public void deleteTodoDataByRepeatId(int id, int repeatId){
+
+    }
+
     public int getCurrentRepeatId(){
         SQLiteDatabase dbr = getReadableDatabase();
         Cursor cursor = dbr.rawQuery("SELECT * FROM USERINFO;", null);
