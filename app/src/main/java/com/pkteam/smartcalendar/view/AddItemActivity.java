@@ -830,15 +830,15 @@ public class AddItemActivity extends AppCompatActivity {
                                 .setNeutralButton("모든 일정에도 적용",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
-                                                dbHelper.deleteTodoDataByRepeatId(item0_id, item9_repeatId, item5_time);
-                                                Toast.makeText(getApplicationContext(), "일정들이 모두 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                                dbHelper.deleteTodoDataByRepeatId(itemElement.mId, itemElement.mRepeatId, itemElement.mTime);
+                                                Toast.makeText(getApplicationContext(), "모든 반복 일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
                                         })
                                 .setNegativeButton("이 일정에만 적용",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
-                                                dbHelper.deleteTodoDataById(item0_id);
+                                                dbHelper.deleteTodoDataById(itemElement.mId);
                                                 Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }

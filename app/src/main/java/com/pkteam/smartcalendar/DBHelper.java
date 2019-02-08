@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg4 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg5 + "');");
 
-        db.execSQL("CREATE TABLE USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, repeatID INTEGER);");
+        db.execSQL("CREATE TABLE USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, repeatId INTEGER);");
         db.execSQL("INSERT INTO USERINFO VALUES(null, '" + 0 + "');");
 
     }
@@ -196,7 +196,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteTodoDataByRepeatId(int id, int repeatId, String date){
         // 201905301030.201905301130.000000000000
         SQLiteDatabase db=  getWritableDatabase();
-        db.execSQL("DELETE FROM TODOLIST WHERE repeatID = '" + repeatId + "' ;");
+        db.execSQL("DELETE FROM TODOLIST WHERE repeatId = '" + repeatId + "';");
+        db.close();
 
     }
 
@@ -213,10 +214,10 @@ public class DBHelper extends SQLiteOpenHelper {
         int resultInt = getCurrentRepeatId();
         resultInt += 1;
         SQLiteDatabase dbw = getWritableDatabase();
-        dbw.execSQL("UPDATE USERINFO SET repeatID='" + resultInt + "' WHERE _id='" + 1 + "';");
+        dbw.execSQL("UPDATE USERINFO SET repeatId='" + resultInt + "' WHERE _id='" + 1 + "';");
     }
     public void initializeRepeatId(){
         SQLiteDatabase dbw = getWritableDatabase();
-        dbw.execSQL("UPDATE USERINFO SET repeatID='" + 0 + "' WHERE _id='" + 1 + "';");
+        dbw.execSQL("UPDATE USERINFO SET repeatId='" + 0 + "' WHERE _id='" + 1 + "';");
     }
 }
