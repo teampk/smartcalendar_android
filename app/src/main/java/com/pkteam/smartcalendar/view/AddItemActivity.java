@@ -827,11 +827,11 @@ public class AddItemActivity extends AppCompatActivity {
 
                                             }
                                         })
-                                .setNeutralButton("이후 일정에도 적용",
+                                .setNeutralButton("모든 일정에도 적용",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dbHelper.deleteTodoDataByRepeatId(item0_id, item9_repeatId, item5_time);
-                                                Toast.makeText(getApplicationContext(), "이후 일정들이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), "일정들이 모두 삭제되었습니다", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
                                         })
