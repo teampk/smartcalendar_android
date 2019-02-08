@@ -192,14 +192,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM TODOLIST WHERE _id = '" + id + "';");
         db.close();
     }
-    public int getStartTime(String date){
-        return Integer.valueOf(date.split("\\.")[0]);
-    }
 
     public void deleteTodoDataByRepeatId(int id, int repeatId, String date){
         // 201905301030.201905301130.000000000000
         SQLiteDatabase db=  getWritableDatabase();
-        db.execSQL("DELETE FROM TODOLIST WHERE repeatID = '" + repeatId + "' AND time ;");
+        db.execSQL("DELETE FROM TODOLIST WHERE repeatID = '" + repeatId + "' ;");
 
     }
 
