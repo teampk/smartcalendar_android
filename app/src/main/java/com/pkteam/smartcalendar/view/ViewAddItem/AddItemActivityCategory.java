@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar.view;
+package com.pkteam.smartcalendar.view.ViewAddItem;
 
 import android.app.Activity;
 import android.content.Intent;

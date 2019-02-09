@@ -19,11 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.MainActivity"/>
-        <activity android:name=".view.AddItemActivity"/>
-        <activity android:name=".view.AddItemActivityRepeat"/>
-        <activity android:name=".view.AddItemActivityCategory"/>
-        <activity android:name=".view.DataCheckActivity"/>
-        <activity android:name=".view.SettingCategory"/>
+        <activity android:name=".view.ViewAddItem.AddItemActivity"/>
+        <activity android:name=".view.ViewAddItem.AddItemActivityRepeat"/>
+        <activity android:name=".view.ViewAddItem.AddItemActivityCategory"/>
+        <activity android:name=".view.ViewSetting.DataCheckActivity"/>
+        <activity android:name=".view.ViewSetting.SettingCategory"/>
+        <activity android:name=".view.ViewSetting.SettingSleepTime"/>
     </application>
 
 </manifest>

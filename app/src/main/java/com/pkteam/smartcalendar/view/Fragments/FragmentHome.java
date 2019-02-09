@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.pkteam.smartcalendar.ArrayListSorting;
-import com.pkteam.smartcalendar.view.AddItemActivity;
+import com.pkteam.smartcalendar.view.ViewAddItem.AddItemActivity;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.R;

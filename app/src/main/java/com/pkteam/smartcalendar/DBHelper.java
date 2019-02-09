@@ -25,6 +25,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String basicCg4 = "활동";
     private static final String basicCg5 = "기타";
 
+    private static final int basicSleepTimeStart = 0;
+    private static final int basicSleepTimeEnd = 7;
+
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -32,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE TODOLIST (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT," +
                 " isDynamic BOOLEAN, isAllday BOOLEAN, time TEXT, category TEXT, memo TEXT, needTime TEXT, repeatId INTEGER);");
+
         db.execSQL("CREATE TABLE CATEGORY (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg1 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg2 + "');");

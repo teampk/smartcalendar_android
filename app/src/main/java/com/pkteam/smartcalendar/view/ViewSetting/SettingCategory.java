@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar.view;
+package com.pkteam.smartcalendar.view.ViewSetting;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 
 public class SettingCategory extends AppCompatActivity{
 
-    private LinearLayout llCancel;
     private Button btnSubmit;
     private EditText et1, et2, et3, et4, et5;
     private ArrayList<String> categoryList;
@@ -42,10 +40,8 @@ public class SettingCategory extends AppCompatActivity{
         et3 = findViewById(R.id.et_3);
         et4 = findViewById(R.id.et_4);
         et5 = findViewById(R.id.et_5);
-        llCancel = findViewById(R.id.ll_cancel);
         btnSubmit = findViewById(R.id.btn_submit);
 
-        llCancel.setOnClickListener(listener);
         btnSubmit.setOnClickListener(listener);
     }
 
@@ -64,9 +60,6 @@ public class SettingCategory extends AppCompatActivity{
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.ll_cancel:
-                    finish();
-                    break;
                 case R.id.btn_submit:
                     dbHelper.categoryUpdate(et1.getText().toString(), et2.getText().toString(),
                             et3.getText().toString(), et4.getText().toString(), et5.getText().toString());

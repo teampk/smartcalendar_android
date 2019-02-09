@@ -10,14 +10,14 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
-import com.pkteam.smartcalendar.view.DataCheckActivity;
-import com.pkteam.smartcalendar.view.SettingCategory;
+import com.pkteam.smartcalendar.view.ViewSetting.DataCheckActivity;
+import com.pkteam.smartcalendar.view.ViewSetting.SettingCategory;
+import com.pkteam.smartcalendar.view.ViewSetting.SettingSleepTime;
 import com.simmorsal.library.ConcealerNestedScrollView;
 
 /*
@@ -26,7 +26,7 @@ import com.simmorsal.library.ConcealerNestedScrollView;
 
 public class FragmentSetting extends Fragment {
 
-    private LinearLayout llCategorySetting, llDeleteAllData, llCheckData, llAppInformation;
+    private LinearLayout llCategorySetting, llDeleteAllData, llCheckData, llAppInformation, llSleepTime;
     private CardView crdHeaderView;
     private ConcealerNestedScrollView concealerNSV;
 
@@ -48,8 +48,10 @@ public class FragmentSetting extends Fragment {
         llCheckData.setOnClickListener(listener);
         llAppInformation = mView.findViewById(R.id.ll_app_information);
         llAppInformation.setOnClickListener(listener);
-        crdHeaderView = mView.findViewById(R.id.crdHeaderView);
+        llSleepTime = mView.findViewById(R.id.ll_sleep_time);
+        llSleepTime.setOnClickListener(listener);
 
+        crdHeaderView = mView.findViewById(R.id.crdHeaderView);
         concealerNSV = mView.findViewById(R.id.concealerNSV);
 
         setupConcealerNSV();
@@ -88,8 +90,13 @@ public class FragmentSetting extends Fragment {
                     startActivity(intent);
                     break;
                 case R.id.ll_app_information:
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                    builder1.setMessage("");
+                    Toast.makeText(getContext(), "Smart Calendar 1.0.0", Toast.LENGTH_SHORT).show();
+
+                    break;
+                case R.id.ll_sleep_time:
+                    Intent intents = new Intent(getContext(), SettingSleepTime.class);
+                    startActivity(intents);
+
 
                     break;
                 default:

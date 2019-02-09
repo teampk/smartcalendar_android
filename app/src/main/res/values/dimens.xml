@@ -9,6 +9,8 @@
     <dimen name="text_size">16dp</dimen>
 
     <dimen name="top_bar_title">30dp</dimen>
+    <dimen name="top_bar_subtitle">20dp</dimen>
+    <dimen name="element_height">48dp</dimen>
 
 
 

@@ -17,6 +17,10 @@
     <string name="repeat_mode_4">매월</string>
     <string name="repeat_mode_5">매년</string>
 
+    <string name="sleep_time_explain">
+        수면시간 설정은 스케줄링에 도움이 됩니다. \nDEFAULT값은 00:00시부터 06:00시 입니다.
+    </string>
+
     <!--
         ERROR CODE 1111 : 다이나믹 스태틱 스위치 오류
     -->

@@ -13,10 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pkteam.smartcalendar.model.MyData;
-import com.pkteam.smartcalendar.view.AddItemActivity;
+import com.pkteam.smartcalendar.view.ViewAddItem.AddItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar.view;
+package com.pkteam.smartcalendar.view.ViewAddItem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,10 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;

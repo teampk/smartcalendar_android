@@ -9,7 +9,6 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.model.ColorCategory;
 import com.pkteam.smartcalendar.model.MyData;
-import com.pkteam.smartcalendar.view.AddItemActivity;
+import com.pkteam.smartcalendar.view.ViewAddItem.AddItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
