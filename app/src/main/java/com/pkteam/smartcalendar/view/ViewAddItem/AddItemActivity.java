@@ -206,7 +206,6 @@ public class AddItemActivity extends AppCompatActivity {
             setSwitchToDynamic();
             tvDateDeadline.setText(getDateFromData(timeSplit[2]));
             tvTimeDeadline.setText(getTimeFromData(timeSplit[2]));
-            Log.d("PaengNeedTime", String.valueOf(itemElement.mNeedTime));
             etNeedTime.setText(String.valueOf(itemElement.mNeedTime));
             modeStaticDynamic = DYNAMIC_MODE;
             item3_isDynamic = true;
@@ -238,7 +237,7 @@ public class AddItemActivity extends AppCompatActivity {
         llDynamic.setVisibility(View.VISIBLE);
         repeatMode = 1;
         item3_isDynamic = true;
-        tvStaticDynamic.setText("Dynamic");
+        tvStaticDynamic.setText(R.string.string_dynamic);
         modeStaticDynamic = DYNAMIC_MODE;
     }
 
@@ -248,7 +247,7 @@ public class AddItemActivity extends AppCompatActivity {
         llDynamic.setVisibility(View.GONE);
         repeatMode = getRepeatInteger(tvRepeat.getText().toString());
         item3_isDynamic = false;
-        tvStaticDynamic.setText("Static");
+        tvStaticDynamic.setText(R.string.string_static);
         modeStaticDynamic = STATIC_MODE;
     }
 
@@ -336,8 +335,6 @@ public class AddItemActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
-
-
                     tvDateStart.setText(dateString[0]);
                     tvTimeStart.setText(dateString[1]);
                     tvDateEnd.setText(dateString[0]);

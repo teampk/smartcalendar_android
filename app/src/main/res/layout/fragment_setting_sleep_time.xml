@@ -21,7 +21,7 @@
             <!-- background 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="@dimen/height_blank_behind_top_bar"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -38,7 +38,7 @@
                 <!-- 잠드는 시간 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/element_height"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
@@ -54,7 +54,7 @@
                             android:gravity="center|right"
                             android:text="잠드는 시간"
                             android:textColor="#000000"
-                            android:textSize="16dp"/>
+                            android:textSize="@dimen/text_size"/>
 
                     </LinearLayout>
 
@@ -95,7 +95,7 @@
                 <!-- 일어나는 시간 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/element_height"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
@@ -111,7 +111,7 @@
                             android:gravity="center|right"
                             android:text="일어나는 시간"
                             android:textColor="#000000"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             />
 
                     </LinearLayout>
@@ -150,7 +150,7 @@
             <!-- background 2 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/height_background"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -191,7 +191,7 @@
         android:id="@+id/crdHeaderView"
         android:layout_width="match_parent"
         app:cardBackgroundColor="@color/material_white_1000"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/height_top_bar"
         >
 
         <RelativeLayout
@@ -206,7 +206,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:text="수면시간 설정"
-                android:textSize="@dimen/top_bar_subtitle"
+                android:textSize="@dimen/text_size_subtitle"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
 

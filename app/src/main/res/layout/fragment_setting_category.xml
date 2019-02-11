@@ -20,7 +20,7 @@
             <!-- background 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="@dimen/height_blank_behind_top_bar"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -29,7 +29,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/element_height"
                 android:background="@color/material_white_1000"
                 android:orientation="vertical">
 
@@ -37,7 +36,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_1"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/element_height"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
@@ -97,7 +96,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_2"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/element_height"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
@@ -158,7 +157,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_3"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/element_height"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
@@ -219,7 +218,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_4"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/element_height"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
@@ -278,7 +277,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_5"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/element_height"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp">
@@ -346,7 +345,7 @@
         android:id="@+id/crdHeaderView"
         android:layout_width="match_parent"
         app:cardBackgroundColor="@color/material_white_1000"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/height_top_bar"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -360,7 +359,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:text="카테고리 설정"
-                android:textSize="@dimen/top_bar_subtitle"
+                android:textSize="@dimen/text_size_subtitle"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
 

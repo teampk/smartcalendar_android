@@ -18,7 +18,7 @@
             <!-- background 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/height_blank_behind_top_bar"
                 android:background="@color/colorBackGround"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
@@ -35,10 +35,10 @@
                 <LinearLayout
                     android:id="@+id/ll_keyboard"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_marginLeft="@dimen/padding_element"
+                    android:layout_marginRight="@dimen/padding_element">
 
                     <EditText
                         android:id="@+id/et_title"
@@ -46,7 +46,7 @@
                         android:layout_height="match_parent"
                         android:hint="제목"
                         android:gravity="left|center"
-                        android:textSize="16dp"
+                        android:textSize="@dimen/text_size"
                         android:textColor="#000000"
                         android:background="@null"
                         />
@@ -58,16 +58,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_marginRight="@dimen/padding_element"
+                    android:layout_marginLeft="@dimen/padding_element"/>
 
                 <!-- 위치 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_marginLeft="@dimen/padding_element"
+                    android:layout_marginRight="@dimen/padding_element">
 
                     <EditText
                         android:id="@+id/et_loc"
@@ -75,7 +75,7 @@
                         android:layout_height="match_parent"
                         android:hint="위치"
                         android:gravity="left|center"
-                        android:textSize="16dp"
+                        android:textSize="@dimen/text_size"
                         android:textColor="#000000"
                         android:background="@null"/>
 
@@ -86,7 +86,7 @@
             <!-- background 2 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/height_background"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -94,10 +94,10 @@
             <!-- Switch Static or Dynamic -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/height_element"
                 android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element">
 
                 <TextView
                     android:id="@+id/tv_static_dynamic"
@@ -105,7 +105,7 @@
                     android:layout_height="match_parent"
                     android:text="Static"
                     android:gravity="left|center"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/text_size"
                     android:textColor="#000000"
                     />
 
@@ -127,7 +127,7 @@
             <!-- background 3 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/height_background"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -150,17 +150,17 @@
                     <LinearLayout
                         android:id="@+id/ll_time_deadline"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="@dimen/height_element"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="데드라인"
                             android:gravity="left|center"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:textColor="#000000"
                             />
 
@@ -178,7 +178,7 @@
                             android:gravity="center|right"
                             android:text="2018.7.9"
                             android:textColor="#000000"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:layout_marginRight="15dp"/>
 
                         <TextView
@@ -188,7 +188,7 @@
                             android:gravity="center|right"
                             android:text="01:00"
                             android:textColor="#000000"
-                            android:textSize="16dp"/>
+                            android:textSize="@dimen/text_size"/>
 
                     </LinearLayout>
 
@@ -197,23 +197,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="@color/colorLightGray"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:layout_marginLeft="@dimen/padding_element"/>
 
                     <!-- 필요시간 -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="@dimen/height_element"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="필요시간"
                             android:gravity="left|center"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:textColor="#000000"
                             android:background="@null"
                             />
@@ -239,7 +239,7 @@
                             android:layout_height="match_parent"
                             android:text="시간"
                             android:textColor="#000000"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -258,17 +258,17 @@
                     <!-- 하루종일 -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="@dimen/height_element"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="하루 종일"
                             android:gravity="left|center"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:textColor="#000000"
                             />
 
@@ -294,24 +294,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="@color/colorLightGray"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:layout_marginLeft="@dimen/padding_element"/>
 
                     <!-- 시작 -->
                     <LinearLayout
                         android:id="@+id/ll_time_start"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="@dimen/height_element"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="시작"
                             android:gravity="left|center"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:textColor="#000000"
                             />
 
@@ -329,7 +329,7 @@
                             android:gravity="center|right"
                             android:text="2018.7.9"
                             android:textColor="#000000"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:layout_marginRight="15dp"/>
 
                         <TextView
@@ -339,7 +339,7 @@
                             android:gravity="center|right"
                             android:text="01:00"
                             android:textColor="#000000"
-                            android:textSize="16dp"/>
+                            android:textSize="@dimen/text_size"/>
 
                     </LinearLayout>
 
@@ -348,24 +348,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="@color/colorLightGray"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:layout_marginLeft="@dimen/padding_element"/>
 
                     <!-- 종료 -->
                     <LinearLayout
                         android:id="@+id/ll_time_end"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="@dimen/height_element"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="종료"
                             android:gravity="left|center"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:textColor="#000000"
                             />
 
@@ -383,7 +383,7 @@
                             android:gravity="center|right"
                             android:text="2018.7.9"
                             android:textColor="#000000"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:layout_marginRight="15dp"/>
 
                         <TextView
@@ -393,7 +393,7 @@
                             android:gravity="center|right"
                             android:text="01:00"
                             android:textColor="#000000"
-                            android:textSize="16dp"/>
+                            android:textSize="@dimen/text_size"/>
 
                     </LinearLayout>
 
@@ -402,24 +402,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="@color/colorLightGray"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:layout_marginLeft="@dimen/padding_element"/>
 
                     <!-- 반복 -->
                     <LinearLayout
                         android:id="@+id/ll_repeat_total"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="@dimen/height_element"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="반복"
                             android:gravity="left|center"
-                            android:textSize="16dp"
+                            android:textSize="@dimen/text_size"
                             android:textColor="#000000"
                             />
 
@@ -443,7 +443,7 @@
                                 android:gravity="center|right"
                                 android:text="안 함"
                                 android:textColor="#000000"
-                                android:textSize="16dp"/>
+                                android:textSize="@dimen/text_size"/>
 
                             <ImageView
                                 android:layout_width="20dp"
@@ -465,7 +465,7 @@
             <!-- background 4 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/height_background"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -473,17 +473,17 @@
             <!-- 카테고리 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/height_element"
                 android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="카테고리"
                     android:gravity="left|center"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/text_size"
                     android:textColor="#000000"
                     />
 
@@ -516,7 +516,7 @@
                         android:gravity="center|right"
                         android:text="기본"
                         android:textColor="#000000"
-                        android:textSize="16dp"/>
+                        android:textSize="@dimen/text_size"/>
 
                     <ImageView
                         android:layout_width="20dp"
@@ -533,7 +533,7 @@
             <!-- background 5 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/height_background"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -543,8 +543,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element">
 
                 <EditText
                     android:id="@+id/et_memo"
@@ -552,7 +552,7 @@
                     android:layout_height="match_parent"
                     android:hint="메모"
                     android:gravity="left|top"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/text_size"
                     android:paddingTop="10dp"
                     android:textColor="#000000"
                     android:background="@null"
@@ -566,7 +566,7 @@
             <!-- background last -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="120dp"
                 android:background="@color/colorBackGround">
 
             </LinearLayout>
@@ -579,8 +579,9 @@
     <android.support.v7.widget.CardView
         android:id="@+id/crdHeaderView"
         android:layout_width="match_parent"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/material_white_1000"
+        android:layout_height="@dimen/height_top_bar"
+
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -592,7 +593,7 @@
                 android:layout_height="match_parent"
                 android:text="취소"
                 android:textColor="#cc0000"
-                android:textSize="16dp"
+                android:textSize="@dimen/text_size"
                 android:background="#00000000"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
@@ -607,7 +608,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:text="새로운 이벤트"
-                android:textSize="16dp"
+                android:textSize="@dimen/text_size_subtitle"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
 
@@ -618,7 +619,7 @@
                 android:layout_height="match_parent"
                 android:text="등록"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16dp"
+                android:textSize="@dimen/text_size"
                 android:background="#00000000"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"/>
@@ -635,11 +636,11 @@
         android:background="#cc0000"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/height_top_bar">
 
         <TextView
             android:text="일정 삭제"
-            android:textSize="16dp"
+            android:textSize="@dimen/text_size"
             android:textStyle="bold"
             android:textColor="#fff"
             android:gravity="center"
