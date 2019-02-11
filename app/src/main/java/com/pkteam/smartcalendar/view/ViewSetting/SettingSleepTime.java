@@ -23,7 +23,7 @@ public class SettingSleepTime extends AppCompatActivity{
 
     private Button btnSubmit;
     private TextView tvStartTime, tvEndTime;
-    private ArrayList<Integer> timeList;
+    private ArrayList<String> timeList;
     private DBHelper dbHelper;
 
 
@@ -51,7 +51,7 @@ public class SettingSleepTime extends AppCompatActivity{
         tvTopBarTesting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), String.valueOf(timeList.get(0))+","+String.valueOf(timeList.get(1)), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), timeList.get(0)+","+timeList.get(1), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -62,8 +62,8 @@ public class SettingSleepTime extends AppCompatActivity{
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
 
         timeList = dbHelper.getAllSleepTime();
-        //et1.setText(timeList.get(0));
-        //et2.setText(timeList.get(1));
+        String startTime = timeList.get(0);
+        String endTime = timeList.get(1);
 
 
     }

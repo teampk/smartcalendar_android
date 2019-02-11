@@ -25,8 +25,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String basicCg4 = "활동";
     private static final String basicCg5 = "기타";
 
-    private static final int basicSleepTimeStart = 0;
-    private static final int basicSleepTimeEnd = 6;
+    private static final String basicSleepTimeStart = "0000";
+    private static final String basicSleepTimeEnd = "0600";
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -50,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO USERINFO VALUES(null, '" + 0 + "');");
 
         // 수면시간 내부 Database
-        db.execSQL("CREATE TABLE SLEEPTIME (_id INTEGER PRIMARY KEY AUTOINCREMENT, name INTEGER);");
+        db.execSQL("CREATE TABLE SLEEPTIME (_id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT);");
         db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeStart+ "');");
         db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeEnd+ "');");
 
@@ -61,6 +61,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    // --- to do Data Database ---
     public void todoDataInsert(String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needtime, int repeatId){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + title + "', '" + location + "', '" + isDynamic + "' , '"+isAllday+"' , '"+time+"', '"+category+"', '"+memo+"','"+needtime+"', '"+repeatId+"');");
@@ -235,19 +236,20 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // --- SleepTime Database ---
-    public ArrayList<Integer> getAllSleepTime(){
-        ArrayList<Integer> sleepList = new ArrayList<>();
+    public ArrayList<String> getAllSleepTime(){
+        ArrayList<String> sleepList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM SLEEPTIME;", null);
         while (cursor.moveToNext()){
-            sleepList.add(cursor.getInt(1));
+            sleepList.add(cursor.getString(1));
         }
         return sleepList;
     }
-    public void sleepTimeUpdate(int startTime, int endTime){
+
+    public void sleepTimeUpdate(String startTime, String endTime){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE CATEGORY SET name='"+startTime+"' WHERE _id='" + 1 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+endTime+"' WHERE _id='" + 2 + "';");
+        db.execSQL("UPDATE CATEGORY SET time='"+startTime+"' WHERE _id='" + 1 + "';");
+        db.execSQL("UPDATE CATEGORY SET time='"+endTime+"' WHERE _id='" + 2 + "';");
         db.close();
     }
 }
