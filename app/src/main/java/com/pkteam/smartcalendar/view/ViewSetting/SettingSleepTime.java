@@ -1,5 +1,8 @@
 package com.pkteam.smartcalendar.view.ViewSetting;
 
+import android.app.FragmentManager;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,21 +11,25 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.view.Fragments.FragmentSetting;
+import com.pkteam.smartcalendar.view.TimePickerFragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /*
  * Created by paeng on 2018. 8. 14..
  */
 
-public class SettingSleepTime extends AppCompatActivity{
+public class SettingSleepTime extends AppCompatActivity implements TimePickerFragment.OnDialogDismissed{
 
     private Button btnSubmit;
-    private TextView tvStartTime, tvEndTime;
+    public TextView tvStartTime, tvEndTime;
     private ArrayList<String> timeList;
     private DBHelper dbHelper;
 
@@ -37,6 +44,28 @@ public class SettingSleepTime extends AppCompatActivity{
         bindingView();
         loadData();
     }
+
+    @Override
+    public void onDialogDismissed(String result) {
+        String time = result.split("/")[0];
+        String resultTime = editStringTime(time.split(":")[0]) + ":" + editStringTime(time.split(":")[1]);
+        if(result.split("/")[1].equals("start")){
+            tvStartTime.setText(resultTime);
+        }else if (result.split("/")[1].equals("end")){
+            tvEndTime.setText(resultTime);
+        }
+    }
+
+    private String editStringTime(String time){
+        if(Integer.valueOf(time)<10){
+            return "0"+time;
+        }else{
+            return time;
+        }
+    }
+
+
+
     private void bindingView(){
         tvStartTime = findViewById(R.id.tv_start);
         tvEndTime = findViewById(R.id.tv_end);
@@ -62,8 +91,8 @@ public class SettingSleepTime extends AppCompatActivity{
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
 
         timeList = dbHelper.getAllSleepTime();
-        String startTime = timeList.get(0);
-        String endTime = timeList.get(1);
+        tvStartTime.setText((timeList.get(0).substring(0,2)+":"+timeList.get(0).substring(2)));
+        tvEndTime.setText((timeList.get(1).substring(0,2)+":"+timeList.get(1).substring(2)));
 
 
     }
@@ -73,17 +102,20 @@ public class SettingSleepTime extends AppCompatActivity{
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_submit:
-                    /*
-                    dbHelper.categoryUpdate(et1.getText().toString(), et2.getText().toString(),
-                            et3.getText().toString(), et4.getText().toString(), et5.getText().toString());
-                    */
+                    dbHelper.sleepTimeUpdate(tvStartTime.getText().toString().replace(":",""), tvEndTime.getText().toString().replace(":",""));
                     Toast.makeText(SettingSleepTime.this, "수면시간이 수정되었습니다", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
                 case R.id.tv_start:
 
+                    TimePickerFragment mTimePickerFragmentStart = new TimePickerFragment();
+                    mTimePickerFragmentStart.show(getFragmentManager(), "start");
+
                     break;
                 case R.id.tv_end:
+
+                    TimePickerFragment mTimePickerFragmentEnd = new TimePickerFragment();
+                    mTimePickerFragmentEnd.show(getFragmentManager(), "end");
 
                     break;
 

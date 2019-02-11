@@ -248,8 +248,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void sleepTimeUpdate(String startTime, String endTime){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE CATEGORY SET time='"+startTime+"' WHERE _id='" + 1 + "';");
-        db.execSQL("UPDATE CATEGORY SET time='"+endTime+"' WHERE _id='" + 2 + "';");
+        db.execSQL("UPDATE SLEEPTIME SET time='"+startTime+"' WHERE _id='" + 1 + "';");
+        db.execSQL("UPDATE SLEEPTIME SET time='"+endTime+"' WHERE _id='" + 2 + "';");
         db.close();
     }
 }
