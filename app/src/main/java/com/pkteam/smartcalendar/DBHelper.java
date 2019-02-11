@@ -26,16 +26,18 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String basicCg5 = "기타";
 
     private static final int basicSleepTimeStart = 0;
-    private static final int basicSleepTimeEnd = 7;
+    private static final int basicSleepTimeEnd = 6;
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE TODOLIST (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT," +
                 " isDynamic BOOLEAN, isAllday BOOLEAN, time TEXT, category TEXT, memo TEXT, needTime TEXT, repeatId INTEGER);");
 
+        // 카테고리 내부 Database
         db.execSQL("CREATE TABLE CATEGORY (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg1 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg2 + "');");
@@ -43,8 +45,14 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg4 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg5 + "');");
 
+        // 반복 id 설정 내부 Database
         db.execSQL("CREATE TABLE USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, repeatId INTEGER);");
         db.execSQL("INSERT INTO USERINFO VALUES(null, '" + 0 + "');");
+
+        // 수면시간 내부 Database
+        db.execSQL("CREATE TABLE SLEEPTIME (_id INTEGER PRIMARY KEY AUTOINCREMENT, name INTEGER);");
+        db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeStart+ "');");
+        db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeEnd+ "');");
 
     }
 
@@ -52,13 +60,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 
     }
+
     public void todoDataInsert(String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needtime, int repeatId){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + title + "', '" + location + "', '" + isDynamic + "' , '"+isAllday+"' , '"+time+"', '"+category+"', '"+memo+"','"+needtime+"', '"+repeatId+"');");
         db.close();
     }
-
-
     public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE TODOLIST SET title='" + title + "' WHERE _id='" + id + "';");
@@ -70,24 +77,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE TODOLIST SET memo='" + memo + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET needTime='" + needTime + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET repeatId='" + repeatId + "' WHERE _id='" + id + "';");
-        db.close();
-    }
-    public ArrayList<String> getAllCategory(){
-        ArrayList<String> categoryList = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY;", null);
-        while (cursor.moveToNext()){
-            categoryList.add(cursor.getString(1));
-        }
-        return categoryList;
-    }
-    public void categoryUpdate(String cg1, String cg2, String cg3, String cg4, String cg5){
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE CATEGORY SET name='"+cg1+"' WHERE _id='" + 1 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg2+"' WHERE _id='" + 2 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg3+"' WHERE _id='" + 3 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg4+"' WHERE _id='" + 4 + "';");
-        db.execSQL("UPDATE CATEGORY SET name='"+cg5+"' WHERE _id='" + 5 + "';");
         db.close();
     }
     public ArrayList<MyData> getTodoAllData(){
@@ -196,7 +185,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM TODOLIST WHERE _id = '" + id + "';");
         db.close();
     }
-
     public void deleteTodoDataByRepeatId(int id, int repeatId, String date){
         // 201905301030.201905301130.000000000000
         SQLiteDatabase db=  getWritableDatabase();
@@ -204,7 +192,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
     }
-
     public int getCurrentRepeatId(){
         SQLiteDatabase dbr = getReadableDatabase();
         Cursor cursor = dbr.rawQuery("SELECT * FROM USERINFO;", null);
@@ -214,6 +201,8 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return Integer.parseInt(result);
     }
+
+    // --- Repeat ID Database ---
     public void updateRepeatId(){
         int resultInt = getCurrentRepeatId();
         resultInt += 1;
@@ -223,5 +212,42 @@ public class DBHelper extends SQLiteOpenHelper {
     public void initializeRepeatId(){
         SQLiteDatabase dbw = getWritableDatabase();
         dbw.execSQL("UPDATE USERINFO SET repeatId='" + 0 + "' WHERE _id='" + 1 + "';");
+    }
+
+    // --- Category Database ---
+    public ArrayList<String> getAllCategory(){
+        ArrayList<String> categoryList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM CATEGORY;", null);
+        while (cursor.moveToNext()){
+            categoryList.add(cursor.getString(1));
+        }
+        return categoryList;
+    }
+    public void categoryUpdate(String cg1, String cg2, String cg3, String cg4, String cg5){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE CATEGORY SET name='"+cg1+"' WHERE _id='" + 1 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg2+"' WHERE _id='" + 2 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg3+"' WHERE _id='" + 3 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg4+"' WHERE _id='" + 4 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+cg5+"' WHERE _id='" + 5 + "';");
+        db.close();
+    }
+
+    // --- SleepTime Database ---
+    public ArrayList<Integer> getAllSleepTime(){
+        ArrayList<Integer> sleepList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM SLEEPTIME;", null);
+        while (cursor.moveToNext()){
+            sleepList.add(cursor.getInt(1));
+        }
+        return sleepList;
+    }
+    public void sleepTimeUpdate(int startTime, int endTime){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE CATEGORY SET name='"+startTime+"' WHERE _id='" + 1 + "';");
+        db.execSQL("UPDATE CATEGORY SET name='"+endTime+"' WHERE _id='" + 2 + "';");
+        db.close();
     }
 }
