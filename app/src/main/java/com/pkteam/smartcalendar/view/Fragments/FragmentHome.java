@@ -35,13 +35,10 @@ import java.util.Date;
 
 public class FragmentHome extends Fragment {
     private ArrayList<MyData> staticData, dynamicData;
-    private ArrayList<MyData> staticDataSorted, dynamicDataSorted;
     private RecyclerView mRecyclerViewStatic, mRecyclerViewDynamic;
     private RecyclerView.LayoutManager mLayoutManagerStatic, mLayoutManagerDynamic;
     private RecyclerViewAdapter mAdapterStatic, mAdapterDynamic;
     private TextView tvTime;
-    private Toast mToast;
-    private Snackbar mSnackbar;
     private SpeedDialView mSpeedDialView;
     private View mView;
     private ArrayListSorting arrayListSorting = new ArrayListSorting();

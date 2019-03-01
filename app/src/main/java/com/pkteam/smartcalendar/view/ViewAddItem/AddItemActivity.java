@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.databinding.ActivityAdditemBinding;
 import com.pkteam.smartcalendar.model.MyData;
 import com.simmorsal.library.ConcealerNestedScrollView;
 
@@ -59,22 +61,10 @@ public class AddItemActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
 
-    ConcealerNestedScrollView concealerNSV;
-    CardView crdHeaderView;
-    LinearLayout linFooterView;
-
-    Button btnCancel, btnSubmit;
-
-    EditText etTitle, etLoc, etMemo, etNeedTime;
-    TextView tvStaticDynamic;
-    Switch swStaticDynamic, swAllday;
 
     // Date and Time picker
-    LinearLayout llTimeStart, llTimeEnd, llTimeDeadline, llStatic, llDynamic, llRepeat, llCategory, llRepeatTotal;
-    TextView tvTimeStart, tvTimeEnd, tvDateStart, tvDateEnd, tvDateDeadline, tvTimeDeadline, tvRepeat, tvCategory;
     SingleDateAndTimePickerDialog.Builder singleBuilder;
     SimpleDateFormat simpleTimeFormat;
-    ImageView ivCategory;
     String[] dateString;
     private int modeStaticDynamic;
     private int modeAllDay;
@@ -104,13 +94,18 @@ public class AddItemActivity extends AppCompatActivity {
     // for testing
     private TextView tvTopBar;
 
+    ActivityAdditemBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_additem);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_additem);
+
         bindingView();
         Intent getIntent = getIntent();
         modeAddEdit = getIntent.getIntExtra("mode",0);
@@ -130,25 +125,25 @@ public class AddItemActivity extends AppCompatActivity {
 
         // 추가하는 경우
         if(isEdit==ADD_MODE){
-            etTitle.requestFocus();
-            linFooterView.setVisibility(View.GONE);
-            llRepeatTotal.setVisibility(View.VISIBLE);
+            binding.etTitle.requestFocus();
+            binding.linFooterView.setVisibility(View.GONE);
+            binding.llRepeatTotal.setVisibility(View.VISIBLE);
             String date[] = getCurrentDate().split("/");
-            tvDateStart.setText(date[0]);
-            tvTimeStart.setText(date[1]);
-            tvDateEnd.setText(date[0]);
-            tvTimeEnd.setText(date[1]);
-            tvDateDeadline.setText(date[0]);
-            tvTimeDeadline.setText(date[1]);
+            binding.tvDateStart.setText(date[0]);
+            binding.tvTimeStart.setText(date[1]);
+            binding.tvDateEnd.setText(date[0]);
+            binding.tvTimeEnd.setText(date[1]);
+            binding.tvDateDeadline.setText(date[0]);
+            binding.tvTimeDeadline.setText(date[1]);
         }
         // 수정하는 경우
         else if (isEdit==EDIT_MODE){
-            linFooterView.setVisibility(View.VISIBLE);
-            llRepeatTotal.setVisibility(View.GONE);
+            binding.linFooterView.setVisibility(View.VISIBLE);
+            binding.llRepeatTotal.setVisibility(View.GONE);
             setViewFromId(dataId);
         }
 
-        swStaticDynamic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.swStaticDynamic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){              // Dynamic State
@@ -159,7 +154,7 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }
         });
-        swAllday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.swAllDay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){
@@ -178,35 +173,35 @@ public class AddItemActivity extends AppCompatActivity {
         item0_id =id;
         itemElement = dbHelper.getDataById(id);
 
-        etTitle.setText(itemElement.mTitle);
-        etLoc.setText(itemElement.mLocation);
-        swStaticDynamic.setChecked(itemElement.mIsDynamic);
+        binding.etTitle.setText(itemElement.mTitle);
+        binding.etLoc.setText(itemElement.mLocation);
+        binding.swStaticDynamic.setChecked(itemElement.mIsDynamic);
         categoryMode = itemElement.mCategory;
         ArrayList<String> categoryList = dbHelper.getAllCategory();
-        tvCategory.setText(categoryList.get(categoryMode - 1));
-        ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
+        binding.tvCategory.setText(categoryList.get(categoryMode - 1));
+        binding.ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
 
-        etMemo.setText(itemElement.mMemo);
+        binding.etMemo.setText(itemElement.mMemo);
         String timeSplit[] = itemElement.mTime.split("\\.");
 
         if(!itemElement.mIsDynamic){
             setSwitchToStatic();
-            tvDateStart.setText(getDateFromData(timeSplit[0]));
-            tvDateEnd.setText(getDateFromData(timeSplit[1]));
+            binding.tvDateStart.setText(getDateFromData(timeSplit[0]));
+            binding.tvDateEnd.setText(getDateFromData(timeSplit[1]));
             if(itemElement.mIsAllday){
-                swAllday.setChecked(true);
+                binding.swAllDay.setChecked(true);
                 setSwitchToAllDay();
             }else{
-                tvTimeStart.setText(getTimeFromData(timeSplit[0]));
-                tvTimeEnd.setText(getTimeFromData(timeSplit[1]));
+                binding.tvTimeStart.setText(getTimeFromData(timeSplit[0]));
+                binding.tvTimeEnd.setText(getTimeFromData(timeSplit[1]));
             }
             modeStaticDynamic = STATIC_MODE;
             item3_isDynamic = false;
         }else{
             setSwitchToDynamic();
-            tvDateDeadline.setText(getDateFromData(timeSplit[2]));
-            tvTimeDeadline.setText(getTimeFromData(timeSplit[2]));
-            etNeedTime.setText(String.valueOf(itemElement.mNeedTime));
+            binding.tvDateDeadline.setText(getDateFromData(timeSplit[2]));
+            binding.tvTimeDeadline.setText(getTimeFromData(timeSplit[2]));
+            binding.etNeedtime.setText(String.valueOf(itemElement.mNeedTime));
             modeStaticDynamic = DYNAMIC_MODE;
             item3_isDynamic = true;
         }
@@ -233,34 +228,34 @@ public class AddItemActivity extends AppCompatActivity {
     // for Switch
     // Dynamic 체크 시
     private void setSwitchToDynamic(){
-        llStatic.setVisibility(View.GONE);
-        llDynamic.setVisibility(View.VISIBLE);
+        binding.llStatic.setVisibility(View.GONE);
+        binding.llDynamic.setVisibility(View.VISIBLE);
         repeatMode = 1;
         item3_isDynamic = true;
-        tvStaticDynamic.setText(R.string.string_dynamic);
+        binding.tvStaticDynamic.setText(R.string.string_dynamic);
         modeStaticDynamic = DYNAMIC_MODE;
     }
 
     // Static 체크 시
     private void setSwitchToStatic(){
-        llStatic.setVisibility(View.VISIBLE);
-        llDynamic.setVisibility(View.GONE);
-        repeatMode = getRepeatInteger(tvRepeat.getText().toString());
+        binding.llStatic.setVisibility(View.VISIBLE);
+        binding.llDynamic.setVisibility(View.GONE);
+        repeatMode = getRepeatInteger(binding.tvRepeat.getText().toString());
         item3_isDynamic = false;
-        tvStaticDynamic.setText(R.string.string_static);
+        binding.tvStaticDynamic.setText(R.string.string_static);
         modeStaticDynamic = STATIC_MODE;
     }
 
     private void setSwitchToAllDay(){
-        tvTimeStart.setVisibility(View.GONE);
-        tvTimeEnd.setVisibility(View.GONE);
+        binding.tvTimeStart.setVisibility(View.GONE);
+        binding.tvTimeEnd.setVisibility(View.GONE);
         item4_isAllDay = true;
         modeAllDay = ALL_DAY_MODE;
     }
 
     private void setSwitchToNotAllDay(){
-        tvTimeStart.setVisibility(View.VISIBLE);
-        tvTimeEnd.setVisibility(View.VISIBLE);
+        binding.tvTimeStart.setVisibility(View.VISIBLE);
+        binding.tvTimeEnd.setVisibility(View.VISIBLE);
         item4_isAllDay = false;
         modeAllDay = NOT_ALL_DAY_MODE;
     }
@@ -269,22 +264,22 @@ public class AddItemActivity extends AppCompatActivity {
         // if you're setting header and footer views at the very start of the layout creation (onCreate),
         // as the views are not drawn yet, the library cant get their correct sizes, so you have to do this:
 
-        crdHeaderView.post(new Runnable() {
+        binding.crdHeaderView.post(new Runnable() {
             @Override
             public void run() {
-                concealerNSV.setHeaderView(crdHeaderView, 0);
+                binding.concealerNSV.setHeaderView(binding.crdHeaderView, 0);
             }
         });
 
-        linFooterView.post(new Runnable() {
+        binding.linFooterView.post(new Runnable() {
             @Override
             public void run() {
-                concealerNSV.setFooterView(linFooterView, 0);
+                binding.concealerNSV.setFooterView(binding.linFooterView, 0);
             }
         });
 
         // pass a true to setHeaderFastHide to make views hide faster
-        concealerNSV.setHeaderFastHide(true);
+        binding.concealerNSV.setHeaderFastHide(true);
 
     }
 
@@ -335,10 +330,10 @@ public class AddItemActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
-                    tvDateStart.setText(dateString[0]);
-                    tvTimeStart.setText(dateString[1]);
-                    tvDateEnd.setText(dateString[0]);
-                    tvTimeEnd.setText(dateString[1]);
+                    binding.tvDateStart.setText(dateString[0]);
+                    binding.tvTimeStart.setText(dateString[1]);
+                    binding.tvDateEnd.setText(dateString[0]);
+                    binding.tvTimeEnd.setText(dateString[1]);
 
                 }
             });
@@ -347,8 +342,8 @@ public class AddItemActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
-                    tvDateEnd.setText(dateString[0]);
-                    tvTimeEnd.setText(dateString[1]);
+                    binding.tvDateEnd.setText(dateString[0]);
+                    binding.tvTimeEnd.setText(dateString[1]);
 
                 }
             });
@@ -357,8 +352,8 @@ public class AddItemActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
-                    tvDateDeadline.setText(dateString[0]);
-                    tvTimeDeadline.setText(dateString[1]);
+                    binding.tvDateDeadline.setText(dateString[0]);
+                    binding.tvTimeDeadline.setText(dateString[1]);
                 }
             });
         }else if(ver==4){
@@ -366,8 +361,8 @@ public class AddItemActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
-                    tvDateStart.setText(dateString[0]);
-                    tvDateEnd.setText(dateString[0]);
+                    binding.tvDateStart.setText(dateString[0]);
+                    binding.tvDateEnd.setText(dateString[0]);
                 }
             });
         }else if(ver==5){
@@ -375,7 +370,7 @@ public class AddItemActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
-                    tvDateEnd.setText(dateString[0]);
+                    binding.tvDateEnd.setText(dateString[0]);
                 }
             });
         }
@@ -388,7 +383,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_REPEAT) {
             if(resultCode == Activity.RESULT_OK){
-                tvRepeat.setText(data.getStringExtra("repeatModeString"));
+                binding.tvRepeat.setText(data.getStringExtra("repeatModeString"));
                 repeatMode = data.getIntExtra("repeatMode", 1);
                 repeatPeriod = data.getIntExtra("repeatPeriod", 1);
                 repeatTimes = data.getIntExtra("repeatTimes", 0);
@@ -398,9 +393,9 @@ public class AddItemActivity extends AppCompatActivity {
             }
         }else if (requestCode == REQUEST_CATEGORY){
             if(resultCode == Activity.RESULT_OK){
-                tvCategory.setText(data.getStringExtra("categoryResult"));
+                binding.tvCategory.setText(data.getStringExtra("categoryResult"));
                 categoryMode = data.getIntExtra("categoryInteger", 1);
-                ivCategory.setImageDrawable(getCategoryDrawable(categoryMode));
+                binding.ivCategory.setImageDrawable(getCategoryDrawable(categoryMode));
             }
             else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.d("ActivityResult", "CANCELED");
@@ -439,17 +434,17 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private boolean checkItem(){
-        if (etTitle.getText().toString().replace(" ", "").equals("")) {
+        if (binding.etTitle.getText().toString().replace(" ", "").equals("")) {
             Toast.makeText(AddItemActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
-        }else if (etNeedTime.getText().toString().equals("") && item3_isDynamic){
+        }else if (binding.etNeedtime.getText().toString().equals("") && item3_isDynamic){
             Toast.makeText(AddItemActivity.this, "필요시간을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
-        }else if (Double.parseDouble(getTimeData(tvDateStart)+getTimeData(tvTimeStart))>Double.parseDouble(getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)) && !item3_isDynamic){
+        }else if (Double.parseDouble(getTimeData(binding.tvDateStart)+getTimeData(binding.tvTimeStart))>Double.parseDouble(getTimeData(binding.tvDateEnd)+getTimeData(binding.tvTimeEnd)) && !item3_isDynamic){
             Toast.makeText(AddItemActivity.this, "시작시간은 끝시간보다 빨라야 합니다.", Toast.LENGTH_SHORT).show();
             return false;
         }else {
-            Log.d("CheckPaeng", getTimeData(tvDateStart)+getTimeData(tvTimeStart)+"//"+getTimeData(tvDateEnd)+getTimeData(tvTimeEnd)+"//"+String.valueOf(item3_isDynamic));
+            Log.d("CheckPaeng", getTimeData(binding.tvDateStart)+getTimeData(binding.tvTimeStart)+"//"+getTimeData(binding.tvDateEnd)+getTimeData(binding.tvTimeEnd)+"//"+String.valueOf(item3_isDynamic));
             return true;
         }
     }
@@ -538,53 +533,20 @@ public class AddItemActivity extends AppCompatActivity {
 
 
     private void bindingView(){
-        // Header, Footer
-        concealerNSV = findViewById(R.id.concealerNSV);
-        crdHeaderView = findViewById(R.id.crdHeaderView);
-        linFooterView = findViewById(R.id.linFooterView);
-        btnCancel = findViewById(R.id.btn_cancel);
-        btnCancel.setOnClickListener(listener);
-        btnSubmit = findViewById(R.id.btn_add);
-        btnSubmit.setOnClickListener(listener);
-        linFooterView.setOnClickListener(listener);
-        //
-        etTitle = findViewById(R.id.et_title);
-        etLoc = findViewById(R.id.et_loc);
-        etMemo = findViewById(R.id.et_memo);
-        tvStaticDynamic = findViewById(R.id.tv_static_dynamic);
-        swStaticDynamic = findViewById(R.id.sw_static_dynamic);
-        llStatic = findViewById(R.id.ll_static);
-        llDynamic = findViewById(R.id.ll_dynamic);
 
-        // 날짜 시간 선택
-        swAllday = findViewById(R.id.sw_all_day);
-        llTimeStart = findViewById(R.id.ll_time_start);
-        llTimeEnd = findViewById(R.id.ll_time_end);
-        llTimeDeadline = findViewById(R.id.ll_time_deadline);
-        tvDateStart = findViewById(R.id.tv_date_start);
-        tvTimeStart = findViewById(R.id.tv_time_start);
-        tvDateEnd = findViewById(R.id.tv_date_end);
-        tvTimeEnd = findViewById(R.id.tv_time_end);
-        tvDateDeadline = findViewById(R.id.tv_date_deadline);
-        tvTimeDeadline = findViewById(R.id.tv_time_deadline);
-        llRepeat = findViewById(R.id.ll_repeat);
-        llCategory = findViewById(R.id.ll_category);
-        etNeedTime = findViewById(R.id.et_needtime);
 
-        llRepeatTotal = findViewById(R.id.ll_repeat_total);
-
-        llTimeStart.setOnClickListener(listener);
-        llTimeEnd.setOnClickListener(listener);
-        llTimeDeadline.setOnClickListener(listener);
-        llRepeat.setOnClickListener(listener);
-        llCategory.setOnClickListener(listener);
+        binding.btnCancel.setOnClickListener(listener);
+        binding.btnAdd.setOnClickListener(listener);
+        binding.linFooterView.setOnClickListener(listener);
+        binding.llTimeStart.setOnClickListener(listener);
+        binding.llTimeEnd.setOnClickListener(listener);
+        binding.llTimeDeadline.setOnClickListener(listener);
+        binding.llRepeat.setOnClickListener(listener);
+        binding.llCategory.setOnClickListener(listener);
         this.simpleTimeFormat = new SimpleDateFormat("YYYY.MM.dd/HH:mm", Locale.getDefault());
 
-        tvRepeat = findViewById(R.id.tv_repeat);
-        tvCategory = findViewById(R.id.tv_category);
-        ivCategory = findViewById(R.id.iv_category);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-        tvCategory.setText(dbHelper.getAllCategory().get(0));
+        binding.tvCategory.setText(dbHelper.getAllCategory().get(0));
 
         // for testing
         tvTopBar = findViewById(R.id.tv_top_bar);
@@ -598,8 +560,8 @@ public class AddItemActivity extends AppCompatActivity {
                     // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
                     // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
                     if (checkItem()){
-                        item1_title = etTitle.getText().toString();
-                        item2_loc = etLoc.getText().toString();
+                        item1_title = binding.etTitle.getText().toString();
+                        item2_loc = binding.etLoc.getText().toString();
                         // Static Mode 일 때
                         if (modeStaticDynamic == STATIC_MODE){
                             item3_isDynamic = false;
@@ -607,17 +569,17 @@ public class AddItemActivity extends AppCompatActivity {
                             if (modeAllDay == ALL_DAY_MODE){
                                 item4_isAllDay = true;
                                 //201807110000.201807120000.000000000000
-                                item5_time = getTimeData(tvDateStart)+"0000."
-                                        +getTimeData(tvDateEnd)+"0000.000000000000";
+                                item5_time = getTimeData(binding.tvDateStart)+"0000."
+                                        +getTimeData(binding.tvDateEnd)+"0000.000000000000";
                             }
                             // All Day Mode 아닐 때
                             else if (modeAllDay == NOT_ALL_DAY_MODE){
                                 item4_isAllDay = false;
                                 //201807110430.201807120630.000000000000
-                                item5_time = getTimeData(tvDateStart)
-                                        +getTimeData(tvTimeStart)
-                                        +"."+getTimeData(tvDateEnd)
-                                        +getTimeData(tvTimeEnd)
+                                item5_time = getTimeData(binding.tvDateStart)
+                                        +getTimeData(binding.tvTimeStart)
+                                        +"."+getTimeData(binding.tvDateEnd)
+                                        +getTimeData(binding.tvTimeEnd)
                                         +".000000000000";
                             }
                             item8_needTime = 0;
@@ -629,15 +591,15 @@ public class AddItemActivity extends AppCompatActivity {
                             item4_isAllDay = false;
                             //000000000000.000000000000.201807120630
                             item5_time = "000000000000.000000000000."
-                                    +getTimeData(tvDateDeadline)+getTimeData(tvTimeDeadline);
-                            item8_needTime = Integer.parseInt(etNeedTime.getText().toString());
+                                    +getTimeData(binding.tvDateDeadline)+getTimeData(binding.tvTimeDeadline);
+                            item8_needTime = Integer.parseInt(binding.etNeedtime.getText().toString());
                         }
                         else{
                             Toast.makeText(AddItemActivity.this, "에러가 발생했습니다. (ERROR CODE : 1111)", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                         item6_category = categoryMode;
-                        item7_Memo = etMemo.getText().toString();
+                        item7_Memo = binding.etMemo.getText().toString();
                         long nextTime_s;
                         long nextTime_e;
                         if (modeAddEdit == ADD_MODE){
@@ -779,12 +741,12 @@ public class AddItemActivity extends AppCompatActivity {
                     break;
                 case R.id.ll_repeat:
                     Intent intentRepeat = new Intent(AddItemActivity.this, AddItemActivityRepeat.class);
-                    intentRepeat.putExtra("repeatMode", tvRepeat.getText().toString());
+                    intentRepeat.putExtra("repeatMode", binding.tvRepeat.getText().toString());
                     startActivityForResult(intentRepeat, REQUEST_REPEAT);
                     break;
                 case R.id.ll_category:
                     Intent intentCategory = new Intent(AddItemActivity.this, AddItemActivityCategory.class);
-                    intentCategory.putExtra("categoryMode", tvCategory.getText().toString());
+                    intentCategory.putExtra("categoryMode", binding.tvCategory.getText().toString());
                     startActivityForResult(intentCategory, REQUEST_CATEGORY);
                     break;
                 case R.id.linFooterView:
