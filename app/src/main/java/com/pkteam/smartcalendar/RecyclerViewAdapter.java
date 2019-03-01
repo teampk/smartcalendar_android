@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pkteam.smartcalendar.model.MyData;
-import com.pkteam.smartcalendar.view.ViewAddItem.AddItemActivity;
+import com.pkteam.smartcalendar.view.AddItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

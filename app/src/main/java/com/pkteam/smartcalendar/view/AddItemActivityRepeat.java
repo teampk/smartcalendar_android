@@ -1,7 +1,8 @@
-package com.pkteam.smartcalendar.view.ViewAddItem;
+package com.pkteam.smartcalendar.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.databinding.ActivityAddItemRepeatBinding;
 
 /**
  * Created by paeng on 2018. 7. 11..
@@ -48,13 +50,18 @@ public class AddItemActivityRepeat extends AppCompatActivity {
     private CheckBox checkbox3_1, checkbox3_2;
     private CheckBox checkbox4_1, checkbox4_2;
 
+    ActivityAddItemRepeatBinding binding;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_additem_repeat);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_item_repeat);
+
         bindingView();
 
         Intent intent = getIntent();
@@ -457,9 +464,6 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                         repeatTimes = Integer.valueOf(etRepeatTimes4.getText().toString());
                     }
                     break;
-                case R.id.ll_cancel:
-                    finish();
-                    break;
                 case R.id.btn_submit:
 
                     // (RepeatMode, RepeatPeriod, RepeatTimes)
@@ -478,4 +482,8 @@ public class AddItemActivityRepeat extends AppCompatActivity {
             }
         }
     };
+
+    public void finishView(View view){
+        finish();
+    }
 }

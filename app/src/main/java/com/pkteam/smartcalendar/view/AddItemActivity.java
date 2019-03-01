@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar.view.ViewAddItem;
+package com.pkteam.smartcalendar.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,16 +11,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +22,8 @@ import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
-import com.pkteam.smartcalendar.databinding.ActivityAdditemBinding;
+import com.pkteam.smartcalendar.databinding.ActivityAddItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
-import com.simmorsal.library.ConcealerNestedScrollView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,16 +54,13 @@ public class AddItemActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
 
-
     // Date and Time picker
     SingleDateAndTimePickerDialog.Builder singleBuilder;
     SimpleDateFormat simpleTimeFormat;
     String[] dateString;
     private int modeStaticDynamic;
     private int modeAllDay;
-
     private int modeAddEdit;
-
     private MyData itemElement;
 
     // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
@@ -94,7 +84,7 @@ public class AddItemActivity extends AppCompatActivity {
     // for testing
     private TextView tvTopBar;
 
-    ActivityAdditemBinding binding;
+    ActivityAddItemBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,9 +92,8 @@ public class AddItemActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_additem);
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_additem);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_item);
+        binding.setAdditem(this);
 
         bindingView();
         Intent getIntent = getIntent();
@@ -534,8 +523,6 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void bindingView(){
 
-
-        binding.btnCancel.setOnClickListener(listener);
         binding.btnAdd.setOnClickListener(listener);
         binding.linFooterView.setOnClickListener(listener);
         binding.llTimeStart.setOnClickListener(listener);
@@ -551,6 +538,8 @@ public class AddItemActivity extends AppCompatActivity {
         // for testing
         tvTopBar = findViewById(R.id.tv_top_bar);
     }
+
+
 
     private View.OnClickListener listener = new View.OnClickListener(){
         @Override
@@ -719,9 +708,7 @@ public class AddItemActivity extends AppCompatActivity {
                         }
                     }
                     break;
-                case R.id.btn_cancel:
-                    finish();
-                    break;
+
                 case R.id.ll_time_start:
                     if (modeAllDay == ALL_DAY_MODE){
                         selectDateAndTime(4);
@@ -739,77 +726,82 @@ public class AddItemActivity extends AppCompatActivity {
                 case R.id.ll_time_deadline:
                     selectDateAndTime(3);
                     break;
-                case R.id.ll_repeat:
-                    Intent intentRepeat = new Intent(AddItemActivity.this, AddItemActivityRepeat.class);
-                    intentRepeat.putExtra("repeatMode", binding.tvRepeat.getText().toString());
-                    startActivityForResult(intentRepeat, REQUEST_REPEAT);
-                    break;
-                case R.id.ll_category:
-                    Intent intentCategory = new Intent(AddItemActivity.this, AddItemActivityCategory.class);
-                    intentCategory.putExtra("categoryMode", binding.tvCategory.getText().toString());
-                    startActivityForResult(intentCategory, REQUEST_CATEGORY);
-                    break;
-                case R.id.linFooterView:
-
-                    // 반복 아닌 일정 삭제
-                    if (itemElement.mRepeatId==0){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
-                        builder.setTitle("일정 삭제")
-                                .setMessage("일정을 삭제하시겠습니까?")
-                                .setPositiveButton("삭제",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dbHelper.deleteTodoDataById(item0_id);
-                                                Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
-                                                finish();
-                                            }
-                                        })
-                                .setNegativeButton("취소",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                            }
-                                        });
-                        AlertDialog dialog = builder.create();    // 알림창 객체 생성
-                        dialog.show();
-                    }
-                    // 반복 일정 삭제
-                    else{
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
-                        builder.setTitle("일정 삭제")
-                                .setMessage("반복된 일정을 삭제하시겠습니까?")
-                                .setPositiveButton("취소",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                            }
-                                        })
-                                .setNeutralButton("모든 일정에도 적용",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dbHelper.deleteTodoDataByRepeatId(itemElement.mId, itemElement.mRepeatId, itemElement.mTime);
-                                                Toast.makeText(getApplicationContext(), "모든 반복 일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
-                                                finish();
-                                            }
-                                        })
-                                .setNegativeButton("이 일정에만 적용",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dbHelper.deleteTodoDataById(itemElement.mId);
-                                                Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
-                                                finish();
-                                            }
-                                        });
-                        AlertDialog dialog = builder.create();    // 알림창 객체 생성
-                        dialog.show();
-                    }
-
-                    break;
-
                 default:
                     break;
             }
         }
+
     };
+
+    public void onClickRepeat(View view){
+        Intent intentRepeat = new Intent(AddItemActivity.this, AddItemActivityRepeat.class);
+        intentRepeat.putExtra("repeatMode", binding.tvRepeat.getText().toString());
+        startActivityForResult(intentRepeat, REQUEST_REPEAT);
+    }
+
+    public void onClickCategory(View view){
+        Intent intentCategory = new Intent(AddItemActivity.this, AddItemActivityCategory.class);
+        intentCategory.putExtra("categoryMode", binding.tvCategory.getText().toString());
+        startActivityForResult(intentCategory, REQUEST_CATEGORY);
+    }
+
+    public void onClickFooter(View view){
+        // 반복 아닌 일정 삭제
+        if (itemElement.mRepeatId==0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+            builder.setTitle("일정 삭제")
+                    .setMessage("일정을 삭제하시겠습니까?")
+                    .setPositiveButton("삭제",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataById(item0_id);
+                                    Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton("취소",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+            AlertDialog dialog = builder.create();    // 알림창 객체 생성
+            dialog.show();
+        }
+        // 반복 일정 삭제
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+            builder.setTitle("일정 삭제")
+                    .setMessage("반복된 일정을 삭제하시겠습니까?")
+                    .setPositiveButton("취소",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                    .setNeutralButton("모든 일정에도 적용",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataByRepeatId(itemElement.mId, itemElement.mRepeatId, itemElement.mTime);
+                                    Toast.makeText(getApplicationContext(), "모든 반복 일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton("이 일정에만 적용",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataById(itemElement.mId);
+                                    Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            });
+            AlertDialog dialog = builder.create();    // 알림창 객체 생성
+            dialog.show();
+        }
+    }
+
+    public void finishView(View view){
+        finish();
+    }
 
 }

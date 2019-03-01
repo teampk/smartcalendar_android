@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="additem"
+            type="com.pkteam.smartcalendar.view.AddItemActivity"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.simmorsal.library.ConcealerNestedScrollView
+            android:id="@+id/concealerNSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- background 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_blank_behind_top_bar"
+                    android:background="@color/colorBackGround"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                </LinearLayout>
+
+                <!-- title and location -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- 제목 -->
+                    <LinearLayout
+                        android:id="@+id/ll_keyboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_element"
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="left|center"
+                            android:hint="제목"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+
+                    </LinearLayout>
+
+                    <!--divider-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:background="@color/colorLightGray" />
+
+                    <!-- 위치 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_element"
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_loc"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="left|center"
+                            android:hint="위치"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- background 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_background"
+                    android:background="@color/colorBackGround">
+
+                </LinearLayout>
+
+                <!-- Switch Static or Dynamic -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginLeft="@dimen/padding_element"
+                    android:layout_marginRight="@dimen/padding_element"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_static_dynamic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="Static"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/text_size" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+                    <Switch
+                        android:id="@+id/sw_static_dynamic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+                <!-- background 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_background"
+                    android:background="@color/colorBackGround">
+
+                </LinearLayout>
+
+                <!-- about time -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- for dynamic -->
+                    <LinearLayout
+                        android:id="@+id/ll_dynamic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!-- Deadline -->
+                        <LinearLayout
+                            android:id="@+id/ll_time_deadline"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_element"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="left|center"
+                                android:text="데드라인"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tv_date_deadline"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:gravity="center|right"
+                                android:text="2018.7.9"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <TextView
+                                android:id="@+id/tv_time_deadline"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center|right"
+                                android:text="01:00"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                        </LinearLayout>
+
+                        <!--divider-->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:background="@color/colorLightGray" />
+
+                        <!-- 필요시간 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_element"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:gravity="left|center"
+                                android:text="필요시간"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            </RelativeLayout>
+
+                            <EditText
+                                android:id="@+id/et_needtime"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center|right"
+                                android:inputType="numberSigned"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="시간"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <!-- for static -->
+                    <LinearLayout
+                        android:id="@+id/ll_static"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- 하루종일 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_element"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="left|center"
+                                android:text="하루 종일"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            </RelativeLayout>
+
+                            <Switch
+                                android:id="@+id/sw_all_day"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center" />
+
+
+                        </LinearLayout>
+
+                        <!--divider-->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:background="@color/colorLightGray" />
+
+                        <!-- 시작 -->
+                        <LinearLayout
+                            android:id="@+id/ll_time_start"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_element"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="left|center"
+                                android:text="시작"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tv_date_start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:gravity="center|right"
+                                android:text="2018.7.9"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <TextView
+                                android:id="@+id/tv_time_start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center|right"
+                                android:text="01:00"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                        </LinearLayout>
+
+                        <!--divider-->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:background="@color/colorLightGray" />
+
+                        <!-- 종료 -->
+                        <LinearLayout
+                            android:id="@+id/ll_time_end"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_element"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="left|center"
+                                android:text="종료"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tv_date_end"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:gravity="center|right"
+                                android:text="2018.7.9"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <TextView
+                                android:id="@+id/tv_time_end"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center|right"
+                                android:text="01:00"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                        </LinearLayout>
+
+                        <!--divider-->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:background="@color/colorLightGray" />
+
+                        <!-- 반복 -->
+                        <LinearLayout
+                            android:id="@+id/ll_repeat_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_element"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="left|center"
+                                android:text="반복"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_repeat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:onClick="@{additem::onClickRepeat}"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_repeat"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center|right"
+                                    android:text="안 함"
+                                    android:textColor="#000000"
+                                    android:textSize="@dimen/text_size" />
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="5dp"
+                                    app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <!-- background 4 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_background"
+                    android:background="@color/colorBackGround">
+
+                </LinearLayout>
+
+                <!-- 카테고리 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginLeft="@dimen/padding_element"
+                    android:layout_marginRight="@dimen/padding_element"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="카테고리"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/text_size" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:onClick="@{additem::onClickCategory}">
+
+                        <ImageView
+                            android:id="@+id/iv_category"
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            app:srcCompat="@drawable/ic_category_1_24dp"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:text="기본"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <!-- background 5 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_background"
+                    android:background="@color/colorBackGround">
+
+                </LinearLayout>
+
+                <!-- 메모 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_element"
+                    android:layout_marginRight="@dimen/padding_element"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_memo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="left|top"
+                        android:hint="메모"
+                        android:lines="10"
+                        android:maxLines="10"
+                        android:paddingTop="10dp"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+
+                <!-- background last -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/colorBackGround">
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </com.simmorsal.library.ConcealerNestedScrollView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdHeaderView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_top_bar"
+            app:cardBackgroundColor="@color/material_white_1000"
+
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:background="#00000000"
+                    android:padding="0dp"
+                    android:text="취소"
+                    android:textColor="#cc0000"
+                    android:textSize="@dimen/text_size"
+                    android:onClick="@{additem::finishView}"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_top_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/btn_cancel"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="새로운 이벤트"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/text_size_subtitle"
+                    android:textStyle="bold" />
+
+
+                <Button
+                    android:id="@+id/btn_add"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="#00000000"
+                    android:text="등록"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size" />
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/linFooterView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_top_bar"
+            android:layout_alignParentBottom="true"
+            android:background="#cc0000"
+            android:onClick="@{additem::onClickFooter}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="일정 삭제"
+                android:textColor="#fff"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

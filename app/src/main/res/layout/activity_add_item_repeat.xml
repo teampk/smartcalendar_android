@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/concealerNSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- background 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/colorBackGround">
+
+            </LinearLayout>
+
+            <!-- repeat items -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- 안 함 -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_nothing"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="안 함"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/iv_repeat_check_nothing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="01:00"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        app:srcCompat="@drawable/ic_check_red_24dp" />
+
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/colorLightGray" />
+
+                <!-- 매일 -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="매일"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/iv_repeat_check_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="01:00"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_check_red_24dp" />
+
+                </LinearLayout>
+
+                <!-- 매일 detail -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_day_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="반복주기"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/repeat_detail_1_et1"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="1"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:gravity="center_vertical"
+                                android:text="일"
+                                android:textColor="@color/colorBlack" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:gravity="center_vertical"
+                                    android:text="반복종료"
+                                    android:textColor="@color/colorBlack"
+                                    android:textStyle="bold" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_1_cb1"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:checked="true" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="없음"
+                                    android:textColor="@color/colorBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_1_cb2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="match_parent" />
+
+
+                                <TextView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="횟수"
+                                    android:textColor="@color/colorBlack" />
+
+                                <EditText
+                                    android:id="@+id/repeat_detail_1_et2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="@null"
+                                    android:gravity="center_vertical"
+                                    android:inputType="number"
+                                    android:text="10"
+                                    android:textSize="14dp" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/colorLightGray" />
+
+                <!-- 매주 -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_week"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="매주"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/iv_repeat_check_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="01:00"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_check_red_24dp" />
+
+                </LinearLayout>
+
+                <!-- 매주 detail -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_week_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="반복주기"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/repeat_detail_2_et1"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="1"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:gravity="center_vertical"
+                                android:text="주"
+                                android:textColor="@color/colorBlack" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:gravity="center_vertical"
+                                    android:text="반복종료"
+                                    android:textColor="@color/colorBlack"
+                                    android:textStyle="bold" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_2_cb1"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:checked="true" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="없음"
+                                    android:textColor="@color/colorBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_2_cb2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="match_parent" />
+
+
+                                <TextView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="횟수"
+                                    android:textColor="@color/colorBlack" />
+
+                                <EditText
+                                    android:id="@+id/repeat_detail_2_et2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="@null"
+                                    android:gravity="center_vertical"
+                                    android:inputType="number"
+                                    android:text="10"
+                                    android:textSize="14dp" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/colorLightGray" />
+
+                <!-- 매월 -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="매월"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/iv_repeat_check_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="01:00"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_check_red_24dp" />
+
+                </LinearLayout>
+
+                <!-- 매월 detail -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_month_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="반복주기"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/repeat_detail_3_et1"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="1"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:gravity="center_vertical"
+                                android:text="월"
+                                android:textColor="@color/colorBlack" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:gravity="center_vertical"
+                                    android:text="반복종료"
+                                    android:textColor="@color/colorBlack"
+                                    android:textStyle="bold" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_3_cb1"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:checked="true" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="없음"
+                                    android:textColor="@color/colorBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_3_cb2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="match_parent" />
+
+
+                                <TextView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="횟수"
+                                    android:textColor="@color/colorBlack" />
+
+                                <EditText
+                                    android:id="@+id/repeat_detail_3_et2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="@null"
+                                    android:gravity="center_vertical"
+                                    android:inputType="number"
+                                    android:text="10"
+                                    android:textSize="14dp" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/colorLightGray" />
+
+                <!-- 매년 -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="매년"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/iv_repeat_check_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:text="01:00"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_check_red_24dp" />
+
+                </LinearLayout>
+
+                <!-- 매년 detail -->
+                <LinearLayout
+                    android:id="@+id/ll_repeat_year_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="반복주기"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/repeat_detail_4_et1"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="1"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:gravity="center_vertical"
+                                android:text="년"
+                                android:textColor="@color/colorBlack" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:gravity="center_vertical"
+                                    android:text="반복종료"
+                                    android:textColor="@color/colorBlack"
+                                    android:textStyle="bold" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_4_cb1"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:checked="true" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="없음"
+                                    android:textColor="@color/colorBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent" />
+
+                                <CheckBox
+                                    android:id="@+id/repeat_detail_4_cb2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="match_parent" />
+
+
+                                <TextView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:gravity="center_vertical"
+                                    android:text="횟수"
+                                    android:textColor="@color/colorBlack" />
+
+                                <EditText
+                                    android:id="@+id/repeat_detail_4_et2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="@null"
+                                    android:gravity="center_vertical"
+                                    android:inputType="number"
+                                    android:text="10"
+                                    android:textSize="14dp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/colorLightGray" />
+
+
+            </LinearLayout>
+
+
+            <!-- background last -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackGround">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdHeaderView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        app:srcCompat="@drawable/ic_chevron_left_red_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#00000000"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:text="취소"
+                        android:textColor="#cc0000"
+                        android:textSize="16dp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_top_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="반복"
+                    android:textColor="#000000"
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
+
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="#00000000"
+                    android:text="확인"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16dp" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>

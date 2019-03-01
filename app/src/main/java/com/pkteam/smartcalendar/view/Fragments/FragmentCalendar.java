@@ -25,7 +25,7 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.model.ColorCategory;
 import com.pkteam.smartcalendar.model.MyData;
-import com.pkteam.smartcalendar.view.ViewAddItem.AddItemActivity;
+import com.pkteam.smartcalendar.view.AddItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
