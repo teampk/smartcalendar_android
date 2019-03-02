@@ -21,8 +21,6 @@ import com.pkteam.smartcalendar.databinding.ActivityAddItemCategoryBinding;
 public class AddItemActivityCategory extends AppCompatActivity {
 
     private int categoryMode;
-    private DBHelper dbHelper;
-
     ActivityAddItemCategoryBinding binding;
 
     @Override
@@ -31,6 +29,7 @@ public class AddItemActivityCategory extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_item_category);
+        binding.setAdditem(this);
 
         bindingView();
         Intent intent = getIntent();
@@ -80,12 +79,13 @@ public class AddItemActivityCategory extends AppCompatActivity {
 
 
     private void bindingView(){
-        dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
         binding.llCategory1.setOnClickListener(listener);
         binding.llCategory2.setOnClickListener(listener);
         binding.llCategory3.setOnClickListener(listener);
         binding.llCategory4.setOnClickListener(listener);
         binding.llCategory5.setOnClickListener(listener);
+
+        DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
 
         binding.tvCategory1.setText(dbHelper.getAllCategory().get(0));
         binding.tvCategory2.setText(dbHelper.getAllCategory().get(1));
@@ -94,8 +94,6 @@ public class AddItemActivityCategory extends AppCompatActivity {
         binding.tvCategory5.setText(dbHelper.getAllCategory().get(4));
 
         binding.btnSubmit.setOnClickListener(listener);
-
-
 
     }
 
