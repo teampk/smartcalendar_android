@@ -26,33 +26,13 @@ import com.pkteam.smartcalendar.databinding.ActivityAddItemRepeatBinding;
  */
 
 public class AddItemActivityRepeat extends AppCompatActivity {
-    private LinearLayout llRepeatNothing, llRepeatDay, llRepeatWeek, llRepeatMonth, llRepeatYear;
-    private LinearLayout llRepeatDayDetail, llRepeatWeekDetail, llRepeatMonthDetail, llRepeatYearDetail;
-    private ImageView ivRepeatCheckNothing, ivRepeatCheckDay, ivRepeatCheckWeek, ivRepeatCheckMonth, ivRepeatCheckYear;
-    private LinearLayout llCancel;
-    private Button btnSubmit;
 
-    // repeat information
-    private String repeatMode;
     // 넘기는 데이터
     private Integer repeatModeInt;
     private Integer repeatPeriod;
     private Integer repeatTimes;
 
-    private EditText etRepeatPeriod1, etRepeatTimes1;
-    private EditText etRepeatPeriod2, etRepeatTimes2;
-    private EditText etRepeatPeriod3, etRepeatTimes3;
-    private EditText etRepeatPeriod4, etRepeatTimes4;
-
-
-    private CheckBox checkbox1_1, checkbox1_2;
-    private CheckBox checkbox2_1, checkbox2_2;
-    private CheckBox checkbox3_1, checkbox3_2;
-    private CheckBox checkbox4_1, checkbox4_2;
-
     ActivityAddItemRepeatBinding binding;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,58 +45,21 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         bindingView();
 
         Intent intent = getIntent();
-        this.repeatMode = intent.getStringExtra("repeatMode");
-        repeatModeInt = setClickedView(getRepeatInteger(this.repeatMode));
+        repeatModeInt = setClickedView(getRepeatInteger(intent.getStringExtra("repeatMode")));
 
     }
 
 
     private void bindingView(){
 
-        this.llRepeatNothing = findViewById(R.id.ll_repeat_nothing);
-        this.llRepeatNothing.setOnClickListener(listener);
-        this.llRepeatDay = findViewById(R.id.ll_repeat_day);
-        this.llRepeatDay.setOnClickListener(listener);
-        this.llRepeatWeek = findViewById(R.id.ll_repeat_week);
-        this.llRepeatWeek.setOnClickListener(listener);
-        this.llRepeatMonth = findViewById(R.id.ll_repeat_month);
-        this.llRepeatMonth.setOnClickListener(listener);
-        this.llRepeatYear = findViewById(R.id.ll_repeat_year);
-        this.llRepeatYear.setOnClickListener(listener);
+        binding.llRepeatNothing.setOnClickListener(listener);
+        binding.llRepeatDay.setOnClickListener(listener);
+        binding.llRepeatWeek.setOnClickListener(listener);
+        binding.llRepeatMonth.setOnClickListener(listener);
+        binding.llRepeatYear.setOnClickListener(listener);
 
-        this.llRepeatDayDetail = findViewById(R.id.ll_repeat_day_detail);
-        this.llRepeatWeekDetail = findViewById(R.id.ll_repeat_week_detail);
-        this.llRepeatMonthDetail = findViewById(R.id.ll_repeat_month_detail);
-        this.llRepeatYearDetail = findViewById(R.id.ll_repeat_year_detail);
-
-        this.ivRepeatCheckNothing = findViewById(R.id.iv_repeat_check_nothing);
-        this.ivRepeatCheckDay = findViewById(R.id.iv_repeat_check_day);
-        this.ivRepeatCheckWeek = findViewById(R.id.iv_repeat_check_week);
-        this.ivRepeatCheckMonth = findViewById(R.id.iv_repeat_check_month);
-        this.ivRepeatCheckYear = findViewById(R.id.iv_repeat_check_year);
-
-        this.btnSubmit = findViewById(R.id.btn_submit);
-        this.llCancel = findViewById(R.id.ll_cancel);
-        this.btnSubmit.setOnClickListener(listener);
-        this.llCancel.setOnClickListener(listener);
-
-        // Detail 수정
-        this.checkbox1_1 = findViewById(R.id.repeat_detail_1_cb1);
-        this.checkbox1_2 = findViewById(R.id.repeat_detail_1_cb2);
-        this.checkbox2_1 = findViewById(R.id.repeat_detail_2_cb1);
-        this.checkbox2_2 = findViewById(R.id.repeat_detail_2_cb2);
-        this.checkbox3_1 = findViewById(R.id.repeat_detail_3_cb1);
-        this.checkbox3_2 = findViewById(R.id.repeat_detail_3_cb2);
-        this.checkbox4_1 = findViewById(R.id.repeat_detail_4_cb1);
-        this.checkbox4_2 = findViewById(R.id.repeat_detail_4_cb2);
-        this.etRepeatPeriod1 = findViewById(R.id.repeat_detail_1_et1);
-        this.etRepeatPeriod2 = findViewById(R.id.repeat_detail_2_et1);
-        this.etRepeatPeriod3 = findViewById(R.id.repeat_detail_3_et1);
-        this.etRepeatPeriod4 = findViewById(R.id.repeat_detail_4_et1);
-        this.etRepeatTimes1 = findViewById(R.id.repeat_detail_1_et2);
-        this.etRepeatTimes2 = findViewById(R.id.repeat_detail_2_et2);
-        this.etRepeatTimes3 = findViewById(R.id.repeat_detail_3_et2);
-        this.etRepeatTimes4 = findViewById(R.id.repeat_detail_4_et2);
+        binding.btnSubmit.setOnClickListener(listener);
+        binding.llCancel.setOnClickListener(listener);
 
         getInput();
     }
@@ -127,128 +70,128 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         // Default 값 : 반복주기 1, 반복종료 없음(0)
         repeatPeriod = 1;
         repeatTimes = 0;
-        setEditTextPeriod(etRepeatPeriod1);
-        setEditTextPeriod(etRepeatPeriod2);
-        setEditTextPeriod(etRepeatPeriod3);
-        setEditTextPeriod(etRepeatPeriod4);
-        setEditTextTimes(etRepeatTimes1);
-        setEditTextTimes(etRepeatTimes2);
-        setEditTextTimes(etRepeatTimes3);
-        setEditTextTimes(etRepeatTimes4);
+        setEditTextPeriod(binding.repeatDetail1Et1);
+        setEditTextPeriod(binding.repeatDetail2Et1);
+        setEditTextPeriod(binding.repeatDetail3Et1);
+        setEditTextPeriod(binding.repeatDetail4Et1);
+        setEditTextTimes(binding.repeatDetail1Et2);
+        setEditTextTimes(binding.repeatDetail2Et2);
+        setEditTextTimes(binding.repeatDetail3Et2);
+        setEditTextTimes(binding.repeatDetail4Et2);
 
-        this.checkbox1_1.setClickable(false);
-        this.checkbox2_1.setClickable(false);
-        this.checkbox3_1.setClickable(false);
-        this.checkbox4_1.setClickable(false);
-        this.etRepeatTimes1.setEnabled(false);
-        this.etRepeatTimes2.setEnabled(false);
-        this.etRepeatTimes3.setEnabled(false);
-        this.etRepeatTimes4.setEnabled(false);
+        binding.repeatDetail1Cb1.setClickable(false);
+        binding.repeatDetail2Cb1.setClickable(false);
+        binding.repeatDetail3Cb1.setClickable(false);
+        binding.repeatDetail4Cb1.setClickable(false);
+        binding.repeatDetail1Et2.setEnabled(false);
+        binding.repeatDetail2Et2.setEnabled(false);
+        binding.repeatDetail3Et2.setEnabled(false);
+        binding.repeatDetail4Et2.setEnabled(false);
 
         // 매일
-        this.checkbox1_1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail1Cb1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 0;
                     buttonView.setClickable(false);
-                    checkbox1_2.setClickable(true);
-                    checkbox1_2.performClick();
-                    etRepeatTimes1.setEnabled(false);
+                    binding.repeatDetail1Cb2.setClickable(true);
+                    binding.repeatDetail1Cb2.performClick();
+                    binding.repeatDetail1Et2.setEnabled(false);
                 }
             }
         });
 
-        this.checkbox1_2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail1Cb2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 10;
                     buttonView.setClickable(false);
-                    checkbox1_1.setClickable(true);
-                    checkbox1_1.performClick();
-                    etRepeatTimes1.setEnabled(true);
+                    binding.repeatDetail1Cb1.setClickable(true);
+                    binding.repeatDetail1Cb1.performClick();
+                    binding.repeatDetail1Et2.setEnabled(true);
                 }
             }
         });
 
         // 매주
-        this.checkbox2_1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail2Cb1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 0;
                     buttonView.setClickable(false);
-                    checkbox2_2.setClickable(true);
-                    checkbox2_2.performClick();
-                    etRepeatTimes2.setEnabled(false);
+                    binding.repeatDetail2Cb2.setClickable(true);
+                    binding.repeatDetail2Cb2.performClick();
+                    binding.repeatDetail2Et2.setEnabled(false);
                 }
             }
         });
 
-        this.checkbox2_2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail2Cb2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 10;
                     buttonView.setClickable(false);
-                    checkbox2_1.setClickable(true);
-                    checkbox2_1.performClick();
-                    etRepeatTimes2.setEnabled(true);
+                    binding.repeatDetail2Cb1.setClickable(true);
+                    binding.repeatDetail2Cb1.performClick();
+                    binding.repeatDetail2Et2.setEnabled(true);
                 }
             }
         });
 
         // 매월
-        this.checkbox3_1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail3Cb1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 0;
                     buttonView.setClickable(false);
-                    checkbox3_2.setClickable(true);
-                    checkbox3_2.performClick();
-                    etRepeatTimes3.setEnabled(false);
+                    binding.repeatDetail3Cb2.setClickable(true);
+                    binding.repeatDetail3Cb2.performClick();
+                    binding.repeatDetail3Et2.setEnabled(false);
                 }
             }
         });
 
-        this.checkbox3_2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail3Cb2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 10;
                     buttonView.setClickable(false);
-                    checkbox3_1.setClickable(true);
-                    checkbox3_1.performClick();
-                    etRepeatTimes3.setEnabled(true);
+                    binding.repeatDetail3Cb1.setClickable(true);
+                    binding.repeatDetail3Cb1.performClick();
+                    binding.repeatDetail3Et2.setEnabled(true);
                 }
             }
         });
 
         // 매년
-        this.checkbox4_1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail4Cb1.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 0;
                     buttonView.setClickable(false);
-                    checkbox4_2.setClickable(true);
-                    checkbox4_2.performClick();
-                    etRepeatTimes4.setEnabled(false);
+                    binding.repeatDetail4Cb2.setClickable(true);
+                    binding.repeatDetail4Cb2.performClick();
+                    binding.repeatDetail4Et2.setEnabled(false);
                 }
             }
         });
 
-        this.checkbox4_2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        binding.repeatDetail4Cb2.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     repeatTimes = 10;
                     buttonView.setClickable(false);
-                    checkbox4_1.setClickable(true);
-                    checkbox4_1.performClick();
-                    etRepeatTimes4.setEnabled(true);
+                    binding.repeatDetail4Cb1.setClickable(true);
+                    binding.repeatDetail4Cb1.performClick();
+                    binding.repeatDetail4Et2.setEnabled(true);
                 }
             }
         });
@@ -359,62 +302,38 @@ public class AddItemActivityRepeat extends AppCompatActivity {
     }
 
     private int setClickedView(int ver){
-        switch (ver){
-            case 1:
-                this.ivRepeatCheckNothing.setVisibility(View.VISIBLE);
-                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
-                this.llRepeatDayDetail.setVisibility(View.GONE);
-                this.llRepeatWeekDetail.setVisibility(View.GONE);
-                this.llRepeatMonthDetail.setVisibility(View.GONE);
-                this.llRepeatYearDetail.setVisibility(View.GONE);
-                break;
-            case 2:
-                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckDay.setVisibility(View.VISIBLE);
-                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
-                this.llRepeatDayDetail.setVisibility(View.VISIBLE);
-                this.llRepeatWeekDetail.setVisibility(View.GONE);
-                this.llRepeatMonthDetail.setVisibility(View.GONE);
-                this.llRepeatYearDetail.setVisibility(View.GONE);
-                break;
-            case 3:
-                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckWeek.setVisibility(View.VISIBLE);
-                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
-                this.llRepeatDayDetail.setVisibility(View.GONE);
-                this.llRepeatWeekDetail.setVisibility(View.VISIBLE);
-                this.llRepeatMonthDetail.setVisibility(View.GONE);
-                this.llRepeatYearDetail.setVisibility(View.GONE);
-                break;
-            case 4:
-                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckMonth.setVisibility(View.VISIBLE);
-                this.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
-                this.llRepeatDayDetail.setVisibility(View.GONE);
-                this.llRepeatWeekDetail.setVisibility(View.GONE);
-                this.llRepeatMonthDetail.setVisibility(View.VISIBLE);
-                this.llRepeatYearDetail.setVisibility(View.GONE);
-                break;
-            case 5:
-                this.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
-                this.ivRepeatCheckYear.setVisibility(View.VISIBLE);
-                this.llRepeatDayDetail.setVisibility(View.GONE);
-                this.llRepeatWeekDetail.setVisibility(View.GONE);
-                this.llRepeatMonthDetail.setVisibility(View.GONE);
-                this.llRepeatYearDetail.setVisibility(View.VISIBLE);
-                break;
+        if (ver == 1){
+            binding.ivRepeatCheckNothing.setVisibility(View.VISIBLE);
+        }else{
+            binding.ivRepeatCheckNothing.setVisibility(View.INVISIBLE);
+        }
+        if (ver == 2) {
+            binding.ivRepeatCheckDay.setVisibility(View.VISIBLE);
+            binding.llRepeatDayDetail.setVisibility(View.VISIBLE);
+        }else{
+            binding.ivRepeatCheckDay.setVisibility(View.INVISIBLE);
+            binding.llRepeatDayDetail.setVisibility(View.GONE);
+        }
+        if (ver == 3) {
+            binding.ivRepeatCheckWeek.setVisibility(View.VISIBLE);
+            binding.llRepeatWeekDetail.setVisibility(View.VISIBLE);
+        }else{
+            binding.ivRepeatCheckWeek.setVisibility(View.INVISIBLE);
+            binding.llRepeatWeekDetail.setVisibility(View.GONE);
+        }
+        if (ver == 4) {
+            binding.ivRepeatCheckMonth.setVisibility(View.VISIBLE);
+            binding.llRepeatMonthDetail.setVisibility(View.VISIBLE);
+        }else{
+            binding.ivRepeatCheckMonth.setVisibility(View.INVISIBLE);
+            binding.llRepeatMonthDetail.setVisibility(View.GONE);
+        }
+        if (ver == 5) {
+            binding.ivRepeatCheckYear.setVisibility(View.VISIBLE);
+            binding.llRepeatYearDetail.setVisibility(View.VISIBLE);
+        }else{
+            binding.ivRepeatCheckYear.setVisibility(View.INVISIBLE);
+            binding.llRepeatYearDetail.setVisibility(View.GONE);
         }
         return ver;
     }
@@ -430,38 +349,38 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                     break;
                 case R.id.ll_repeat_day:
                     repeatModeInt = setClickedView(2);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod1.getText().toString());
-                    if (checkbox1_1.isChecked()){
+                    repeatPeriod = Integer.valueOf(binding.repeatDetail1Et1.getText().toString());
+                    if (binding.repeatDetail1Cb1.isChecked()){
                         repeatTimes = 0;
                     }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes1.getText().toString());
+                        repeatTimes = Integer.valueOf(binding.repeatDetail1Et2.getText().toString());
                     }
                     break;
                 case R.id.ll_repeat_week:
                     repeatModeInt = setClickedView(3);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod2.getText().toString());
-                    if (checkbox2_1.isChecked()){
+                    repeatPeriod = Integer.valueOf(binding.repeatDetail2Et1.getText().toString());
+                    if (binding.repeatDetail2Cb1.isChecked()){
                         repeatTimes = 0;
                     }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes2.getText().toString());
+                        repeatTimes = Integer.valueOf(binding.repeatDetail2Et2.getText().toString());
                     }
                     break;
                 case R.id.ll_repeat_month:
                     repeatModeInt = setClickedView(4);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod3.getText().toString());
-                    if (checkbox3_1.isChecked()){
+                    repeatPeriod = Integer.valueOf(binding.repeatDetail3Et1.getText().toString());
+                    if (binding.repeatDetail3Cb1.isChecked()){
                         repeatTimes = 0;
                     }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes3.getText().toString());
+                        repeatTimes = Integer.valueOf(binding.repeatDetail3Et2.getText().toString());
                     }
                     break;
                 case R.id.ll_repeat_year:
                     repeatModeInt = setClickedView(5);
-                    repeatPeriod = Integer.valueOf(etRepeatPeriod4.getText().toString());
-                    if (checkbox4_1.isChecked()){
+                    repeatPeriod = Integer.valueOf(binding.repeatDetail4Et1.getText().toString());
+                    if (binding.repeatDetail4Cb1.isChecked()){
                         repeatTimes = 0;
                     }else{
-                        repeatTimes = Integer.valueOf(etRepeatTimes4.getText().toString());
+                        repeatTimes = Integer.valueOf(binding.repeatDetail4Et2.getText().toString());
                     }
                     break;
                 case R.id.btn_submit:

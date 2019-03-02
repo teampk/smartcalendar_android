@@ -1,6 +1,7 @@
 package com.pkteam.smartcalendar.view.Fragments;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.pkteam.smartcalendar.ArrayListSorting;
+import com.pkteam.smartcalendar.databinding.FragmentHomeBinding;
 import com.pkteam.smartcalendar.view.AddItemActivity;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.model.MyData;
@@ -34,20 +36,18 @@ import java.util.Date;
 
 public class FragmentHome extends Fragment {
     private ArrayList<MyData> staticData, dynamicData;
-    private RecyclerView mRecyclerViewStatic, mRecyclerViewDynamic;
-    private RecyclerView.LayoutManager mLayoutManagerStatic, mLayoutManagerDynamic;
-    private RecyclerViewAdapter mAdapterStatic, mAdapterDynamic;
-    private TextView tvTime;
-    private SpeedDialView mSpeedDialView;
-    private View mView;
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
     private DBHelper dbHelper;
+
+    FragmentHomeBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_home, container, false);
-        bindingView();
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        View mView = binding.getRoot();
+        binding.tvTime.setText(getCurrentDate());
+        initRecyclerView(mView);
         initSpeedDial(savedInstanceState == null, mView);
         return mView;
     }
@@ -60,22 +60,21 @@ public class FragmentHome extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDataset();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        View mView = binding.getRoot();
+        binding.tvTime.setText(getCurrentDate());
         initDataset();
         initRecyclerView(mView);
     }
 
     private void initSpeedDial(boolean addActionItems, View mView) {
-        mSpeedDialView = mView.findViewById(R.id.speedDial);
 
         if (addActionItems) {
-
-            mSpeedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_add_item, R.drawable.ic_add_white_24dp)
+            binding.speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_add_item, R.drawable.ic_add_white_24dp)
                     .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlack, getContext().getTheme()))
                     .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.material_white_1000, getContext().getTheme()))
                     .setLabel(getString(R.string.label_add_item))
@@ -83,18 +82,18 @@ public class FragmentHome extends Fragment {
                     .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.material_white_1000, getContext().getTheme()))
                     .create());
 
-            mSpeedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_auto_scheduling, R.drawable.ic_dashboard_white_24dp)
+            binding.speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_auto_scheduling, R.drawable.ic_dashboard_white_24dp)
                     .setLabel(getString(R.string.label_scheduling))
                     .setLabelColor(Color.BLACK)
                     .setLabelBackgroundColor(Color.WHITE)
                     .setTheme(R.style.AppTheme_Purple)
                     .create());
-            mSpeedDialView.getUseReverseAnimationOnClose();
+            binding.speedDial.getUseReverseAnimationOnClose();
 
         }
 
         //Set main action clicklistener.
-        mSpeedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+        binding.speedDial.setOnChangeListener(new SpeedDialView.OnChangeListener() {
             @Override
             public boolean onMainActionSelected() {
 
@@ -109,7 +108,7 @@ public class FragmentHome extends Fragment {
         });
 
         //Set option fabs clicklisteners.
-        mSpeedDialView.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
+        binding.speedDial.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
             @Override
             public boolean onActionSelected(SpeedDialActionItem actionItem) {
                 switch (actionItem.getId()) {
@@ -132,13 +131,6 @@ public class FragmentHome extends Fragment {
 
     }
 
-    public void bindingView(){
-
-        tvTime = mView.findViewById(R.id.tv_time);
-        tvTime.setText(getCurrentDate());
-        initRecyclerView(mView);
-
-    }
 
     public String getCurrentDate(){
         // get Current Date and Time
@@ -158,24 +150,19 @@ public class FragmentHome extends Fragment {
     }
 
     private void initRecyclerView(View mView){
-        mLayoutManagerStatic = new LinearLayoutManager(getActivity());
-        mRecyclerViewStatic = mView.findViewById(R.id.recycler_1);
-        mRecyclerViewStatic.setHasFixedSize(true);
-        mRecyclerViewStatic.setLayoutManager(mLayoutManagerStatic);
-        mRecyclerViewStatic.scrollToPosition(0);
-        mAdapterStatic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1);
-        mRecyclerViewStatic.setAdapter(mAdapterStatic);
-        mRecyclerViewStatic.setItemAnimator(new DefaultItemAnimator());
+        // static
+        binding.recycler1.setHasFixedSize(true);
+        binding.recycler1.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recycler1.scrollToPosition(0);
+        binding.recycler1.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1));
+        binding.recycler1.setItemAnimator(new DefaultItemAnimator());
 
-
-        mLayoutManagerDynamic = new LinearLayoutManager(getActivity());
-        mRecyclerViewDynamic = mView.findViewById(R.id.recycler_2);
-        mRecyclerViewDynamic.setHasFixedSize(true);
-        mRecyclerViewDynamic.setLayoutManager(mLayoutManagerDynamic);
-        mRecyclerViewDynamic.scrollToPosition(0);
-        mAdapterDynamic = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),1);
-        mRecyclerViewDynamic.setAdapter(mAdapterDynamic);
-        mRecyclerViewDynamic.setItemAnimator(new DefaultItemAnimator());
+        // dynamic
+        binding.recycler2.setHasFixedSize(true);
+        binding.recycler2.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recycler2.scrollToPosition(0);
+        binding.recycler2.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),1));
+        binding.recycler2.setItemAnimator(new DefaultItemAnimator());
     }
 
 }

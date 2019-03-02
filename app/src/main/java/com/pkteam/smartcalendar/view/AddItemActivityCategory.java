@@ -79,20 +79,18 @@ public class AddItemActivityCategory extends AppCompatActivity {
 
 
     private void bindingView(){
-        binding.llCategory1.setOnClickListener(listener);
-        binding.llCategory2.setOnClickListener(listener);
-        binding.llCategory3.setOnClickListener(listener);
-        binding.llCategory4.setOnClickListener(listener);
-        binding.llCategory5.setOnClickListener(listener);
-
         DBHelper dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-
         binding.tvCategory1.setText(dbHelper.getAllCategory().get(0));
         binding.tvCategory2.setText(dbHelper.getAllCategory().get(1));
         binding.tvCategory3.setText(dbHelper.getAllCategory().get(2));
         binding.tvCategory4.setText(dbHelper.getAllCategory().get(3));
         binding.tvCategory5.setText(dbHelper.getAllCategory().get(4));
 
+        binding.llCategory1.setOnClickListener(listener);
+        binding.llCategory2.setOnClickListener(listener);
+        binding.llCategory3.setOnClickListener(listener);
+        binding.llCategory4.setOnClickListener(listener);
+        binding.llCategory5.setOnClickListener(listener);
         binding.btnSubmit.setOnClickListener(listener);
 
     }

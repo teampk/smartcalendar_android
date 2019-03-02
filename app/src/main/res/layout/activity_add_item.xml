@@ -632,7 +632,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_top_bar"
             android:layout_alignParentBottom="true"
-            android:background="#cc0000"
+            android:background="#ffffff"
             android:onClick="@{additem::onClickFooter}">
 
             <TextView
@@ -640,7 +640,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="일정 삭제"
-                android:textColor="#fff"
+                android:textColor="#cc0000"
                 android:textSize="@dimen/text_size"
                 android:textStyle="bold" />
         </LinearLayout>

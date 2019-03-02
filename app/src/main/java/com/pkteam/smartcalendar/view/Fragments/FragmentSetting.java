@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.databinding.FragmentSettingBinding;
 import com.pkteam.smartcalendar.view.ViewSetting.DataCheckActivity;
 import com.pkteam.smartcalendar.view.ViewSetting.SettingCategory;
 import com.pkteam.smartcalendar.view.ViewSetting.SettingSleepTime;
@@ -28,34 +29,23 @@ import com.simmorsal.library.ConcealerNestedScrollView;
 
 public class FragmentSetting extends Fragment {
 
-    private LinearLayout llCategorySetting, llDeleteAllData, llCheckData, llAppInformation, llSleepTime;
-    private CardView crdHeaderView;
-    private ConcealerNestedScrollView concealerNSV;
-
+    FragmentSettingBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.fragment_setting, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false);
+        View mView = binding.getRoot();
         bindingView(mView);
-
         return mView;
     }
+
     private void bindingView(View mView){
-
-        llCategorySetting = mView.findViewById(R.id.ll_category_setting);
-        llCategorySetting.setOnClickListener(listener);
-        llDeleteAllData = mView.findViewById(R.id.ll_delete_all_data);
-        llDeleteAllData.setOnClickListener(listener);
-        llCheckData = mView.findViewById(R.id.ll_check_data);
-        llCheckData.setOnClickListener(listener);
-        llAppInformation = mView.findViewById(R.id.ll_app_information);
-        llAppInformation.setOnClickListener(listener);
-        llSleepTime = mView.findViewById(R.id.ll_sleep_time);
-        llSleepTime.setOnClickListener(listener);
-
-        crdHeaderView = mView.findViewById(R.id.crdHeaderView);
-        concealerNSV = mView.findViewById(R.id.concealerNSV);
+        binding.llCategorySetting.setOnClickListener(listener);
+        binding.llDeleteAllData.setOnClickListener(listener);
+        binding.llCheckData.setOnClickListener(listener);
+        binding.llAppInformation.setOnClickListener(listener);
+        binding.llSleepTime.setOnClickListener(listener);
 
         setupConcealerNSV();
     }
@@ -112,15 +102,14 @@ public class FragmentSetting extends Fragment {
         // if you're setting header and footer views at the very start of the layout creation (onCreate),
         // as the views are not drawn yet, the library cant get their correct sizes, so you have to do this:
 
-        crdHeaderView.post(new Runnable() {
+        binding.crdHeaderView.post(new Runnable() {
             @Override
             public void run() {
-                concealerNSV.setHeaderView(crdHeaderView, 0);
+                binding.concealerNSV.setHeaderView(binding.crdHeaderView, 0);
             }
         });
 
-
         // pass a true to setHeaderFastHide to make views hide faster
-        concealerNSV.setHeaderFastHide(true);
+        binding.concealerNSV.setHeaderFastHide(true);
     }
 }
