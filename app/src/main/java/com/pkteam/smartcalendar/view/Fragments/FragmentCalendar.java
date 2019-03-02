@@ -1,6 +1,7 @@
 package com.pkteam.smartcalendar.view.Fragments;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
+import com.pkteam.smartcalendar.databinding.FragmentCalendarBinding;
 import com.pkteam.smartcalendar.model.ColorCategory;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.view.AddItemActivity;
@@ -40,16 +42,11 @@ import java.util.List;
 
 public class FragmentCalendar extends Fragment {
     private ArrayList<MyData> staticData, dynamicData;
-    private RecyclerView mRecyclerViewStatic, mRecyclerViewDynamic;
-    private RecyclerView.LayoutManager mLayoutManagerStatic, mLayoutManagerDynamic;
-    private RecyclerViewAdapter mAdapterStatic, mAdapterDynamic;
-    private CompactCalendarView compactCalendarView;
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
     private ColorCategory colorCategory = new ColorCategory();
-    private TextView tvMonth;
     private DBHelper dbHelper;
-    private SpeedDialView mSpeedDialView;
 
+    FragmentCalendarBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +56,8 @@ public class FragmentCalendar extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.fragment_calendar, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false);
+        View mView = binding.getRoot();
         dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
         initDataset();
         bindingView(mView);
@@ -73,27 +71,23 @@ public class FragmentCalendar extends Fragment {
     public void onResume() {
         super.onResume();
         initDataset();
-        compactCalendarView.setCurrentDate(new Date(System.currentTimeMillis()));
+        binding.compactcalendarView.setCurrentDate(new Date(System.currentTimeMillis()));
         setRecyclerView(System.currentTimeMillis());
         setCalendarCircle();
     }
 
     private void bindingView(View mView){
-        compactCalendarView = mView.findViewById(R.id.compactcalendar_view);
-        tvMonth = mView.findViewById(R.id.tv_month);
-        compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
-        mRecyclerViewStatic = mView.findViewById(R.id.recycler_static);
-        mRecyclerViewDynamic = mView.findViewById(R.id.recycler_dynamic);
+        binding.compactcalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
 
         // yyyy-MM-dd hh:mm:ss
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 M월");
         String getMonth = simpleDate.format(new Date(System.currentTimeMillis()));
-        tvMonth.setText(getMonth);
+        binding.tvMonth.setText(getMonth);
 
-        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+        binding.compactcalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
-                List<Event> events = compactCalendarView.getEvents(dateClicked);
+                List<Event> events = binding.compactcalendarView.getEvents(dateClicked);
                 setRecyclerView(dateClicked.getTime());
 
             }
@@ -102,7 +96,7 @@ public class FragmentCalendar extends Fragment {
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 int month = firstDayOfNewMonth.getMonth()+1;
                 int year = firstDayOfNewMonth.getYear()+1900;
-                tvMonth.setText(year+"년 "+month+"월");
+                binding.tvMonth.setText(year+"년 "+month+"월");
                 setRecyclerView(firstDayOfNewMonth.getTime());
 
             }
@@ -123,26 +117,22 @@ public class FragmentCalendar extends Fragment {
 
     private void setRecyclerView(long time){
 
-        mLayoutManagerStatic = new LinearLayoutManager(getActivity());
-        mRecyclerViewStatic.setHasFixedSize(true);
-        mRecyclerViewStatic.setLayoutManager(mLayoutManagerStatic);
-        mRecyclerViewStatic.scrollToPosition(0);
-        mAdapterStatic = new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForStaticForCalendar(staticData, time),2, time);
-        mRecyclerViewStatic.setAdapter(mAdapterStatic);
-        mRecyclerViewStatic.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerStatic.setHasFixedSize(true);
+        binding.recyclerStatic.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerStatic.scrollToPosition(0);
+        binding.recyclerStatic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForStaticForCalendar(staticData, time),2, time));
+        binding.recyclerStatic.setItemAnimator(new DefaultItemAnimator());
 
-        mLayoutManagerDynamic = new LinearLayoutManager(getActivity());
-        mRecyclerViewDynamic.setHasFixedSize(true);
-        mRecyclerViewDynamic.setLayoutManager(mLayoutManagerDynamic);
-        mRecyclerViewDynamic.scrollToPosition(0);
-        mAdapterDynamic = new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForDynamicForCalendar(dynamicData, time),2);
-        mRecyclerViewDynamic.setAdapter(mAdapterDynamic);
-        mRecyclerViewDynamic.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerDynamic.setHasFixedSize(true);
+        binding.recyclerDynamic.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerDynamic.scrollToPosition(0);
+        binding.recyclerDynamic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForDynamicForCalendar(dynamicData, time),2));
+        binding.recyclerDynamic.setItemAnimator(new DefaultItemAnimator());
 
 
     }
     private void setCalendarCircle(){
-        compactCalendarView.removeAllEvents();
+        binding.compactcalendarView.removeAllEvents();
 
         for (int i=0; i<staticData.size(); i++) {
             int startDate = Integer.parseInt(staticData.get(i).getmTime().split("\\.")[0].substring(0, 8));
@@ -176,19 +166,19 @@ public class FragmentCalendar extends Fragment {
 
         switch (category){
             case 1:
-                compactCalendarView.addEvent(new Event(colors[0], curDate.getTime(), "1"));
+                binding.compactcalendarView.addEvent(new Event(colors[0], curDate.getTime(), "1"));
                 break;
             case 2:
-                compactCalendarView.addEvent(new Event(colors[1], curDate.getTime(), "2"));
+                binding.compactcalendarView.addEvent(new Event(colors[1], curDate.getTime(), "2"));
                 break;
             case 3:
-                compactCalendarView.addEvent(new Event(colors[2], curDate.getTime(), "3"));
+                binding.compactcalendarView.addEvent(new Event(colors[2], curDate.getTime(), "3"));
                 break;
             case 4:
-                compactCalendarView.addEvent(new Event(colors[3], curDate.getTime(), "4"));
+                binding.compactcalendarView.addEvent(new Event(colors[3], curDate.getTime(), "4"));
                 break;
             case 5:
-                compactCalendarView.addEvent(new Event(colors[4], curDate.getTime(), "5"));
+                binding.compactcalendarView.addEvent(new Event(colors[4], curDate.getTime(), "5"));
                 break;
             default:
                 break;
@@ -197,11 +187,10 @@ public class FragmentCalendar extends Fragment {
 
     }
     private void initSpeedDial(boolean addActionItems, View mView) {
-        mSpeedDialView = mView.findViewById(R.id.speedDial);
 
         if (addActionItems) {
 
-            mSpeedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_add_item, R.drawable.ic_add_white_24dp)
+            binding.speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_add_item, R.drawable.ic_add_white_24dp)
                     .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlack, getContext().getTheme()))
                     .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.material_white_1000, getContext().getTheme()))
                     .setLabel(getString(R.string.label_add_item))
@@ -209,18 +198,18 @@ public class FragmentCalendar extends Fragment {
                     .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.material_white_1000, getContext().getTheme()))
                     .create());
 
-            mSpeedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_auto_scheduling, R.drawable.ic_dashboard_white_24dp)
+            binding.speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_auto_scheduling, R.drawable.ic_dashboard_white_24dp)
                     .setLabel(getString(R.string.label_scheduling))
                     .setLabelColor(Color.BLACK)
                     .setLabelBackgroundColor(Color.WHITE)
                     .setTheme(R.style.AppTheme_Purple)
                     .create());
-            mSpeedDialView.getUseReverseAnimationOnClose();
+            binding.speedDial.getUseReverseAnimationOnClose();
 
         }
 
         //Set main action clicklistener.
-        mSpeedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+        binding.speedDial.setOnChangeListener(new SpeedDialView.OnChangeListener() {
             @Override
             public boolean onMainActionSelected() {
 
@@ -235,7 +224,7 @@ public class FragmentCalendar extends Fragment {
         });
 
         //Set option fabs clicklisteners.
-        mSpeedDialView.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
+        binding.speedDial.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
             @Override
             public boolean onActionSelected(SpeedDialActionItem actionItem) {
                 switch (actionItem.getId()) {

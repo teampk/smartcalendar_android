@@ -1,104 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_month"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:gravity="center"
-            android:text="2018년 8월"
-            android:textSize="20dp"
-            android:textColor="@color/colorBlack"
-            android:background="@color/material_white_1000"/>
-
-        <com.github.sundeepk.compactcalendarview.CompactCalendarView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/compactcalendar_view"
-            android:layout_width="match_parent"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:compactCalendarTargetHeight="300dp"
-            app:compactCalendarTextSize="12sp"
-            app:compactCalendarBackgroundColor="#ffffff"
-            app:compactCalendarTextColor="#000000"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/selector_red_focused"
-            app:compactCalendarCurrentDayBackgroundColor="@color/selector_red_pressed"
-            app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
-            app:compactCalendarMultiEventIndicatorColor="#000"
-            app:compactCalendarEventIndicatorStyle="small_indicator"
-            />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--divider-->
-            <ImageView
+            <TextView
+                android:id="@+id/tv_month"
                 android:layout_width="match_parent"
-                android:layout_height="3px"
-                android:background="@color/colorLightGrayDivider"/>
+                android:layout_height="wrap_content"
+                android:background="@color/material_white_1000"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="2018년 8월"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_static"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-            </android.support.v7.widget.RecyclerView>
-
-            <!--divider-->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="3px"
-                android:background="@color/colorLightGrayDivider"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_dynamic"
+            <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/compactcalendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:compactCalendarBackgroundColor="#ffffff"
+                app:compactCalendarCurrentDayBackgroundColor="@color/selector_red_pressed"
+                app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
+                app:compactCalendarCurrentSelectedDayBackgroundColor="@color/selector_red_focused"
+                app:compactCalendarEventIndicatorStyle="small_indicator"
+                app:compactCalendarMultiEventIndicatorColor="#000"
+                app:compactCalendarTargetHeight="300dp"
+                app:compactCalendarTextColor="#000000"
+                app:compactCalendarTextSize="12sp" />
 
-            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:orientation="vertical">
 
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:background="@color/colorLightGrayDivider" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_static"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:background="@color/colorLightGrayDivider" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_dynamic"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
 
+        <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:clickable_overlay="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
-    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:clickable_overlay="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <com.leinardi.android.speeddial.SpeedDialView
-        android:id="@+id/speedDial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="2dp"
-        app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
-        app:sdExpansionMode="top"
-        app:sdMainFabAnimationRotateAngle="135"
-        app:sdMainFabClosedSrc="@drawable/ic_add_white_24dp"
-        app:sdMainFabOpenedSrc="@drawable/ic_close_white_24dp"
-        />
-</android.support.design.widget.CoordinatorLayout>
+        <com.leinardi.android.speeddial.SpeedDialView
+            android:id="@+id/speedDial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="2dp"
+            app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
+            app:sdExpansionMode="top"
+            app:sdMainFabAnimationRotateAngle="135"
+            app:sdMainFabClosedSrc="@drawable/ic_add_white_24dp"
+            app:sdMainFabOpenedSrc="@drawable/ic_close_white_24dp" />
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
