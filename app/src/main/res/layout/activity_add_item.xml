@@ -619,7 +619,8 @@
                     android:background="#00000000"
                     android:text="등록"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_size"
+                    android:onClick="@{additem::onSubmit}"/>
 
 
             </RelativeLayout>

@@ -25,6 +25,7 @@ import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
+import com.pkteam.smartcalendar.view.ScheduleItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -118,9 +119,8 @@ public class FragmentHome extends Fragment {
                         startActivity(intent);
                         return false; // closes without animation (same as mSpeedDialView.close(false); return false;)
                     case R.id.fab_auto_scheduling:
-                        Toast.makeText(getContext(), "Coming soon...", Toast.LENGTH_SHORT).show();
-                        dbHelper.updateRepeatId();
-
+                        Intent intentScheduling = new Intent(getContext(), ScheduleItemActivity.class);
+                        startActivity(intentScheduling);
                         return false;
                     default:
                         break;

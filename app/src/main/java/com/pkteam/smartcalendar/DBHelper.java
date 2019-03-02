@@ -62,9 +62,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // --- to do Data Database ---
-    public void todoDataInsert(String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needtime, int repeatId){
+    public void todoDataInsert(String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + title + "', '" + location + "', '" + isDynamic + "' , '"+isAllday+"' , '"+time+"', '"+category+"', '"+memo+"','"+needtime+"', '"+repeatId+"');");
+        db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + title + "', '" + location + "', '" + isDynamic + "' , '"+isAllday+"' , '"+time+"', '"+category+"', '"+memo+"','"+needTime+"', '"+repeatId+"');");
         db.close();
     }
     public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId) {

@@ -28,6 +28,7 @@ import com.pkteam.smartcalendar.databinding.FragmentCalendarBinding;
 import com.pkteam.smartcalendar.model.ColorCategory;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.view.AddItemActivity;
+import com.pkteam.smartcalendar.view.ScheduleItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -234,8 +235,8 @@ public class FragmentCalendar extends Fragment {
                         startActivity(intent);
                         return false; // closes without animation (same as mSpeedDialView.close(false); return false;)
                     case R.id.fab_auto_scheduling:
-                        Toast.makeText(getContext(), "Coming soon...", Toast.LENGTH_SHORT);
-                        dbHelper.updateRepeatId();
+                        Intent intentScheduling = new Intent(getContext(), ScheduleItemActivity.class);
+                        startActivity(intentScheduling);
 
                         return false;
                     default:

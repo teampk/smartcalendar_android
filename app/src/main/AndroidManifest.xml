@@ -25,6 +25,7 @@
         <activity android:name=".view.ViewSetting.DataCheckActivity"/>
         <activity android:name=".view.ViewSetting.SettingCategory"/>
         <activity android:name=".view.ViewSetting.SettingSleepTime"/>
+        <activity android:name=".view.ScheduleItemActivity"/>
     </application>
 
 </manifest>
