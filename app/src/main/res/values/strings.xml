@@ -17,8 +17,15 @@
     <string name="repeat_mode_4">매월</string>
     <string name="repeat_mode_5">매년</string>
 
-    <string name="sleep_time_explain">
-        수면시간 설정은 스케줄링에 도움이 됩니다. \nDEFAULT값은 00:00시부터 06:00시 입니다.
+    <string name="explain_sleep_time">
+        수면시간 설정은 스케줄링에 도움이 됩니다.\nDEFAULT값은 00:00시부터 06:00시 입니다.
+    </string>
+
+    <string name="explain_scheduling_1">
+        스케줄링을 진행할 할 일들을 선택해주세요.
+    </string>
+    <string name="explain_scheduling_2">
+        스케줄링은 할 일들의 필요시간에 맞춰\n언제 해야할 지를 일정에 추가하는 작업이며,\n수면시간과 현재 설정된 일정들을 제외한 시간에\n사용자의 타입에 따라 자동으로 배치됩니다.
     </string>
 
     <!--

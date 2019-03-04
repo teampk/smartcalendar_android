@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
-                    android:text="@string/sleep_time_explain"
+                    android:text="@string/explain_sleep_time"
                     android:textColor="@color/colorBlack"
                     android:textSize="16dp"
                     android:gravity="center"
