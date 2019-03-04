@@ -20,6 +20,8 @@ public class MyData {
     public int mRepeatId;
     public int mScheduleId;
 
+    public boolean selected;
+
 
     public MyData(int id, String title, String location, boolean isDynamic, boolean isAllday,
                   String time, int category, String memo, int needTime, int repeatId, int scheduleId){
@@ -47,5 +49,13 @@ public class MyData {
     }
     public String getmTime(){
         return this.mTime;
+    }
+
+    public Boolean isSelected(){
+        if(selected){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

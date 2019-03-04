@@ -61,13 +61,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.itemCategory.setImageDrawable(getCategoryDrawable(this.mDataSet.get(position).mCategory));
-        holder.itemTitle.setText(this.mDataSet.get(position).mTitle);
-        String[] inputTime = this.mDataSet.get(position).mTime.split("\\.");
-        int needTime = this.mDataSet.get(position).mNeedTime;
-        holder.itemTime.setText(getShowingTime(inputTime, needTime, mode));
+        final MyData selectedData = this.mDataSet.get(position);
+
+        holder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
+        holder.itemTitle.setText(selectedData.mTitle);
+        holder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, mode));
+        selectedData.selected = false;
 
         if (mode==1 || mode==2 || mode==3 || mode==4){
             holder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 public void onClick(View view){
                     Intent intent = new Intent(view.getContext(), AddItemActivity.class);
                     intent.putExtra("mode",2);
-                    intent.putExtra("id", mDataSet.get(position).mId);
+                    intent.putExtra("id", selectedData.mId);
                     view.getContext().startActivity(intent);
                 }
             });
@@ -83,6 +84,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.itemParent.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
+                    if(!selectedData.selected){
+                        holder.itemParent.setBackgroundResource(R.color.colorLightGray);
+                        selectedData.selected = true;
+                    }else{
+                        holder.itemParent.setBackgroundResource(R.color.material_white_1000);
+                        selectedData.selected = false;
+                    }
 
                 }
             });
@@ -144,34 +152,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    private String getDday(String input){
-        Calendar tday = Calendar.getInstance();
-        Calendar dday = Calendar.getInstance();
-        //20180725
-
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String[] mDate = sdf.format(date).split("/");
-        tday.set(Integer.valueOf(mDate[0]),
-                Integer.valueOf(mDate[1]),
-                Integer.valueOf(mDate[2]));
-
-        dday.set(Integer.valueOf(input.substring(0,4)),
-                Integer.valueOf(input.substring(4,6)),
-                Integer.valueOf(input.substring(6,8)));
-
-        int count = (int)((tday.getTimeInMillis()/86400000) - (dday.getTimeInMillis()/86400000));
-        String output;
-        if (count == 0){
-            output = "D-0";
-        }else if (count > 0){
-            output = "D+"+String.valueOf(count);
-        }else {
-            output = "D"+String.valueOf(count);
-        }
-        return output;
-    }
-
     @Override
     public int getItemCount() {
         return mDataSet.size();
@@ -206,6 +186,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         return simpleDate.format(new Date(time));
 
+    }
+
+    private String getDday(String input){
+        Calendar tday = Calendar.getInstance();
+        Calendar dday = Calendar.getInstance();
+        //20180725
+
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String[] mDate = sdf.format(date).split("/");
+        tday.set(Integer.valueOf(mDate[0]),
+                Integer.valueOf(mDate[1]),
+                Integer.valueOf(mDate[2]));
+
+        dday.set(Integer.valueOf(input.substring(0,4)),
+                Integer.valueOf(input.substring(4,6)),
+                Integer.valueOf(input.substring(6,8)));
+
+        int count = (int)((tday.getTimeInMillis()/86400000) - (dday.getTimeInMillis()/86400000));
+        String output;
+        if (count == 0){
+            output = "D-0";
+        }else if (count > 0){
+            output = "D+"+String.valueOf(count);
+        }else {
+            output = "D"+String.valueOf(count);
+        }
+        return output;
     }
 
     private Drawable getCategoryDrawable(int category){

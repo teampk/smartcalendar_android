@@ -134,6 +134,7 @@ public class AddItemActivity extends AppCompatActivity {
         else if (isEdit==EDIT_MODE){
             binding.linFooterView.setVisibility(View.VISIBLE);
             binding.llRepeatTotal.setVisibility(View.GONE);
+            binding.btnAdd.setText("수정");
             setViewFromId(dataId);
         }
 

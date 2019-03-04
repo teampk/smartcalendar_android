@@ -578,6 +578,7 @@
             android:layout_height="@dimen/height_top_bar"
             app:cardBackgroundColor="@color/material_white_1000"
 
+
             >
 
             <RelativeLayout
