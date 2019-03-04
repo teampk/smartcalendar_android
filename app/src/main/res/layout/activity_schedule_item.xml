@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/explain_scheduling_1"
-                android:textSize="@dimen/text_size_small"
+                android:textSize="@dimen/text_size"
                 android:textColor="@color/colorBlack"
                 android:gravity="center"
                 android:textStyle="bold"

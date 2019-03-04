@@ -51,6 +51,10 @@ public class AddItemActivity extends AppCompatActivity {
     private static final int REQUEST_CATEGORY = 12;
 
     private static final int REPEATAMOUNT = 10;
+    private static final int REPEAT_AMOUNT_DAY = 3650;
+    private static final int REPEAT_AMOUNT_WEEK = 520;
+    private static final int REPEAT_AMOUNT_MONTH = 120;
+    private static final int REPEAT_AMOUNT_YEAR = 10;
 
     private DBHelper dbHelper;
 
@@ -200,7 +204,22 @@ public class AddItemActivity extends AppCompatActivity {
         tvTopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), String.valueOf(itemElement.mRepeatId), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), String.valueOf(itemElement.mRepeatId+ "/"+itemElement.mScheduleId), Toast.LENGTH_SHORT).show();
+                // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
+                // 6.time(String)   7.category(Int)     8.Memo(String)  9.NeedTime(int)   10.repeatId(Int)  11.ScheduleId(int)
+                Log.d("PaengDataCheck",
+                        itemElement.mId+"/"
+                        +itemElement.mTitle+"/"
+                        +itemElement.mLocation+"/"
+                        +itemElement.mIsDynamic+"/"
+                        +itemElement.mIsAllday+"/"
+                        +itemElement.mTime+"/"
+                        +itemElement.mCategory+"/"
+                        +itemElement.mMemo+"/"
+                        +itemElement.mNeedTime+"/"
+                        +itemElement.mRepeatId+"/"
+                        +itemElement.mScheduleId+"//"
+                );
             }
         });
     }
@@ -572,6 +591,7 @@ public class AddItemActivity extends AppCompatActivity {
         if (checkItem()){
             item1_title = binding.etTitle.getText().toString();
             item2_loc = binding.etLoc.getText().toString();
+            item10_scheduleId = 0;
             // Static Mode 일 때
             if (modeStaticDynamic == STATIC_MODE){
                 item3_isDynamic = false;
@@ -618,7 +638,7 @@ public class AddItemActivity extends AppCompatActivity {
                     // 반복 없음
                     case 1:
                         item9_repeatId = 0;
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
                         finish();
                         break;
@@ -628,19 +648,19 @@ public class AddItemActivity extends AppCompatActivity {
                         item9_repeatId = dbHelper.getCurrentRepeatId();
                         // item5_time : 201901070700.201901071000.000000000000
 
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         nextTime_s = getMsByDate(item5_time, 1);
                         nextTime_e = getMsByDate(item5_time, 2);
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
-                            repeatTimes = REPEATAMOUNT;
+                            repeatTimes = REPEAT_AMOUNT_DAY;
                         }
 
                         for (int i=0;i<repeatTimes-1;i++){
                             nextTime_s += (86400000 * repeatPeriod);
                             nextTime_e += (86400000 * repeatPeriod);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
 
                         Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
@@ -653,19 +673,19 @@ public class AddItemActivity extends AppCompatActivity {
                         item9_repeatId = dbHelper.getCurrentRepeatId();
                         // item5_time : 201901070700.201901071000.000000000000
 
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         nextTime_s = getMsByDate(item5_time, 1);
                         nextTime_e = getMsByDate(item5_time, 2);
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
-                            repeatTimes = REPEATAMOUNT;
+                            repeatTimes = REPEAT_AMOUNT_WEEK;
                         }
 
                         for (int i=0;i<repeatTimes-1;i++){
                             nextTime_s += (86400000 * 7 * repeatPeriod);
                             nextTime_e += (86400000 * 7 * repeatPeriod);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
 
                         Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
@@ -677,17 +697,17 @@ public class AddItemActivity extends AppCompatActivity {
 
                         dbHelper.updateRepeatId();
                         item9_repeatId = dbHelper.getCurrentRepeatId();
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
 
                         String nextMonth = item5_time;
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
-                            repeatTimes = REPEATAMOUNT;
+                            repeatTimes = REPEAT_AMOUNT_MONTH;
                         }
                         for (int i=0;i<repeatTimes-1;i++){
                             nextMonth = getNextMonth(nextMonth);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextMonth, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextMonth, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
 
                         Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
@@ -700,17 +720,17 @@ public class AddItemActivity extends AppCompatActivity {
 
                         dbHelper.updateRepeatId();
                         item9_repeatId = dbHelper.getCurrentRepeatId();
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
 
                         String nextYear = item5_time;
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
-                            repeatTimes = REPEATAMOUNT;
+                            repeatTimes = REPEAT_AMOUNT_YEAR;
                         }
                         for (int i=0;i<repeatTimes-1;i++){
                             nextYear = getNextYear(nextYear);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextYear, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextYear, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
 
                         Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
@@ -724,7 +744,7 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }else if (modeAddEdit == EDIT_MODE){
                 Toast.makeText(getApplicationContext(), "일정이 수정되었습니다", Toast.LENGTH_SHORT).show();
-                dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId);
+                dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                 finish();
             }
         }

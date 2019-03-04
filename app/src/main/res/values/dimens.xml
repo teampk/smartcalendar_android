@@ -9,6 +9,7 @@
     <dimen name="text_size">16sp</dimen>
     <dimen name="text_size_title">30sp</dimen>
     <dimen name="text_size_subtitle">20sp</dimen>
+    <dimen name="text_size_recycler_title">25sp</dimen>
 
     <dimen name="height_top_bar">60dp</dimen>
     <dimen name="height_blank_behind_top_bar">80dp</dimen>

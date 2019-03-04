@@ -54,6 +54,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
         }else if (mode==2){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_calendar, parent, false);
+        }else if (mode==3){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_scheduling, parent, false);
         }
         return new ViewHolder(view);
     }
@@ -71,7 +73,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
             else if (mode == 2){
                 holder.itemTime.setText(getShowingTimeStaticCalendar(this.mDataSet.get(position).mTime.split("\\.")));
-
             }
         }
 
@@ -83,19 +84,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 intent.putExtra("id", mDataSet.get(position).mId);
                 view.getContext().startActivity(intent);
 
-                // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
-                // 6.time(String)  7.repeatId(Int)     8.category(Int)     9.Memo(String)  10.NeedTime(int)
-                Log.d("PaengDataCheck", mDataSet.get(position).mId+"/"
-                        +mDataSet.get(position).mTitle+"/"
-                        +mDataSet.get(position).mLocation+"/"
-                        +mDataSet.get(position).mIsDynamic+"/"
-                        +mDataSet.get(position).mIsAllday+"/"
-                        +mDataSet.get(position).mTime+"/"
-                        +mDataSet.get(position).mRepeatId+"/"
-                        +mDataSet.get(position).mCategory+"/"
-                        +mDataSet.get(position).mMemo+"/"
-                        +mDataSet.get(position).mNeedTime+"/"
-                );
             }
         });
     }

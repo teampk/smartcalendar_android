@@ -28,6 +28,18 @@
         스케줄링은 할 일들의 필요시간에 맞춰\n언제 해야할 지를 일정에 추가하는 작업이며,\n수면시간과 현재 설정된 일정들을 제외한 시간에\n사용자의 타입에 따라 자동으로 배치됩니다.
     </string>
 
+    <string name="example_recycler_view_title">
+        찬일이랑 밥먹기
+    </string>
+
+    <string name="example_recycler_view_subtitle">
+        데드라인 : 2019년 3월 6일 15:00 (D-3)
+    </string>
+
+    <string name="example_recycler_view_time">
+        18:00~20:00
+    </string>
+
     <!--
         ERROR CODE 1111 : 다이나믹 스태틱 스위치 오류
     -->

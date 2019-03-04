@@ -18,10 +18,11 @@ public class MyData {
     public String mMemo;
     public int mNeedTime;
     public int mRepeatId;
+    public int mScheduleId;
 
 
     public MyData(int id, String title, String location, boolean isDynamic, boolean isAllday,
-                  String time, int category, String memo, int needTime, int repeatId){
+                  String time, int category, String memo, int needTime, int repeatId, int scheduleId){
         this.mId = id;
         this.mTitle = title;
         this.mLocation = location;
@@ -32,6 +33,7 @@ public class MyData {
         this.mMemo = memo;
         this.mNeedTime = needTime;
         this.mRepeatId = repeatId;
+        this.mScheduleId = scheduleId;
 
     }
     public void setmId(int id) {
