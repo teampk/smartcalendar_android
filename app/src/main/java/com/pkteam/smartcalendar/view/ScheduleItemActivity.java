@@ -54,6 +54,6 @@ public class ScheduleItemActivity extends AppCompatActivity {
     }
 
     public void onClickFooter(View view){
-        finish();
+        
     }
 }

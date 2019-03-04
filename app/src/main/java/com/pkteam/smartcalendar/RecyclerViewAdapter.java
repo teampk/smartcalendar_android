@@ -32,6 +32,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private int mode;
     private long date;
 
+    public ArrayList<Integer> getSelectedId() {
+        return selectedId;
+    }
+
+    private ArrayList<Integer> selectedId;
+
     public RecyclerViewAdapter(Context context, ArrayList<MyData> searchDataSet, int mode){
         this.mDataSet = searchDataSet;
         this.mContext = context;
@@ -70,6 +76,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, mode));
         selectedData.selected = false;
 
+        selectedId = new ArrayList<>();
+
         if (mode==1 || mode==2 || mode==3 || mode==4){
             holder.itemParent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,12 +92,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.itemParent.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    if(!selectedData.selected){
+                    if(!selectedData.isSelected()){
                         holder.itemParent.setBackgroundResource(R.color.colorLightGray);
                         selectedData.selected = true;
+                        selectedId.add(selectedData.mId);
                     }else{
                         holder.itemParent.setBackgroundResource(R.color.material_white_1000);
                         selectedData.selected = false;
+                        selectedId.remove(selectedData.mId);
+
                     }
 
                 }
@@ -241,4 +252,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return categoryDrawable;
 
     }
+
+
 }
