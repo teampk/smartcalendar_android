@@ -121,13 +121,13 @@ public class FragmentCalendar extends Fragment {
         binding.recyclerStatic.setHasFixedSize(true);
         binding.recyclerStatic.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerStatic.scrollToPosition(0);
-        binding.recyclerStatic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForStaticForCalendar(staticData, time),2, time));
+        binding.recyclerStatic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForStaticForCalendar(staticData, time),3, time));
         binding.recyclerStatic.setItemAnimator(new DefaultItemAnimator());
 
         binding.recyclerDynamic.setHasFixedSize(true);
         binding.recyclerDynamic.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerDynamic.scrollToPosition(0);
-        binding.recyclerDynamic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForDynamicForCalendar(dynamicData, time),2));
+        binding.recyclerDynamic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForDynamicForCalendar(dynamicData, time),4));
         binding.recyclerDynamic.setItemAnimator(new DefaultItemAnimator());
 
 

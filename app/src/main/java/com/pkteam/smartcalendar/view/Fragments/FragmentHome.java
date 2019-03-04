@@ -161,7 +161,7 @@ public class FragmentHome extends Fragment {
         binding.recycler2.setHasFixedSize(true);
         binding.recycler2.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recycler2.scrollToPosition(0);
-        binding.recycler2.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),1));
+        binding.recycler2.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),2));
         binding.recycler2.setItemAnimator(new DefaultItemAnimator());
     }
 

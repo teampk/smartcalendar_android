@@ -50,11 +50,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
-        if (mode==1){
+        if (mode==1 || mode==2){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
-        }else if (mode==2){
+        }else if (mode==3 || mode==4){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_calendar, parent, false);
-        }else if (mode==3){
+        }else if (mode==5 || mode==6){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_scheduling, parent, false);
         }
         return new ViewHolder(view);
@@ -65,29 +65,86 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.itemCategory.setImageDrawable(getCategoryDrawable(this.mDataSet.get(position).mCategory));
         holder.itemTitle.setText(this.mDataSet.get(position).mTitle);
-        if (this.mDataSet.get(position).mIsDynamic){
-            holder.itemTime.setText(getShowingTimeDynamic(this.mDataSet.get(position).mTime.split("\\.")));
+        String[] inputTime = this.mDataSet.get(position).mTime.split("\\.");
+        int needTime = this.mDataSet.get(position).mNeedTime;
+        holder.itemTime.setText(getShowingTime(inputTime, needTime, mode));
+
+        if (mode==1 || mode==2 || mode==3 || mode==4){
+            holder.itemParent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+                    Intent intent = new Intent(view.getContext(), AddItemActivity.class);
+                    intent.putExtra("mode",2);
+                    intent.putExtra("id", mDataSet.get(position).mId);
+                    view.getContext().startActivity(intent);
+                }
+            });
         }else{
-            if (mode == 1){
-                holder.itemTime.setText(getShowingTimeStatic(this.mDataSet.get(position).mTime.split("\\.")));
-            }
-            else if (mode == 2){
-                holder.itemTime.setText(getShowingTimeStaticCalendar(this.mDataSet.get(position).mTime.split("\\.")));
-            }
+            holder.itemParent.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+
+                }
+            });
         }
 
-        holder.itemParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddItemActivity.class);
-                intent.putExtra("mode",2);
-                intent.putExtra("id", mDataSet.get(position).mId);
-                view.getContext().startActivity(intent);
 
-            }
-        });
     }
-    private String getShowingTimeDynamic(String[] input){
+    private String getShowingTime(String[] input, int needTime, int mode){
+
+        // home Static
+        if (mode == 1){
+            //201807082130
+            String startTime, endTime;
+
+            if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate())){
+                startTime = "0000";
+            }else{
+                startTime = input[0].substring(8,12);
+            }
+
+            if(Long.parseLong(getCurrentDate()) < Long.parseLong(input[1].substring(0,8))){
+                endTime = "2400";
+            }else{
+                endTime = input[1].substring(8,12);
+            }
+
+            return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
+        }
+        // D-day가 나오게 (Dynamic)
+        else if (mode == 2 || mode == 4){
+            return getDday(input[2]);
+        }
+        // calendar static
+        else if (mode == 3){
+            //201807082130
+            String startTime, endTime;
+
+            if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate(this.date))){
+                startTime = "0000";
+            }else{
+                startTime = input[0].substring(8,12);
+            }
+
+            if(Long.parseLong(getCurrentDate(this.date)) < Long.parseLong(input[1].substring(0,8))){
+                endTime = "2400";
+            }else{
+                endTime = input[1].substring(8,12);
+            }
+
+            return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
+        }
+        // scheduling dynamic
+        else if (mode == 5){
+            return "데드라인 : " + input[2].substring(0,4)+"년 "+input[2].substring(4,6)+"월 "+input[2].substring(6,8)+"일 "+input[2].substring(8,10)+":"
+                    +input[2].substring(10)+"  (" +getDday(input[2])+")\n필요시간 : " + needTime + " 시간";
+        }
+        else{
+            return "error";
+        }
+    }
+
+    private String getDday(String input){
         Calendar tday = Calendar.getInstance();
         Calendar dday = Calendar.getInstance();
         //20180725
@@ -99,13 +156,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Integer.valueOf(mDate[1]),
                 Integer.valueOf(mDate[2]));
 
-        dday.set(Integer.valueOf(input[2].substring(0,4)),
-                Integer.valueOf(input[2].substring(4,6)),
-                Integer.valueOf(input[2].substring(6,8)));
+        dday.set(Integer.valueOf(input.substring(0,4)),
+                Integer.valueOf(input.substring(4,6)),
+                Integer.valueOf(input.substring(6,8)));
 
         int count = (int)((tday.getTimeInMillis()/86400000) - (dday.getTimeInMillis()/86400000));
         String output;
-
         if (count == 0){
             output = "D-0";
         }else if (count > 0){
@@ -114,43 +170,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             output = "D"+String.valueOf(count);
         }
         return output;
-    }
-    @NonNull
-    private String getShowingTimeStatic(String[] input){
-        //201807082130
-        String startTime, endTime;
-
-        if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate())){
-           startTime = "0000";
-        }else{
-            startTime = input[0].substring(8,12);
-        }
-
-        if(Long.parseLong(getCurrentDate()) < Long.parseLong(input[1].substring(0,8))){
-            endTime = "2400";
-        }else{
-            endTime = input[1].substring(8,12);
-        }
-
-        return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
-    }
-    private String getShowingTimeStaticCalendar(String[] input){
-        //201807082130
-        String startTime, endTime;
-
-        if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate(this.date))){
-            startTime = "0000";
-        }else{
-            startTime = input[0].substring(8,12);
-        }
-
-        if(Long.parseLong(getCurrentDate(this.date)) < Long.parseLong(input[1].substring(0,8))){
-            endTime = "2400";
-        }else{
-            endTime = input[1].substring(8,12);
-        }
-
-        return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
     }
 
     @Override

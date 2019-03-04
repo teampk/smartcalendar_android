@@ -45,7 +45,7 @@ public class ScheduleItemActivity extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         binding.recyclerView.scrollToPosition(0);
-        binding.recyclerView.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),3));
+        binding.recyclerView.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),5));
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
