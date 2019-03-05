@@ -26,6 +26,8 @@
         <activity android:name=".view.ViewSetting.SettingCategory"/>
         <activity android:name=".view.ViewSetting.SettingSleepTime"/>
         <activity android:name=".view.ScheduleItemActivity"/>
+        <activity android:name=".view.ScheduleItemProgressActivity"/>
+        <activity android:name=".view.ScheduleItemResultActivity"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.pkteam.smartcalendar.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
+import com.pkteam.smartcalendar.view.ViewSetting.DataCheckActivity;
 
 import java.util.ArrayList;
 
@@ -54,6 +56,7 @@ public class ScheduleItemActivity extends AppCompatActivity {
     }
 
     public void onClickFooter(View view){
-        
+        Intent mIntent = new Intent(getApplicationContext(), ScheduleItemProgressActivity.class);
+        startActivity(mIntent);
     }
 }
