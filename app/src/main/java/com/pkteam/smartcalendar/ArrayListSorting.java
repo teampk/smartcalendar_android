@@ -135,17 +135,16 @@ public class ArrayListSorting {
         return outputAl;
     }
 
-    public ArrayList<MyData> sortingForDynamicFromToday(ArrayList<MyData> inputAl){
+    public ArrayList<MyData> sortingForDynamicFromNow(ArrayList<MyData> inputAl){
         ArrayList<MyData> outputAl = new ArrayList<>();
 
-
-        // 오늘 날짜 이후인 Dynamic Item 만 따로 뽑는다.
+        // 현재 시간 이후인 Dynamic Item 만 따로 뽑는다.
         for (int i=0; i<inputAl.size();i++){
-
-            int deadlineDate = Integer.valueOf(inputAl.get(i).getmTime().split("\\.")[2].substring(0, 8));
-
-            if(deadlineDate >= Integer.valueOf(getCurrentDate())){
-                outputAl.add(inputAl.get(i));
+            if (inputAl.get(i)!=null){
+                long deadlineTimeInt = Long.parseLong(inputAl.get(i).getmTime().split("\\.")[2]);
+                if(deadlineTimeInt >= Long.parseLong(getCurrentTime())){
+                    outputAl.add(inputAl.get(i));
+                }
             }
         }
 
@@ -185,5 +184,11 @@ public class ArrayListSorting {
 
         return simpleDate.format(new Date(time));
 
+    }
+
+    private String getCurrentTime(){
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmm");
+        return sdf.format(date);
     }
 }
