@@ -93,14 +93,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View view){
                     if(!selectedData.isSelected()){
-                        holder.itemParent.setBackgroundResource(R.color.colorLightGray);
+                        holder.itemParent.setBackgroundResource(R.color.material_gray_300);
                         selectedData.selected = true;
                         selectedId.add(selectedData.mId);
                     }else{
                         holder.itemParent.setBackgroundResource(R.color.material_white_1000);
                         selectedData.selected = false;
-                        selectedId.remove(selectedData.mId);
-
+                        for (int i=0; i<getSelectedId().size();i++){
+                            if(getSelectedId().get(i) == selectedData.mId){
+                                selectedId.remove(i);
+                            }
+                        }
                     }
 
                 }

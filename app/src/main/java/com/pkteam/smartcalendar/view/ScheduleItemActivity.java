@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
@@ -23,6 +24,7 @@ public class ScheduleItemActivity extends AppCompatActivity {
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
     ActivityScheduleItemBinding binding;
     private ArrayList<MyData> dynamicData;
+    RecyclerViewAdapter rcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,11 @@ public class ScheduleItemActivity extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         binding.recyclerView.scrollToPosition(0);
-        binding.recyclerView.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData),5));
+        rcAdapter = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromToday(dynamicData), 5);
+        binding.recyclerView.setAdapter(rcAdapter);
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
     }
 
     public void finishView(View view){
@@ -56,7 +61,9 @@ public class ScheduleItemActivity extends AppCompatActivity {
     }
 
     public void onClickFooter(View view){
+
         Intent mIntent = new Intent(getApplicationContext(), ScheduleItemProgressActivity.class);
+        mIntent.putExtra("selectedDynamic", rcAdapter.getSelectedId());
         startActivity(mIntent);
     }
 }
