@@ -68,6 +68,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
         GetTimeInformation timeInformation = new GetTimeInformation();
         int dday = timeInformation.getDdayInt(time);
+        
+
 
 
 
