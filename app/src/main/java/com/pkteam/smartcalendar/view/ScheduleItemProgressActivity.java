@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
+import com.pkteam.smartcalendar.GetTimeInformation;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemProgressBinding;
 import com.pkteam.smartcalendar.model.MyData;
@@ -50,20 +51,30 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
         //
 
         // -- scheduling algorithm --
+
+        String sleepStart = dbHelper.getAllSleepTime().get(0);
+        String sleepEnd = dbHelper.getAllSleepTime().get(1);
+
         for (int i=0; i<selectedData.size();i++){
 
         }
 
         int needTime = selectedData.get(0).mNeedTime;
-        long time = Long.parseLong(selectedData.get(0).mTime.split("\\.")[2]);
+        String time = selectedData.get(0).mTime.split("\\.")[2];
         ArrayList<MyData> allStaticData = new ArrayList<>();
         allStaticData = dbHelper.getTodoStaticData();
 
-        String testing2 = "";
-        for (int i=0; i<allStaticData.size();i++){
-            testing2 += allStaticData.get(i).mId+"/"+allStaticData.get(i).mTitle+"/"+allStaticData.get(i).mTime.split("\\.")[2]+"\n\n";
-        }
-        binding.tvTest.setText(testing2);
+
+
+        GetTimeInformation timeInformation = new GetTimeInformation();
+        int dday = timeInformation.getDdayInt(time);
+
+
+
+
+
+
+
 
 
 

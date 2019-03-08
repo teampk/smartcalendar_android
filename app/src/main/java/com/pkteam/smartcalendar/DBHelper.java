@@ -258,4 +258,5 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE SLEEPTIME SET time='"+endTime+"' WHERE _id='" + 2 + "';");
         db.close();
     }
+
 }

@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,7 @@ import android.widget.TextView;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.view.AddItemActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 /*
  * Created by paeng on 2018. 7. 5..
@@ -114,18 +110,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     private String getShowingTime(String[] input, int needTime, int mode){
 
+        GetTimeInformation timeInformation = new GetTimeInformation();
+
+
         // home Static
         if (mode == 1){
             //201807082130
             String startTime, endTime;
 
-            if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate())){
+            if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(timeInformation.getCurrentDate())){
                 startTime = "0000";
             }else{
                 startTime = input[0].substring(8,12);
             }
 
-            if(Long.parseLong(getCurrentDate()) < Long.parseLong(input[1].substring(0,8))){
+            if(Long.parseLong(timeInformation.getCurrentDate()) < Long.parseLong(input[1].substring(0,8))){
                 endTime = "2400";
             }else{
                 endTime = input[1].substring(8,12);
@@ -135,20 +134,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
         // D-day가 나오게 (Dynamic)
         else if (mode == 2 || mode == 4){
-            return getDday(input[2]);
+            return timeInformation.getDday(input[2]);
         }
         // calendar static
         else if (mode == 3){
             //201807082130
             String startTime, endTime;
 
-            if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(getCurrentDate(this.date))){
+            if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(timeInformation.getCurrentDate(this.date))){
                 startTime = "0000";
             }else{
                 startTime = input[0].substring(8,12);
             }
 
-            if(Long.parseLong(getCurrentDate(this.date)) < Long.parseLong(input[1].substring(0,8))){
+            if(Long.parseLong(timeInformation.getCurrentDate(this.date)) < Long.parseLong(input[1].substring(0,8))){
                 endTime = "2400";
             }else{
                 endTime = input[1].substring(8,12);
@@ -159,7 +158,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // scheduling dynamic
         else if (mode == 5){
             return "데드라인 : " + input[2].substring(0,4)+"년 "+input[2].substring(4,6)+"월 "+input[2].substring(6,8)+"일 "+input[2].substring(8,10)+":"
-                    +input[2].substring(10)+"  (" +getDday(input[2])+")\n필요시간 : " + needTime + " 시간";
+                    +input[2].substring(10)+"  (" +timeInformation.getDday(input[2])+")\n필요시간 : " + needTime + " 시간";
         }
         else{
             return "error";
@@ -186,49 +185,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    private String getCurrentDate(){
-        // get Current Date and Time
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String[] mDate = sdf.format(date).split("/");
-        return mDate[0]+mDate[1]+mDate[2];
-    }
-
-    private String getCurrentDate(long time){
-        // yyyy-MM-dd hh:mm:ss
-        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMdd");
-
-        return simpleDate.format(new Date(time));
-
-    }
-
-    private String getDday(String input){
-        Calendar tday = Calendar.getInstance();
-        Calendar dday = Calendar.getInstance();
-        //20180725
-
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String[] mDate = sdf.format(date).split("/");
-        tday.set(Integer.valueOf(mDate[0]),
-                Integer.valueOf(mDate[1]),
-                Integer.valueOf(mDate[2]));
-
-        dday.set(Integer.valueOf(input.substring(0,4)),
-                Integer.valueOf(input.substring(4,6)),
-                Integer.valueOf(input.substring(6,8)));
-
-        int count = (int)((tday.getTimeInMillis()/86400000) - (dday.getTimeInMillis()/86400000));
-        String output;
-        if (count == 0){
-            output = "D-0";
-        }else if (count > 0){
-            output = "D+"+String.valueOf(count);
-        }else {
-            output = "D"+String.valueOf(count);
-        }
-        return output;
-    }
 
     private Drawable getCategoryDrawable(int category){
         Drawable categoryDrawable = null;
@@ -248,13 +204,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             case 5:
                 categoryDrawable = ContextCompat.getDrawable(mContext, R.drawable.ic_category_5_24dp);
                 break;
-
         }
-
 
         return categoryDrawable;
 
     }
-
 
 }
