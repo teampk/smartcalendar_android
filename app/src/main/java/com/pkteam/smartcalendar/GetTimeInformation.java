@@ -2,6 +2,7 @@ package com.pkteam.smartcalendar;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,6 +46,29 @@ public class GetTimeInformation {
                 Integer.valueOf(input.substring(6,8)));
 
         return (int)((tday.getTimeInMillis()/86400000) - (dday.getTimeInMillis()/86400000));
+    }
+
+    public int getdTimeInt(String input){
+        Calendar tday = Calendar.getInstance();
+        Calendar dday = Calendar.getInstance();
+        //20180725
+
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/kk/mm");
+        String[] mDate = sdf.format(date).split("/");
+        tday.set(Integer.valueOf(mDate[0]),
+                Integer.valueOf(mDate[1]),
+                Integer.valueOf(mDate[2]),
+                Integer.valueOf(mDate[3]),
+                Integer.valueOf(mDate[4]));
+
+        dday.set(Integer.valueOf(input.substring(0,4)),
+                Integer.valueOf(input.substring(4,6)),
+                Integer.valueOf(input.substring(6,8)),
+                Integer.valueOf(input.substring(8,10)),
+                Integer.valueOf(input.substring(10,12)));
+
+        return (int)((tday.getTimeInMillis()/60000) - (dday.getTimeInMillis()/60000));
     }
 
     public String getDday(String input){

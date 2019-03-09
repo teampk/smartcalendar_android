@@ -24,6 +24,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
     static final int SPLASH_DISPLAY_LENGTH = 3000;
     ActivityScheduleItemProgressBinding binding;
     DBHelper dbHelper;
+    GetTimeInformation timeInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -32,7 +33,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_item_progress);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-
+        timeInformation = new GetTimeInformation();
 
         Intent intent = getIntent();
         ArrayList<Integer> selectedId = intent.getIntegerArrayListExtra("selectedDynamic");
@@ -54,25 +55,28 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
         String sleepStart = dbHelper.getAllSleepTime().get(0);
         String sleepEnd = dbHelper.getAllSleepTime().get(1);
+        ArrayList<MyData> allStaticData = new ArrayList<>();
+        allStaticData = dbHelper.getTodoStaticData();
 
-        for (int i=0; i<selectedData.size();i++){
+        for (int i=0; i<selectedData.size(); i++){
 
         }
 
         int needTime = selectedData.get(0).mNeedTime;
-        String time = selectedData.get(0).mTime.split("\\.")[2];
-        ArrayList<MyData> allStaticData = new ArrayList<>();
-        allStaticData = dbHelper.getTodoStaticData();
+        int dday = timeInformation.getDdayInt(selectedData.get(0).mTime.split("\\.")[2]);
+        int dTime = timeInformation.getdTimeInt(selectedData.get(0).mTime.split("\\.")[2]);
 
 
+        String testing3 = "";
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/hh/mm");
+        String mDate = sdf.format(date);
+        testing3 += mDate+"\n\n";
 
-        GetTimeInformation timeInformation = new GetTimeInformation();
-        int dday = timeInformation.getDdayInt(time);
-        
+        testing3 += selectedData.get(0).mId + "//" + selectedData.get(0).mTime.split("\\.")[2] + "//" + selectedData.get(0).mNeedTime + "///D-day:" + dday + "///D-Time:" + dTime;
+        binding.tvTest.setText(testing3);
 
-
-
-
+        ArrayList<MyData> scheduledData = new ArrayList<>();
 
 
 
