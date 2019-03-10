@@ -58,25 +58,71 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
         ArrayList<MyData> allStaticData = new ArrayList<>();
         allStaticData = dbHelper.getTodoStaticData();
 
+        ArrayList<MyData> scheduledData = new ArrayList<>();
+
+
         for (int i=0; i<selectedData.size(); i++){
 
         }
 
-        int needTime = selectedData.get(0).mNeedTime;
-        int dday = timeInformation.getDdayInt(selectedData.get(0).mTime.split("\\.")[2]);
-        int dTime = timeInformation.getdTimeInt(selectedData.get(0).mTime.split("\\.")[2]);
+        MyData dynamicData = selectedData.get(0);
+        int needTime = dynamicData.mNeedTime;
+        String deadline = dynamicData.mTime.split("\\.")[2];
+        int dday = timeInformation.getDdayInt(dynamicData.mTime.split("\\.")[2]) * (-1);
+        int dMinute = timeInformation.getdTimeInt(dynamicData.mTime.split("\\.")[2]);
+        int dHour = dMinute / 60;
 
 
-        String testing3 = "";
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/hh/mm");
-        String mDate = sdf.format(date);
+        boolean occupiedTime[][] = new boolean[dday+1][24];
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/kk/mm");
+        String mDate = sdf.format(new Date(System.currentTimeMillis()));
+        int startHour = Integer.parseInt(mDate.split("/")[3]);
+
+
+        // 시작 시간 전은 false
+        for (int i=startHour; i>=0;i--){
+            occupiedTime[0][i] = true;
+        }
+
+        // 데드라인 후는 true
+        for (int i=Integer.parseInt(deadline.substring(8,10));i<24;i++){
+            occupiedTime[dday][i] = true;
+        }
+
+        int count = 0;
+        for (int i=0;i<=dday;i++){
+            for (int j=0;j<24;j++){
+                if (!occupiedTime[i][j]){
+                    count++;
+                }
+                if (count == needTime){
+                    MyData scheduledStatic = new MyData(0, dynamicData.mTitle, dynamicData.mLocation, false, false, "", dynamicData.mCategory, dynamicData.mMemo, 0, 0, dynamicData.mId);
+                }
+            }
+        }
+
+
+
+
+
+        // 201903102050
+        String testing3 = sleepStart + "/" + sleepEnd + "\n\n";
+        testing3 += selectedData.get(0).mId + "//" + deadline + "//" + selectedData.get(0).mNeedTime + "///\nD-day:" + dday + "///D-Time:" + dMinute + "/" + dHour + "/" + occupiedTime[0][0]+"\n\n";
         testing3 += mDate+"\n\n";
-
-        testing3 += selectedData.get(0).mId + "//" + selectedData.get(0).mTime.split("\\.")[2] + "//" + selectedData.get(0).mNeedTime + "///D-day:" + dday + "///D-Time:" + dTime;
+        for (int i=0; i<dday+1;i++){
+            for (int j = 0; j<24;j++){
+                testing3 += occupiedTime[i][j] + "/";
+                if (j % 8 == 7){
+                    testing3 += "\n";
+                }
+            }
+            testing3 += "\n";
+        }
         binding.tvTest.setText(testing3);
 
-        ArrayList<MyData> scheduledData = new ArrayList<>();
+
 
 
 
