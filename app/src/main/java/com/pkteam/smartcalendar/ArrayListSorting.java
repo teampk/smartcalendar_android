@@ -188,7 +188,7 @@ public class ArrayListSorting {
 
     private String getCurrentTime(){
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
         return sdf.format(date);
     }
 }

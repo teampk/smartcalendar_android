@@ -16,6 +16,7 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemProgressBinding;
 import com.pkteam.smartcalendar.model.MyData;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,8 +77,10 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
         boolean occupiedTime[][] = new boolean[dday+1][24];
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/kk/mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
         String mDate = sdf.format(new Date(System.currentTimeMillis()));
+        String mDateStart = mDate.substring(0, 11)+"00/00";
         int startHour = Integer.parseInt(mDate.split("/")[3]);
 
 
@@ -91,6 +94,20 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
             occupiedTime[dday][i] = true;
         }
 
+
+        long startTime = 0;
+        long endTime = 0;
+        try{
+            startTime = sdf.parse(mDateStart).getTime();
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        MyData scheduledStatic = null;
+        String testing3 = sleepStart + "/" + sleepEnd + "\n\n";
+        
+
         int count = 0;
         for (int i=0;i<=dday;i++){
             for (int j=0;j<24;j++){
@@ -98,7 +115,13 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                     count++;
                 }
                 if (count == needTime){
-                    MyData scheduledStatic = new MyData(0, dynamicData.mTitle, dynamicData.mLocation, false, false, "", dynamicData.mCategory, dynamicData.mMemo, 0, 0, dynamicData.mId);
+                    startTime += (86400000*i + (3600000*(j+1-count)));
+                    endTime = startTime + 3600000*count;
+                    Date startDate = new Date(startTime);
+                    Date endDate = new Date(endTime);
+                    String nextStart = sdf2.format(startDate);
+                    String nextEnd = sdf2.format(endDate);
+                    scheduledStatic = new MyData(0, dynamicData.mTitle, dynamicData.mLocation, false, false, nextStart+"."+nextEnd+".000000000000", dynamicData.mCategory, dynamicData.mMemo, 0, 0, dynamicData.mId);
                 }
             }
         }
@@ -108,7 +131,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
 
         // 201903102050
-        String testing3 = sleepStart + "/" + sleepEnd + "\n\n";
         testing3 += selectedData.get(0).mId + "//" + deadline + "//" + selectedData.get(0).mNeedTime + "///\nD-day:" + dday + "///D-Time:" + dMinute + "/" + dHour + "/" + occupiedTime[0][0]+"\n\n";
         testing3 += mDate+"\n\n";
         for (int i=0; i<dday+1;i++){
@@ -118,8 +140,10 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                     testing3 += "\n";
                 }
             }
-            testing3 += "\n";
+            testing3 += "\n\n";
         }
+
+        testing3 += scheduledStatic.mTime;
         binding.tvTest.setText(testing3);
 
 

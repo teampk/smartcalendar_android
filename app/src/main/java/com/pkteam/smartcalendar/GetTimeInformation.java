@@ -54,7 +54,7 @@ public class GetTimeInformation {
         //20180725
 
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/kk/mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm");
         String[] mDate = sdf.format(date).split("/");
         tday.set(Integer.valueOf(mDate[0]),
                 Integer.valueOf(mDate[1]),

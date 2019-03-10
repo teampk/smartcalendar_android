@@ -50,6 +50,17 @@ public class FragmentHome extends Fragment {
         binding.tvTime.setText(getCurrentDate());
         initRecyclerView(mView);
         initSpeedDial(savedInstanceState == null, mView);
+
+        binding.tvTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date date = new Date(System.currentTimeMillis());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Toast.makeText(getContext(), sdf.format(date), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         return mView;
     }
     @Override
@@ -130,6 +141,8 @@ public class FragmentHome extends Fragment {
         });
 
     }
+
+
 
 
     public String getCurrentDate(){
