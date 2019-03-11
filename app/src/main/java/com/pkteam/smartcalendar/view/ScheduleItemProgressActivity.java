@@ -166,7 +166,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                 testing3 += "day:"+day+"\n";
                 for (int time = 0; time<24;time++){
                     testing3 += occupiedTime[day][time] + "/";
-                    if (time % 8 == 7){
+                    if (time % 6 == 5){
                         testing3 += "\n";
                     }
                 }
