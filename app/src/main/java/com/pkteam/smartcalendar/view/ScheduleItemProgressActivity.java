@@ -56,95 +56,128 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
         String sleepStart = dbHelper.getAllSleepTime().get(0);
         String sleepEnd = dbHelper.getAllSleepTime().get(1);
+        int sleepStartInt = Integer.parseInt(sleepStart.substring(0,2));
+        int sleepEndInt = Integer.parseInt(sleepEnd.substring(0,2));
+
         ArrayList<MyData> allStaticData = new ArrayList<>();
         allStaticData = dbHelper.getTodoStaticData();
 
         ArrayList<MyData> scheduledData = new ArrayList<>();
 
 
+
+
+        // 선택된 데이터에 대하여 스케줄링
         for (int i=0; i<selectedData.size(); i++){
 
-        }
+            // 선택된 항목의 데이터 불러오기
+            int needTime = selectedData.get(i).mNeedTime;
+            String timeDeadline = selectedData.get(i).mTime.split("\\.")[2];
+            int dday = timeInformation.getDdayInt(timeDeadline) * (-1);
+            int dMinute = timeInformation.getdTimeInt(timeDeadline) * (-1);
+            int dHour = dMinute / 60;
 
-        MyData dynamicData = selectedData.get(0);
-        int needTime = dynamicData.mNeedTime;
-        String deadline = dynamicData.mTime.split("\\.")[2];
-        int dday = timeInformation.getDdayInt(dynamicData.mTime.split("\\.")[2]) * (-1);
-        int dMinute = timeInformation.getdTimeInt(dynamicData.mTime.split("\\.")[2]);
-        int dHour = dMinute / 60;
+            // -- d-day까지 시간 할당
+            boolean occupiedTime[][] = new boolean[dday+1][24];
 
-
-        boolean occupiedTime[][] = new boolean[dday+1][24];
-
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
-        String mDate = sdf.format(new Date(System.currentTimeMillis()));
-        String mDateStart = mDate.substring(0, 11)+"00/00";
-        int startHour = Integer.parseInt(mDate.split("/")[3]);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
+            // 2019/03/11/22/30
+            String currentTime = sdf.format(new Date(System.currentTimeMillis()));
 
 
-        // 시작 시간 전은 false
-        for (int i=startHour; i>=0;i--){
-            occupiedTime[0][i] = true;
-        }
 
-        // 데드라인 후는 true
-        for (int i=Integer.parseInt(deadline.substring(8,10));i<24;i++){
-            occupiedTime[dday][i] = true;
-        }
+            // -- 시작 시간 전은 true
+            for (int t=Integer.parseInt(currentTime.split("/")[3]); t>=0;t--){
+                occupiedTime[0][t] = true;
+            }
 
+            // -- 데드라인 후는 true
+            for (int t=Integer.parseInt(timeDeadline.substring(8,10));t<24;t++){
+                occupiedTime[dday][t] = true;
+            }
 
-        long startTime = 0;
-        long endTime = 0;
-        try{
-            startTime = sdf.parse(mDateStart).getTime();
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        MyData scheduledStatic = null;
-        String testing3 = sleepStart + "/" + sleepEnd + "\n\n";
-        
-
-        int count = 0;
-        for (int i=0;i<=dday;i++){
-            for (int j=0;j<24;j++){
-                if (!occupiedTime[i][j]){
-                    count++;
+            // -- 수면시간은 true
+            if ((24 - sleepStartInt)<(24 - sleepEndInt)){
+                for (int day=0;day<=dday;day++){
+                    for (int time = sleepStartInt;time<24;time++){
+                        occupiedTime[day][time] = true;
+                    }
+                    for (int time = 0;time<=sleepEndInt;time++){
+                        occupiedTime[day][time] = true;
+                    }
                 }
-                if (count == needTime){
-                    startTime += (86400000*i + (3600000*(j+1-count)));
-                    endTime = startTime + 3600000*count;
-                    Date startDate = new Date(startTime);
-                    Date endDate = new Date(endTime);
-                    String nextStart = sdf2.format(startDate);
-                    String nextEnd = sdf2.format(endDate);
-                    scheduledStatic = new MyData(0, dynamicData.mTitle, dynamicData.mLocation, false, false, nextStart+"."+nextEnd+".000000000000", dynamicData.mCategory, dynamicData.mMemo, 0, 0, dynamicData.mId);
+            }else{
+                for (int day=0;day<=dday;day++){
+                    for (int time = sleepStartInt;time<=sleepEndInt;time++){
+                        occupiedTime[day][time] = true;
+                    }
                 }
             }
-        }
+
+
+            // -- 모든 static 일정들은 true
+            //
+            //
 
 
 
 
 
-        // 201903102050
-        testing3 += selectedData.get(0).mId + "//" + deadline + "//" + selectedData.get(0).mNeedTime + "///\nD-day:" + dday + "///D-Time:" + dMinute + "/" + dHour + "/" + occupiedTime[0][0]+"\n\n";
-        testing3 += mDate+"\n\n";
-        for (int i=0; i<dday+1;i++){
-            for (int j = 0; j<24;j++){
-                testing3 += occupiedTime[i][j] + "/";
-                if (j % 8 == 7){
-                    testing3 += "\n";
+            long startTime = 0;
+            long endTime = 0;
+            try{
+                startTime = sdf.parse(currentTime.substring(0, 11)+"00/00").getTime();
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            MyData scheduledStatic = null;
+
+
+
+            // needtime 만큼 비는 시간이 있으면 바로 넣어준다.
+            int count = 0;
+            for (int day=0;day<=dday;day++){
+                for (int time=0;time<24;time++){
+                    if (!occupiedTime[day][time]){
+                        count++;
+                    }
+                    if (count == needTime){
+                        startTime += (86400000*day + (3600000*(time+1-count)));
+                        endTime = startTime + 3600000*count;
+                        Date startDate = new Date(startTime);
+                        Date endDate = new Date(endTime);
+                        String nextStart = sdf2.format(startDate);
+                        String nextEnd = sdf2.format(endDate);
+                        scheduledStatic = new MyData(0, selectedData.get(i).mTitle, selectedData.get(i).mLocation, false, false, nextStart+"."+nextEnd+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
+                    }
                 }
             }
-            testing3 += "\n\n";
+
+
+            // 확인용
+            String testing3 = sleepStart + "/" + sleepEnd + "\n\n";
+
+            testing3 += "(현재 시간)\n"+currentTime+"\n\n";
+            testing3 += "(선택된 일정)\n"+selectedData.get(0).mId + "/deadline:" + timeDeadline + "/필요시간:" + selectedData.get(0).mNeedTime + "///\nD-day:" + dday + "///D-Time:" + dMinute + "/" + dHour + "/" + occupiedTime[0][0]+"\n\n";
+            for (int day=0; day<dday+1;day++){
+                testing3 += "day:"+day+"\n";
+                for (int time = 0; time<24;time++){
+                    testing3 += occupiedTime[day][time] + "/";
+                    if (time % 8 == 7){
+                        testing3 += "\n";
+                    }
+                }
+                testing3 += "\n\n";
+            }
+
+            testing3 += scheduledStatic.mTime;
+            binding.tvTest.setText(testing3);
+
         }
 
-        testing3 += scheduledStatic.mTime;
-        binding.tvTest.setText(testing3);
 
 
 
@@ -160,11 +193,13 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
 
 
-        // showAnimationAndExit();
+        showAnimationAndExit();
     }
     private void showAnimationAndExit(){
         final AnimationDrawable drawable = (AnimationDrawable) binding.ivScheduling.getBackground();
         drawable.start();
+
+        /*
         binding.tvTest.setText("스케줄링 준비중입니다...");
         new Handler().postDelayed(new Runnable(){
                 @Override
@@ -174,8 +209,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                     ScheduleItemProgressActivity.this.finish();
                 }
             }, SPLASH_DISPLAY_LENGTH);
-
-
+        */
 
     }
 }
