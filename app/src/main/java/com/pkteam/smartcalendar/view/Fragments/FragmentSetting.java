@@ -3,26 +3,22 @@ package com.pkteam.smartcalendar.view.Fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingBinding;
-import com.pkteam.smartcalendar.view.ViewSetting.DataCheckActivity;
-import com.pkteam.smartcalendar.view.ViewSetting.SettingCategory;
-import com.pkteam.smartcalendar.view.ViewSetting.SettingLogin;
-import com.pkteam.smartcalendar.view.ViewSetting.SettingSleepTime;
-import com.simmorsal.library.ConcealerNestedScrollView;
+import com.pkteam.smartcalendar.view.DataCheckActivity;
+import com.pkteam.smartcalendar.view.SettingCategory;
+import com.pkteam.smartcalendar.view.SettingLogin;
+import com.pkteam.smartcalendar.view.SettingSleepTime;
 
 /*
  * Created by paeng on 2018. 7. 4..
@@ -47,7 +43,7 @@ public class FragmentSetting extends Fragment {
         binding.llCheckData.setOnClickListener(listener);
         binding.llAppInformation.setOnClickListener(listener);
         binding.llSleepTime.setOnClickListener(listener);
-        binding.llLogin.setOnClickListener(listener);
+        binding.rlTopBar.setOnClickListener(listener);
 
         setupConcealerNSV();
     }
@@ -55,7 +51,7 @@ public class FragmentSetting extends Fragment {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.ll_login:
+                case R.id.rl_top_bar:
                     Intent intentLogin = new Intent(getContext(), SettingLogin.class);
                     startActivity(intentLogin);
 

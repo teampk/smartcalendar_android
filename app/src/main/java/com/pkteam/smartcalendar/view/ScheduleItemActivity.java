@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
@@ -16,7 +15,6 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
-import com.pkteam.smartcalendar.view.ViewSetting.DataCheckActivity;
 
 import java.util.ArrayList;
 

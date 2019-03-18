@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar.view.ViewSetting;
+package com.pkteam.smartcalendar.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,26 +1,18 @@
-package com.pkteam.smartcalendar.view.ViewSetting;
+package com.pkteam.smartcalendar.view;
 
-import android.app.FragmentManager;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
-import com.pkteam.smartcalendar.view.Fragments.FragmentSetting;
-import com.pkteam.smartcalendar.view.TimePickerFragment;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /*
  * Created by paeng on 2018. 8. 14..

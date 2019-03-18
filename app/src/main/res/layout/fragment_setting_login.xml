@@ -1,389 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.simmorsal.library.ConcealerNestedScrollView
-        android:id="@+id/concealerNSV"
+    <data>
+        <variable
+            name="login"
+            type="com.pkteam.smartcalendar.view.SettingLogin"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackGround"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="@dimen/height_top_bar"
+            android:orientation="horizontal">
 
-            <!-- background 1 -->
-            <LinearLayout
+            <ImageView
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="@dimen/height_top_bar"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_close_black_24dp"
+                android:onClick="@{login::finishView}"/>
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/sc_logo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Smart Calendar"
+            android:textSize="40dp"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <!-- ID & PW -->
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <EditText
+                android:id="@+id/et_id"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_blank_behind_top_bar"
-                android:background="@color/colorBackGround"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
+                android:layout_height="@dimen/height_element"
+                android:background="@null"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:hint="이메일"
+                android:textSize="@dimen/text_size"
+                />
 
-            </LinearLayout>
-
-            <!-- background 1 -->
-            <LinearLayout
+            <EditText
+                android:id="@+id/et_pw"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/height_element"
+                android:background="@null"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:hint="비밀번호"
+                android:textSize="@dimen/text_size"
+                />
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_element"
+                android:text="로그인"
+                android:gravity="center"
+                android:textColor="@color/material_white_1000"
+                android:background="@color/colorBlack"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:onClick="@{login::signInListener}"/>
+
+        </LinearLayout>
+
+        <!--회원가입-->
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/material_white_1000"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:text="아직 계정이 없으신가요?"
+                android:textColor="@color/colorBlack"/>
 
-                <!-- 카테고리1 -->
-                <LinearLayout
-                    android:id="@+id/ll_category_1"
+            <TextView
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="회원가입"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:onClick="@{login::signUpListener}"/>
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!--비밀번호 찾기-->
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="비밀번호를 잊어버리셨나요?"
+                android:textColor="@color/colorBlack"/>
+
+            <TextView
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="비밀번호 찾기"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:onClick="@{login::findPasswordListener}"/>
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="10dp">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <!-- category item -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/ic_category_1_24dp"
-                            android:layout_marginRight="5dp"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_category_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="카테고리 1"
-                            android:textColor="#000000"
-                            android:textSize="16dp"/>
-
-                    </LinearLayout>
-
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
-
-                    <!-- Edit Text 1-->
-
-                    <EditText
-                        android:id="@+id/et_1"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent" />
-
-
-
-                </LinearLayout>
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                </RelativeLayout>
 
                 <!--divider-->
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_height="2dp"
+                    android:background="@color/colorLightGrayDivider"/>
 
-                <!-- 카테고리2 -->
-                <LinearLayout
-                    android:id="@+id/ll_category_2"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
 
-                    <!-- category item -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/ic_category_2_24dp"
-                            android:layout_marginRight="5dp"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_category_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="카테고리 2"
-                            android:textColor="#000000"
-                            android:textSize="16dp"/>
-
-                    </LinearLayout>
-
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
-
-                    <EditText
-                        android:id="@+id/et_2"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent" />
-
-
-
-
-
-
-                </LinearLayout>
-
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
-
-                <!-- 카테고리3 -->
-                <LinearLayout
-                    android:id="@+id/ll_category_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <!-- category item -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/ic_category_3_24dp"
-                            android:layout_marginRight="5dp"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_category_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="카테고리 3"
-                            android:textColor="#000000"
-                            android:textSize="16dp"/>
-
-                    </LinearLayout>
-
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
-
-                    <EditText
-                        android:id="@+id/et_3"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent" />
-
-
-
-
-
-
-                </LinearLayout>
-
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
-
-                <!-- 카테고리4 -->
-                <LinearLayout
-                    android:id="@+id/ll_category_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <!-- category item -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/ic_category_4_24dp"
-                            android:layout_marginRight="5dp"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_category_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:gravity="center|right"
-                            android:text="카테고리 4"
-                            android:textColor="#000000"
-                            android:textSize="16dp" />
-
-                    </LinearLayout>
-
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
-
-                    <EditText
-                        android:id="@+id/et_4"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
-
-                <!-- 카테고리5 -->
-                <LinearLayout
-                    android:id="@+id/ll_category_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <!-- category item -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/ic_category_5_24dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginEnd="5dp"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_category_5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="카테고리 5"
-                            android:textColor="#000000"
-                            android:textSize="16dp"/>
-
-                    </LinearLayout>
-
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
-
-                    <EditText
-                        android:id="@+id/et_5"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorLightGray"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"/>
+                </RelativeLayout>
 
             </LinearLayout>
 
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="OR"/>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                </RelativeLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorLightGrayDivider"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
 
 
 
         </LinearLayout>
 
-    </com.simmorsal.library.ConcealerNestedScrollView>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/crdHeaderView"
-        android:layout_width="match_parent"
-        app:cardBackgroundColor="@color/material_white_1000"
-        android:layout_height="@dimen/height_top_bar"
-        >
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            >
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tv_top_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="로그인"
-                android:textSize="@dimen/text_size_subtitle"
-                android:textColor="#000000"
-                android:textStyle="bold"/>
-
+            </RelativeLayout>
 
             <Button
-                android:id="@+id/btn_submit"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:text="확인"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16dp"
-                android:background="#00000000"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"/>
+                android:id="@+id/btn_google"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_element"
+                android:text="Google로 계속하기"
+                android:textColor="@color/material_white_1000"
+                android:textStyle="bold"
+                android:background="#DC4A38"
+                android:onClick="@{login::googleLoginListener}"/>
+
+            <Button
+                android:id="@+id/btn_facebook"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_element"
+                android:text="Facebook로 계속하기"
+                android:textColor="@color/material_white_1000"
+                android:textStyle="bold"
+                android:background="#3B5997"
+                android:onClick="@{login::facebookLoginListener}"/>
 
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
 
 
-    </android.support.v7.widget.CardView>
 
 
 
-</RelativeLayout>
+    </LinearLayout>
+</layout>
