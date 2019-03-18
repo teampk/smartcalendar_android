@@ -28,6 +28,8 @@
         <activity android:name=".view.ScheduleItemActivity"/>
         <activity android:name=".view.ScheduleItemProgressActivity"/>
         <activity android:name=".view.ScheduleItemResultActivity"/>
+        <activity android:name=".view.ViewSetting.SettingLogin"/>
+
     </application>
 
 </manifest>

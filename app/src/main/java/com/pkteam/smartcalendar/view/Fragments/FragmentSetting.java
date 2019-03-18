@@ -20,6 +20,7 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingBinding;
 import com.pkteam.smartcalendar.view.ViewSetting.DataCheckActivity;
 import com.pkteam.smartcalendar.view.ViewSetting.SettingCategory;
+import com.pkteam.smartcalendar.view.ViewSetting.SettingLogin;
 import com.pkteam.smartcalendar.view.ViewSetting.SettingSleepTime;
 import com.simmorsal.library.ConcealerNestedScrollView;
 
@@ -46,6 +47,7 @@ public class FragmentSetting extends Fragment {
         binding.llCheckData.setOnClickListener(listener);
         binding.llAppInformation.setOnClickListener(listener);
         binding.llSleepTime.setOnClickListener(listener);
+        binding.llLogin.setOnClickListener(listener);
 
         setupConcealerNSV();
     }
@@ -53,6 +55,12 @@ public class FragmentSetting extends Fragment {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
+                case R.id.ll_login:
+                    Intent intentLogin = new Intent(getContext(), SettingLogin.class);
+                    startActivity(intentLogin);
+
+                    break;
+
                 case R.id.ll_delete_all_data:
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("모든 데이터를 삭제합니다");
