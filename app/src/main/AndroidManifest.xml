@@ -29,6 +29,7 @@
         <activity android:name=".view.ScheduleItemProgressActivity"/>
         <activity android:name=".view.ScheduleItemResultActivity"/>
         <activity android:name=".view.SettingLogin"/>
+        <activity android:name=".view.SettingSignUp"/>
 
     </application>
 

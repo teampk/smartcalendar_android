@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "773249360098",
-    "firebase_url": "https://pkcalendar-2711f.firebaseio.com",
-    "project_id": "pkcalendar-2711f",
-    "storage_bucket": "pkcalendar-2711f.appspot.com"
+    "project_number": "328601292770",
+    "firebase_url": "https://smart-calendar-72324.firebaseio.com",
+    "project_id": "smart-calendar-72324",
+    "storage_bucket": "smart-calendar-72324.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:773249360098:android:42e4c2b82864d15a",
+        "mobilesdk_app_id": "1:328601292770:android:42e4c2b82864d15a",
         "android_client_info": {
           "package_name": "com.pkteam.smartcalendar"
         }
       },
       "oauth_client": [
         {
-          "client_id": "773249360098-h0k16te4selmocoqgf97rc8sp9galnbf.apps.googleusercontent.com",
+          "client_id": "328601292770-0mg9ikpstgdt1ur0v8qp9f32hsete0va.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.pkteam.smartcalendar",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "773249360098-ca4pc80oqr6em81lkrq276rqbc9aji8t.apps.googleusercontent.com",
+          "client_id": "328601292770-fprcumm1qipq0c2p6u52na01n5r3ptva.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAnWQIIY7_1G-d3IGsHpDQh5udJj2S79_o"
+          "current_key": "AIzaSyBLgY-6fp8IM4TDeuDs6fvcsNVSSUjIS3E"
         }
       ],
       "services": {
@@ -40,15 +40,8 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "773249360098-ca4pc80oqr6em81lkrq276rqbc9aji8t.apps.googleusercontent.com",
+              "client_id": "328601292770-fprcumm1qipq0c2p6u52na01n5r3ptva.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "773249360098-9fen6mr8d027i2o3p59jhhrblgp2e04b.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "PK.SmartCalendar"
-              }
             }
           ]
         },

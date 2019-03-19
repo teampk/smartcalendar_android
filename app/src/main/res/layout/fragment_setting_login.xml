@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="login"
             type="com.pkteam.smartcalendar.view.SettingLogin"/>
@@ -246,12 +247,7 @@
                     android:layout_weight="1">
 
                 </RelativeLayout>
-
             </LinearLayout>
-
-
-
-
         </LinearLayout>
 
 
@@ -275,10 +271,10 @@
                 android:id="@+id/btn_google"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_element"
-                android:text="Google로 계속하기"
                 android:textColor="@color/material_white_1000"
                 android:textStyle="bold"
                 android:background="#DC4A38"
+                android:text="Google로 계속하기"
                 android:onClick="@{login::googleLoginListener}"/>
 
             <Button
