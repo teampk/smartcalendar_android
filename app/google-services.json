@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "773249360098",
+    "firebase_url": "https://pkcalendar-2711f.firebaseio.com",
+    "project_id": "pkcalendar-2711f",
+    "storage_bucket": "pkcalendar-2711f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773249360098:android:42e4c2b82864d15a",
+        "android_client_info": {
+          "package_name": "com.pkteam.smartcalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773249360098-h0k16te4selmocoqgf97rc8sp9galnbf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pkteam.smartcalendar",
+            "certificate_hash": "a454c42a486b3270850b488bb0cc18a7d285df21"
+          }
+        },
+        {
+          "client_id": "773249360098-ca4pc80oqr6em81lkrq276rqbc9aji8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnWQIIY7_1G-d3IGsHpDQh5udJj2S79_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "773249360098-ca4pc80oqr6em81lkrq276rqbc9aji8t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "773249360098-9fen6mr8d027i2o3p59jhhrblgp2e04b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "PK.SmartCalendar"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

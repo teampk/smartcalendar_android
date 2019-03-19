@@ -20,11 +20,8 @@ public class SettingLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         binding = DataBindingUtil.setContentView(this, R.layout.fragment_setting_login);
         binding.setLogin(this);
-
-
     }
 
     public void finishView(View view){
@@ -33,7 +30,6 @@ public class SettingLogin extends AppCompatActivity {
 
     public void signInListener(View view){
         Toast.makeText(this, "로그인", Toast.LENGTH_SHORT).show();
-
     }
 
     public void signUpListener(View view){
@@ -54,7 +50,6 @@ public class SettingLogin extends AppCompatActivity {
         Toast.makeText(this, "페이스북", Toast.LENGTH_SHORT).show();
 
     }
-
 
 
 }
