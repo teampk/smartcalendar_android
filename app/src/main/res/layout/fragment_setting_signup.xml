@@ -10,114 +10,125 @@
             type="com.pkteam.smartcalendar.view.SettingSignUp"/>
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_top_bar"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_top_bar"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="@dimen/height_top_bar"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:onClick="@{signup::finishView}"/>
+
+            </LinearLayout>
+
 
             <ImageView
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_width="@dimen/height_top_bar"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_close_black_24dp"
-                android:onClick="@{signup::finishView}"/>
-
-        </LinearLayout>
-
-
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            app:srcCompat="@drawable/sc_logo"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Smart Calendar"
-            android:textSize="40dp"
-            android:textColor="@color/colorBlack"
-            android:gravity="center"
-            android:textStyle="bold"/>
-
-        <!-- ID & PW -->
-        <LinearLayout
-            android:layout_marginTop="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-            <EditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_element"
-                android:background="@null"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:hint="이름"
-                android:textSize="@dimen/text_size"
-                />
-
-            <EditText
-                android:id="@+id/et_id"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_element"
-                android:background="@null"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:hint="이메일"
-                android:textSize="@dimen/text_size"
-                />
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/sc_logo"/>
 
-            <EditText
-                android:id="@+id/et_pw"
-                android:layout_marginTop="20dp"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_element"
-                android:background="@null"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:hint="비밀번호"
-                android:textSize="@dimen/text_size"
-                />
-
-            <EditText
-                android:id="@+id/et_pw2"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_element"
-                android:background="@null"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:hint="비밀번호 재입력"
-                android:textSize="@dimen/text_size"
-                />
-
-            <Button
-                android:id="@+id/btn_submit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_element"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorBlack"
+                android:layout_height="wrap_content"
+                android:text="Smart Calendar"
+                android:textSize="40dp"
+                android:textColor="@color/colorBlack"
                 android:gravity="center"
-                android:onClick="@{signup::signUpListener}"
-                android:text="회원가입"
-                android:textColor="@color/material_white_1000"
-                android:textSize="@dimen/text_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
+
+            <!-- Sign up -->
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:background="@null"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:hint="이름"
+                    android:textSize="@dimen/text_size"
+                    />
+
+                <EditText
+                    android:id="@+id/et_id"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:background="@null"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:hint="이메일"
+                    android:textSize="@dimen/text_size"
+                    />
+
+                <EditText
+                    android:id="@+id/et_pw"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:background="@null"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:hint="비밀번호"
+                    android:textSize="@dimen/text_size"
+                    android:inputType="textPassword"
+                    />
+
+                <EditText
+                    android:id="@+id/et_pw2"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:background="@null"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:hint="비밀번호 재입력"
+                    android:textSize="@dimen/text_size"
+                    android:inputType="textPassword"
+                    />
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/colorBlack"
+                    android:gravity="center"
+                    android:onClick="@{signup::signUpListener}"
+                    android:text="회원가입"
+                    android:textColor="@color/material_white_1000"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
+    </ScrollView>
 
-
-    </LinearLayout>
 </layout>

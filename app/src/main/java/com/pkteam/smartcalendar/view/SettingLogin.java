@@ -68,7 +68,7 @@ public class SettingLogin extends AppCompatActivity {
     }
 
     public void findPasswordListener(View view){
-        Toast.makeText(this, "로그인", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "비밀번호 찾기", Toast.LENGTH_SHORT).show();
     }
 
     public void googleLoginListener(View view){
@@ -79,6 +79,7 @@ public class SettingLogin extends AppCompatActivity {
     public void facebookLoginListener(View view){
         Toast.makeText(this, "페이스북", Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
