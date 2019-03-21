@@ -79,9 +79,9 @@
 
 
     <!-- firebase -->
-    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
-    <string name="facebook_application_id" translatable="false">1:773249360098:android:42e4c2b82864d15a</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb1:773249360098:android:42e4c2b82864d15a</string>
+    <string name="facebook_app_id">347236915890000</string>
+    <string name="fb_login_protocol_scheme">fb347236915890000</string>
+
 
 
 </resources>
