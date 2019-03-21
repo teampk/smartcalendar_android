@@ -277,24 +277,22 @@
                 <Button
                     android:id="@+id/btn_google"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
+                    android:layout_height="24dp"
                     android:textColor="@color/material_white_1000"
                     android:textStyle="bold"
                     android:background="#DC4A38"
                     android:text="Google로 계속하기"
                     android:onClick="@{login::googleLoginListener}"/>
 
-                <Button
+
+
+                <com.facebook.login.widget.LoginButton
                     android:id="@+id/btn_facebook"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
-                    android:text="Facebook로 계속하기"
-                    android:textColor="@color/material_white_1000"
-                    android:textStyle="bold"
-                    android:background="#3B5997"
-                    android:onClick="@{login::facebookLoginListener}"/>
-
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{login::facebookLoginListener}"
+                    />
 
 
 
