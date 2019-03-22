@@ -83,6 +83,7 @@
                     android:paddingEnd="20dp"
                     android:hint="비밀번호"
                     android:textSize="@dimen/text_size"
+                    android:inputType="textPassword"
                     />
 
                 <Button

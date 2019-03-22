@@ -68,13 +68,12 @@ public class SettingLogin extends AppCompatActivity {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("FACEBOOKLOGIN", "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                Log.d("FACEBOOKLOGIN", "facebook:onCancel");
+                Log.d("FACEBOOKLOGIN", "facebook 로그인 : 취소되었습니다.");
                 // ...
             }
 
@@ -84,8 +83,25 @@ public class SettingLogin extends AppCompatActivity {
                 // ...
             }
         });
+    }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+                finish();
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                // ...
+            }
+        }
     }
 
     public void finishView(View view){
@@ -105,19 +121,14 @@ public class SettingLogin extends AppCompatActivity {
         Toast.makeText(this, "비밀번호 찾기", Toast.LENGTH_SHORT).show();
     }
 
+    // Google Button Listener
     public void googleLoginListener(View view){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public void facebookLoginListener(View view){
-
-    }
-
-
     // firebase 로 값을 넘겨주는 부분
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -133,17 +144,22 @@ public class SettingLogin extends AppCompatActivity {
                         } else {
                             Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
                         }
-
                         // ...
                     }
                 });
     }
+
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-
+            //
         } else {
-
+            //
         }
+    }
+
+    // Facebook Button Listener
+    public void facebookLoginListener(View view){
+
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -163,29 +179,8 @@ public class SettingLogin extends AppCompatActivity {
                             Toast.makeText(SettingLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
                         // ...
                     }
                 });
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                // ...
-            }
-        }
-    }
-
-
 }

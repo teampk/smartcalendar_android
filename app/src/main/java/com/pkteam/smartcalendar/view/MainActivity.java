@@ -9,9 +9,6 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.pkteam.smartcalendar.view.Fragments.FragmentCalendar;
-import com.pkteam.smartcalendar.view.Fragments.FragmentHome;
-import com.pkteam.smartcalendar.view.Fragments.FragmentSetting;
 import com.pkteam.smartcalendar.R;
 
 

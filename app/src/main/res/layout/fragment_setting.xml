@@ -341,7 +341,8 @@
             android:id="@+id/crdHeaderView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_top_bar_main"
-            app:cardBackgroundColor="@color/material_white_1000">
+            app:cardBackgroundColor="@color/material_white_1000"
+            >
 
             <RelativeLayout
                 android:id="@+id/rl_top_bar"

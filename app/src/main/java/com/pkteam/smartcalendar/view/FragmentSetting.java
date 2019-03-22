@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar.view.Fragments;
+package com.pkteam.smartcalendar.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingBinding;
 import com.pkteam.smartcalendar.view.DataCheckActivity;
 import com.pkteam.smartcalendar.view.SettingCategory;
 import com.pkteam.smartcalendar.view.SettingLogin;
+import com.pkteam.smartcalendar.view.SettingProfile;
 import com.pkteam.smartcalendar.view.SettingSleepTime;
 
 /*
@@ -27,18 +30,30 @@ import com.pkteam.smartcalendar.view.SettingSleepTime;
 public class FragmentSetting extends Fragment {
 
     FragmentSettingBinding binding;
+    private boolean signedIn;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false);
         View mView = binding.getRoot();
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            binding.tvTopBar.setText("반갑습니다!");
+            signedIn = true;
+        }else{
+            binding.tvTopBar.setText("로그인이 필요하네요.");
+            signedIn = false;
+        }
+
+
         bindingView(mView);
         return mView;
     }
 
     private void bindingView(View mView){
-        binding.llCategorySetting.setOnClickListener(listener);
         binding.llDeleteAllData.setOnClickListener(listener);
         binding.llCheckData.setOnClickListener(listener);
         binding.llAppInformation.setOnClickListener(listener);
@@ -52,11 +67,14 @@ public class FragmentSetting extends Fragment {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.rl_top_bar:
-                    Intent intentLogin = new Intent(getContext(), SettingLogin.class);
-                    startActivity(intentLogin);
-
+                    if(signedIn){
+                        Intent intentProfile = new Intent(getContext(), SettingProfile.class);
+                        startActivity(intentProfile);
+                    }else{
+                        Intent intentLogin = new Intent(getContext(), SettingLogin.class);
+                        startActivity(intentLogin);
+                    }
                     break;
-
                 case R.id.ll_delete_all_data:
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("모든 데이터를 삭제합니다");
@@ -81,10 +99,6 @@ public class FragmentSetting extends Fragment {
                 case R.id.ll_check_data:
                     Intent mIntent = new Intent(getContext(), DataCheckActivity.class);
                     startActivity(mIntent);
-                    break;
-                case R.id.ll_category_setting:
-                    Intent intent = new Intent(getContext(), SettingCategory.class);
-                    startActivity(intent);
                     break;
                 case R.id.ll_app_information:
                     Toast.makeText(getContext(), "Smart Calendar 1.0.0", Toast.LENGTH_SHORT).show();
@@ -116,4 +130,6 @@ public class FragmentSetting extends Fragment {
         // pass a true to setHeaderFastHide to make views hide faster
         binding.concealerNSV.setHeaderFastHide(true);
     }
+
+
 }

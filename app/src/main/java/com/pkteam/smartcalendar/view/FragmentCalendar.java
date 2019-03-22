@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar.view.Fragments;
+package com.pkteam.smartcalendar.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
