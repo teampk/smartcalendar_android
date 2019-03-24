@@ -38,10 +38,10 @@ public class FragmentSetting extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false);
+        binding.setSetting(this);
         View mView = binding.getRoot();
         setLoginText();
-
-        bindingView(mView);
+        setupConcealerNSV();
         return mView;
     }
 
@@ -51,69 +51,6 @@ public class FragmentSetting extends Fragment {
         setLoginText();
 
     }
-
-    private void bindingView(View mView){
-        binding.llDeleteAllData.setOnClickListener(listener);
-        binding.llCheckData.setOnClickListener(listener);
-        binding.llAppInformation.setOnClickListener(listener);
-        binding.llSleepTime.setOnClickListener(listener);
-        binding.rlTopBar.setOnClickListener(listener);
-
-        setupConcealerNSV();
-    }
-    View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.rl_top_bar:
-                    if(signedIn){
-                        Intent intentProfile = new Intent(getContext(), SettingProfile.class);
-                        startActivity(intentProfile);
-                    }else{
-                        Intent intentLogin = new Intent(getContext(), SettingLogin.class);
-                        startActivity(intentLogin);
-                    }
-                    break;
-                case R.id.ll_delete_all_data:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("모든 데이터를 삭제합니다");
-                    builder.setMessage("추가한 모든 일정 데이터를 삭제합니다. 계속하시겠습니까?");
-                    builder.setPositiveButton("예",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
-                                    dbHelper.deleteTodoDataAll();
-                                    dbHelper.initializeRepeatId();
-                                    Toast.makeText(getContext(), "모든 데이터가 삭제되었습니다", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                    builder.setNegativeButton("아니오",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-                    builder.show();
-
-                    break;
-                case R.id.ll_check_data:
-                    Intent mIntent = new Intent(getContext(), DataCheckActivity.class);
-                    startActivity(mIntent);
-                    break;
-                case R.id.ll_app_information:
-                    Toast.makeText(getContext(), "Smart Calendar 1.0.0", Toast.LENGTH_SHORT).show();
-
-                    break;
-                case R.id.ll_sleep_time:
-                    Intent intents = new Intent(getContext(), SettingSleepTime.class);
-                    startActivity(intents);
-
-
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     private void setupConcealerNSV() {
         // if you're setting header and footer views at the very start of the layout creation (onCreate),
@@ -139,6 +76,55 @@ public class FragmentSetting extends Fragment {
             binding.tvTopBar.setText("로그인이 필요하네요.");
             signedIn = false;
         }
+    }
+
+    public void topBarListener(View view){
+        if(signedIn){
+            Intent intentProfile = new Intent(getContext(), SettingProfile.class);
+            startActivity(intentProfile);
+        }else{
+            Intent intentLogin = new Intent(getContext(), SettingLogin.class);
+            startActivity(intentLogin);
+        }
+    }
+
+    public void categoryListener(View view){
+        Intent intentCategory = new Intent(getContext(), SettingCategory.class);
+        startActivity(intentCategory);
+    }
+    public void sleepTimeListener(View view){
+        Intent intents = new Intent(getContext(), SettingSleepTime.class);
+        startActivity(intents);
+    }
+
+    public void infAppListener(View view){
+        Toast.makeText(getContext(), "Time Spoon 1.0.1", Toast.LENGTH_SHORT).show();
+    }
+
+    public void checkAllDataListener(View view){
+        Intent mIntent = new Intent(getContext(), DataCheckActivity.class);
+        startActivity(mIntent);
+    }
+
+    public void dataDeleteListener(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("모든 데이터를 삭제합니다");
+        builder.setMessage("추가한 모든 일정 데이터를 삭제합니다.\n계속하시겠습니까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
+                        dbHelper.deleteTodoDataAll();
+                        dbHelper.initializeRepeatId();
+                        Toast.makeText(getContext(), "모든 데이터가 삭제되었습니다", Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
 

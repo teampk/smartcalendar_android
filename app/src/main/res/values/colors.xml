@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8955FF</color>
+    <color name="colorPrimary">#60BEC5</color>
     <color name="colorPrimaryDark">#E3DEDE</color>
-    <color name="colorAccent">#CC0000</color>
+    <color name="colorAccent">#E8697C</color>
 
-
-    <color name="colorFab">#F0E5DE</color>
-    <color name="colorFabPressed">#c1a492</color>
+    <color name="colorFab">#E8697C</color>
+    <color name="colorFabPressed">#CC0000</color>
 
     <color name="colorLightGray">#E0E3DA</color>
     <color name="colorLightGrayDivider">#90E0E3DA</color>

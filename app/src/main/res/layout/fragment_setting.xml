@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="setting"
+            type="com.pkteam.smartcalendar.view.FragmentSetting"/>
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +41,9 @@
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingRight="20dp"
+                    android:onClick="@{setting::categoryListener}"
+                    >
 
                     <!-- category item -->
                     <LinearLayout
@@ -90,7 +98,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@color/colorLightGray" />
 
-                <!-- 데이터 체크 -->
+                <!-- 수면시간 설정 -->
                 <LinearLayout
                     android:id="@+id/ll_sleep_time"
                     android:layout_width="match_parent"
@@ -98,7 +106,9 @@
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingRight="20dp"
+                    android:onClick="@{setting::sleepTimeListener}"
+                    >
 
                     <!-- category item -->
                     <LinearLayout
@@ -158,7 +168,9 @@
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingRight="20dp"
+                    android:onClick="@{setting::infAppListener}"
+                    >
 
                     <!-- category item -->
                     <LinearLayout
@@ -219,7 +231,9 @@
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingRight="20dp"
+                    android:onClick="@{setting::checkAllDataListener}"
+                    >
 
                     <!-- category item -->
                     <LinearLayout
@@ -279,7 +293,9 @@
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingRight="20dp"
+                    android:onClick="@{setting::dataDeleteListener}"
+                    >
 
                     <!-- category item -->
                     <LinearLayout
