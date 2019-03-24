@@ -87,7 +87,7 @@ public class FragmentHome extends Fragment {
 
         if (addActionItems) {
             binding.speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_add_item, R.drawable.ic_add_white_24dp)
-                    .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlack, getContext().getTheme()))
+                    .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, getContext().getTheme()))
                     .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.material_white_1000, getContext().getTheme()))
                     .setLabel(getString(R.string.label_add_item))
                     .setLabelColor(Color.BLACK)
@@ -95,6 +95,7 @@ public class FragmentHome extends Fragment {
                     .create());
 
             binding.speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_auto_scheduling, R.drawable.ic_dashboard_white_24dp)
+                    .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, getContext().getTheme()))
                     .setLabel(getString(R.string.label_scheduling))
                     .setLabelColor(Color.BLACK)
                     .setLabelBackgroundColor(Color.WHITE)
