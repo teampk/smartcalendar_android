@@ -23,6 +23,8 @@ import com.pkteam.smartcalendar.view.SettingLogin;
 import com.pkteam.smartcalendar.view.SettingProfile;
 import com.pkteam.smartcalendar.view.SettingSleepTime;
 
+import java.util.Date;
+
 /*
  * Created by paeng on 2018. 7. 4..
  */
@@ -37,20 +39,17 @@ public class FragmentSetting extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false);
         View mView = binding.getRoot();
-
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null){
-            binding.tvTopBar.setText("반갑습니다!");
-            signedIn = true;
-        }else{
-            binding.tvTopBar.setText("로그인이 필요하네요.");
-            signedIn = false;
-        }
-
+        setLoginText();
 
         bindingView(mView);
         return mView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setLoginText();
+
     }
 
     private void bindingView(View mView){
@@ -129,6 +128,17 @@ public class FragmentSetting extends Fragment {
 
         // pass a true to setHeaderFastHide to make views hide faster
         binding.concealerNSV.setHeaderFastHide(true);
+    }
+
+    private void setLoginText(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            binding.tvTopBar.setText("반갑습니다!");
+            signedIn = true;
+        }else{
+            binding.tvTopBar.setText("로그인이 필요하네요.");
+            signedIn = false;
+        }
     }
 
 

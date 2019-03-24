@@ -96,7 +96,6 @@ public class SettingLogin extends AppCompatActivity {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                finish();
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 // ...
@@ -139,8 +138,7 @@ public class SettingLogin extends AppCompatActivity {
                             Toast.makeText(SettingLogin.this, "Google 로그인 완료", Toast.LENGTH_SHORT).show();
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // updateUI(user);
-                            finish();
+                            updateUI(user);
                         } else {
                             Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
                         }
@@ -149,13 +147,7 @@ public class SettingLogin extends AppCompatActivity {
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            //
-        } else {
-            //
-        }
-    }
+
 
     // Facebook Button Listener
     public void facebookLoginListener(View view){
@@ -182,5 +174,14 @@ public class SettingLogin extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Log.d("LoginTest", "updateUI");
+            finish();
+        } else {
+            //
+        }
     }
 }
