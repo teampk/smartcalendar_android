@@ -98,7 +98,8 @@ public class FragmentSetting extends Fragment {
     }
 
     public void infAppListener(View view){
-        Toast.makeText(getContext(), "Time Spoon 1.0.1", Toast.LENGTH_SHORT).show();
+        Intent intentInfApp = new Intent(getContext(), SettingAppInfo.class);
+        startActivity(intentInfApp);
     }
 
     public void checkAllDataListener(View view){

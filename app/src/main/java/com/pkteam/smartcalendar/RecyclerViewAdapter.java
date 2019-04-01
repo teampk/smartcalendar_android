@@ -31,8 +31,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ArrayList<Integer> getSelectedId() {
         return selectedId;
     }
-
     private ArrayList<Integer> selectedId;
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView itemCategory;
+        TextView itemTitle, itemTime;
+        RelativeLayout itemParent;
+
+        ViewHolder(View itemView){
+            super(itemView);
+            itemParent = itemView.findViewById(R.id.item_parent);
+
+            itemCategory = itemView.findViewById(R.id.item_category);
+            itemTitle = itemView.findViewById(R.id.item_text);
+            itemTime = itemView.findViewById(R.id.item_time);
+        }
+    }
 
     public RecyclerViewAdapter(Context context, ArrayList<MyData> searchDataSet, int mode){
         this.mDataSet = searchDataSet;
@@ -46,6 +60,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mode = mode;
         this.date = date;
     }
+
+
 
 
     @NonNull
@@ -170,20 +186,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mDataSet.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView itemCategory;
-        TextView itemTitle, itemTime;
-        RelativeLayout itemParent;
 
-        public ViewHolder(View itemView){
-            super(itemView);
-            itemParent = itemView.findViewById(R.id.item_parent);
-
-            itemCategory = itemView.findViewById(R.id.item_category);
-            itemTitle = itemView.findViewById(R.id.item_text);
-            itemTime = itemView.findViewById(R.id.item_time);
-        }
-    }
 
 
     private Drawable getCategoryDrawable(int category){
