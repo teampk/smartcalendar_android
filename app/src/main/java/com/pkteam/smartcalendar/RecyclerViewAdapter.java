@@ -24,6 +24,9 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
     private ArrayList<MyData> mDataSet = new ArrayList<>();
+    private ArrayList<MyData> mainDataStatic;
+    private ArrayList<MyData> mainDataDynamic;
+
     private Context mContext;
     private int mode;
     private long date;
@@ -59,6 +62,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mContext = context;
         this.mode = mode;
         this.date = date;
+    }
+    // For Main
+    public RecyclerViewAdapter(Context context, ArrayList<MyData> dataStatic, ArrayList<MyData> dataDynamic, int mode){
+        this.mContext = context;
+        this.mainDataStatic = dataStatic;
+        this.mainDataDynamic = dataDynamic;
+        this.mode = mode;
+        this.date = 0;
     }
 
     @NonNull
@@ -182,9 +193,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return mDataSet.size();
     }
-
-
-
 
     private Drawable getCategoryDrawable(int category){
         Drawable categoryDrawable = null;

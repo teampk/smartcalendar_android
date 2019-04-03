@@ -3,7 +3,8 @@
     <string name="title_1">Home</string>
     <string name="title_2">Calendar</string>
     <string name="title_3">Setting</string>
-    <string name="current_time">2018년 8월 15일</string>
+    <string name="current_date">2018년 8월 15일</string>
+    <string name="current_time">2019.03.27 22:30</string>
 
     <string name="button_cancel">취소</string>
     <string name="button_add">추가</string>

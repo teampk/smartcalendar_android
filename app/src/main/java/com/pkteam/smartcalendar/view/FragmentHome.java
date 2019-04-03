@@ -8,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,15 +161,32 @@ public class FragmentHome extends Fragment {
     }
 
     private void initRecyclerView(View mView){
-        // static
-        binding.recyclerTotal.setHasFixedSize(false);
-        binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        binding.recyclerTotal.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(getContext());
+        binding.recyclerTotal.setLayoutManager(layoutManager);
+
         binding.recyclerTotal.scrollToPosition(0);
         binding.recyclerTotal.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1));
         binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
 
 
+
+
+
         /*
+
+        // static
+        binding.recycler1.setHasFixedSize(false);
+        binding.recycler1.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recycler1.scrollToPosition(0);
+        binding.recycler1.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1));
+        binding.recycler1.setItemAnimator(new DefaultItemAnimator());
+
+
         // dynamic
         binding.recycler2.setHasFixedSize(true);
         binding.recycler2.setLayoutManager(new LinearLayoutManager(getActivity()));
