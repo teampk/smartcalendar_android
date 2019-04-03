@@ -59,8 +59,6 @@ public class FragmentHome extends Fragment {
                 Toast.makeText(getContext(), sdf.format(date), Toast.LENGTH_SHORT).show();
             }
         });
-
-
         return mView;
     }
     @Override
@@ -143,9 +141,6 @@ public class FragmentHome extends Fragment {
 
     }
 
-
-
-
     public String getCurrentDate(){
         // get Current Date and Time
         Date date = new Date(System.currentTimeMillis());
@@ -165,18 +160,21 @@ public class FragmentHome extends Fragment {
 
     private void initRecyclerView(View mView){
         // static
-        binding.recycler1.setHasFixedSize(true);
-        binding.recycler1.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.recycler1.scrollToPosition(0);
-        binding.recycler1.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1));
-        binding.recycler1.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerTotal.setHasFixedSize(false);
+        binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerTotal.scrollToPosition(0);
+        binding.recyclerTotal.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1));
+        binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
 
+
+        /*
         // dynamic
         binding.recycler2.setHasFixedSize(true);
         binding.recycler2.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recycler2.scrollToPosition(0);
         binding.recycler2.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromNow(dynamicData),2));
         binding.recycler2.setItemAnimator(new DefaultItemAnimator());
+        */
     }
 
 }
