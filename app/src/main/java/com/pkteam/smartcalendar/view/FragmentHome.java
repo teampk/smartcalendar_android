@@ -170,10 +170,8 @@ public class FragmentHome extends Fragment {
         binding.recyclerTotal.setLayoutManager(layoutManager);
 
         binding.recyclerTotal.scrollToPosition(0);
-        binding.recyclerTotal.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1));
+        binding.recyclerTotal.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData), arrayListSorting.sortingForDynamicFromNow(dynamicData), 0));
         binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
-
-
 
 
 
