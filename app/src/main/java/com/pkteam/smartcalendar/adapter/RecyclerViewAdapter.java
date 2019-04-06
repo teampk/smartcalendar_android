@@ -1,4 +1,4 @@
-package com.pkteam.smartcalendar;
+package com.pkteam.smartcalendar.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.pkteam.smartcalendar.GetTimeInformation;
+import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.view.AddItemActivity;
 
@@ -78,6 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view = null;
         if (mode==1 || mode==2){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
+
         }else if (mode==3 || mode==4){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_calendar, parent, false);
         }else if (mode==5 || mode==6){
@@ -217,5 +220,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return categoryDrawable;
 
     }
+
 
 }

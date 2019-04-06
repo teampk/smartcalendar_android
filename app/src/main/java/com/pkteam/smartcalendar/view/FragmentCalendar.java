@@ -9,12 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -23,12 +20,10 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
-import com.pkteam.smartcalendar.RecyclerViewAdapter;
+import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.databinding.FragmentCalendarBinding;
 import com.pkteam.smartcalendar.model.ColorCategory;
 import com.pkteam.smartcalendar.model.MyData;
-import com.pkteam.smartcalendar.view.AddItemActivity;
-import com.pkteam.smartcalendar.view.ScheduleItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

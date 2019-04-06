@@ -8,30 +8,27 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.pkteam.smartcalendar.ArrayListSorting;
+import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.databinding.FragmentHomeBinding;
-import com.pkteam.smartcalendar.view.AddItemActivity;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.R;
-import com.pkteam.smartcalendar.RecyclerViewAdapter;
-import com.pkteam.smartcalendar.view.ScheduleItemActivity;
+import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
+import com.pkteam.smartcalendar.model.RecyclerData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /*
  * Created by paeng on 2018. 7. 4..
@@ -43,6 +40,8 @@ public class FragmentHome extends Fragment {
     private DBHelper dbHelper;
 
     FragmentHomeBinding binding;
+
+    ArrayList<MyData> mDataList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -162,15 +161,17 @@ public class FragmentHome extends Fragment {
 
     private void initRecyclerView(View mView){
 
-
         binding.recyclerTotal.setHasFixedSize(true);
-
-        RecyclerView.LayoutManager layoutManager;
-        layoutManager = new LinearLayoutManager(getContext());
-        binding.recyclerTotal.setLayoutManager(layoutManager);
-
+        binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerTotal.scrollToPosition(0);
-        binding.recyclerTotal.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData), arrayListSorting.sortingForDynamicFromNow(dynamicData), 0));
+        mDataList.clear();
+        mDataList.add(new MyData("Static", 0));
+        mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
+        mDataList.add(new MyData("Dynamic", 1));
+        mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
+        RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
+
+        binding.recyclerTotal.setAdapter(mainAdapter);
         binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
 
 

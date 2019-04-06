@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
-import com.pkteam.smartcalendar.RecyclerViewAdapter;
+import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
 

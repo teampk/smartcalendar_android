@@ -21,6 +21,15 @@ public class MyData {
     public int mScheduleId;
 
     public boolean selected;
+    public int mode;
+
+
+    public String mHeader;
+
+    public MyData(String text, int mode){
+        this.mHeader = text;
+        this.mode = mode;
+    }
 
 
     public MyData(int id, String title, String location, boolean isDynamic, boolean isAllday,
@@ -57,5 +66,21 @@ public class MyData {
         }else{
             return false;
         }
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public String getmHeader() {
+        return mHeader;
+    }
+
+    public void setmHeader(String mHeader) {
+        this.mHeader = mHeader;
     }
 }

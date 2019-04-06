@@ -9,6 +9,7 @@
 
     <color name="colorLightGray">#E0E3DA</color>
     <color name="colorLightGrayDivider">#90E0E3DA</color>
+    <color name="colorLightGrayDividerDark">#22E0E3DA</color>
     <color name="colorBlack">#000000</color>
 
     <color name="colorBackGround">#F0EFF5</color>
