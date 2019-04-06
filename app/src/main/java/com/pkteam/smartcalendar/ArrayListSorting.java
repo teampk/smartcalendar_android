@@ -29,7 +29,7 @@ public class ArrayListSorting {
             int endDate = Integer.valueOf(inputAl.get(i).getmTime().split("\\.")[1].substring(0, 8));
 
             if(startDate <= Integer.valueOf(getCurrentDate()) && endDate >= Integer.valueOf(getCurrentDate())){
-                inputAl.get(i).setMode(3);
+                inputAl.get(i).setMode(1);
                 outputAl.add(inputAl.get(i));
             }
         }
@@ -145,7 +145,7 @@ public class ArrayListSorting {
             if (inputAl.get(i)!=null){
                 long deadlineTimeInt = Long.parseLong(inputAl.get(i).getmTime().split("\\.")[2]);
                 if(deadlineTimeInt >= Long.parseLong(getCurrentTime())){
-                    inputAl.get(i).setMode(4);
+                    inputAl.get(i).setMode(2);
                     outputAl.add(inputAl.get(i));
                 }
             }

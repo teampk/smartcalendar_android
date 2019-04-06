@@ -79,10 +79,8 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return 0;
         }else if(mDataSet.get(position).getMode() == 1){
             return 1;
-        }else if(mDataSet.get(position).getMode() == 2){
-            return 2;
         }else{
-            return 3;
+            return 2;
         }
     }
 
@@ -95,13 +93,8 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem_header, parent, false);
             return new MyViewHolderHeader(view);
-        }else if (viewType ==1) // Header Type 2
-        {
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            View view = inflater.inflate(R.layout.layout_listitem_header, parent, false);
-            return new MyViewHolderHeader(view);
         }
-        else if (viewType == 2) // Static Type
+        else if (viewType == 1) // Static Type
         {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem, parent, false);
@@ -121,17 +114,11 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case 0: {
                 MyViewHolderHeader viewHolder = (MyViewHolderHeader) holder;
                 viewHolder.setIsRecyclable(false);
-                viewHolder.itemHeaderText.setText("Static");
-            }
-            break;
-            case 1: {
-                MyViewHolderHeader viewHolder = (MyViewHolderHeader) holder;
-                viewHolder.setIsRecyclable(false);
-                viewHolder.itemHeaderText.setText("Dynamic");
+                viewHolder.itemHeaderText.setText(this.mDataSet.get(position).mHeader);
             }
             break;
 
-            case 2: {
+            case 1: {
                 final MyData selectedData = this.mDataSet.get(position);
                 MyViewHolderStatic viewHolder = (MyViewHolderStatic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
@@ -140,7 +127,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder.setIsRecyclable(false);
             }
             break;
-            case 3: {
+            case 2: {
                 final MyData selectedData = this.mDataSet.get(position);
                 MyViewHolderDynamic viewHolder = (MyViewHolderDynamic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));

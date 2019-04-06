@@ -165,9 +165,9 @@ public class FragmentHome extends Fragment {
         binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerTotal.scrollToPosition(0);
         mDataList.clear();
-        mDataList.add(new MyData("Static", 0));
+        mDataList.add(new MyData("오늘 할 일", 0));
         mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
-        mDataList.add(new MyData("Dynamic", 1));
+        mDataList.add(new MyData("해야할 일", 0));
         mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
         RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
 
