@@ -162,34 +162,16 @@ public class FragmentHome extends Fragment {
         binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerTotal.scrollToPosition(0);
         mDataList.clear();
-        mDataList.add(new MyData("오늘 할 일", 0));
+        mDataList.add(new MyData(getString(R.string.string_static), 0));
         mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
-        mDataList.add(new MyData("해야할 일", 0));
+        mDataList.add(new MyData(getString(R.string.string_dynamic), 0));
         mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
         RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
 
         binding.recyclerTotal.setAdapter(mainAdapter);
         binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
 
-
-
-        /*
-
-        // static
-        binding.recycler1.setHasFixedSize(false);
-        binding.recycler1.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.recycler1.scrollToPosition(0);
-        binding.recycler1.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForStaticForToday(staticData),1));
-        binding.recycler1.setItemAnimator(new DefaultItemAnimator());
-
-
-        // dynamic
-        binding.recycler2.setHasFixedSize(true);
-        binding.recycler2.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.recycler2.scrollToPosition(0);
-        binding.recycler2.setAdapter(new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromNow(dynamicData),2));
-        binding.recycler2.setItemAnimator(new DefaultItemAnimator());
-        */
+        
     }
 
 }
