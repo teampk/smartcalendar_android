@@ -1,11 +1,11 @@
 package com.pkteam.smartcalendar.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +16,9 @@ import android.widget.TextView;
 import com.pkteam.smartcalendar.GetTimeInformation;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.model.MyData;
-import com.pkteam.smartcalendar.model.RecyclerData;
+import com.pkteam.smartcalendar.view.AddItemActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 class MyViewHolderHeader extends RecyclerView.ViewHolder{
 
@@ -125,6 +124,18 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder.itemTitle.setText(selectedData.mTitle);
                 viewHolder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 1));
                 viewHolder.setIsRecyclable(false);
+
+                viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view){
+                        Intent intent = new Intent(view.getContext(), AddItemActivity.class);
+                        intent.putExtra("mode",2);
+                        intent.putExtra("id", selectedData.mId);
+                        view.getContext().startActivity(intent);
+                    }
+                });
+
+
             }
             break;
             case 2: {
@@ -134,6 +145,16 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder.itemTitle.setText(selectedData.mTitle);
                 viewHolder.itemDeadline.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 2));
                 viewHolder.setIsRecyclable(false);
+
+                viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view){
+                        Intent intent = new Intent(view.getContext(), AddItemActivity.class);
+                        intent.putExtra("mode",2);
+                        intent.putExtra("id", selectedData.mId);
+                        view.getContext().startActivity(intent);
+                    }
+                });
             }
             break;
 

@@ -25,9 +25,7 @@ import java.util.ArrayList;
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    private ArrayList<MyData> mDataSet = new ArrayList<>();
-    private ArrayList<MyData> mainDataStatic;
-    private ArrayList<MyData> mainDataDynamic;
+    private ArrayList<MyData> mDataSet;
 
     private Context mContext;
     private int mode;
@@ -65,14 +63,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mode = mode;
         this.date = date;
     }
-    // For Main
-    public RecyclerViewAdapter(Context context, ArrayList<MyData> dataStatic, ArrayList<MyData> dataDynamic, int mode){
-        this.mContext = context;
-        this.mainDataStatic = dataStatic;
-        this.mainDataDynamic = dataDynamic;
-        this.mode = mode;
-        this.date = 0;
-    }
 
     @NonNull
     @Override
@@ -80,7 +70,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view = null;
         if (mode==1 || mode==2){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
-
         }else if (mode==3 || mode==4){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_calendar, parent, false);
         }else if (mode==5 || mode==6){
