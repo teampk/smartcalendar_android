@@ -169,7 +169,7 @@ public class FragmentHome extends Fragment {
 
         // no data in static
         if(arrayListSorting.sortingForStaticForToday(staticData).size() == 0){
-            mDataList.add(new MyData(getString(R.string.string_no_data_static), 0));
+            mDataList.add(new MyData(getString(R.string.string_no_data_static), 3));
         }else{
             mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
         }
@@ -178,7 +178,7 @@ public class FragmentHome extends Fragment {
 
         // no data in dynamic
         if(arrayListSorting.sortingForDynamicFromNow(dynamicData).size() == 0){
-            mDataList.add(new MyData(getString(R.string.string_no_data_dynamic), 0));
+            mDataList.add(new MyData(getString(R.string.string_no_data_dynamic), 3));
         }else{
             mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
         }

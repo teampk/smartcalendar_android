@@ -78,8 +78,10 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return 0;
         }else if(mDataSet.get(position).getMode() == 1){
             return 1;
-        }else{
+        }else if(mDataSet.get(position).getMode() == 2){
             return 2;
+        }else{
+            return 3;
         }
     }
 
@@ -98,11 +100,16 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem, parent, false);
             return new MyViewHolderStatic(view);
-        }else // Dynamic Type
+        }else if (viewType == 2) // Dynamic Type
         {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem, parent, false);
             return new MyViewHolderDynamic(view);
+        }else // explain Type
+            {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.layout_listitem_explain, parent, false);
+            return new MyViewHolderHeader(view);
         }
     }
 
@@ -134,8 +141,6 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         view.getContext().startActivity(intent);
                     }
                 });
-
-
             }
             break;
             case 2: {
@@ -158,7 +163,12 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             break;
 
-
+            case 3: {
+                MyViewHolderHeader viewHolder = (MyViewHolderHeader) holder;
+                viewHolder.setIsRecyclable(false);
+                viewHolder.itemHeaderText.setText(this.mDataSet.get(position).mHeader);
+            }
+            break;
         }
     }
 

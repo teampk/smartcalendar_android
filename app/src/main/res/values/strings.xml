@@ -11,8 +11,8 @@
 
     <string name="string_static">오늘 일정</string>
     <string name="string_dynamic">해야할 일</string>
-    <string name="string_no_data_static">\t\t\t\t일정이 없습니다 :)</string>
-    <string name="string_no_data_dynamic">\t\t\t\t할 일이 없습니다 :)</string>
+    <string name="string_no_data_static">\t\t\t\t오늘은 일정이 없습니다 :)</string>
+    <string name="string_no_data_dynamic">\t\t\t\t할 일이 없습니다 :)\n\n\t\t\t\t아래 + 버튼을 통해 할 일을 추가해주세요!</string>
 
     <string name="string_add_item_static">일정</string>
     <string name="string_add_item_dynamic">해야할 일</string>
