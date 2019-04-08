@@ -9,8 +9,13 @@
     <string name="button_cancel">취소</string>
     <string name="button_add">추가</string>
 
-    <string name="string_static">Static</string>
-    <string name="string_dynamic">Dynamic</string>
+    <string name="string_static">오늘 일정</string>
+    <string name="string_dynamic">해야할 일</string>
+    <string name="string_no_data_static">\t\t\t\t일정이 없습니다 :)</string>
+    <string name="string_no_data_dynamic">\t\t\t\t할 일이 없습니다 :)</string>
+
+    <string name="string_add_item_static">일정</string>
+    <string name="string_add_item_dynamic">해야할 일</string>
 
     <string name="repeat_mode_1">안 함</string>
     <string name="repeat_mode_2">매일</string>

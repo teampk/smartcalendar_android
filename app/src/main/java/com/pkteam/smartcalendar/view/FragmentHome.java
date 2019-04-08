@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,17 +162,38 @@ public class FragmentHome extends Fragment {
         binding.recyclerTotal.setHasFixedSize(true);
         binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerTotal.scrollToPosition(0);
+
+
         mDataList.clear();
         mDataList.add(new MyData(getString(R.string.string_static), 0));
-        mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
+
+        // no data in static
+        if(arrayListSorting.sortingForStaticForToday(staticData).size() == 0){
+            mDataList.add(new MyData(getString(R.string.string_no_data_static), 0));
+        }else{
+            mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
+        }
+
         mDataList.add(new MyData(getString(R.string.string_dynamic), 0));
-        mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
+
+        // no data in dynamic
+        if(arrayListSorting.sortingForDynamicFromNow(dynamicData).size() == 0){
+            mDataList.add(new MyData(getString(R.string.string_no_data_dynamic), 0));
+        }else{
+            mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
+        }
+
+
+
+
+
+
         RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
 
         binding.recyclerTotal.setAdapter(mainAdapter);
         binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
 
-        
+
     }
 
 }

@@ -242,7 +242,7 @@ public class AddItemActivity extends AppCompatActivity {
         binding.llDynamic.setVisibility(View.VISIBLE);
         repeatMode = 1;
         item3_isDynamic = true;
-        binding.tvStaticDynamic.setText(R.string.string_dynamic);
+        binding.tvStaticDynamic.setText(R.string.string_add_item_dynamic);
         modeStaticDynamic = DYNAMIC_MODE;
     }
 
@@ -252,7 +252,7 @@ public class AddItemActivity extends AppCompatActivity {
         binding.llDynamic.setVisibility(View.GONE);
         repeatMode = getRepeatInteger(binding.tvRepeat.getText().toString());
         item3_isDynamic = false;
-        binding.tvStaticDynamic.setText(R.string.string_static);
+        binding.tvStaticDynamic.setText(R.string.string_add_item_static);
         modeStaticDynamic = STATIC_MODE;
     }
 
