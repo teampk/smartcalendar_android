@@ -9,11 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -23,6 +21,7 @@ import com.pkteam.smartcalendar.databinding.FragmentHomeBinding;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.R;
+import com.singh.daman.gentletoast.GentleToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +54,26 @@ public class FragmentHome extends Fragment {
             public void onClick(View v) {
                 Date date = new Date(System.currentTimeMillis());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                Toast.makeText(getContext(), sdf.format(date), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), sdf.format(date), Toast.LENGTH_SHORT).show();
+                GentleToast.with(getContext())
+                        .longToast(sdf.format(date))
+                        .setTextColor(R.color.material_white_1000)
+                        .setBackgroundColor(R.color.colorPrimary)
+                        .setBackgroundRadius(100)
+                        .setImage(R.drawable.logo_sc)
+                        .show();
+
+            }
+        });
+
+        binding.tvTime.setOnLongClickListener(new View.OnLongClickListener(){
+
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(getContext(), TestActivity.class);
+                startActivity(intent);
+
+                return true;
             }
         });
         return mView;
@@ -78,6 +96,56 @@ public class FragmentHome extends Fragment {
         binding.tvTime.setText(getCurrentDate());
         initDataset();
         initRecyclerView(mView);
+    }
+
+    private void initDataset(){
+        dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
+        staticData = new ArrayList<>();
+        dynamicData = new ArrayList<>();
+        staticData = dbHelper.getTodoStaticData();
+        dynamicData = dbHelper.getTodoDynamicData();
+    }
+
+    private void initRecyclerView(View mView){
+
+        binding.recyclerTotal.setHasFixedSize(true);
+        binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerTotal.scrollToPosition(0);
+
+
+        mDataList.clear();
+        mDataList.add(new MyData(getString(R.string.string_static), 0));
+
+        // no data in static
+        if(arrayListSorting.sortingForStaticForToday(staticData).size() == 0){
+            mDataList.add(new MyData(getString(R.string.string_no_data_static), 3));
+        }else{
+            mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
+        }
+
+        mDataList.add(new MyData(getString(R.string.string_dynamic), 0));
+
+        // no data in dynamic
+        if(arrayListSorting.sortingForDynamicFromNow(dynamicData).size() == 0){
+            mDataList.add(new MyData(getString(R.string.string_no_data_dynamic), 3));
+        }else{
+            mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
+        }
+
+
+        RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
+
+        binding.recyclerTotal.setAdapter(mainAdapter);
+        binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
+
+    }
+
+    public String getCurrentDate(){
+        // get Current Date and Time
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String[] mDate = sdf.format(date).split("/");
+        return mDate[0]+"년 "+mDate[1]+"월 "+mDate[2]+"일";
     }
 
     private void initSpeedDial(boolean addActionItems, View mView) {
@@ -137,62 +205,6 @@ public class FragmentHome extends Fragment {
                 return true; // To keep the Speed Dial open
             }
         });
-
-    }
-
-    public String getCurrentDate(){
-        // get Current Date and Time
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String[] mDate = sdf.format(date).split("/");
-        return mDate[0]+"년 "+mDate[1]+"월 "+mDate[2]+"일";
-    }
-
-
-    private void initDataset(){
-        dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
-        staticData = new ArrayList<>();
-        dynamicData = new ArrayList<>();
-        staticData = dbHelper.getTodoStaticData();
-        dynamicData = dbHelper.getTodoDynamicData();
-    }
-
-    private void initRecyclerView(View mView){
-
-        binding.recyclerTotal.setHasFixedSize(true);
-        binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerTotal.scrollToPosition(0);
-
-
-        mDataList.clear();
-        mDataList.add(new MyData(getString(R.string.string_static), 0));
-
-        // no data in static
-        if(arrayListSorting.sortingForStaticForToday(staticData).size() == 0){
-            mDataList.add(new MyData(getString(R.string.string_no_data_static), 3));
-        }else{
-            mDataList.addAll(arrayListSorting.sortingForStaticForToday(staticData));
-        }
-
-        mDataList.add(new MyData(getString(R.string.string_dynamic), 0));
-
-        // no data in dynamic
-        if(arrayListSorting.sortingForDynamicFromNow(dynamicData).size() == 0){
-            mDataList.add(new MyData(getString(R.string.string_no_data_dynamic), 3));
-        }else{
-            mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
-        }
-
-
-
-
-
-
-        RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
-
-        binding.recyclerTotal.setAdapter(mainAdapter);
-        binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
-
 
     }
 
