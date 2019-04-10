@@ -41,7 +41,8 @@
         android:textColor="#000"
         android:gravity="center|start"
         android:textSize="@dimen/text_size_recycler_title"
-        android:layout_marginStart="5dp"/>
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"/>
 
     <TextView
         android:id="@+id/item_time"

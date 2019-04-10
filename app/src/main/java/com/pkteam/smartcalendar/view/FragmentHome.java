@@ -138,6 +138,8 @@ public class FragmentHome extends Fragment {
             mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
         }
 
+        mDataList.add(new MyData("", 0));
+
 
         RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
 

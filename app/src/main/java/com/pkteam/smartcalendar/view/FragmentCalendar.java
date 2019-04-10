@@ -139,6 +139,9 @@ public class FragmentCalendar extends Fragment {
             mDataList.addAll(arrayListSorting.sortingForDynamicForCalendar(dynamicData, time));
         }
 
+        mDataList.add(new MyData("", 10));
+
+
 
         RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
 
