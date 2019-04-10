@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ class MyViewHolderStatic extends RecyclerView.ViewHolder{
 
     ImageView itemCategory;
     TextView itemTitle, itemTime;
-    RelativeLayout itemParent;
+    LinearLayout itemParent;
 
     MyViewHolderStatic(View itemView) {
         super(itemView);
@@ -49,7 +50,7 @@ class MyViewHolderDynamic extends RecyclerView.ViewHolder{
 
     ImageView itemCategory;
     TextView itemTitle, itemDeadline;
-    RelativeLayout itemParent;
+    LinearLayout itemParent;
 
     MyViewHolderDynamic(View itemView) {
         super(itemView);
