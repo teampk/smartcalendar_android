@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -53,30 +53,17 @@
                 <!--divider-->
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="3px"
+                    android:layout_height="3dp"
                     android:background="@color/colorLightGrayDivider" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_static"
+                    android:id="@+id/recycler_total"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
 
                 </android.support.v7.widget.RecyclerView>
 
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="3px"
-                    android:background="@color/colorLightGrayDivider" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_dynamic"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                </android.support.v7.widget.RecyclerView>
 
 
             </LinearLayout>
@@ -101,6 +88,9 @@
             app:sdExpansionMode="top"
             app:sdMainFabAnimationRotateAngle="135"
             app:sdMainFabClosedSrc="@drawable/ic_add_white_24dp"
-            app:sdMainFabOpenedSrc="@drawable/ic_close_white_24dp" />
-    </android.support.design.widget.CoordinatorLayout>
+            app:sdMainFabOpenedSrc="@drawable/ic_close_white_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
 </layout>

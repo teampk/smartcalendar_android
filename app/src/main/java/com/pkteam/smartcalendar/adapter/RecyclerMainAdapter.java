@@ -74,15 +74,26 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        if(mDataSet.get(position).getMode()==0){
+        if(mDataSet.get(position).getMode()==0)
             return 0;
-        }else if(mDataSet.get(position).getMode() == 1){
+        else if(mDataSet.get(position).getMode() == 1)
             return 1;
-        }else if(mDataSet.get(position).getMode() == 2){
+        else if(mDataSet.get(position).getMode() == 2)
             return 2;
-        }else{
+        else if (mDataSet.get(position).getMode() == 3)
             return 3;
-        }
+        else if (mDataSet.get(position).getMode() == 10)
+            return 10;
+        else if (mDataSet.get(position).getMode() == 11)
+            return 11;
+        else if (mDataSet.get(position).getMode() == 12)
+            return 12;
+        else if (mDataSet.get(position).getMode() == 13)
+            return 13;
+
+        else
+            return 13;
+
     }
 
     @NonNull
@@ -100,15 +111,47 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem, parent, false);
             return new MyViewHolderStatic(view);
-        }else if (viewType == 2) // Dynamic Type
+        }
+        else if (viewType == 2) // Dynamic Type
         {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem, parent, false);
             return new MyViewHolderDynamic(view);
-        }else // explain Type
-            {
+        }
+        else if (viewType == 3) // explain Type
+        {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem_explain, parent, false);
+            return new MyViewHolderHeader(view);
+        }
+        else if (viewType == 10)
+        {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.layout_listitem_calendar_header, parent, false);
+            return new MyViewHolderHeader(view);
+        }
+        else if (viewType == 11)
+        {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.layout_listitem_calendar, parent, false);
+            return new MyViewHolderStatic(view);
+        }
+        else if (viewType == 12)
+        {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.layout_listitem_calendar, parent, false);
+            return new MyViewHolderDynamic(view);
+        }
+        else if (viewType == 13)
+        {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.layout_listitem_calendar_explain, parent, false);
+            return new MyViewHolderHeader(view);
+        }
+        else
+        {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.layout_listitem_header, parent, false);
             return new MyViewHolderHeader(view);
         }
     }
@@ -117,14 +160,18 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch(holder.getItemViewType()) {
 
-            case 0: {
+            case 0:
+            case 10:
+            {
                 MyViewHolderHeader viewHolder = (MyViewHolderHeader) holder;
                 viewHolder.setIsRecyclable(false);
                 viewHolder.itemHeaderText.setText(this.mDataSet.get(position).mHeader);
             }
             break;
 
-            case 1: {
+            case 1:
+            case 11:
+            {
                 final MyData selectedData = this.mDataSet.get(position);
                 MyViewHolderStatic viewHolder = (MyViewHolderStatic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
@@ -143,7 +190,9 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 });
             }
             break;
-            case 2: {
+            case 2:
+            case 12:
+            {
                 final MyData selectedData = this.mDataSet.get(position);
                 MyViewHolderDynamic viewHolder = (MyViewHolderDynamic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
@@ -163,11 +212,17 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             break;
 
-            case 3: {
+            case 3:
+            case 13:
+            {
                 MyViewHolderHeader viewHolder = (MyViewHolderHeader) holder;
                 viewHolder.setIsRecyclable(false);
                 viewHolder.itemHeaderText.setText(this.mDataSet.get(position).mHeader);
             }
+            break;
+
+            default:
+
             break;
         }
     }

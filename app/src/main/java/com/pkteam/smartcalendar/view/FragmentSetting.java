@@ -128,5 +128,10 @@ public class FragmentSetting extends Fragment {
         builder.show();
     }
 
+    public void testingListener(View view){
+        Intent intent = new Intent(getContext(), TestActivity.class);
+        startActivity(intent);
+    }
+
 
 }

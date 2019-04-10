@@ -119,7 +119,6 @@ public class FragmentHome extends Fragment {
         binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerTotal.scrollToPosition(0);
 
-
         mDataList.clear();
         mDataList.add(new MyData(getString(R.string.string_static), 0));
 

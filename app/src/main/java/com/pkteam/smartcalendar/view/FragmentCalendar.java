@@ -20,6 +20,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.databinding.FragmentCalendarBinding;
 import com.pkteam.smartcalendar.model.ColorCategory;
@@ -44,6 +45,9 @@ public class FragmentCalendar extends Fragment {
 
     FragmentCalendarBinding binding;
 
+    ArrayList<MyData> mDataList = new ArrayList<>();
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +57,7 @@ public class FragmentCalendar extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false);
-        View mView = binding.getRoot();
+        final View mView = binding.getRoot();
         dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
         initDataset();
         bindingView(mView);
@@ -68,11 +72,11 @@ public class FragmentCalendar extends Fragment {
         super.onResume();
         initDataset();
         binding.compactcalendarView.setCurrentDate(new Date(System.currentTimeMillis()));
-        setRecyclerView(System.currentTimeMillis());
+        initRecyclerView(binding.getRoot(), System.currentTimeMillis());
         setCalendarCircle();
     }
 
-    private void bindingView(View mView){
+    private void bindingView(final View mView){
         binding.compactcalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
 
         // yyyy-MM-dd hh:mm:ss
@@ -84,8 +88,7 @@ public class FragmentCalendar extends Fragment {
             @Override
             public void onDayClick(Date dateClicked) {
                 List<Event> events = binding.compactcalendarView.getEvents(dateClicked);
-                setRecyclerView(dateClicked.getTime());
-
+                initRecyclerView(mView, dateClicked.getTime());
             }
 
             @Override
@@ -93,13 +96,11 @@ public class FragmentCalendar extends Fragment {
                 int month = firstDayOfNewMonth.getMonth()+1;
                 int year = firstDayOfNewMonth.getYear()+1900;
                 binding.tvMonth.setText(year+"년 "+month+"월");
-                setRecyclerView(firstDayOfNewMonth.getTime());
+                initRecyclerView(mView, firstDayOfNewMonth.getTime());
 
             }
         });
-
-        setRecyclerView(System.currentTimeMillis());
-
+        initRecyclerView(mView, System.currentTimeMillis());
     }
 
     private void initDataset(){
@@ -111,22 +112,41 @@ public class FragmentCalendar extends Fragment {
 
     }
 
-    private void setRecyclerView(long time){
+    private void initRecyclerView(View mView, long time){
 
-        binding.recyclerStatic.setHasFixedSize(true);
-        binding.recyclerStatic.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.recyclerStatic.scrollToPosition(0);
-        binding.recyclerStatic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForStaticForCalendar(staticData, time),3, time));
-        binding.recyclerStatic.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerTotal.setHasFixedSize(true);
+        binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerTotal.scrollToPosition(0);
 
-        binding.recyclerDynamic.setHasFixedSize(true);
-        binding.recyclerDynamic.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.recyclerDynamic.scrollToPosition(0);
-        binding.recyclerDynamic.setAdapter(new RecyclerViewAdapter(getContext(), arrayListSorting.sortingForDynamicForCalendar(dynamicData, time),4));
-        binding.recyclerDynamic.setItemAnimator(new DefaultItemAnimator());
+        mDataList.clear();
+        mDataList.add(new MyData(getString(R.string.string_add_item_static), 10));
 
+        // no data in static
+        if(arrayListSorting.sortingForStaticForCalendar(staticData, time).size() == 0){
+            mDataList.add(new MyData(getString(R.string.string_no_data_calendar_static), 13));
+        }else{
+            // mode 11
+            mDataList.addAll(arrayListSorting.sortingForStaticForCalendar(staticData, time));
+        }
+
+        mDataList.add(new MyData(getString(R.string.string_add_item_dynamic), 10));
+
+        // no data in dynamic
+        if(arrayListSorting.sortingForDynamicForCalendar(dynamicData, time).size() == 0){
+            mDataList.add(new MyData(getString(R.string.string_no_data_calendar_dynamic), 13));
+        }else{
+            // mode 12
+            mDataList.addAll(arrayListSorting.sortingForDynamicForCalendar(dynamicData, time));
+        }
+
+
+        RecyclerMainAdapter mainAdapter = new RecyclerMainAdapter(mView.getContext(), mDataList);
+
+        binding.recyclerTotal.setAdapter(mainAdapter);
+        binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
 
     }
+
     private void setCalendarCircle(){
         binding.compactcalendarView.removeAllEvents();
 
@@ -148,6 +168,7 @@ public class FragmentCalendar extends Fragment {
         }
 
     }
+
     private void makeCircle(int date, int category){
         int colors[] = {colorCategory.getCategory1(), colorCategory.getCategory2(), colorCategory.getCategory3(), colorCategory.getCategory4(), colorCategory.getCategory5()};
         String dateString = String.valueOf(date);
@@ -182,6 +203,7 @@ public class FragmentCalendar extends Fragment {
         }
 
     }
+
     private void initSpeedDial(boolean addActionItems, View mView) {
 
         if (addActionItems) {
