@@ -5,13 +5,18 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.transition.ChangeBounds;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -35,6 +40,7 @@ public class FragmentHome extends Fragment {
     private ArrayList<MyData> staticData, dynamicData;
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
     private DBHelper dbHelper;
+    private boolean show=false;
 
     FragmentHomeBinding binding;
 
@@ -44,14 +50,26 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        View mView = binding.getRoot();
+        final View mView = binding.getRoot();
         binding.tvTime.setText(getCurrentDate());
         initRecyclerView(mView);
         initSpeedDial(savedInstanceState == null, mView);
 
+
         binding.tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(show)
+                    hideComponents(mView); // if the animation is shown, we hide back the views
+                else
+                    showComponents(mView); // if the animation is NOT shown, we animate the views
+            }
+        });
+
+        binding.tvTime.setOnLongClickListener(new View.OnLongClickListener(){
+
+            @Override
+            public boolean onLongClick(View v) {
                 Date date = new Date(System.currentTimeMillis());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 //Toast.makeText(getContext(), sdf.format(date), Toast.LENGTH_SHORT).show();
@@ -62,17 +80,6 @@ public class FragmentHome extends Fragment {
                         .setBackgroundRadius(100)
                         .setImage(R.drawable.logo_sc)
                         .show();
-
-            }
-        });
-
-        binding.tvTime.setOnLongClickListener(new View.OnLongClickListener(){
-
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(getContext(), TestActivity.class);
-                startActivity(intent);
-
                 return true;
             }
         });
@@ -138,6 +145,41 @@ public class FragmentHome extends Fragment {
         binding.recyclerTotal.setAdapter(mainAdapter);
         binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
 
+    }
+
+    private void showComponents(View mView){
+        show = true;
+
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(getContext(), R.layout.fragment_home_detail);
+
+        binding.tvTime.setText(getString(R.string.top_bar_detail));
+
+
+        ChangeBounds transition = new ChangeBounds();
+        transition.setInterpolator(new AnticipateOvershootInterpolator(1.0f));
+        transition.setDuration(1200);
+        ConstraintLayout constraint = mView.findViewById(R.id.constraint);
+        TransitionManager.beginDelayedTransition(constraint, transition);
+        constraintSet.applyTo(constraint);
+        //here constraint is the name of view to which we are applying the constraintSet
+    }
+
+    private void hideComponents(View mView){
+        show = false;
+
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(getContext(), R.layout.fragment_home);
+
+        binding.tvTime.setText(getCurrentDate());
+
+        ChangeBounds transition = new ChangeBounds();
+        transition.setInterpolator(new AnticipateOvershootInterpolator(1.0f));
+        transition.setDuration(1200);
+        ConstraintLayout constraint = mView.findViewById(R.id.constraint);
+
+        TransitionManager.beginDelayedTransition(constraint, transition);
+        constraintSet.applyTo(constraint); //here constraint is the name of view to which we are applying the constraintSet
     }
 
     public String getCurrentDate(){

@@ -6,11 +6,13 @@
     <string name="current_date">2018년 8월 15일</string>
     <string name="current_time">2019.03.27 22:30</string>
 
+    <string name="top_bar_detail">다음 일정까지 남은 시간 : 2h\n다음 할 일까지 남은 시간 : 32h\n할 일들 총 필요시간 : 35h</string>
+
     <string name="button_cancel">취소</string>
     <string name="button_add">추가</string>
 
     <string name="string_static">오늘 일정</string>
-    <string name="string_dynamic">해야할 일</string>
+    <string name="string_dynamic">할 일</string>
     <string name="string_no_data_static">\t\t\t\t오늘은 일정이 없습니다 :)</string>
     <string name="string_no_data_dynamic">\t\t\t\t할 일이 없습니다 :)\n\n\t\t\t\t아래 + 버튼을 통해 할 일을 추가해주세요!</string>
 

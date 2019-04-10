@@ -53,6 +53,7 @@ public class TestActivity extends AppCompatActivity {
         TransitionManager.beginDelayedTransition(constraint, transition);
         constraintSet.applyTo(constraint);
         //here constraint is the name of view to which we are applying the constraintSet
+
     }
 
     private void hideComponents(){
