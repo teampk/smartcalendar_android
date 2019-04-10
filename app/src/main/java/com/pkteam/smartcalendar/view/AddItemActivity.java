@@ -205,7 +205,7 @@ public class AddItemActivity extends AppCompatActivity {
         tvTopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), String.valueOf(itemElement.mRepeatId+ "/"+itemElement.mScheduleId), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), String.valueOf(binding.etTitle.getText().toString().getBytes().length), Toast.LENGTH_SHORT).show();
                 // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
                 // 6.time(String)   7.category(Int)     8.Memo(String)  9.NeedTime(int)   10.repeatId(Int)  11.ScheduleId(int)
                 Log.d("PaengDataCheck",
