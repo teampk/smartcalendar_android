@@ -14,6 +14,8 @@
 
     <color name="colorBackGround">#F0EFF5</color>
 
+    <color name="textBlack">#FF000000</color>
+
     <!--color for categories-->
     <color name="colorCategory1">#F9320C</color>
     <color name="colorCategory2">#F9C00C</color>

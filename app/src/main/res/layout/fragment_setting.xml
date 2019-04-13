@@ -25,278 +25,171 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
-                <!-- background 1 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_blank_behind_top_bar_main"
-                    android:background="@color/material_white_1000">
-
-                </LinearLayout>
-
                 <!-- 로그인 -->
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/ll_profile"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginTop="140dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:onClick="@{setting::profileListener}"
 
                     >
 
-                    <!-- category item -->
-                    <LinearLayout
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="@dimen/height_image_view"
+                        android:layout_height="@dimen/height_image_view"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorBlack"
+                        app:civ_circle_background_color="@color/material_white_1000"
+                        android:src="@drawable/ic_person_black_24dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_profile"
+                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_setting_profile"
+                        android:textColor="@color/textBlack"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_pfrofile"
+                        />
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_profile"
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="10dp"
-                            app:civ_border_width="1dp"
-                            app:civ_border_color="#FF000000"
-                            app:civ_circle_background_color="@color/material_white_1000"
-                            android:src="@drawable/ic_person_black_24dp"/>
-
-                        <TextView
-                            android:id="@+id/tv_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|end"
-                            android:text="@string/string_setting_profile"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
-
-                    </LinearLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
 
                     <ImageView
+                        android:contentDescription="@string/desc_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center|end"
-                        android:textColor="#000000"
-                        android:textSize="@dimen/text_size"
-                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-                </LinearLayout>
-
-                <!-- background -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_background"
-                    android:background="@color/material_white_1000">
-
-                </LinearLayout>
-
+                </android.support.constraint.ConstraintLayout>
 
                 <!-- 카테고리 설정 -->
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/ll_category_setting"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginTop="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:onClick="@{setting::categoryListener}"
                     >
 
                     <!-- category item -->
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_setting_category"
+                        android:textColor="@color/textBlack"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="10dp"
-                            app:srcCompat="@drawable/ic_dashboard_black_24dp"
-
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|end"
-                            android:text="@string/string_setting_category"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
-
-                    </LinearLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
 
                     <ImageView
-
-                        android:id="@+id/iv_category_1"
+                        android:contentDescription="@string/desc_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center|end"
-                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
 
 
-                </LinearLayout>
-
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/colorLightGray" />
+                </android.support.constraint.ConstraintLayout>
 
                 <!-- 수면시간 설정 -->
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/ll_sleep_time"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
+                    android:layout_height="@dimen/height_element"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:onClick="@{setting::sleepTimeListener}"
                     >
 
-                    <!-- category item -->
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            app:srcCompat="@drawable/ic_access_alarm_black_24dp"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_category_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|end"
-                            android:text="@string/string_setting_sleep_time"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_setting_sleep_time"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
 
                     <ImageView
+                        android:contentDescription="@string/desc_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center|end"
-                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
 
-                </LinearLayout>
+                </android.support.constraint.ConstraintLayout>
 
-                <!-- background -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_background"
-                    android:background="@color/material_white_1000">
-
-                </LinearLayout>
 
                 <!-- 어플리케이션 정보 -->
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/ll_app_information"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="#ffffff"
+                    android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
+                    android:layout_marginTop="20dp"
                     android:onClick="@{setting::infAppListener}"
                     >
 
-                    <!-- category item -->
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            app:srcCompat="@drawable/ic_bubble_chart_black_24dp"
-
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|end"
-                            android:text="@string/string_setting_app_info"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_setting_app_info"
+                        android:textColor="@color/textBlack"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
 
                     <ImageView
+                        android:contentDescription="@string/desc_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center|end"
-                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-                </LinearLayout>
-
-                <!-- background -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_background"
-                    android:background="@color/material_white_1000">
-
-                </LinearLayout>
+                </android.support.constraint.ConstraintLayout>
 
 
-
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/colorLightGray" />
 
                 <!-- 모든 일정 데이터 삭제하기 -->
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/ll_delete_all_data"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -304,59 +197,40 @@
                     android:onClick="@{setting::dataDeleteListener}"
                     >
 
-                    <!-- category item -->
-                    <LinearLayout
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            app:srcCompat="@drawable/ic_delete_forever_black_24dp"
-
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|end"
-                            android:text="모든 데이터 삭제"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:gravity="center|end"
+                        android:text="모든 데이터 삭제"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center|end"
-                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-                </LinearLayout>
+                </android.support.constraint.ConstraintLayout>
 
-                <!-- background -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_background"
-                    android:background="@color/material_white_1000">
 
-                </LinearLayout>
 
                 <!-- 테스팅 -->
                 <LinearLayout
                     android:id="@+id/ll_testing"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginTop="240dp"
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -406,7 +280,7 @@
                 <LinearLayout
                     android:id="@+id/ll_check_data"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -484,7 +358,7 @@
                     android:layout_height="wrap_content"
 
                     android:text="@string/string_setting"
-                    android:textColor="#000000"
+                    android:textColor="@color/textBlack"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold"
 
