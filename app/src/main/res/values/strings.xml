@@ -53,6 +53,10 @@
         18:00~20:00
     </string>
 
+    <string name="add_item_title">제목</string>
+    <string name="add_item_loc">위치</string>
+    <string name="add_item_memo">메모</string>
+
     <!--
         ERROR CODE 1111 : 다이나믹 스태틱 스위치 오류
     -->

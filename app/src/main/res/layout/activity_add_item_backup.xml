@@ -44,44 +44,58 @@
                     <LinearLayout
                         android:id="@+id/ll_keyboard"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/height_element"
                         android:layout_marginLeft="@dimen/padding_element"
                         android:layout_marginRight="@dimen/padding_element"
                         android:orientation="horizontal">
 
-                        <com.rengwuxian.materialedittext.MaterialEditText
+                        <EditText
                             android:id="@+id/et_title"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="start|center"
-                            android:hint="@string/add_item_title"
-                            app:met_floatingLabel="normal"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="left|center"
+                            android:hint="제목"
                             android:textColor="#000000"
                             android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
-
+                    <!--divider-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/padding_element"
+                        android:layout_marginRight="@dimen/padding_element"
+                        android:background="@color/colorLightGray" />
 
                     <!-- 위치 -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/height_element"
                         android:layout_marginLeft="@dimen/padding_element"
                         android:layout_marginRight="@dimen/padding_element"
                         android:orientation="horizontal">
 
-                        <com.rengwuxian.materialedittext.MaterialEditText
+                        <EditText
                             android:id="@+id/et_loc"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="start|center"
-                            android:hint="@string/add_item_loc"
-                            app:met_floatingLabel="normal"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="left|center"
+                            android:hint="위치"
                             android:textColor="#000000"
                             android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- background 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_background"
+                    android:background="@color/colorBackGround">
 
                 </LinearLayout>
 
@@ -532,14 +546,14 @@
                     <EditText
                         android:id="@+id/et_memo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="start|top"
-                        android:hint="@string/add_item_memo"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="left|top"
+                        android:hint="메모"
                         android:lines="10"
                         android:maxLines="10"
                         android:paddingTop="10dp"
                         android:textColor="#000000"
-                        app:met_floatingLabel="normal"
                         android:textSize="@dimen/text_size" />
 
                 </LinearLayout>

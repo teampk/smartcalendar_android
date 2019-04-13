@@ -53,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 new FragmentHome()).commit();
 
 
-
-
     }
+    
     long pressTime;
     @Override
     public void onBackPressed() {
