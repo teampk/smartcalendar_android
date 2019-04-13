@@ -22,29 +22,37 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/material_white_1000"
                 android:orientation="vertical">
 
                 <!-- background 1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_blank_behind_top_bar"
-                    android:background="@color/colorBackGround"
+                    android:background="@color/material_white_1000"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 
                 </LinearLayout>
 
+
+
+
+
                 <!-- title and location -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:background="@color/material_white_1000"
+                    android:orientation="vertical"
+
+                    >
 
                     <!-- 제목 -->
-                    <LinearLayout
+                    <android.support.constraint.ConstraintLayout
                         android:id="@+id/ll_keyboard"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/height_element"
                         android:layout_marginLeft="@dimen/padding_element"
                         android:layout_marginRight="@dimen/padding_element"
                         android:orientation="horizontal">
@@ -55,18 +63,20 @@
                             android:layout_height="wrap_content"
                             android:gravity="start|center"
                             android:hint="@string/add_item_title"
-                            app:met_floatingLabel="normal"
                             android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
+                            android:textSize="@dimen/text_size_add_item"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:met_floatingLabel="highlight" />
 
-                    </LinearLayout>
-
+                    </android.support.constraint.ConstraintLayout>
 
 
                     <!-- 위치 -->
-                    <LinearLayout
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/height_element"
                         android:layout_marginLeft="@dimen/padding_element"
                         android:layout_marginRight="@dimen/padding_element"
                         android:orientation="horizontal">
@@ -77,13 +87,27 @@
                             android:layout_height="wrap_content"
                             android:gravity="start|center"
                             android:hint="@string/add_item_loc"
-                            app:met_floatingLabel="normal"
                             android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
+                            android:textSize="@dimen/text_size_add_item"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:met_floatingLabel="highlight"
 
-                    </LinearLayout>
+                            />
+
+                    </android.support.constraint.ConstraintLayout>
 
                 </LinearLayout>
+
+                <!-- background -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_background"
+                    android:background="@color/material_white_1000">
+
+                </LinearLayout>
+
 
                 <!-- Switch Static or Dynamic -->
                 <LinearLayout
@@ -91,6 +115,7 @@
                     android:layout_height="@dimen/height_element"
                     android:layout_marginLeft="@dimen/padding_element"
                     android:layout_marginRight="@dimen/padding_element"
+                    android:background="@color/material_white_1000"
                     android:orientation="horizontal">
 
                     <TextView
@@ -100,7 +125,7 @@
                         android:gravity="left|center"
                         android:text="@string/string_add_item_static"
                         android:textColor="#000000"
-                        android:textSize="@dimen/text_size" />
+                        android:textSize="@dimen/text_size_add_item" />
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -117,13 +142,14 @@
 
                 </LinearLayout>
 
-                <!-- background 3 -->
+                <!-- background -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_background"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000">
 
                 </LinearLayout>
+
 
                 <!-- about time -->
                 <LinearLayout
@@ -154,7 +180,7 @@
                                 android:gravity="left|center"
                                 android:text="데드라인"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -171,7 +197,7 @@
                                 android:gravity="center|right"
                                 android:text="2018.7.9"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <TextView
                                 android:id="@+id/tv_time_deadline"
@@ -180,17 +206,10 @@
                                 android:gravity="center|right"
                                 android:text="01:00"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                         </LinearLayout>
 
-                        <!--divider-->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginLeft="@dimen/padding_element"
-                            android:layout_marginRight="@dimen/padding_element"
-                            android:background="@color/colorLightGray" />
 
                         <!-- 필요시간 -->
                         <LinearLayout
@@ -207,7 +226,7 @@
                                 android:gravity="left|center"
                                 android:text="필요시간"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -231,7 +250,7 @@
                                 android:gravity="center"
                                 android:text="시간"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                         </LinearLayout>
 
@@ -259,7 +278,7 @@
                                 android:gravity="left|center"
                                 android:text="하루 종일"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -277,13 +296,6 @@
 
                         </LinearLayout>
 
-                        <!--divider-->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginLeft="@dimen/padding_element"
-                            android:layout_marginRight="@dimen/padding_element"
-                            android:background="@color/colorLightGray" />
 
                         <!-- 시작 -->
                         <LinearLayout
@@ -300,7 +312,7 @@
                                 android:gravity="left|center"
                                 android:text="시작"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -317,7 +329,7 @@
                                 android:gravity="center|right"
                                 android:text="2018.7.9"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <TextView
                                 android:id="@+id/tv_time_start"
@@ -326,17 +338,10 @@
                                 android:gravity="center|right"
                                 android:text="01:00"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                         </LinearLayout>
 
-                        <!--divider-->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginLeft="@dimen/padding_element"
-                            android:layout_marginRight="@dimen/padding_element"
-                            android:background="@color/colorLightGray" />
 
                         <!-- 종료 -->
                         <LinearLayout
@@ -353,7 +358,7 @@
                                 android:gravity="left|center"
                                 android:text="종료"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -370,7 +375,7 @@
                                 android:gravity="center|right"
                                 android:text="2018.7.9"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <TextView
                                 android:id="@+id/tv_time_end"
@@ -379,17 +384,10 @@
                                 android:gravity="center|right"
                                 android:text="01:00"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                         </LinearLayout>
 
-                        <!--divider-->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginLeft="@dimen/padding_element"
-                            android:layout_marginRight="@dimen/padding_element"
-                            android:background="@color/colorLightGray" />
 
                         <!-- 반복 -->
                         <LinearLayout
@@ -406,7 +404,7 @@
                                 android:gravity="left|center"
                                 android:text="반복"
                                 android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
+                                android:textSize="@dimen/text_size_add_item" />
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -419,9 +417,8 @@
                                 android:id="@+id/ll_repeat"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:orientation="horizontal"
                                 android:onClick="@{additem::onClickRepeat}"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/tv_repeat"
@@ -430,7 +427,7 @@
                                     android:gravity="center|right"
                                     android:text="안 함"
                                     android:textColor="#000000"
-                                    android:textSize="@dimen/text_size" />
+                                    android:textSize="@dimen/text_size_add_item" />
 
                                 <ImageView
                                     android:layout_width="20dp"
@@ -451,7 +448,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_background"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000">
 
                 </LinearLayout>
 
@@ -469,7 +466,7 @@
                         android:gravity="left|center"
                         android:text="카테고리"
                         android:textColor="#000000"
-                        android:textSize="@dimen/text_size" />
+                        android:textSize="@dimen/text_size_add_item" />
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -501,7 +498,7 @@
                             android:gravity="center|right"
                             android:text="기본"
                             android:textColor="#000000"
-                            android:textSize="@dimen/text_size" />
+                            android:textSize="@dimen/text_size_add_item" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -517,7 +514,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_background"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000"
+
+                    >
 
                 </LinearLayout>
 
@@ -529,18 +528,22 @@
                     android:layout_marginRight="@dimen/padding_element"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/et_memo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@null"
                         android:gravity="start|top"
                         android:hint="@string/add_item_memo"
                         android:lines="10"
                         android:maxLines="10"
                         android:paddingTop="10dp"
                         android:textColor="#000000"
-                        app:met_floatingLabel="normal"
-                        android:textSize="@dimen/text_size" />
+                        android:textSize="@dimen/text_size_add_item"
+
+                        app:met_floatingLabel="highlight"
+
+                        />
 
                 </LinearLayout>
 
@@ -549,7 +552,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000"
+
+
+                    >
 
                 </LinearLayout>
 
@@ -567,50 +573,65 @@
 
             >
 
-            <RelativeLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/btn_cancel"
-                    android:layout_width="60dp"
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:background="#00000000"
-                    android:padding="0dp"
-                    android:text="취소"
-                    android:textColor="#cc0000"
-                    android:textSize="@dimen/text_size"
-                    android:onClick="@{additem::finishView}"
-                    />
+                    android:layout_marginStart="@dimen/margin_top_bar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
+                        android:onClick="@{additem::finishView}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
 
                 <TextView
                     android:id="@+id/tv_top_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/btn_cancel"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:text="새로운 이벤트"
                     android:textColor="#000000"
-                    android:textSize="@dimen/text_size_subtitle"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    />
 
 
                 <Button
                     android:id="@+id/btn_add"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/margin_top_bar"
                     android:background="#00000000"
+                    android:onClick="@{additem::onSubmit}"
                     android:text="등록"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:onClick="@{additem::onSubmit}"/>
+                    android:textSize="@dimen/text_size_subtitle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            </RelativeLayout>
+            </android.support.constraint.ConstraintLayout>
 
 
         </android.support.v7.widget.CardView>
