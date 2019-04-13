@@ -18,20 +18,88 @@
             android:id="@+id/concealerNSV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackGround">
+            android:background="@color/material_white_1000">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
                 <!-- background 1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_blank_behind_top_bar_main"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000">
 
                 </LinearLayout>
+
+                <!-- 로그인 -->
+                <LinearLayout
+                    android:id="@+id/ll_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#ffffff"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:onClick="@{setting::profileListener}"
+
+                    >
+
+                    <!-- category item -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_profile"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            app:civ_border_width="1dp"
+                            app:civ_border_color="#FF000000"
+                            app:civ_circle_background_color="@color/material_white_1000"
+                            android:src="@drawable/ic_person_black_24dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            android:text="@string/string_setting_profile"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/text_size"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+
+
+                </LinearLayout>
+
+                <!-- background -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_background"
+                    android:background="@color/material_white_1000">
+
+                </LinearLayout>
+
 
                 <!-- 카테고리 설정 -->
                 <LinearLayout
@@ -53,7 +121,7 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginEnd="10dp"
                             app:srcCompat="@drawable/ic_dashboard_black_24dp"
 
                             />
@@ -61,10 +129,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="카테고리 설정"
+                            android:gravity="center|end"
+                            android:text="@string/string_setting_category"
                             android:textColor="#000000"
-                            android:textSize="18dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -81,10 +149,7 @@
                         android:id="@+id/iv_category_1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
 
 
@@ -127,10 +192,10 @@
                             android:id="@+id/tv_category_3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="수면시간 설정"
+                            android:gravity="center|end"
+                            android:text="@string/string_setting_sleep_time"
                             android:textColor="#000000"
-                            android:textSize="18dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -144,10 +209,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
 
                 </LinearLayout>
@@ -156,7 +218,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_background"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000">
 
                 </LinearLayout>
 
@@ -188,10 +250,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="어플리케이션 정보"
+                            android:gravity="center|end"
+                            android:text="@string/string_setting_app_info"
                             android:textColor="#000000"
-                            android:textSize="18dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -206,10 +268,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
 
 
@@ -219,63 +278,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_background"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000">
 
                 </LinearLayout>
 
-                <!-- 데이터 체크 -->
-                <LinearLayout
-                    android:id="@+id/ll_check_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="#ffffff"
-                    android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:onClick="@{setting::checkAllDataListener}"
-                    >
 
-                    <!-- category item -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            app:srcCompat="@drawable/ic_date_range_black_24dp"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_category_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="모든 일정 데이터 보기"
-                            android:textColor="#000000"
-                            android:textSize="18dp" />
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
-                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
-
-                </LinearLayout>
 
                 <!--divider-->
                 <ImageView
@@ -313,10 +320,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
+                            android:gravity="center|end"
                             android:text="모든 데이터 삭제"
                             android:textColor="#000000"
-                            android:textSize="18dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -331,23 +338,21 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
 
 
                 </LinearLayout>
+
                 <!-- background -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_background"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000">
 
                 </LinearLayout>
 
-                <!-- 데이터 체크 -->
+                <!-- 테스팅 -->
                 <LinearLayout
                     android:id="@+id/ll_testing"
                     android:layout_width="match_parent"
@@ -375,10 +380,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
+                            android:gravity="center|end"
                             android:text="테스팅"
                             android:textColor="#000000"
-                            android:textSize="18dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -392,10 +397,57 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+
+                </LinearLayout>
+
+                <!-- 데이터 체크 -->
+                <LinearLayout
+                    android:id="@+id/ll_check_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#ffffff"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:onClick="@{setting::checkAllDataListener}"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            app:srcCompat="@drawable/ic_date_range_black_24dp"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_category_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            android:text="모든 일정 데이터 보기"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
                         app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
 
                 </LinearLayout>
@@ -404,7 +456,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:background="@color/colorBackGround">
+                    android:background="@color/material_white_1000">
 
                 </LinearLayout>
 
@@ -417,7 +469,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_top_bar_main"
             app:cardBackgroundColor="@color/material_white_1000"
-            android:onClick="@{setting::topBarListener}"
             >
 
             <RelativeLayout
@@ -426,35 +477,20 @@
                 android:layout_height="match_parent"
                 >
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_alignParentBottom="true"
-                    app:civ_border_width="1dp"
-                    app:civ_border_color="#FF000000"
-                    app:civ_circle_background_color="@color/colorLightGray"
-                    android:src="@drawable/ic_person_black_24dp"/>
-
 
                 <TextView
                     android:id="@+id/tv_top_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="로그인이 필요합니다."
+                    android:text="@string/string_setting"
                     android:textColor="#000000"
-                    android:textSize="@dimen/text_size_subtitle"
+                    android:textSize="@dimen/text_size_title"
                     android:textStyle="bold"
 
-                    android:layout_toEndOf="@+id/iv_profile"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginBottom="30dp"
-
-
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="15dp"
 
                     />
 

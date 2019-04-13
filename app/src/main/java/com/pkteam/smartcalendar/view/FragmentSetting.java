@@ -70,15 +70,15 @@ public class FragmentSetting extends Fragment {
     private void setLoginText(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
-            binding.tvTopBar.setText("반갑습니다!");
+            binding.tvProfile.setText(user.getDisplayName());
             signedIn = true;
         }else{
-            binding.tvTopBar.setText("로그인이 필요하네요.");
+            binding.tvProfile.setText("로그인이 필요하네요.");
             signedIn = false;
         }
     }
 
-    public void topBarListener(View view){
+    public void profileListener(View view){
         if(signedIn){
             Intent intentProfile = new Intent(getContext(), SettingProfile.class);
             startActivity(intentProfile);
@@ -127,6 +127,7 @@ public class FragmentSetting extends Fragment {
                 });
         builder.show();
     }
+
 
     public void testingListener(View view){
         Intent intent = new Intent(getContext(), TestActivity.class);
