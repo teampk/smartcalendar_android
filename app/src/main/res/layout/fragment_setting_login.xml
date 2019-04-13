@@ -63,7 +63,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_id"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
@@ -72,9 +72,11 @@
                     android:paddingEnd="20dp"
                     android:hint="이메일"
                     android:textSize="@dimen/text_size"
+                    app:met_floatingLabel="highlight"
+
                     />
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_pw"
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
@@ -85,6 +87,7 @@
                     android:hint="비밀번호"
                     android:textSize="@dimen/text_size"
                     android:inputType="textPassword"
+                    app:met_floatingLabel="highlight"
                     />
 
                 <Button

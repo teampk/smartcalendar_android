@@ -24,7 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_blank_behind_top_bar"
-                android:background="@color/colorBackGround">
+                android:background="@color/material_white_1000">
 
             </LinearLayout>
 
@@ -32,13 +32,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/material_white_1000">
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/colorLightGray" />
 
                 <!-- 카테고리1 -->
                 <LinearLayout
                     android:id="@+id/ll_category_1"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
@@ -60,10 +69,10 @@
                             android:id="@+id/tv_category_1"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="기본"
+                            android:gravity="center|end"
+                            android:text="@string/category_mode_1"
                             android:textColor="#000000"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -80,11 +89,8 @@
                         android:id="@+id/iv_category_1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
-                        app:srcCompat="@drawable/ic_check_red_24dp" />
+                        android:gravity="center|end"
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
 
 
                 </LinearLayout>
@@ -101,7 +107,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_2"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
@@ -123,10 +129,10 @@
                             android:id="@+id/tv_category_2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="약속"
+                            android:gravity="center|end"
+                            android:text="@string/category_mode_2"
                             android:textColor="#000000"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/text_size" />
                     </LinearLayout>
 
 
@@ -141,12 +147,9 @@
                         android:id="@+id/iv_category_2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         android:visibility="invisible"
-                        app:srcCompat="@drawable/ic_check_red_24dp" />
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
 
 
                 </LinearLayout>
@@ -163,7 +166,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_3"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
@@ -185,10 +188,10 @@
                             android:id="@+id/tv_category_3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="공부"
+                            android:gravity="center|end"
+                            android:text="@string/category_mode_3"
                             android:textColor="#000000"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -204,12 +207,9 @@
                         android:id="@+id/iv_category_3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         android:visibility="invisible"
-                        app:srcCompat="@drawable/ic_check_red_24dp" />
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
 
 
                 </LinearLayout>
@@ -226,7 +226,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_4"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
@@ -248,10 +248,10 @@
                             android:id="@+id/tv_category_4"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="활동"
+                            android:gravity="center|end"
+                            android:text="@string/category_mode_4"
                             android:textColor="#000000"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -267,12 +267,9 @@
                         android:id="@+id/iv_category_4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         android:visibility="invisible"
-                        app:srcCompat="@drawable/ic_check_red_24dp" />
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
 
                 </LinearLayout>
 
@@ -288,7 +285,7 @@
                 <LinearLayout
                     android:id="@+id/ll_category_5"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height_element"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
@@ -311,10 +308,10 @@
                             android:id="@+id/tv_category_5"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center|right"
-                            android:text="기타"
+                            android:gravity="center|end"
+                            android:text="@string/category_mode_5"
                             android:textColor="#000000"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/text_size" />
 
                     </LinearLayout>
 
@@ -330,12 +327,9 @@
                         android:id="@+id/iv_category_5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="01:00"
-                        android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:gravity="center|end"
                         android:visibility="invisible"
-                        app:srcCompat="@drawable/ic_check_red_24dp" />
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
 
 
                 </LinearLayout>
@@ -356,7 +350,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/colorBackGround">
+                android:background="@color/material_white_1000">
 
             </LinearLayout>
 
@@ -412,7 +406,7 @@
                     android:gravity="center"
                     android:text="카테고리"
                     android:textColor="#000000"
-                    android:textSize="@dimen/text_size_title"
+                    android:textSize="@dimen/text_size_subtitle"
                     android:textStyle="bold" />
 
 
@@ -424,7 +418,8 @@
                     android:background="#00000000"
                     android:text="등록"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold"/>
 
 
             </RelativeLayout>
