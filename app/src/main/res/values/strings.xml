@@ -36,11 +36,14 @@
     <string name="category_mode_4">활동</string>
     <string name="category_mode_5">기타</string>
 
-    <string name="string_setting">설정</string>
-    <string name="string_setting_profile">로그인</string>
-    <string name="string_setting_category">카테고리 설정</string>
-    <string name="string_setting_sleep_time">수면시간 설정</string>
-    <string name="string_setting_app_info">어플리케이션 정보</string>
+    <string name="setting_name">홍길동</string>
+    <string name="setting">설정</string>
+    <string name="setting_profile">내 프로필 보기</string>
+    <string name="setting_profile2">로그인이 필요합니다.</string>
+
+    <string name="setting_category">카테고리 설정</string>
+    <string name="setting_sleep_time">수면시간 설정</string>
+    <string name="setting_app_info">어플리케이션 정보</string>
 
     <string name="explain_sleep_time">
         수면시간 설정은 스케줄링에 도움이 됩니다.\nDEFAULT값은 00:00시부터 06:00시 입니다.

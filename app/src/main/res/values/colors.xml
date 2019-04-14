@@ -15,6 +15,9 @@
     <color name="colorBackGround">#F0EFF5</color>
 
     <color name="textBlack">#FF000000</color>
+    <color name="textGray">#747481</color>
+
+    <color name="borderGray">#F2F2F3</color>
 
     <!--color for categories-->
     <color name="colorCategory1">#F9320C</color>

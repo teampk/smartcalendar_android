@@ -71,9 +71,11 @@ public class FragmentSetting extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
             binding.tvProfile.setText(user.getDisplayName());
+            binding.tvProfileInfo.setText("내 프로필 보기");
             signedIn = true;
         }else{
-            binding.tvProfile.setText("로그인이 필요하네요.");
+            binding.tvProfile.setText("로그인");
+            binding.tvProfileInfo.setText("로그인이 필요합니다.");
             signedIn = false;
         }
     }
