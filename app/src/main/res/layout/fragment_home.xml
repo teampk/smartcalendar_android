@@ -21,19 +21,6 @@
             app:layout_constraintTop_toTopOf="parent">
         </View>
 
-<!--
-
-        <View
-            android:id="@+id/background_gray"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/colorLightGrayDivider"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="parent">
-        </View>
-
--->
 
 
         <TextView

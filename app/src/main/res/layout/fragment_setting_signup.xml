@@ -114,7 +114,7 @@
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:background="@color/colorBlack"
                     android:gravity="center"
                     android:onClick="@{signup::signUpListener}"

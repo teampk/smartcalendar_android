@@ -41,11 +41,11 @@ public class SettingSignUp extends AppCompatActivity {
 
     public void signUpListener(View view){
         if(checkJoin()){
-            createUser(binding.etId.getText().toString(), binding.etPw.getText().toString());
+            createUser(binding.etName.toString(), binding.etId.getText().toString(), binding.etPw.getText().toString());
         }
     }
 
-    private void createUser(String email, String password){
+    private void createUser(String name, String email, String password){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
