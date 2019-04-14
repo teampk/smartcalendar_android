@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pkteam.smartcalendar.GetTimeInformation;
@@ -39,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class ViewHolder extends RecyclerView.ViewHolder{
         ImageView itemCategory;
         TextView itemTitle, itemTime;
-        RelativeLayout itemParent;
+        LinearLayout itemParent;
 
         ViewHolder(View itemView){
             super(itemView);
