@@ -24,18 +24,23 @@
     <string name="string_add_item_static">일정</string>
     <string name="string_add_item_dynamic">할 일</string>
 
+    <string name="cancel">취소</string>
+
+    <!-- REPEAT -->
     <string name="repeat_mode_1">안 함</string>
     <string name="repeat_mode_2">매일</string>
     <string name="repeat_mode_3">매주</string>
     <string name="repeat_mode_4">매월</string>
     <string name="repeat_mode_5">매년</string>
 
+    <!-- CATEGORY -->
     <string name="category_mode_1">기본</string>
     <string name="category_mode_2">약속</string>
     <string name="category_mode_3">공부</string>
     <string name="category_mode_4">활동</string>
     <string name="category_mode_5">기타</string>
 
+    <!-- SETTING -->
     <string name="setting_name">홍길동</string>
     <string name="setting">설정</string>
     <string name="setting_profile">내 프로필 보기</string>
@@ -45,14 +50,34 @@
     <string name="setting_sleep_time">수면시간 설정</string>
     <string name="setting_app_info">어플리케이션 정보</string>
 
-    <string name="login_id">이메일</string>
-    <string name="login_password">비밀번호</string>
+    <!-- SIGN IN -->
+    <string name="sign_in_id">이메일</string>
+    <string name="sign_in_password">비밀번호</string>
+    <string name="sign_in_button">로그인</string>
 
-    <string name="login_sign_up">아직 계정이 없으신가요?</string>
-    <string name="login_sign_up_button">회원가입</string>
-    <string name="login_forgot_password">비밀번호를 잊어버리셨나요?</string>
-    <string name="login_forgot_password_button">비밀번호 찾기</string>
-    <string name="login_or">OR</string>
+    <string name="sign_in_sign_up">아직 계정이 없으신가요?</string>
+    <string name="sign_in_sign_up_button">회원가입</string>
+    <string name="sign_in_forgot_password">비밀번호를 잊어버리셨나요?</string>
+    <string name="sign_in_forgot_password_button">비밀번호 찾기</string>
+    <string name="sign_in_or">OR</string>
+
+    <!-- ERROR -->
+    <string name="error_network">네트워크 상태를 확인해주세요.</string>
+
+    <!-- 로그인  -->
+    <string name="error_sign_in">로그인 오류</string>
+    <string name="error_format_sign_in">이메일 형태의 계정을 입력해주세요.</string>
+    <string name="error_wrong_email">등록되지 않은 이메일입니다.</string>
+
+    <string name="sign_in_success">로그인 되었습니다.</string>
+    <string name="sign_in_with_google">Google 계정으로 로그인</string>
+    <string name="sign_in_with_facebook">Facebook 계정으로 로그인</string>
+
+    <!-- 회원가입 -->
+    <string name="error_sign_up">회원가입 오류</string>
+    <string name="error_duplicate">계정이 이미 존재하는 이메일입니다.</string>
+    <string name="error_format_sign_up">이메일 형식으로 등록해주세요.</string>
+    <string name="error_weak_pw">비밀번호는 6자 이상으로 입력해주세요.</string>
 
     <string name="sleep_time">수면시간 설정</string>
     <string name="sleep_time_start">잠드는 시간</string>
@@ -61,12 +86,8 @@
         수면시간 설정은 스케줄링에 도움이 됩니다.\nDEFAULT값은 00:00시부터 06:00시 입니다.
     </string>
 
-    <string name="explain_scheduling_1">
-        스케줄링을 진행할 할 일들을 선택해주세요.
-    </string>
-    <string name="explain_scheduling_2">
-        스케줄링은 할 일들의 필요시간에 맞춰\n언제 해야할 지를 일정에 추가하는 작업이며,\n수면시간과 현재 설정된 일정들을 제외한 시간에\n사용자의 타입에 따라 자동으로 배치됩니다.
-    </string>
+    <string name="scheduling_explain_1">스케줄링을 진행할 할 일들을 선택해주세요.</string>
+    <string name="scheduling_explain_2">스케줄링은 할 일들의 필요시간에 맞춰\n언제 해야할 지를 일정에 추가하는 작업이며,\n수면시간과 현재 설정된 일정들을 제외한 시간에\n사용자의 타입에 따라 자동으로 배치됩니다.</string>
 
     <string name="example_recycler_view_title">
         찬일이랑 밥먹기
@@ -83,12 +104,12 @@
     <string name="add_item_title">제목</string>
     <string name="add_item_loc">위치</string>
     <string name="add_item_memo">메모</string>
+    <string name="add_item_add_mode">새로운 이벤트</string>
+    <string name="add_item_edit_mode">이벤트</string>
 
-
+    
+    <!-- DESCRIPTION -->
     <string name="desc_button">Setting Button</string>
-    <!--
-        ERROR CODE 1111 : 다이나믹 스태틱 스위치 오류
-    -->
 
 
     <!-- from library -->

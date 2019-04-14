@@ -86,9 +86,6 @@ public class AddItemActivity extends AppCompatActivity {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 
-    // for testing
-    private TextView tvTopBar;
-
     ActivityAddItemBinding binding;
 
     @Override
@@ -119,6 +116,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         // 추가하는 경우
         if(isEdit==ADD_MODE){
+            binding.tvTopBar.setText(getText(R.string.add_item_add_mode));
             binding.etTitle.requestFocus();
             binding.linFooterView.setVisibility(View.GONE);
             binding.llRepeatTotal.setVisibility(View.VISIBLE);
@@ -132,6 +130,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
         // 수정하는 경우
         else if (isEdit==EDIT_MODE){
+            binding.tvTopBar.setText(getText(R.string.add_item_edit_mode));
             binding.linFooterView.setVisibility(View.VISIBLE);
             binding.llRepeatTotal.setVisibility(View.GONE);
             binding.btnAdd.setText("수정");
@@ -202,7 +201,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
 
         // for testing
-        tvTopBar.setOnClickListener(new View.OnClickListener() {
+        binding.tvTopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), String.valueOf(binding.etTitle.getText().toString().getBytes().length), Toast.LENGTH_SHORT).show();
@@ -552,8 +551,6 @@ public class AddItemActivity extends AppCompatActivity {
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
         binding.tvCategory.setText(dbHelper.getAllCategory().get(0));
 
-        // for testing
-        tvTopBar = findViewById(R.id.tv_top_bar);
     }
 
 

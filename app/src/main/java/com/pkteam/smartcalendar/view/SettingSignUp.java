@@ -11,11 +11,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingSignupBinding;
+import com.singh.daman.gentletoast.GentleToast;
 
 public class SettingSignUp extends AppCompatActivity {
 
@@ -52,19 +58,27 @@ public class SettingSignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(getApplicationContext(), "회원가입 성공",
-                                    Toast.LENGTH_SHORT).show();
+                            GentleToast.with(getApplicationContext()).longToast("회원가입 성공").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             finish();
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseNetworkException e) {
+                                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            } catch(FirebaseAuthWeakPasswordException e) {
+                                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_weak_pw)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            } catch(FirebaseAuthInvalidCredentialsException e) {
+                                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_format_sign_up)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            } catch(FirebaseAuthUserCollisionException e) {
+                                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_duplicate)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            } catch (Exception e) {
+                                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_sign_up)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            }
+
                         }
 
-                        // ...
                     }
                 });
 

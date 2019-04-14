@@ -72,14 +72,7 @@ public class FragmentHome extends Fragment {
             public boolean onLongClick(View v) {
                 Date date = new Date(System.currentTimeMillis());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                //Toast.makeText(getContext(), sdf.format(date), Toast.LENGTH_SHORT).show();
-                GentleToast.with(getContext())
-                        .longToast(sdf.format(date))
-                        .setTextColor(R.color.material_white_1000)
-                        .setBackgroundColor(R.color.colorPrimary)
-                        .setBackgroundRadius(100)
-                        .setImage(R.drawable.logo_sc)
-                        .show();
+                GentleToast.with(getContext()).longToast(sdf.format(date)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_sc).show();
                 return true;
             }
         });

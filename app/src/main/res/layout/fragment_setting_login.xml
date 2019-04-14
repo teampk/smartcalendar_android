@@ -26,8 +26,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:layout_width="@dimen/height_top_bar"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_close_black_24dp"
@@ -37,7 +37,7 @@
 
 
             <ImageView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 app:srcCompat="@drawable/logo_ts"
@@ -56,7 +56,7 @@
             <LinearLayout
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -70,7 +70,7 @@
                     android:background="@null"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:hint="@string/login_id"
+                    android:hint="@string/sign_in_id"
                     android:textSize="@dimen/text_size"
                     app:met_floatingLabel="highlight"
 
@@ -78,13 +78,13 @@
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_pw"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
                     android:background="@null"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:hint="@string/login_password"
+                    android:hint="@string/sign_in_password"
                     android:textSize="@dimen/text_size"
                     android:inputType="textPassword"
                     app:met_floatingLabel="highlight"
@@ -92,10 +92,10 @@
 
                 <Button
                     android:id="@+id/btn_submit"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
-                    android:text="@string/login_id"
+                    android:text="@string/sign_in_button"
                     android:gravity="center"
                     android:textColor="@color/material_white_1000"
                     android:background="@drawable/layout_rounded_button"
@@ -123,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/login_sign_up"
+                    android:text="@string/sign_in_sign_up"
                     android:textColor="@color/colorBlack"/>
 
                 <TextView
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/login_sign_up_button"
+                    android:text="@string/sign_in_sign_up_button"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold"
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/login_forgot_password"
+                    android:text="@string/sign_in_forgot_password"
                     android:textColor="@color/colorBlack"/>
 
                 <TextView
@@ -173,7 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/login_forgot_password_button"
+                    android:text="@string/sign_in_forgot_password_button"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold"
@@ -189,12 +189,22 @@
 
             </LinearLayout>
 
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/pb_sign_in"
+                android:layout_marginTop="10dp"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
             <!-- or -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
 
@@ -222,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/login_or"/>
+                    android:text="@string/sign_in_or"/>
 
 
                 <android.support.constraint.ConstraintLayout
@@ -256,7 +266,7 @@
                 android:orientation="vertical"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
                 >
 
@@ -274,7 +284,7 @@
                     android:textColor="@color/material_white_1000"
                     android:textStyle="bold"
                     android:background="#DC4A38"
-                    android:text="Google로 계속하기"
+                    android:text="@string/sign_in_with_google"
                     android:onClick="@{login::googleLoginListener}"/>
 
 

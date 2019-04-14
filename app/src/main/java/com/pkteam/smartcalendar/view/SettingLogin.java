@@ -26,14 +26,18 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingLoginBinding;
+import com.singh.daman.gentletoast.GentleToast;
 
 public class SettingLogin extends AppCompatActivity {
 
@@ -108,7 +112,50 @@ public class SettingLogin extends AppCompatActivity {
     }
 
     public void signInListener(View view){
-        Toast.makeText(this, "로그인", Toast.LENGTH_SHORT).show();
+        binding.pbSignIn.setVisibility(View.VISIBLE);
+        if(LoginUser()) {
+
+            mAuth.signInWithEmailAndPassword(binding.etId.getText().toString(), binding.etPw.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (!task.isSuccessful()) {
+                        try {
+                            throw task.getException();
+                        } catch (FirebaseNetworkException e) {
+                            GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                            GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_format_sign_in)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                        } catch (FirebaseAuthInvalidUserException e){
+                            GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_wrong_email)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                        } catch (Exception e) {
+                            GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_sign_in)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                        }
+
+                    } else {
+
+                        GentleToast.with(getApplicationContext()).longToast(getString(R.string.sign_in_success)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                        finish();
+                    }
+                    binding.pbSignIn.setVisibility(View.INVISIBLE);
+
+                }
+
+
+            });
+        }
+    }
+    private boolean LoginUser(){
+        if (binding.etId.getText().toString().length()==0){
+
+            return false;
+        }else if (binding.etPw.getText().toString().length()==0){
+
+            return false;
+        }
+
+        else{
+            return true;
+        }
     }
 
     public void signUpListener(View view){
