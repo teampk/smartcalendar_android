@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.pkteam.smartcalendar.R;
+import com.singh.daman.gentletoast.GentleToast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
-        Toast.makeText(this,"한번 더 누르시면 앱이 종료됩니다.",Toast.LENGTH_SHORT).show();
+        GentleToast.with(getApplicationContext()).longToast("한 번 더 누르시면 앱이 종료됩니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
         pressTime = System.currentTimeMillis();
 
     }

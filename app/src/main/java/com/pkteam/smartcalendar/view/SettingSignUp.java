@@ -88,7 +88,7 @@ public class SettingSignUp extends AppCompatActivity {
         if (user != null) {
 
         } else {
-            Toast.makeText(getApplicationContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("Sign in Failed").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
         }
     }
 
@@ -96,11 +96,13 @@ public class SettingSignUp extends AppCompatActivity {
 
 
         if(binding.etPw.getText().toString().length()<6){
-            Toast.makeText(getApplicationContext(), "비밀번호는 6자 이상으로 입력해주세요.", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("비밀번호는 6자 이상으로 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
             return false;
         }
         else if (!binding.etPw.getText().toString().equals(binding.etPw2.getText().toString())){
-            Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("비밀번호가 일치하지 않습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
             return false;
         }
 

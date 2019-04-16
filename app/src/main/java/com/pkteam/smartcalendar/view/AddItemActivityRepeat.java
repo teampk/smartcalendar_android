@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.ActivityAddItemRepeatBinding;
+import com.singh.daman.gentletoast.GentleToast;
 
 /**
  * Created by paeng on 2018. 7. 11..
@@ -242,7 +243,7 @@ public class AddItemActivityRepeat extends AppCompatActivity {
 
     private boolean checkException(){
         if (repeatPeriod < 1){
-            Toast.makeText(getApplicationContext(), "1이상의 주기로 반복이 가능합니다.", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("1이상의 주기로 반복이 가능합니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
             return false;
         }
 
@@ -270,7 +271,8 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                 mode=5;
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "error occured in repeat", Toast.LENGTH_SHORT).show();
+                GentleToast.with(getApplicationContext()).longToast("Error Code : 1112").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                 break;
         }
         return mode;
@@ -295,7 +297,7 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                 returnString = "매년";
                 break;
             default:
-                Toast.makeText(AddItemActivityRepeat.this, "error occured in repeat", Toast.LENGTH_SHORT).show();
+                GentleToast.with(getApplicationContext()).longToast("Error Code : 1112").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                 break;
         }
         return returnString;

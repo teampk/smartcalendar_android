@@ -77,14 +77,14 @@ public class SettingLogin extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                Log.d("FACEBOOKLOGIN", "facebook 로그인 : 취소되었습니다.");
-                // ...
+                GentleToast.with(getApplicationContext()).longToast("facebook 로그인 : 취소되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("FACEBOOKLOGIN", "facebook:onError", error);
-                // ...
+                GentleToast.with(getApplicationContext()).longToast("facebook:error").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
             }
         });
     }
@@ -102,7 +102,8 @@ public class SettingLogin extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                // ...
+                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
             }
         }
     }
@@ -164,7 +165,8 @@ public class SettingLogin extends AppCompatActivity {
     }
 
     public void findPasswordListener(View view){
-        Toast.makeText(this, "비밀번호 찾기", Toast.LENGTH_SHORT).show();
+        GentleToast.with(getApplicationContext()).longToast("비밀번호 찾기").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
     }
 
     // Google Button Listener
@@ -182,12 +184,13 @@ public class SettingLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // google 사용자일 때
                         if (task.isSuccessful()) {
-                            Toast.makeText(SettingLogin.this, "Google 로그인 완료", Toast.LENGTH_SHORT).show();
+                            GentleToast.with(getApplicationContext()).longToast("Google 로그인 완료").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+                            GentleToast.with(getApplicationContext()).longToast("error").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                         }
                         // ...
                     }
@@ -210,12 +213,13 @@ public class SettingLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SettingLogin.this, "Facebook 로그인 성공", Toast.LENGTH_SHORT).show();
+                            GentleToast.with(getApplicationContext()).longToast("Facebook 로그인 성공").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(SettingLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            GentleToast.with(getApplicationContext()).longToast("Authentication failed.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                             updateUI(null);
                         }
                         // ...
@@ -228,7 +232,7 @@ public class SettingLogin extends AppCompatActivity {
             Log.d("LoginTest", "updateUI");
             finish();
         } else {
-            //
+            Log.d("LoginTest", "ERROR");
         }
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.singh.daman.gentletoast.GentleToast;
 
 import java.util.ArrayList;
 
@@ -64,19 +65,7 @@ public class SettingSleepTime extends AppCompatActivity implements TimePickerFra
         tvStartTime.setOnClickListener(listener);
         tvEndTime.setOnClickListener(listener);
         btnSubmit = findViewById(R.id.btn_submit);
-
         btnSubmit.setOnClickListener(listener);
-
-        // for testing
-        TextView tvTopBarTesting = findViewById(R.id.tv_top_bar);
-        tvTopBarTesting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), timeList.get(0)+","+timeList.get(1), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
     }
 
     private void loadData(){
@@ -95,7 +84,7 @@ public class SettingSleepTime extends AppCompatActivity implements TimePickerFra
             switch (view.getId()) {
                 case R.id.btn_submit:
                     dbHelper.sleepTimeUpdate(tvStartTime.getText().toString().replace(":",""), tvEndTime.getText().toString().replace(":",""));
-                    Toast.makeText(SettingSleepTime.this, "수면시간이 수정되었습니다", Toast.LENGTH_SHORT).show();
+                    GentleToast.with(getApplicationContext()).longToast("수면시간이 수정되었습니다").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                     finish();
                     break;
                 case R.id.tv_start:

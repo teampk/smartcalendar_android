@@ -22,6 +22,7 @@ import com.pkteam.smartcalendar.view.SettingCategory;
 import com.pkteam.smartcalendar.view.SettingLogin;
 import com.pkteam.smartcalendar.view.SettingProfile;
 import com.pkteam.smartcalendar.view.SettingSleepTime;
+import com.singh.daman.gentletoast.GentleToast;
 
 import java.util.Date;
 
@@ -112,14 +113,16 @@ public class FragmentSetting extends Fragment {
     public void dataDeleteListener(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("모든 데이터를 삭제합니다");
-        builder.setMessage("추가한 모든 일정 데이터를 삭제합니다.\n계속하시겠습니까?");
+        builder.setMessage("앱 내에서 추가한 모든 일정 데이터를 삭제합니다.\n계속하시겠습니까?");
         builder.setPositiveButton("예",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         DBHelper dbHelper = new DBHelper(getContext(), "SmartCal.db", null, 1);
                         dbHelper.deleteTodoDataAll();
                         dbHelper.initializeRepeatId();
-                        Toast.makeText(getContext(), "모든 데이터가 삭제되었습니다", Toast.LENGTH_LONG).show();
+                        GentleToast.with(getContext()).longToast("모든 일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
+
                     }
                 });
         builder.setNegativeButton("아니오",

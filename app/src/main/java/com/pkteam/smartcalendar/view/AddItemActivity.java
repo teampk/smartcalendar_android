@@ -24,6 +24,7 @@ import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.ActivityAddItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
+import com.singh.daman.gentletoast.GentleToast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -204,7 +205,8 @@ public class AddItemActivity extends AppCompatActivity {
         binding.tvTopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), String.valueOf(binding.etTitle.getText().toString().getBytes().length), Toast.LENGTH_SHORT).show();
+                // GentleToast.with(getApplicationContext()).longToast(String.valueOf(binding.etTitle.getText().toString().getBytes().length)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                 // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
                 // 6.time(String)   7.category(Int)     8.Memo(String)  9.NeedTime(int)   10.repeatId(Int)  11.ScheduleId(int)
                 Log.d("PaengDataCheck",
@@ -444,13 +446,13 @@ public class AddItemActivity extends AppCompatActivity {
 
     private boolean checkItem(){
         if (binding.etTitle.getText().toString().replace(" ", "").equals("")) {
-            Toast.makeText(AddItemActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("제목을 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
             return false;
         }else if (binding.etNeedtime.getText().toString().equals("") && item3_isDynamic){
-            Toast.makeText(AddItemActivity.this, "필요시간을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("필요시간을 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
             return false;
         }else if (Double.parseDouble(getTimeData(binding.tvDateStart)+getTimeData(binding.tvTimeStart))>Double.parseDouble(getTimeData(binding.tvDateEnd)+getTimeData(binding.tvTimeEnd)) && !item3_isDynamic){
-            Toast.makeText(AddItemActivity.this, "시작시간은 끝시간보다 빨라야 합니다.", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("시작시간은 끝시간보다 빨라야 합니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
             return false;
         }else {
             Log.d("CheckPaeng", getTimeData(binding.tvDateStart)+getTimeData(binding.tvTimeStart)+"//"+getTimeData(binding.tvDateEnd)+getTimeData(binding.tvTimeEnd)+"//"+String.valueOf(item3_isDynamic));
@@ -482,7 +484,8 @@ public class AddItemActivity extends AppCompatActivity {
                 mode=5;
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "error occured in repeat", Toast.LENGTH_SHORT).show();
+                GentleToast.with(getApplicationContext()).longToast("에러가 발생했습니다. (ERROR CODE : 1112)").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                 break;
         }
         return mode;
@@ -623,7 +626,8 @@ public class AddItemActivity extends AppCompatActivity {
                 item8_needTime = Integer.parseInt(binding.etNeedtime.getText().toString());
             }
             else{
-                Toast.makeText(AddItemActivity.this, "에러가 발생했습니다. (ERROR CODE : 1111)", Toast.LENGTH_SHORT).show();
+                GentleToast.with(getApplicationContext()).longToast("에러가 발생했습니다. (ERROR CODE : 1111)").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                 finish();
             }
             item6_category = categoryMode;
@@ -637,7 +641,7 @@ public class AddItemActivity extends AppCompatActivity {
                     case 1:
                         item9_repeatId = 0;
                         dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
-                        Toast.makeText(getApplicationContext(), "일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                        GentleToast.with(getApplicationContext()).longToast("일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         finish();
                         break;
                     // 매일 반복
@@ -661,7 +665,8 @@ public class AddItemActivity extends AppCompatActivity {
                             dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
 
-                        Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                        GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
 
                         finish();
                         break;
@@ -686,7 +691,8 @@ public class AddItemActivity extends AppCompatActivity {
                             dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
 
-                        Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                        GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                         finish();
                         break;
 
@@ -707,8 +713,7 @@ public class AddItemActivity extends AppCompatActivity {
                             nextMonth = getNextMonth(nextMonth);
                             dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextMonth, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
-
-                        Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                        GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         finish();
 
                         break;
@@ -731,7 +736,7 @@ public class AddItemActivity extends AppCompatActivity {
                             dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextYear, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                         }
 
-                        Toast.makeText(getApplicationContext(), "반복 일정이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                        GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         finish();
 
 
@@ -741,7 +746,7 @@ public class AddItemActivity extends AppCompatActivity {
                         break;
                 }
             }else if (modeAddEdit == EDIT_MODE){
-                Toast.makeText(getApplicationContext(), "일정이 수정되었습니다", Toast.LENGTH_SHORT).show();
+                GentleToast.with(getApplicationContext()).longToast("일정이 수정되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                 dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
                 finish();
             }
@@ -771,7 +776,7 @@ public class AddItemActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dbHelper.deleteTodoDataById(item0_id);
-                                    Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    GentleToast.with(getApplicationContext()).longToast("일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                                     finish();
                                 }
                             })
@@ -799,7 +804,8 @@ public class AddItemActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dbHelper.deleteTodoDataByRepeatId(itemElement.mId, itemElement.mRepeatId, itemElement.mTime);
-                                    Toast.makeText(getApplicationContext(), "모든 반복 일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    GentleToast.with(getApplicationContext()).longToast("모든 반복 일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                                     finish();
                                 }
                             })
@@ -807,7 +813,8 @@ public class AddItemActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dbHelper.deleteTodoDataById(itemElement.mId);
-                                    Toast.makeText(getApplicationContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    GentleToast.with(getApplicationContext()).longToast("일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
                                     finish();
                                 }
                             });

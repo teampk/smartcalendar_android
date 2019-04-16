@@ -12,6 +12,9 @@ import android.util.Log;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.pkteam.smartcalendar.R;
+import com.singh.daman.gentletoast.GentleToast;
+
 import java.util.Calendar;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
@@ -33,13 +36,15 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        //Toast.makeText(getContext(), String.valueOf(hourOfDay)+":"+String.valueOf(minute), Toast.LENGTH_SHORT).show();
+        //GentleToast.with(getContext()).longToast(String.valueOf(hourOfDay)+":"+String.valueOf(minute)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
         if(getTag().equals("start")){
             mDialogDismissedCallback.onDialogDismissed(String.valueOf(hourOfDay)+":"+String.valueOf(minute)+"/start");
         }else if(getTag().equals("end")){
             mDialogDismissedCallback.onDialogDismissed(String.valueOf(hourOfDay)+":"+String.valueOf(minute)+"/end");
         }else{
-            Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getContext()).longToast("error").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
         }
 
     }

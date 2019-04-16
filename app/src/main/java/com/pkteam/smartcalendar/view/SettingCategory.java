@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.singh.daman.gentletoast.GentleToast;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,9 @@ public class SettingCategory extends AppCompatActivity{
                 case R.id.btn_submit:
                     dbHelper.categoryUpdate(et1.getText().toString(), et2.getText().toString(),
                             et3.getText().toString(), et4.getText().toString(), et5.getText().toString());
-                    Toast.makeText(SettingCategory.this, "카테고리가 수정되었습니다", Toast.LENGTH_SHORT).show();
+                    GentleToast.with(getApplicationContext()).longToast("카테고리가 수정되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
+
                     finish();
                     break;
 

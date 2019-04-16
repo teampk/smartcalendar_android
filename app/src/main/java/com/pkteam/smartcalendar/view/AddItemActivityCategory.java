@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.ActivityAddItemCategoryBinding;
+import com.singh.daman.gentletoast.GentleToast;
 
 /*
  * Created by paeng on 2018. 7. 11..
@@ -48,7 +49,7 @@ public class AddItemActivityCategory extends AppCompatActivity {
         }else if (inputString.equals(binding.tvCategory5.getText().toString())){
             categoryMode=5;
         }else {
-            Toast.makeText(AddItemActivityCategory.this, "error occured in category", Toast.LENGTH_SHORT).show();
+            GentleToast.with(getApplicationContext()).longToast("Error Code : 1113").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
         }
         return categoryMode;
     }
@@ -71,7 +72,7 @@ public class AddItemActivityCategory extends AppCompatActivity {
                 returnString = binding.tvCategory5.getText().toString();
                 break;
             default:
-                Toast.makeText(AddItemActivityCategory.this, "error occured in category", Toast.LENGTH_SHORT).show();
+                GentleToast.with(getApplicationContext()).longToast("Error Code : 1113").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                 break;
         }
         return returnString;
