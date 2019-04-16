@@ -44,9 +44,7 @@ public class SettingLogin extends AppCompatActivity {
     FragmentSettingLoginBinding binding;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 10;
-
     private FirebaseAuth mAuth;
-
     private CallbackManager mCallbackManager;
 
     @Override
@@ -83,8 +81,7 @@ public class SettingLogin extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-                GentleToast.with(getApplicationContext()).longToast("facebook:error").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
+                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
             }
         });
     }
@@ -108,9 +105,6 @@ public class SettingLogin extends AppCompatActivity {
         }
     }
 
-    public void finishView(View view){
-        finish();
-    }
 
     public void signInListener(View view){
         binding.pbSignIn.setVisibility(View.VISIBLE);
@@ -125,13 +119,12 @@ public class SettingLogin extends AppCompatActivity {
                         } catch (FirebaseNetworkException e) {
                             GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         } catch (FirebaseAuthInvalidCredentialsException e) {
-                            GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_format_sign_in)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_sign_in)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         } catch (FirebaseAuthInvalidUserException e){
                             GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_wrong_email)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         } catch (Exception e) {
                             GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_sign_in)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         }
-
                     } else {
 
                         GentleToast.with(getApplicationContext()).longToast(getString(R.string.sign_in_success)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
@@ -147,9 +140,11 @@ public class SettingLogin extends AppCompatActivity {
     }
     private boolean LoginUser(){
         if (binding.etId.getText().toString().length()==0){
+            GentleToast.with(getApplicationContext()).longToast("아이디를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
             return false;
         }else if (binding.etPw.getText().toString().length()==0){
+            GentleToast.with(getApplicationContext()).longToast("비밀번호를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
             return false;
         }
@@ -189,7 +184,7 @@ public class SettingLogin extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            GentleToast.with(getApplicationContext()).longToast("error").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            GentleToast.with(getApplicationContext()).longToast("Google Login : ERROR").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
                         }
                         // ...
@@ -235,4 +230,9 @@ public class SettingLogin extends AppCompatActivity {
             Log.d("LoginTest", "ERROR");
         }
     }
+
+    public void finishView(View view){
+        finish();
+    }
+
 }

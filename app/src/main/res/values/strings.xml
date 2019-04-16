@@ -65,7 +65,7 @@
     <string name="error_network">네트워크 상태를 확인해주세요.</string>
 
     <!-- 로그인  -->
-    <string name="error_sign_in">로그인 오류</string>
+    <string name="error_sign_in">아이디 혹은 비밀번호를 확인해주세요.</string>
     <string name="error_format_sign_in">이메일 형태의 계정을 입력해주세요.</string>
     <string name="error_wrong_email">등록되지 않은 이메일입니다.</string>
 

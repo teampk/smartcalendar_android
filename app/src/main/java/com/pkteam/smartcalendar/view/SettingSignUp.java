@@ -1,10 +1,12 @@
 package com.pkteam.smartcalendar.view;
 
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingSignupBinding;
 import com.singh.daman.gentletoast.GentleToast;
@@ -86,7 +89,19 @@ public class SettingSignUp extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(binding.etName.getText().toString())
+                    .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                    .build();
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("UserProfileUpdate", "User profile updated.");
+                            }
+                        }
+                    });
         } else {
             GentleToast.with(getApplicationContext()).longToast("Sign in Failed").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
         }
@@ -94,8 +109,17 @@ public class SettingSignUp extends AppCompatActivity {
 
     private boolean checkJoin(){
 
-
-        if(binding.etPw.getText().toString().length()<6){
+        if(binding.etId.getText().toString().length()==0){
+            GentleToast.with(getApplicationContext()).longToast("e-mail을 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+            return false;
+        }else if(binding.etName.getText().toString().length()==0){
+            GentleToast.with(getApplicationContext()).longToast("이름을 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+            return false;
+        }else if(binding.etPw.getText().toString().length()==0){
+            GentleToast.with(getApplicationContext()).longToast("비밀번호를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+            return false;
+        }
+        else if(binding.etPw.getText().toString().length()<6){
             GentleToast.with(getApplicationContext()).longToast("비밀번호는 6자 이상으로 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
             return false;
