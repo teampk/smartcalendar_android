@@ -578,26 +578,16 @@
                 android:layout_height="match_parent">
 
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_top_bar"
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:onClick="@{additem::finishView}"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <Button
-                        android:id="@+id/btn_cancel"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentStart="true"
-                        android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
-                        android:onClick="@{additem::finishView}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </android.support.constraint.ConstraintLayout>
+                    />
 
 
                 <TextView
@@ -606,7 +596,7 @@
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    android:text="새로운 이벤트"
+                    android:text="@string/top_bar_event_add"
                     android:textColor="#000000"
                     android:textSize="@dimen/text_size_subtitle"
                     android:textStyle="bold"
@@ -623,7 +613,7 @@
                     android:layout_marginEnd="@dimen/margin_top_bar"
                     android:background="#00000000"
                     android:onClick="@{additem::onSubmit}"
-                    android:text="등록"
+                    android:text="@string/button_add"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold"
@@ -649,7 +639,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="일정 삭제"
+                android:text="@string/button_delete_data"
                 android:textColor="#cc0000"
                 android:textSize="@dimen/text_size"
                 android:textStyle="bold" />

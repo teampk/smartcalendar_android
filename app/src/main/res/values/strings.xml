@@ -8,9 +8,6 @@
 
     <string name="top_bar_detail">다음 일정까지 남은 시간 : 2h\n다음 할 일까지 남은 시간 : 32h\n할 일들 총 필요시간 : 35h</string>
 
-    <string name="button_cancel">취소</string>
-    <string name="button_add">추가</string>
-
     <string name="string_static">오늘 일정</string>
     <string name="string_dynamic" translatable="false">할 일</string>
     <string name="string_no_data_static">\t\t\t\t오늘은 일정이 없습니다 :)</string>
@@ -18,8 +15,6 @@
     <string name="string_no_data_calendar_static">\t\t\t\t일정이 없습니다 :)</string>
     <string name="string_no_data_calendar_dynamic">\t\t\t\t할 일이 없습니다 :)</string>
 
-    <string name="string_example_calendar_static_title">찬일이랑 밥 약속</string>
-    <string name="string_example_calendar_static_time">18:00~20:00</string>
 
     <string name="string_add_item_static">일정</string>
     <string name="string_add_item_dynamic">할 일</string>
@@ -87,11 +82,8 @@
     <string name="scheduling_explain_2">스케줄링은 할 일들의 필요시간에 맞춰\n언제 해야할 지를 일정에 추가하는 작업이며,\n수면시간과 현재 설정된 일정들을 제외한 시간에\n사용자의 타입에 따라 자동으로 배치됩니다.</string>
 
     <string name="example_recycler_view_title">찬일이랑 밥먹기</string>
-
     <string name="example_recycler_view_subtitle">데드라인 : 2019년 3월 6일 15:00 (D-3)</string>
-
     <string name="example_recycler_view_time">18:00~20:00</string>
-
     <string name="example_name">팽진욱</string>
     <string name="example_email">paeng875@gmail.com</string>
 
@@ -152,6 +144,13 @@
 
     <string name="button_sign_in_with_google">Google 계정으로 로그인</string>
     <string name="button_sign_in_with_facebook">Facebook 계정으로 로그인</string>
+
+    <string name="button_edit">수정</string>
+    <string name="button_add">등록</string>
+    <string name="button_delete_data">일정 삭제</string>
+
+    <string name="top_bar_event_add">새로운 이벤트</string>
+    <string name="top_bar_event_edit">이벤트</string>
 
 
 </resources>

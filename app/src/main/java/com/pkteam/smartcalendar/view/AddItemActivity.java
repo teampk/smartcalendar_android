@@ -117,7 +117,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         // 추가하는 경우
         if(isEdit==ADD_MODE){
-            binding.tvTopBar.setText(getText(R.string.add_item_add_mode));
+            binding.tvTopBar.setText(getText(R.string.top_bar_event_add));
             binding.etTitle.requestFocus();
             binding.linFooterView.setVisibility(View.GONE);
             binding.llRepeatTotal.setVisibility(View.VISIBLE);
@@ -131,7 +131,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
         // 수정하는 경우
         else if (isEdit==EDIT_MODE){
-            binding.tvTopBar.setText(getText(R.string.add_item_edit_mode));
+            binding.tvTopBar.setText(getText(R.string.top_bar_event_edit));
             binding.linFooterView.setVisibility(View.VISIBLE);
             binding.llRepeatTotal.setVisibility(View.GONE);
             binding.btnAdd.setText("수정");
