@@ -239,7 +239,7 @@
                                 android:id="@+id/et_needtime"
                                 android:layout_width="30dp"
                                 android:layout_height="match_parent"
-                                android:gravity="center|right"
+                                android:gravity="center|end"
                                 android:inputType="numberSigned"
 
                                 />
@@ -275,7 +275,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:gravity="left|center"
+                                android:gravity="start|center"
                                 android:text="하루 종일"
                                 android:textColor="#000000"
                                 android:textSize="@dimen/text_size" />

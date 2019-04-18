@@ -316,9 +316,12 @@ public class AddItemActivity extends AppCompatActivity {
                 if (ver==1||ver==2||ver==3){
                     singleBuilder.displayMinutes(true);
                     singleBuilder.displayHours(true);
+                    singleBuilder.title("날짜와 시간을 고르세요");
+
                 }else{
                     singleBuilder.displayMinutes(false);
                     singleBuilder.displayHours(false);
+                    singleBuilder.title("날짜를 고르세요");
                 }
 
         singleBuilder
@@ -331,9 +334,8 @@ public class AddItemActivity extends AppCompatActivity {
                     public void onDisplayed(SingleDateAndTimePicker picker) {
 
                     }
-                })
+                });
 
-                .title("날짜와 시간을 고르세요");
 
         if (ver==1) {
             //YYYY.MM.dd/HH:mm

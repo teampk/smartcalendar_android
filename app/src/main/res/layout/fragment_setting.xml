@@ -161,7 +161,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
                     android:onClick="@{setting::infAppListener}"
                     >
 
@@ -230,7 +229,7 @@
                     android:id="@+id/ll_testing"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
-                    android:layout_marginTop="240dp"
+                    android:layout_marginTop="300dp"
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:onClick="@{setting::testingListener}"
@@ -325,7 +324,7 @@
                 <!-- background -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="50dp"
                     android:background="@color/material_white_1000">
 
                 </LinearLayout>
