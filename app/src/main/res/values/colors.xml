@@ -12,6 +12,9 @@
     <color name="colorLightGrayDividerDark">#22E0E3DA</color>
     <color name="colorBlack">#000000</color>
 
+    <color name="colorFacebook">#3B5997</color>
+    <color name="colorGoogle">#DC4A38</color>
+
     <color name="colorBackGround">#F0EFF5</color>
 
     <color name="textBlack">#FF000000</color>

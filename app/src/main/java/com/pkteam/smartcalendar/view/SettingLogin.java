@@ -16,6 +16,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -39,6 +41,8 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingLoginBinding;
 import com.singh.daman.gentletoast.GentleToast;
 
+import java.util.Arrays;
+
 public class SettingLogin extends AppCompatActivity {
 
     FragmentSettingLoginBinding binding;
@@ -56,18 +60,18 @@ public class SettingLogin extends AppCompatActivity {
         binding.setLogin(this);
 
         mAuth = FirebaseAuth.getInstance();
-        // google login
+        // Google login
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Initialize Facebook Login button
+        // Facebook Login
+        FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.btn_facebook);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
@@ -82,6 +86,7 @@ public class SettingLogin extends AppCompatActivity {
             @Override
             public void onError(FacebookException error) {
                 GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
             }
         });
     }
@@ -126,7 +131,6 @@ public class SettingLogin extends AppCompatActivity {
                             GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_sign_in)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         }
                     } else {
-
                         GentleToast.with(getApplicationContext()).longToast(getString(R.string.sign_in_success)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         finish();
                     }
@@ -138,21 +142,7 @@ public class SettingLogin extends AppCompatActivity {
             });
         }
     }
-    private boolean LoginUser(){
-        if (binding.etId.getText().toString().length()==0){
-            GentleToast.with(getApplicationContext()).longToast("아이디를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
-            return false;
-        }else if (binding.etPw.getText().toString().length()==0){
-            GentleToast.with(getApplicationContext()).longToast("비밀번호를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
-            return false;
-        }
-
-        else{
-            return true;
-        }
-    }
 
     public void signUpListener(View view){
         Intent intentSignUp = new Intent(getApplicationContext(), SettingSignUp.class);
@@ -166,6 +156,7 @@ public class SettingLogin extends AppCompatActivity {
 
     // Google Button Listener
     public void googleLoginListener(View view){
+        binding.pbSignIn.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -187,7 +178,7 @@ public class SettingLogin extends AppCompatActivity {
                             GentleToast.with(getApplicationContext()).longToast("Google Login : ERROR").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
                         }
-                        // ...
+                        binding.pbSignIn.setVisibility(View.INVISIBLE);
                     }
                 });
     }
@@ -196,11 +187,12 @@ public class SettingLogin extends AppCompatActivity {
 
     // Facebook Button Listener
     public void facebookLoginListener(View view){
-
+        binding.pbSignIn.setVisibility(View.VISIBLE);
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
+        //LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends"));
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -208,26 +200,41 @@ public class SettingLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            GentleToast.with(getApplicationContext()).longToast("Facebook 로그인 성공").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            GentleToast.with(getApplicationContext()).longToast("Facebook 로그인 완료").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            GentleToast.with(getApplicationContext()).longToast("Authentication failed.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                            GentleToast.with(getApplicationContext()).longToast("Facebook Login : ERROR").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                             updateUI(null);
                         }
-                        // ...
+                        binding.pbSignIn.setVisibility(View.INVISIBLE);
                     }
                 });
     }
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Log.d("LoginTest", "updateUI");
+            Log.d("SIGNINLOG", "uid"+user.getProviderId()+"/name"+user.getDisplayName());
             finish();
         } else {
-            Log.d("LoginTest", "ERROR");
+            Log.d("SIGNINLOG", "ERROR");
+        }
+    }
+
+    private boolean LoginUser(){
+        if (binding.etId.getText().toString().length()==0){
+            GentleToast.with(getApplicationContext()).longToast("아이디를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+            return false;
+        }else if (binding.etPw.getText().toString().length()==0){
+            GentleToast.with(getApplicationContext()).longToast("비밀번호를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
+            return false;
+        }
+
+        else{
+            return true;
         }
     }
 

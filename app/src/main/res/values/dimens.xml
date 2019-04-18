@@ -21,6 +21,7 @@
     <dimen name="height_top_bar_main">120dp</dimen>
     <dimen name="height_blank_behind_top_bar_main">160dp</dimen>
     <dimen name="height_element">60dp</dimen>
+    <dimen name="height_element_short">40dp</dimen>
     <dimen name="height_background">20dp</dimen>
 
     <dimen name="height_image_view">50dp</dimen>

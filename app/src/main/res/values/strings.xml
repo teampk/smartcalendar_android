@@ -53,7 +53,6 @@
     <!-- SIGN IN -->
     <string name="sign_in_id">이메일</string>
     <string name="sign_in_password">비밀번호</string>
-    <string name="sign_in_button">로그인</string>
 
     <string name="sign_in_sign_up">아직 계정이 없으신가요?</string>
     <string name="sign_in_sign_up_button">회원가입</string>
@@ -70,8 +69,6 @@
     <string name="error_wrong_email">등록되지 않은 이메일입니다.</string>
 
     <string name="sign_in_success">로그인 되었습니다.</string>
-    <string name="sign_in_with_google">Google 계정으로 로그인</string>
-    <string name="sign_in_with_facebook">Facebook 계정으로 로그인</string>
 
     <!-- 회원가입 -->
     <string name="error_sign_up">회원가입 오류</string>
@@ -89,17 +86,14 @@
     <string name="scheduling_explain_1">스케줄링을 진행할 할 일들을 선택해주세요.</string>
     <string name="scheduling_explain_2">스케줄링은 할 일들의 필요시간에 맞춰\n언제 해야할 지를 일정에 추가하는 작업이며,\n수면시간과 현재 설정된 일정들을 제외한 시간에\n사용자의 타입에 따라 자동으로 배치됩니다.</string>
 
-    <string name="example_recycler_view_title">
-        찬일이랑 밥먹기
-    </string>
+    <string name="example_recycler_view_title">찬일이랑 밥먹기</string>
 
-    <string name="example_recycler_view_subtitle">
-        데드라인 : 2019년 3월 6일 15:00 (D-3)
-    </string>
+    <string name="example_recycler_view_subtitle">데드라인 : 2019년 3월 6일 15:00 (D-3)</string>
 
-    <string name="example_recycler_view_time">
-        18:00~20:00
-    </string>
+    <string name="example_recycler_view_time">18:00~20:00</string>
+
+    <string name="example_name">팽진욱</string>
+    <string name="example_email">paeng875@gmail.com</string>
 
     <string name="add_item_title">제목</string>
     <string name="add_item_loc">위치</string>
@@ -110,6 +104,10 @@
     
     <!-- DESCRIPTION -->
     <string name="desc_button">Setting Button</string>
+    <string name="desc_logo">Time Spoon Logo</string>
+    <string name="desc_button_close">Close Button</string>
+
+
 
 
     <!-- from library -->
@@ -149,6 +147,11 @@
     <string name="facebook_app_id">347236915890000</string>
     <string name="fb_login_protocol_scheme">fb347236915890000</string>
 
+    <string name="button_sign_in">로그인</string>
+    <string name="button_sign_out">로그아웃</string>
+
+    <string name="button_sign_in_with_google">Google 계정으로 로그인</string>
+    <string name="button_sign_in_with_facebook">Facebook 계정으로 로그인</string>
 
 
 </resources>

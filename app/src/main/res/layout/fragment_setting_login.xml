@@ -95,7 +95,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_element"
-                    android:text="@string/sign_in_button"
+                    android:text="@string/button_sign_in"
                     android:gravity="center"
                     android:textColor="@color/material_white_1000"
                     android:background="@drawable/layout_rounded_button"
@@ -266,55 +266,33 @@
                 android:orientation="vertical"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="50dp"
                 >
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                </RelativeLayout>
 
                 <Button
                     android:id="@+id/btn_google"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
+                    android:layout_height="@dimen/height_element_short"
                     android:textColor="@color/material_white_1000"
                     android:textStyle="bold"
-                    android:background="#DC4A38"
-                    android:text="@string/sign_in_with_google"
+                    android:background="@drawable/layout_rounded_button_google"
+                    android:text="@string/button_sign_in_with_google"
                     android:onClick="@{login::googleLoginListener}"/>
 
 
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/btn_facebook"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:layout_marginTop="20dp"
-                    android:onClick="@{login::facebookLoginListener}"
-                    />
-<!--
                 <Button
                     android:id="@+id/btn_facebook"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="@dimen/height_element_short"
+                    android:layout_marginTop="15dp"
                     android:onClick="@{login::facebookLoginListener}"
-                    android:text="Facebook으로 계속하기"
+                    android:text="@string/button_sign_in_with_facebook"
                     android:textStyle="bold"
                     android:textColor="@color/material_white_1000"
-                    android:background="#3B5997"
+                    android:background="@drawable/layout_rounded_button_facebook"
                     />
--->
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                </RelativeLayout>
 
             </LinearLayout>
 
