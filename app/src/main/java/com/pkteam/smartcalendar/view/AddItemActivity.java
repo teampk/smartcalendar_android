@@ -305,14 +305,15 @@ public class AddItemActivity extends AppCompatActivity {
 
         singleBuilder = new SingleDateAndTimePickerDialog.Builder(AddItemActivity.this)
 
-                .bottomSheet()
-                .curved();
-                //.defaultDate(defaultDate);
-                //.titleTextColor(Color.GREEN)
-                //.backgroundColor(Color.BLACK)
-                //.mainColor(Color.GREEN)
+//                .bottomSheet()
+                .curved()
+                .titleTextColor(getColor(R.color.material_white_1000))
+                .backgroundColor(getColor(R.color.material_white_1000))
+                .mainColor(getColor(R.color.colorPrimary))
+                .defaultDate(defaultDate);
                 //.minDateRange()
                 //.maxDateRange()
+
                 if (ver==1||ver==2||ver==3){
                     singleBuilder.displayMinutes(true);
                     singleBuilder.displayHours(true);

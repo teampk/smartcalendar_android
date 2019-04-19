@@ -80,13 +80,13 @@ public class SettingLogin extends AppCompatActivity {
             @Override
             public void onCancel() {
                 GentleToast.with(getApplicationContext()).longToast("facebook 로그인 : 취소되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
+                binding.pbSignIn.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onError(FacebookException error) {
                 GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
+                binding.pbSignIn.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -105,7 +105,7 @@ public class SettingLogin extends AppCompatActivity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
+                binding.pbSignIn.setVisibility(View.INVISIBLE);
             }
         }
     }
@@ -113,7 +113,7 @@ public class SettingLogin extends AppCompatActivity {
 
     public void signInListener(View view){
         binding.pbSignIn.setVisibility(View.VISIBLE);
-        if(LoginUser()) {
+        if(CheckLogin()) {
 
             mAuth.signInWithEmailAndPassword(binding.etId.getText().toString(), binding.etPw.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -223,13 +223,14 @@ public class SettingLogin extends AppCompatActivity {
         }
     }
 
-    private boolean LoginUser(){
+    private boolean CheckLogin(){
         if (binding.etId.getText().toString().length()==0){
             GentleToast.with(getApplicationContext()).longToast("아이디를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+            binding.pbSignIn.setVisibility(View.INVISIBLE);
             return false;
         }else if (binding.etPw.getText().toString().length()==0){
             GentleToast.with(getApplicationContext()).longToast("비밀번호를 입력해주세요.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
+            binding.pbSignIn.setVisibility(View.INVISIBLE);
             return false;
         }
 
