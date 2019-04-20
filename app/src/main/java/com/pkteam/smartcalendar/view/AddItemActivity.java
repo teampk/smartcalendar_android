@@ -16,10 +16,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
-import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
+import com.example.singledateandtimepicker.SingleDateAndTimePicker;
+import com.example.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.ActivityAddItemBinding;
@@ -307,6 +306,7 @@ public class AddItemActivity extends AppCompatActivity {
         final Date defaultDate = calendar.getTime();
 
         singleBuilder = new SingleDateAndTimePickerDialog.Builder(AddItemActivity.this)
+
 
 //              .bottomSheet()
                 .curved()
