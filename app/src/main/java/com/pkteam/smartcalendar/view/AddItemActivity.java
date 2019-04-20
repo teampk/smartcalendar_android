@@ -51,7 +51,6 @@ public class AddItemActivity extends AppCompatActivity {
     private static final int REQUEST_REPEAT = 11;
     private static final int REQUEST_CATEGORY = 12;
 
-    private static final int REPEATAMOUNT = 10;
     private static final int REPEAT_AMOUNT_DAY = 3650;
     private static final int REPEAT_AMOUNT_WEEK = 520;
     private static final int REPEAT_AMOUNT_MONTH = 120;
@@ -88,6 +87,8 @@ public class AddItemActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 
     ActivityAddItemBinding binding;
+
+    private boolean selectTime = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -296,6 +297,8 @@ public class AddItemActivity extends AppCompatActivity {
 
     public void selectDateAndTime(int ver){
 
+        Log.d("TimePickerTest", "1");
+
         Calendar calendar = Calendar.getInstance();
         String date[] = getCurrentDate().split("/");
         calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(date[1].split(":")[0]));
@@ -305,7 +308,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         singleBuilder = new SingleDateAndTimePickerDialog.Builder(AddItemActivity.this)
 
-//                .bottomSheet()
+//              .bottomSheet()
                 .curved()
                 .titleTextColor(getColor(R.color.material_white_1000))
                 .backgroundColor(getColor(R.color.material_white_1000))
@@ -333,9 +336,10 @@ public class AddItemActivity extends AppCompatActivity {
                 .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
                     @Override
                     public void onDisplayed(SingleDateAndTimePicker picker) {
-
+                        selectTime = true;
                     }
                 });
+
 
 
         if (ver==1) {
@@ -348,7 +352,7 @@ public class AddItemActivity extends AppCompatActivity {
                     binding.tvTimeStart.setText(dateString[1]);
                     binding.tvDateEnd.setText(dateString[0]);
                     binding.tvTimeEnd.setText(dateString[1]);
-
+                    selectTime = false;
                 }
             });
         }else if(ver==2){
@@ -358,7 +362,7 @@ public class AddItemActivity extends AppCompatActivity {
                     dateString = simpleTimeFormat.format(date).split("/");
                     binding.tvDateEnd.setText(dateString[0]);
                     binding.tvTimeEnd.setText(dateString[1]);
-
+                    selectTime = false;
                 }
             });
         }else if(ver==3){
@@ -368,6 +372,7 @@ public class AddItemActivity extends AppCompatActivity {
                     dateString = simpleTimeFormat.format(date).split("/");
                     binding.tvDateDeadline.setText(dateString[0]);
                     binding.tvTimeDeadline.setText(dateString[1]);
+                    selectTime = false;
                 }
             });
         }else if(ver==4){
@@ -377,6 +382,7 @@ public class AddItemActivity extends AppCompatActivity {
                     dateString = simpleTimeFormat.format(date).split("/");
                     binding.tvDateStart.setText(dateString[0]);
                     binding.tvDateEnd.setText(dateString[0]);
+                    selectTime = false;
                 }
             });
         }else if(ver==5){
@@ -385,11 +391,14 @@ public class AddItemActivity extends AppCompatActivity {
                 public void onDateSelected(Date date) {
                     dateString = simpleTimeFormat.format(date).split("/");
                     binding.tvDateEnd.setText(dateString[0]);
+                    selectTime = false;
                 }
             });
+        }else{
+            selectTime = false;
         }
-        singleBuilder.display();
 
+        singleBuilder.display();
     }
 
     @Override
@@ -546,7 +555,6 @@ public class AddItemActivity extends AppCompatActivity {
         return startDateNext+"."+endDateNext+".000000000000";
     }
 
-
     private void bindingView(){
 
         binding.llTimeStart.setOnClickListener(listener);
@@ -559,8 +567,6 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
-
-
     private View.OnClickListener listener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
@@ -570,6 +576,7 @@ public class AddItemActivity extends AppCompatActivity {
                         selectDateAndTime(4);
                     }else{
                         selectDateAndTime(1);
+                        Log.d("TimePickerTest", "4");
                     }
                     break;
                 case R.id.ll_time_end:
@@ -756,7 +763,6 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
-
     public void onClickRepeat(View view){
         Intent intentRepeat = new Intent(AddItemActivity.this, AddItemActivityRepeat.class);
         intentRepeat.putExtra("repeatMode", binding.tvRepeat.getText().toString());
@@ -828,6 +834,18 @@ public class AddItemActivity extends AppCompatActivity {
 
     public void finishView(View view){
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(selectTime){
+            singleBuilder.close();
+            selectTime = false;
+        }else{
+            finish();
+        }
+
     }
 
 }

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if(System.currentTimeMillis() - pressTime <2000){
+        if(System.currentTimeMillis() - pressTime <3000){
             finish();
             return;
         }
