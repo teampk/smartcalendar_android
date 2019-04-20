@@ -296,19 +296,46 @@ public class AddItemActivity extends AppCompatActivity {
 
     public void selectDateAndTime(int ver){
 
-        Log.d("TimePickerTest", "1");
-
         Calendar calendar = Calendar.getInstance();
-        String date[] = getCurrentDate().split("/");
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(date[1].split(":")[0]));
-        calendar.set(Calendar.MINUTE, Integer.valueOf(date[1].split(":")[1]));
+
+        if (ver == 1){
+            calendar.set(Calendar.YEAR, Integer.valueOf(binding.tvDateStart.getText().toString().split("\\.")[0]));
+            calendar.set(Calendar.MONTH, Integer.valueOf(binding.tvDateStart.getText().toString().split("\\.")[1])-1);
+            calendar.set(Calendar.DATE, Integer.valueOf(binding.tvDateStart.getText().toString().split("\\.")[2]));
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(binding.tvTimeStart.getText().toString().split(":")[0]));
+            calendar.set(Calendar.MINUTE, Integer.valueOf(binding.tvTimeStart.getText().toString().split(":")[1]));
+        }
+        else if (ver == 2){
+            calendar.set(Calendar.YEAR, Integer.valueOf(binding.tvDateEnd.getText().toString().split("\\.")[0]));
+            calendar.set(Calendar.MONTH, Integer.valueOf(binding.tvDateEnd.getText().toString().split("\\.")[1])-1);
+            calendar.set(Calendar.DATE, Integer.valueOf(binding.tvDateEnd.getText().toString().split("\\.")[2]));
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(binding.tvTimeEnd.getText().toString().split(":")[0]));
+            calendar.set(Calendar.MINUTE, Integer.valueOf(binding.tvTimeEnd.getText().toString().split(":")[1]));
+        }
+        else if (ver == 3){
+            calendar.set(Calendar.YEAR, Integer.valueOf(binding.tvDateDeadline.getText().toString().split("\\.")[0]));
+            calendar.set(Calendar.MONTH, Integer.valueOf(binding.tvDateDeadline.getText().toString().split("\\.")[1])-1);
+            calendar.set(Calendar.DATE, Integer.valueOf(binding.tvDateDeadline.getText().toString().split("\\.")[2]));
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(binding.tvTimeDeadline.getText().toString().split(":")[0]));
+            calendar.set(Calendar.MINUTE, Integer.valueOf(binding.tvTimeDeadline.getText().toString().split(":")[1]));
+        }
+        else if (ver == 4){
+            calendar.set(Calendar.YEAR, Integer.valueOf(binding.tvDateStart.getText().toString().split("\\.")[0]));
+            calendar.set(Calendar.MONTH, Integer.valueOf(binding.tvDateStart.getText().toString().split("\\.")[1])-1);
+            calendar.set(Calendar.DATE, Integer.valueOf(binding.tvDateStart.getText().toString().split("\\.")[2]));
+        }
+        else if (ver == 5){
+            calendar.set(Calendar.YEAR, Integer.valueOf(binding.tvDateEnd.getText().toString().split("\\.")[0]));
+            calendar.set(Calendar.MONTH, Integer.valueOf(binding.tvDateEnd.getText().toString().split("\\.")[1])-1);
+            calendar.set(Calendar.DATE, Integer.valueOf(binding.tvDateEnd.getText().toString().split("\\.")[2]));
+        }
 
         final Date defaultDate = calendar.getTime();
 
         singleBuilder = new SingleDateAndTimePickerDialog.Builder(AddItemActivity.this)
 
 
-//              .bottomSheet()
+                //.bottomSheet()
                 .curved()
                 .titleTextColor(getColor(R.color.material_white_1000))
                 .backgroundColor(getColor(R.color.material_white_1000))
@@ -338,10 +365,14 @@ public class AddItemActivity extends AppCompatActivity {
                     public void onDisplayed(SingleDateAndTimePicker picker) {
                         selectTime = true;
                     }
+                    @Override
+                    public void onClosed(SingleDateAndTimePicker picker){
+                        selectTime = false;
+                    }
                 });
 
 
-
+        // static start
         if (ver==1) {
             //YYYY.MM.dd/HH:mm
             singleBuilder.listener(new SingleDateAndTimePickerDialog.Listener() {
@@ -355,7 +386,9 @@ public class AddItemActivity extends AppCompatActivity {
                     selectTime = false;
                 }
             });
-        }else if(ver==2){
+        }
+        // static end
+        else if(ver==2){
             singleBuilder.listener(new SingleDateAndTimePickerDialog.Listener() {
                 @Override
                 public void onDateSelected(Date date) {
@@ -365,7 +398,9 @@ public class AddItemActivity extends AppCompatActivity {
                     selectTime = false;
                 }
             });
-        }else if(ver==3){
+        }
+        // dynamic deadline
+        else if(ver==3){
             singleBuilder.listener(new SingleDateAndTimePickerDialog.Listener() {
                 @Override
                 public void onDateSelected(Date date) {
@@ -375,7 +410,9 @@ public class AddItemActivity extends AppCompatActivity {
                     selectTime = false;
                 }
             });
-        }else if(ver==4){
+        }
+        // static all day start
+        else if(ver==4){
             singleBuilder.listener(new SingleDateAndTimePickerDialog.Listener() {
                 @Override
                 public void onDateSelected(Date date) {
@@ -385,7 +422,9 @@ public class AddItemActivity extends AppCompatActivity {
                     selectTime = false;
                 }
             });
-        }else if(ver==5){
+        }
+        // static all day end
+        else if(ver==5){
             singleBuilder.listener(new SingleDateAndTimePickerDialog.Listener() {
                 @Override
                 public void onDateSelected(Date date) {
@@ -397,8 +436,9 @@ public class AddItemActivity extends AppCompatActivity {
         }else{
             selectTime = false;
         }
-
-        singleBuilder.display();
+        if(!selectTime){
+            singleBuilder.display();
+        }
     }
 
     @Override
@@ -576,7 +616,6 @@ public class AddItemActivity extends AppCompatActivity {
                         selectDateAndTime(4);
                     }else{
                         selectDateAndTime(1);
-                        Log.d("TimePickerTest", "4");
                     }
                     break;
                 case R.id.ll_time_end:

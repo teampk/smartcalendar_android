@@ -58,6 +58,7 @@ public class SingleDateAndTimePickerDialog extends BaseDialog {
 
             @Override
             public void onClose() {
+                displayListener.onClosed(picker);
                 SingleDateAndTimePickerDialog.this.onClose();
             }
         });
@@ -314,6 +315,7 @@ public class SingleDateAndTimePickerDialog extends BaseDialog {
 
     public interface DisplayListener {
         void onDisplayed(SingleDateAndTimePicker picker);
+        void onClosed(SingleDateAndTimePicker picker);
     }
 
     public static class Builder {
