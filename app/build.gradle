@@ -64,6 +64,8 @@ dependencies {
 
     //EditText
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
+    // 내부 라이브러리
     implementation project(path: ':singledateandtimepicker')
 }
 apply plugin: 'com.google.gms.google-services'
