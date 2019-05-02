@@ -19,7 +19,8 @@
     <string name="string_add_item_static">일정</string>
     <string name="string_add_item_dynamic">할 일</string>
 
-    <string name="cancel">취소</string>
+    <string name="bt_submit">완료</string>
+    <string name="bt_cancel">취소</string>
 
     <!-- REPEAT -->
     <string name="repeat_mode_1">안 함</string>
@@ -35,6 +36,13 @@
     <string name="category_mode_4">활동</string>
     <string name="category_mode_5">기타</string>
 
+    <!-- SCHEDULING -->
+    <string name="scheduling_mode_1">MODE1</string>
+    <string name="scheduling_mode_2">MODE2</string>
+    <string name="scheduling_mode_3">MODE3</string>
+    <string name="scheduling_mode_4">MODE4</string>
+    <string name="scheduling_mode_5">MODE5</string>
+
     <!-- SETTING -->
     <string name="setting_name">홍길동</string>
     <string name="setting">설정</string>
@@ -44,6 +52,7 @@
     <string name="setting_category">카테고리 설정</string>
     <string name="setting_sleep_time">수면시간 설정</string>
     <string name="setting_app_info">어플리케이션 정보</string>
+    <string name="setting_scheduling_mode">스케줄링 모드 설정</string>
 
     <!-- SIGN IN -->
     <string name="sign_in_id">이메일</string>

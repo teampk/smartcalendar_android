@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="schedulingMode"
+            type="com.pkteam.smartcalendar.view.SettingSchedulingMode"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/concealerNSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- background 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_blank_behind_top_bar"
+                android:background="@color/material_white_1000">
+
+            </LinearLayout>
+
+            <!-- Category Items -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/material_white_1000">
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/colorLightGray" />
+
+                <!-- 스케줄링1 -->
+                <LinearLayout
+                    android:id="@+id/ll_scheduling_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    android:onClick="@{schedulingMode::selectMode1}"
+                    >
+
+                    <!-- scheduling item -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_scheduling_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            android:text="@string/scheduling_mode_1"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+                    <ImageView
+
+                        android:id="@+id/iv_scheduling_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
+
+
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/colorLightGray" />
+
+                <!-- 스케줄링2 -->
+                <LinearLayout
+                    android:id="@+id/ll_scheduling_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    android:onClick="@{schedulingMode::selectMode2}"
+                    >
+
+                    <!-- scheduling item -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/tv_scheduling_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            android:text="@string/scheduling_mode_2"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_scheduling_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
+
+
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/colorLightGray" />
+
+                <!-- 스케줄링3 -->
+                <LinearLayout
+                    android:id="@+id/ll_scheduling_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_element"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    android:onClick="@{schedulingMode::selectMode3}"
+                    >
+
+                    <!-- scheduling item -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/tv_scheduling_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            android:text="@string/scheduling_mode_3"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/text_size" />
+
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_scheduling_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
+
+
+                </LinearLayout>
+
+
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/colorLightGray" />
+
+
+            </LinearLayout>
+
+            <!-- background last -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/material_white_1000">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdHeaderView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_top_bar"
+            app:cardBackgroundColor="@color/material_white_1000">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
+
+
+                <TextView
+                    android:id="@+id/tv_top_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="스케줄링 모드"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/text_size_subtitle"
+                    android:textStyle="bold" />
+
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/material_white_1000"
+                    android:text="@string/bt_submit"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold"
+                    android:onClick="@{schedulingMode::completeListener}"
+
+                    />
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>

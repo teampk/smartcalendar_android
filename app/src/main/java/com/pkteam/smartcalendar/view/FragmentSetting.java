@@ -92,22 +92,21 @@ public class FragmentSetting extends Fragment {
     }
 
     public void categoryListener(View view){
-        Intent intentCategory = new Intent(getContext(), SettingCategory.class);
-        startActivity(intentCategory);
+        startActivity(new Intent(getContext(), SettingCategory.class));
     }
     public void sleepTimeListener(View view){
-        Intent intents = new Intent(getContext(), SettingSleepTime.class);
-        startActivity(intents);
+        startActivity(new Intent(getContext(), SettingSleepTime.class));
+    }
+    public void schedulingModeListener(View view){
+        startActivity(new Intent(getContext(), SettingSchedulingMode.class));
     }
 
     public void infAppListener(View view){
-        Intent intentInfApp = new Intent(getContext(), SettingAppInfo.class);
-        startActivity(intentInfApp);
+        startActivity(new Intent(getContext(), SettingAppInfo.class));
     }
 
     public void checkAllDataListener(View view){
-        Intent mIntent = new Intent(getContext(), DataCheckActivity.class);
-        startActivity(mIntent);
+        startActivity(new Intent(getContext(), DataCheckActivity.class));
     }
 
     public void dataDeleteListener(View view){

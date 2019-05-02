@@ -158,7 +158,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
 
             // 확인용
-            String testing3 = sleepStart + "/" + sleepEnd + "\n\n";
+            String testing3 = "(수면 시간)\n\n";
+            testing3 += sleepStart + "/" + sleepEnd + "\n\n";
 
             testing3 += "(현재 시간)\n"+currentTime+"\n\n";
             testing3 += "(선택된 일정)\n"+selectedData.get(0).mId + "/deadline:" + timeDeadline + "/필요시간:" + selectedData.get(0).mNeedTime + "///\nD-day:" + dday + "///D-Time:" + dMinute + "/" + dHour + "/" + occupiedTime[0][0]+"\n\n";
@@ -193,7 +194,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
 
 
-        showAnimationAndExit();
+        //showAnimationAndExit();
     }
     private void showAnimationAndExit(){
         final AnimationDrawable drawable = (AnimationDrawable) binding.ivScheduling.getBackground();
