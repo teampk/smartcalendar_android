@@ -61,54 +61,66 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
-                <EditText
-                    android:id="@+id/et_name"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:background="@null"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:hint="이름"
-                    android:textSize="@dimen/text_size"
-                    />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
 
-                <EditText
-                    android:id="@+id/et_id"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:background="@null"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:hint="이메일"
-                    android:textSize="@dimen/text_size"
-                    />
+                    >
 
-                <EditText
-                    android:id="@+id/et_pw"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:background="@null"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:hint="비밀번호"
-                    android:textSize="@dimen/text_size"
-                    android:inputType="textPassword"
-                    />
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_element"
+                        android:hint="이름"
+                        android:textSize="@dimen/text_size"
+                        android:inputType="text"
+                        app:met_floatingLabel="highlight"
+                        />
 
-                <EditText
-                    android:id="@+id/et_pw2"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_element"
-                    android:background="@null"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:hint="비밀번호 재입력"
-                    android:textSize="@dimen/text_size"
-                    android:inputType="textPassword"
-                    />
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_id"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_element"
+                        android:hint="이메일"
+                        android:textSize="@dimen/text_size"
+                        android:inputType="textEmailAddress"
+                        app:met_floatingLabel="highlight"
+
+                        />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_pw"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_element"
+                        android:background="@null"
+                        android:hint="비밀번호"
+                        android:textSize="@dimen/text_size"
+                        android:inputType="textPassword"
+                        app:met_floatingLabel="highlight"
+
+                        />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_pw2"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_element"
+                        android:background="@null"
+                        android:hint="비밀번호 재입력"
+                        android:textSize="@dimen/text_size"
+                        android:inputType="textPassword"
+                        app:met_floatingLabel="highlight"
+
+                        />
+
+                </LinearLayout>
+
+
 
                 <Button
                     android:id="@+id/btn_submit"

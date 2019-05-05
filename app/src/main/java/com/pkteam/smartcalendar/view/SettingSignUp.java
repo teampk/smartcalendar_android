@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,6 +52,8 @@ public class SettingSignUp extends AppCompatActivity {
 
     public void signUpListener(View view){
         binding.pbSignUp.setVisibility(View.VISIBLE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.etPw2.getWindowToken(), 0);
         if(checkJoin()){
             createUser(binding.etName.toString(), binding.etId.getText().toString(), binding.etPw.getText().toString());
         }else{

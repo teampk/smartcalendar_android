@@ -73,6 +73,7 @@
                     android:hint="@string/sign_in_id"
                     android:textSize="@dimen/text_size"
                     app:met_floatingLabel="highlight"
+                    android:inputType="text"
 
                     />
 
