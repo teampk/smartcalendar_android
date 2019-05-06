@@ -68,7 +68,9 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:met_floatingLabel="highlight" />
+                            app:met_floatingLabel="highlight"
+                            android:inputType="text"
+                            />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -93,6 +95,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:met_floatingLabel="highlight"
+                            android:inputType="text"
+
 
                             />
 

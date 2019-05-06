@@ -1,5 +1,6 @@
 package com.pkteam.smartcalendar.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,8 +51,13 @@ public class SettingSignUp extends AppCompatActivity {
     }
 
     public void signUpListener(View view){
+        binding.pbSignUp.setVisibility(View.VISIBLE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.etPw2.getWindowToken(), 0);
         if(checkJoin()){
             createUser(binding.etName.toString(), binding.etId.getText().toString(), binding.etPw.getText().toString());
+        }else{
+            binding.pbSignUp.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -61,10 +68,10 @@ public class SettingSignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            GentleToast.with(getApplicationContext()).longToast("회원가입 성공").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            finish();
+
+
                         } else {
                             try {
                                 throw task.getException();
@@ -79,7 +86,7 @@ public class SettingSignUp extends AppCompatActivity {
                             } catch (Exception e) {
                                 GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_sign_up)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                             }
-
+                            binding.pbSignUp.setVisibility(View.INVISIBLE);
                         }
 
                     }
@@ -98,10 +105,15 @@ public class SettingSignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Log.d("UserProfileUpdate", "User profile updated.");
+                                GentleToast.with(getApplicationContext()).longToast("회원가입 성공").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                                setResult(RESULT_OK, new Intent());
+                                finish();
                             }
                         }
                     });
+
+
+
         } else {
             GentleToast.with(getApplicationContext()).longToast("Sign in Failed").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
         }

@@ -28,6 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String basicSleepTimeStart = "0000";
     private static final String basicSleepTimeEnd = "0600";
 
+
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -53,6 +54,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE SLEEPTIME (_id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT);");
         db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeStart+ "');");
         db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeEnd+ "');");
+
+        // 스케줄링 모드 Database
+        db.execSQL("CREATE TABLE SCMODE (_id INTEGER PRIMARY KEY AUTOINCREMENT, scheduleMode INTEGER);");
+        db.execSQL("INSERT INTO SCMODE VALUES(null, '" + 1 +"');");
 
     }
 
@@ -199,6 +204,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
     }
+
+
+    // --- Repeat ID Database ---
     public int getCurrentRepeatId(){
         SQLiteDatabase dbr = getReadableDatabase();
         Cursor cursor = dbr.rawQuery("SELECT * FROM USERINFO;", null);
@@ -209,7 +217,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return Integer.parseInt(result);
     }
 
-    // --- Repeat ID Database ---
     public void updateRepeatId(){
         int resultInt = getCurrentRepeatId();
         resultInt += 1;
@@ -257,6 +264,22 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE SLEEPTIME SET time='"+startTime+"' WHERE _id='" + 1 + "';");
         db.execSQL("UPDATE SLEEPTIME SET time='"+endTime+"' WHERE _id='" + 2 + "';");
         db.close();
+    }
+
+    // --- Scheduling MODE Database ---
+    public int getSchedulingMode(){
+        SQLiteDatabase dbr = getReadableDatabase();
+        Cursor cursor = dbr.rawQuery("SELECT * FROM SCMODE;", null);
+        String result = "";
+        while (cursor.moveToNext()){
+            result = cursor.getString(1);
+        }
+        return Integer.parseInt(result);
+    }
+
+    public void updateSchedulingMode(int mode){
+        SQLiteDatabase dbw = getWritableDatabase();
+        dbw.execSQL("UPDATE SCMODE SET scheduleMode='" + mode +"' WHERE _id='" + 1 +"';");
     }
 
 }

@@ -48,6 +48,7 @@ public class SettingLogin extends AppCompatActivity {
     FragmentSettingLoginBinding binding;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 10;
+    private static final int RC_SIGN_UP_OK = 11;
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
 
@@ -94,19 +95,30 @@ public class SettingLogin extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            switch (requestCode){
+                case RC_SIGN_IN:
+                    mCallbackManager.onActivityResult(requestCode, resultCode, data);
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    try {
+                        // Google Sign In was successful, authenticate with Firebase
+                        GoogleSignInAccount account = task.getResult(ApiException.class);
+                        firebaseAuthWithGoogle(account);
+                    } catch (ApiException e) {
+                        // Google Sign In failed, update UI appropriately
+                        GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                        binding.pbSignIn.setVisibility(View.INVISIBLE);
+                    }
+                    break;
+                case RC_SIGN_UP_OK:
+                    finish();
+                    break;
+            }
+        }
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                GentleToast.with(getApplicationContext()).longToast(getString(R.string.error_network)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-                binding.pbSignIn.setVisibility(View.INVISIBLE);
-            }
+
         }
     }
 
@@ -146,7 +158,7 @@ public class SettingLogin extends AppCompatActivity {
 
     public void signUpListener(View view){
         Intent intentSignUp = new Intent(getApplicationContext(), SettingSignUp.class);
-        startActivity(intentSignUp);
+        startActivityForResult(intentSignUp, RC_SIGN_UP_OK);
     }
 
     public void findPasswordListener(View view){

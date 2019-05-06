@@ -51,7 +51,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:orientation="horizontal"
-                    android:onClick="@{schedulingMode::selectMode1}"
+                    android:onClick="@{schedulingMode::modeSelectListener1}"
                     >
 
                     <!-- scheduling item -->
@@ -105,7 +105,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:orientation="horizontal"
-                    android:onClick="@{schedulingMode::selectMode2}"
+                    android:onClick="@{schedulingMode::modeSelectListener2}"
                     >
 
                     <!-- scheduling item -->
@@ -159,7 +159,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:orientation="horizontal"
-                    android:onClick="@{schedulingMode::selectMode3}"
+                    android:onClick="@{schedulingMode::modeSelectListener3}"
                     >
 
                     <!-- scheduling item -->
@@ -246,7 +246,9 @@
                     android:text="스케줄링 모드"
                     android:textColor="#000000"
                     android:textSize="@dimen/text_size_subtitle"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+
+                    />
 
 
                 <Button
