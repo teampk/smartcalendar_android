@@ -39,6 +39,7 @@ import java.util.Locale;
 
 public class AddItemActivity extends AppCompatActivity {
 
+    private static final String TAG = "TimeSpoon";
     private static final int STATIC_MODE = 1111;
     private static final int DYNAMIC_MODE = 1112;
     private static final int ALL_DAY_MODE = 1113;
@@ -209,7 +210,7 @@ public class AddItemActivity extends AppCompatActivity {
 
                 // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
                 // 6.time(String)   7.category(Int)     8.Memo(String)  9.NeedTime(int)   10.repeatId(Int)  11.ScheduleId(int)
-                Log.d("PaengDataCheck",
+                Log.d(TAG,
                         itemElement.mId+"/"
                         +itemElement.mTitle+"/"
                         +itemElement.mLocation+"/"
@@ -220,7 +221,7 @@ public class AddItemActivity extends AppCompatActivity {
                         +itemElement.mMemo+"/"
                         +itemElement.mNeedTime+"/"
                         +itemElement.mRepeatId+"/"
-                        +itemElement.mScheduleId+"//"
+                        +itemElement.mScheduleId+"/"
                 );
             }
         });
@@ -452,7 +453,7 @@ public class AddItemActivity extends AppCompatActivity {
                 repeatTimes = data.getIntExtra("repeatTimes", 0);
             }
             else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.d("ActivityResult", "CANCELED");
+                Log.d(TAG, "CANCELED");
             }
         }else if (requestCode == REQUEST_CATEGORY){
             if(resultCode == Activity.RESULT_OK){
@@ -461,7 +462,7 @@ public class AddItemActivity extends AppCompatActivity {
                 binding.ivCategory.setImageDrawable(getCategoryDrawable(categoryMode));
             }
             else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.d("ActivityResult", "CANCELED");
+                Log.d(TAG, "CANCELED");
             }
         }
     }
@@ -507,7 +508,7 @@ public class AddItemActivity extends AppCompatActivity {
             GentleToast.with(getApplicationContext()).longToast("시작시간은 끝시간보다 빨라야 합니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
             return false;
         }else {
-            Log.d("CheckPaeng", getTimeData(binding.tvDateStart)+getTimeData(binding.tvTimeStart)+"//"+getTimeData(binding.tvDateEnd)+getTimeData(binding.tvTimeEnd)+"//"+String.valueOf(item3_isDynamic));
+            Log.d(TAG, getTimeData(binding.tvDateStart)+getTimeData(binding.tvTimeStart)+"//"+getTimeData(binding.tvDateEnd)+getTimeData(binding.tvTimeEnd)+"//"+String.valueOf(item3_isDynamic));
             return true;
         }
     }
