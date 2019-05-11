@@ -25,7 +25,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
     static final int SPLASH_DISPLAY_LENGTH = 3000;
     ActivityScheduleItemProgressBinding binding;
     DBHelper dbHelper;
-    GetTimeInformation timeInformation;
+    GetTimeInformation gti;
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm");
     SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
@@ -37,7 +37,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_item_progress);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
-        timeInformation = new GetTimeInformation();
+        gti = new GetTimeInformation();
 
 
         Intent intent = getIntent();
@@ -49,24 +49,9 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
             selectedData.add(dbHelper.getDataById(selectedId.get(i)));
         }
 
-        // tvTest >>>>>
-        String scheduledDataList = "";
-        for (int i=0; i<selectedData.size();i++){
-            scheduledDataList += selectedData.get(i).mId+"/"+selectedData.get(i).mTitle+"/"+selectedData.get(i).mTime.split("\\.")[2]+"/n:"+selectedData.get(i).mNeedTime+"\n\n";
-        }
-        binding.tvTest.append("\n\n===== 스케줄링 할 데이터 list =====\n\n");
-        binding.tvTest.append(scheduledDataList+"\n");
-        // >>>>>>>>>>>>
-
-
-
         // 현재 시간 format : 2019/03/11/22/30
         String currentTime = sdf.format(new Date(System.currentTimeMillis()));
         long currentTimeLong = Long.valueOf(sdf2.format(new Date(System.currentTimeMillis())));
-
-        // tvTest >>>>>
-        binding.tvTest.append("===== 현재 시간 =====\n"+currentTime+"\n\n");
-        // >>>>>>>>>>>>
 
 
         // 수면시간
@@ -76,8 +61,19 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
         int sleepEndInt = Integer.parseInt(sleepEnd.substring(0,2));
 
 
+
+
         // tvTest >>>>>
-        binding.tvTest.append("===== 수면시간 =====\n");
+        String scheduledDataList = "";
+        for (int i=0; i<selectedData.size();i++){
+            scheduledDataList += selectedData.get(i).mId+"/"+selectedData.get(i).mTitle+"/"+selectedData.get(i).mTime.split("\\.")[2]+"/n:"+selectedData.get(i).mNeedTime+"\n\n";
+        }
+        binding.tvTest.append("\n\n===== 스케줄링 할 데이터 list =====\n\n");
+        binding.tvTest.append(scheduledDataList+"\n");
+
+        binding.tvTest.append("===== 현재 시간 =====\n"+currentTime+"\n\n");
+
+        binding.tvTest.append("===== 수면 시간 =====\n");
         binding.tvTest.append(sleepStart+"/"+sleepEnd+"\n");
         // >>>>>>>>>>>>
 
@@ -99,8 +95,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
             int needTime = selectedData.get(i).mNeedTime;
             String timeDeadline = selectedData.get(i).mTime.split("\\.")[2];
             long timeDeadlineLong = Long.valueOf(timeDeadline);
-            int dday = timeInformation.getDdayInt(timeDeadline) * (-1);
-            int dMinute = timeInformation.getdTimeInt(timeDeadline) * (-1);
+            int dday = gti.getDdayInt(timeDeadline) * (-1);
+            int dMinute = gti.getdTimeInt(timeDeadline) * (-1);
             int dHour = dMinute / 60;
 
             // -- d-day까지 시간 할당
@@ -108,7 +104,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
 
 
             // tvTest >>>>>
-            binding.tvTest.append("\n\n===== 선택된 일정 ("+ i +") =====\n\nid:"+selectedData.get(i).mId + " //deadline:" + timeDeadline + " //필요시간:" + selectedData.get(i).mNeedTime + "///\nD-day:" + dday + "///D-Minute:" + dMinute + "///D-Minute:" + dHour +"\n\n");
+            binding.tvTest.append("\n\n===== 선택된 일정 ("+ i +") =====\n\nid:"+selectedData.get(i).mId + " //deadline:" + timeDeadline + "\n//필요시간:" + selectedData.get(i).mNeedTime + "///\nD-day:" + dday + "///D-Minute:" + dMinute + "///D-Minute:" + dHour +"\n\n");
             // >>>>>>>>>>>>
 
 
@@ -142,24 +138,44 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
             }
 
             // -- deadline 내의 static 일정들은 true
-            binding.tvTest.append("=== Static 일정 LIST ===\n");
+            binding.tvTest.append("===== Static 일정 LIST =====\n");
             for (int s=0;s<staticDataAll.size();s++){
-                binding.tvTest.append("Static "+s+")\n"+staticDataAll.get(s).mTime+"\n\n");
                 String staticStartString = staticDataAll.get(s).mTime.split("\\.")[0];
                 String staticEndString = staticDataAll.get(s).mTime.split("\\.")[1];
                 long staticStart = Long.valueOf(staticStartString);
                 long staticEnd = Long.valueOf(staticEndString);
-                binding.tvTest.append(currentTimeLong+"//"+staticStart+"//"+staticEnd+"//"+timeDeadlineLong+"\n\n");
+                binding.tvTest.append("static Start:\t"+staticStart+"\nstatic End:\t"+staticEnd+"//\n\n");
 
                 // currentTime  :   201905111401
                 // Static start :   201905112000
                 // Static end   :   201905112300
                 // Deadline     :   201905170000
 
-                if(currentTimeLong< staticStart && staticEnd < timeDeadlineLong){
-                    timeInformation.getDdayInt(staticStartString);
+                int startTime = Integer.valueOf(staticStartString.substring(8, 10));
+                int endTime = Integer.valueOf(staticEndString.substring(8, 10));
+
+                int staticStartDday = gti.getDdayInt(staticStartString)*(-1);
+                int staticEndDday = gti.getDdayInt(staticEndString)*(-1);
+
+                if(currentTimeLong<staticStart && staticEnd < timeDeadlineLong){
+
+                    for (int t = startTime; t<=endTime; t++){
+                        occupiedTime[staticStartDday][t] = true;
+                    }
 
 
+                    if (staticEndString.substring(10, 12).equals("00")){
+                        occupiedTime[gti.getDdayInt(staticStartString)*(-1)][endTime] = false;
+                    }
+                }
+
+                for (int day=0;day<=dday;day++){
+                    for (int time=0;time<24;time++){
+                        int year_day = Integer.valueOf(gti.getCurrentDate().substring(0, 8))+day;
+
+
+                        //occupiedTime[day][time];
+                    }
                 }
 
 
@@ -216,6 +232,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
             }
 
             // testing3 += scheduledStatic.mTime;
+            binding.tvTest.append("===== 남은 일정 =====\n");
             binding.tvTest.append(testing3);
 
         }

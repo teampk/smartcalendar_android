@@ -14,19 +14,11 @@ public class GetTimeInformation {
 
     }
 
-    public String getCurrentDateSimple(){
+    public String getCurrentDate(){
         // get Current Date and Time
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         return sdf.format(date);
-    }
-
-    public String getCurrentDate(){
-        // get Current Date and Time
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String[] mDate = sdf.format(date).split("/");
-        return mDate[0]+mDate[1]+mDate[2];
     }
 
     public String getCurrentDateComplex(){

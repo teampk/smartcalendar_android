@@ -56,7 +56,7 @@ public class FragmentHome extends Fragment {
         final View mView = binding.getRoot();
         gti = new GetTimeInformation();
 
-        currentInf = gti.getCurrentDateComplex()+" ("+gti.getDateDay(gti.getCurrentDateSimple())+")";
+        currentInf = gti.getCurrentDateComplex()+" ("+gti.getDateDay(gti.getCurrentDate())+")";
         binding.tvTime.setText(currentInf);
         initRecyclerView(mView);
         initSpeedDial(savedInstanceState == null, mView);
