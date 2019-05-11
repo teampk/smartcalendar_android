@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,12 +14,26 @@ public class GetTimeInformation {
 
     }
 
+    public String getCurrentDateSimple(){
+        // get Current Date and Time
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        return sdf.format(date);
+    }
+
     public String getCurrentDate(){
         // get Current Date and Time
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String[] mDate = sdf.format(date).split("/");
         return mDate[0]+mDate[1]+mDate[2];
+    }
+
+    public String getCurrentDateComplex(){
+        // get Current Date and Time
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        return sdf.format(date);
     }
 
     public String getCurrentDate(long time){
@@ -97,6 +112,49 @@ public class GetTimeInformation {
             output = "D"+String.valueOf(count);
         }
         return output;
+    }
+
+    public String getDateDay(String date){
+        String day = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Date nDate=null;
+        try {
+            nDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(nDate);
+
+        int dayNum = cal.get(Calendar.DAY_OF_WEEK);
+        switch (dayNum){
+            case 1:
+                day = "일";
+                break;
+            case 2:
+                day = "월";
+                break;
+            case 3:
+                day = "화";
+                break;
+            case 4:
+                day = "수";
+                break;
+            case 5:
+                day = "목";
+                break;
+            case 6:
+                day = "금";
+                break;
+            case 7:
+                day = "토";
+                break;
+
+        }
+
+        return day;
+
     }
 
 

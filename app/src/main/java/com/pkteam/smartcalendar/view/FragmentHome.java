@@ -21,6 +21,7 @@ import android.view.animation.AnticipateOvershootInterpolator;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.pkteam.smartcalendar.ArrayListSorting;
+import com.pkteam.smartcalendar.GetTimeInformation;
 import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.databinding.FragmentHomeBinding;
 import com.pkteam.smartcalendar.DBHelper;
@@ -41,8 +42,10 @@ public class FragmentHome extends Fragment {
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
     private DBHelper dbHelper;
     private boolean show=false;
+    private String currentInf;
 
     FragmentHomeBinding binding;
+    GetTimeInformation gti;
 
     ArrayList<MyData> mDataList = new ArrayList<>();
 
@@ -51,7 +54,10 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         final View mView = binding.getRoot();
-        binding.tvTime.setText(getCurrentDate());
+        gti = new GetTimeInformation();
+
+        currentInf = gti.getCurrentDateComplex()+" ("+gti.getDateDay(gti.getCurrentDateSimple())+")";
+        binding.tvTime.setText(currentInf);
         initRecyclerView(mView);
         initSpeedDial(savedInstanceState == null, mView);
 
@@ -93,7 +99,8 @@ public class FragmentHome extends Fragment {
     public void onResume() {
         super.onResume();
         View mView = binding.getRoot();
-        binding.tvTime.setText(getCurrentDate());
+        binding.tvTime.setText(currentInf);
+
         initDataset();
         initRecyclerView(mView);
     }
@@ -165,7 +172,7 @@ public class FragmentHome extends Fragment {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(getContext(), R.layout.fragment_home);
 
-        binding.tvTime.setText(getCurrentDate());
+        binding.tvTime.setText(currentInf);
 
         ChangeBounds transition = new ChangeBounds();
         transition.setInterpolator(new AnticipateOvershootInterpolator(1.0f));

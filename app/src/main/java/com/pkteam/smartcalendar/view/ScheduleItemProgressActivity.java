@@ -144,12 +144,22 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
             // -- deadline 내의 static 일정들은 true
             binding.tvTest.append("=== Static 일정 LIST ===\n");
             for (int s=0;s<staticDataAll.size();s++){
-                binding.tvTest.append(staticDataAll.get(s).mTime+"\n");
-                long start = Long.valueOf(staticDataAll.get(s).mTime.split("\\.")[0]);
-                long end = Long.valueOf(staticDataAll.get(s).mTime.split("\\.")[1]);
-                binding.tvTest.append(currentTime+"//"+start+"//"+end+"//"+timeDeadlineLong);
-                if(currentTimeLong< start && end < timeDeadlineLong){
-                    ///////////////////
+                binding.tvTest.append("Static "+s+")\n"+staticDataAll.get(s).mTime+"\n\n");
+                String staticStartString = staticDataAll.get(s).mTime.split("\\.")[0];
+                String staticEndString = staticDataAll.get(s).mTime.split("\\.")[1];
+                long staticStart = Long.valueOf(staticStartString);
+                long staticEnd = Long.valueOf(staticEndString);
+                binding.tvTest.append(currentTimeLong+"//"+staticStart+"//"+staticEnd+"//"+timeDeadlineLong+"\n\n");
+
+                // currentTime  :   201905111401
+                // Static start :   201905112000
+                // Static end   :   201905112300
+                // Deadline     :   201905170000
+
+                if(currentTimeLong< staticStart && staticEnd < timeDeadlineLong){
+                    timeInformation.getDdayInt(staticStartString);
+
+
                 }
 
 
