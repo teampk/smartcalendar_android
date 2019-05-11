@@ -176,7 +176,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 MyViewHolderStatic viewHolder = (MyViewHolderStatic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
                 viewHolder.itemTitle.setText(selectedData.mTitle);
-                viewHolder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 1));
+                viewHolder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), 1));
                 viewHolder.setIsRecyclable(false);
 
                 viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -197,7 +197,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 MyViewHolderDynamic viewHolder = (MyViewHolderDynamic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
                 viewHolder.itemTitle.setText(selectedData.mTitle);
-                viewHolder.itemDeadline.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 2));
+                viewHolder.itemDeadline.setText(getShowingTime(selectedData.mTime.split("\\."), 2));
                 viewHolder.setIsRecyclable(false);
 
                 viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +233,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    private String getShowingTime(String[] input, int needTime, int mode){
+    private String getShowingTime(String[] input, int mode){
 
         GetTimeInformation timeInformation = new GetTimeInformation();
 
@@ -242,6 +242,8 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             //201807082130
             String startTime, endTime;
 
+            // 여러 날짜에 걸친 일정 처리
+            /*
             if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(timeInformation.getCurrentDate())){
                 startTime = "0000";
             }else{
@@ -253,6 +255,10 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else{
                 endTime = input[1].substring(8,12);
             }
+            */
+
+            startTime = input[0].substring(8,12);
+            endTime = input[1].substring(8,12);
 
             return startTime.substring(0,2)+":"+startTime.substring(2,4)+"~"+endTime.substring(0,2)+":"+endTime.substring(2,4);
         }

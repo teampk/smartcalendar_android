@@ -149,5 +149,12 @@ public class GetTimeInformation {
 
     }
 
+    public String timeZeroProblem(String time){
+        if(Integer.valueOf(time)<10){
+            time = "0"+time;
+        }
+        return time;
+    }
+
 
 }
