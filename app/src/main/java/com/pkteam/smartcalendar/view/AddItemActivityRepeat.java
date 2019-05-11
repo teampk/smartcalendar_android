@@ -59,9 +59,6 @@ public class AddItemActivityRepeat extends AppCompatActivity {
         binding.llRepeatMonth.setOnClickListener(listener);
         binding.llRepeatYear.setOnClickListener(listener);
 
-        binding.btnSubmit.setOnClickListener(listener);
-        binding.llCancel.setOnClickListener(listener);
-
         getInput();
     }
 
@@ -385,24 +382,23 @@ public class AddItemActivityRepeat extends AppCompatActivity {
                         repeatTimes = Integer.valueOf(binding.repeatDetail4Et2.getText().toString());
                     }
                     break;
-                case R.id.btn_submit:
-
-                    // (RepeatMode, RepeatPeriod, RepeatTimes)
-                    if(checkException()){
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra("repeatModeString", getRepeatString(repeatModeInt));
-                        returnIntent.putExtra("repeatMode", repeatModeInt);
-                        returnIntent.putExtra("repeatPeriod", repeatPeriod);
-                        returnIntent.putExtra("repeatTimes", repeatTimes);
-
-                        setResult(Activity.RESULT_OK, returnIntent);
-                        finish();
-                    }
-
-                    break;
             }
         }
     };
+
+    public void onSubmit(View view){
+        // (RepeatMode, RepeatPeriod, RepeatTimes)
+        if(checkException()){
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("repeatModeString", getRepeatString(repeatModeInt));
+            returnIntent.putExtra("repeatMode", repeatModeInt);
+            returnIntent.putExtra("repeatPeriod", repeatPeriod);
+            returnIntent.putExtra("repeatTimes", repeatTimes);
+
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }
+    }
 
     public void finishView(View view){
         finish();

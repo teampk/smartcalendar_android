@@ -147,7 +147,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                 binding.tvTest.append(staticDataAll.get(s).mTime+"\n");
                 long start = Long.valueOf(staticDataAll.get(s).mTime.split("\\.")[0]);
                 long end = Long.valueOf(staticDataAll.get(s).mTime.split("\\.")[1]);
-
+                binding.tvTest.append(currentTime+"//"+start+"//"+end+"//"+timeDeadlineLong);
                 if(currentTimeLong< start && end < timeDeadlineLong){
                     ///////////////////
                 }

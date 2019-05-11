@@ -579,15 +579,19 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/material_white_1000">
 
 
                 <Button
                     android:id="@+id/btn_cancel"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+
                     android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
                     android:onClick="@{additem::finishView}"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -610,17 +614,18 @@
                     />
 
 
-                <Button
+                <TextView
                     android:id="@+id/btn_add"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_top_bar"
-                    android:background="#00000000"
+                    android:background="@color/material_white_1000"
                     android:onClick="@{additem::onSubmit}"
                     android:text="@string/button_add"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -92,7 +92,6 @@ public class AddItemActivityCategory extends AppCompatActivity {
         binding.llCategory3.setOnClickListener(listener);
         binding.llCategory4.setOnClickListener(listener);
         binding.llCategory5.setOnClickListener(listener);
-        binding.btnSubmit.setOnClickListener(listener);
 
     }
 
@@ -120,16 +119,19 @@ public class AddItemActivityCategory extends AppCompatActivity {
                     categoryMode = 5;
                     setImageView(categoryMode);
                     break;
-                case R.id.btn_submit:
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("categoryInteger", categoryMode);
-                    returnIntent.putExtra("categoryResult", getCategoryString(categoryMode));
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
-                    break;
+
             }
         }
     };
+
+    public void onSubmit(View view){
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("categoryInteger", categoryMode);
+        returnIntent.putExtra("categoryResult", getCategoryString(categoryMode));
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+    }
+
     private void setImageView(int ver){
         switch (ver){
             case 1:
