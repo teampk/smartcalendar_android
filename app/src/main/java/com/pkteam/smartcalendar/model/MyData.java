@@ -7,7 +7,9 @@ package com.pkteam.smartcalendar.model;
 // 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)
 // 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)    10.RepeatId(int)
 
-public class MyData {
+import java.io.Serializable;
+
+public class MyData implements Serializable {
     public int mId;
     public String mTitle;
     public String mLocation;

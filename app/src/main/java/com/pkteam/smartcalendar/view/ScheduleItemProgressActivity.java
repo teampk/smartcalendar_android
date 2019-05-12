@@ -17,12 +17,13 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemProgressBinding;
 import com.pkteam.smartcalendar.model.MyData;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ScheduleItemProgressActivity extends AppCompatActivity {
+public class ScheduleItemProgressActivity extends AppCompatActivity{
     static final String TAG = "TimeSpoon";
     static final int SPLASH_DISPLAY_LENGTH = 3000;
     ActivityScheduleItemProgressBinding binding;
@@ -32,15 +33,19 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm");
     SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
 
+    private boolean isError = false;
+    private ArrayList<MyData> scheduledStaticList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_item_progress);
+        binding.setScheduling(this);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
         gti = new GetTimeInformation();
-
+        isError = false;
 
         Intent intent = getIntent();
         ArrayList<Integer> selectedId = intent.getIntegerArrayListExtra("selectedDynamic");
@@ -74,25 +79,17 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
         }
 
         binding.tvTest.append("===== 현재 시간 =====\n"+currentTime+"\n\n");
-
         binding.tvTest.append("===== 수면 시간 =====\n");
         binding.tvTest.append(sleepStart+"/"+sleepEnd+"\n\n");
-
         binding.tvTest.append("===== 스케줄링 모드 =====\n"+schedulingMode+"\n\n");
-
-
         binding.tvTest.append("===== 스케줄링 할 데이터 list =====\n\n");
         binding.tvTest.append(scheduledDataList+"\n");
         // >>>>>>>>>>>>
 
 
         ArrayList<MyData> staticDataAll = new ArrayList<>();
-
-        ArrayList<MyData> scheduledData = new ArrayList<>();
-
+        scheduledStaticList = new ArrayList<>();
         staticDataAll = dbHelper.getTodoStaticData();
-
-
 
 
         // 선택된 데이터에 대하여 스케줄링
@@ -176,12 +173,36 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                         }
                     }
                 }
-
-
             }
+
+            // -- 남은 일정들 보여줘
             binding.tvTest.append("\n\n");
+            binding.tvTest.append("===== 남은 일정 Scheduled =====\n");
+            String occupied= "";
+
+            for (int day=0; day<dday+1;day++){
+                int theDay = Integer.valueOf(gti.getCurrentDate().substring(6, 8)) + day;
+                occupied += "day:"+theDay+"일\n";
+                for (int time = 0; time<24;time++){
+                    if (time % 6 == 0){
+                        occupied += gti.timeZeroProblem(String.valueOf(time))+"~"+gti.timeZeroProblem(String.valueOf(time+5))+":\t";
+                    }
+                    if (occupiedTime[day][time]){
+                        occupied += " X /";
+                    }else{
+                        occupied += " O /";
+                    }
+                    if (time % 6 == 5){
+                        occupied += "\n";
+                    }
+                }
+                occupied += "\n";
+            }
+            binding.tvTest.append(occupied);
 
 
+            // -- 비어있는 시간들을 배열로 정리
+            binding.tvTest.append("\n\n");
             long startTime = 0;
             long endTime = 0;
             try{
@@ -212,56 +233,78 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
                     }
                 }
             }
-
             int sum = 0;
             for (int t=0;t<a.size();t++){
                 binding.tvTest.append(a.get(t)+"/\n");
                 sum+=Integer.valueOf(a.get(t).split(":")[2]);
             }
+            binding.tvTest.append("sum:"+sum+"\n\n");
 
-            binding.tvTest.append("sum:"+sum+"\n");
 
+
+            // 비어있는 시간에 스케줄링 진행
             if(sum<needTime){
                 // 남은 모든 시간의 합이 needtime 보다 적은 경우
                 // 스케줄링을 수행하지 않는다.
-                binding.tvTest.append("\n\n===== sum<needtime =====\n\n");
-            }
+                Intent errorIntent = new Intent();
+                errorIntent.putExtra("error", selectedData.get(i).mId);
+                setResult(RESULT_OK, errorIntent);
+                isError = true;
 
+            }else{
+                switch(dbHelper.getSchedulingMode()){
+                    
+                    // mode1) needtime 만큼 비는 시간이 있으면 바로 넣어준다.
+                    case 1:
+                        MyData scheduledStatic;
 
+                        count = 0;
+                        boolean flag = false;
+                        for (int day=0;day<=dday;day++){
+                            for (int time=0;time<24;time++){
+                                if (!occupiedTime[day][time]){
+                                    count++;
+                                }
+                                if (count == needTime){
+                                    startTime += (86400000 * day + (3600000*(time+1-count)));
+                                    endTime = startTime + 3600000*count;
 
-            binding.tvTest.append("\n\n");
+                                    String nextStart = sdf2.format(new Date(startTime));
+                                    String nextEnd = sdf2.format(new Date(endTime));
 
+                                    scheduledStatic = new MyData(0, selectedData.get(i).mTitle, selectedData.get(i).mLocation, false, false, nextStart+"."+nextEnd+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
+                                    scheduledStaticList.add(scheduledStatic);
+                                    dbHelper.todoDataInsert(scheduledStatic);
 
+                                    // -- 스케줄 된 일정
+                                    binding.tvTest.append("\n\n");
+                                    binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]);
 
-            MyData scheduledStatic = null;
+                                    flag = true;
+                                    break;
 
-            // mode0) needtime 만큼 비는 시간이 있으면 바로 넣어준다.
-            count = 0;
-            for (int day=0;day<=dday;day++){
-                for (int time=0;time<24;time++){
-                    if (!occupiedTime[day][time]){
-                        count++;
-                    }
-                    if (count == needTime){
-                        startTime += (86400000 * day + (3600000*(time+1-count)));
-                        endTime = startTime + 3600000*count;
+                                }
+                            }
+                            if (flag){
+                                break;
+                            }
+                        }
 
-                        String nextStart = sdf2.format(new Date(startTime));
-                        String nextEnd = sdf2.format(new Date(endTime));
+                        break;
 
-                        scheduledStatic = new MyData(0, selectedData.get(i).mTitle, selectedData.get(i).mLocation, false, false, nextStart+"."+nextEnd+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
-                        //dbHelper.todoDataInsert(scheduledStatic);
-                    }
+                    case 2:
+                        break;
+
+                    case 3:
+                        break;
                 }
             }
 
 
-
-
-
-
-            binding.tvTest.append("===== 남은 일정 =====\n");
-            String occupied= "";
+            // -- 남은 일정들 보여줘
+            binding.tvTest.append("\n\n");
+            binding.tvTest.append("===== 남은 일정 Scheduled =====\n");
+            occupied= "";
 
             for (int day=0; day<dday+1;day++){
                 int theDay = Integer.valueOf(gti.getCurrentDate().substring(6, 8)) + day;
@@ -283,8 +326,10 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
             }
             binding.tvTest.append(occupied);
 
-        }
 
+
+
+        }
 
 
 
@@ -295,15 +340,22 @@ public class ScheduleItemProgressActivity extends AppCompatActivity {
         drawable.start();
 
         /*
-        binding.tvTest.setText("스케줄링 준비중입니다...");
+
         new Handler().postDelayed(new Runnable(){
                 @Override
                 public void run() {
-                    Intent mainIntent = new Intent(ScheduleItemProgressActivity.this, ScheduleItemResultActivity.class);
-                    ScheduleItemProgressActivity.this.startActivity(mainIntent);
-                    ScheduleItemProgressActivity.this.finish();
+                    if (isError){
+                        finish();
+                    }else{
+                        Intent intent = new Intent(ScheduleItemProgressActivity.this, ScheduleItemResultActivity.class);
+                        intent.putExtra("scheduled", scheduledStaticList);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }, SPLASH_DISPLAY_LENGTH);
-        */
+
+            */
+
     }
 }
