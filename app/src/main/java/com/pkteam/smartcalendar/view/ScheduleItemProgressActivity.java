@@ -203,11 +203,11 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
             // -- 비어있는 시간들을 배열로 정리
             binding.tvTest.append("\n\n");
-            long startTime = 0;
-            long endTime = 0;
+            long startTimeMs = 0;
+            long endTimeMs = 0;
             try{
                 // format : 2019/03/11/22/30
-                startTime = sdf.parse(currentTime.substring(0, 11)+"00/00").getTime();
+                startTimeMs = sdf.parse(currentTime.substring(0, 11)+"00/00").getTime();
             }
             catch (ParseException e) {
                 e.printStackTrace();
@@ -253,11 +253,22 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
             }else{
                 switch(dbHelper.getSchedulingMode()){
-                    
+
                     // mode1) needtime 만큼 비는 시간이 있으면 바로 넣어준다.
                     case 1:
                         MyData scheduledStatic;
 
+                        String time[] = getTimeByIndex(startTimeMs, 2, 13, 5).split(":");
+
+                        scheduledStatic = new MyData(0, selectedData.get(i).mTitle, selectedData.get(i).mLocation, false, false, time[0]+"."+time[1]+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
+                        scheduledStaticList.add(scheduledStatic);
+                        dbHelper.todoDataInsert(scheduledStatic);
+
+                        // -- 스케줄 된 일정
+                        binding.tvTest.append("\n\n");
+                        binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]);
+
+                        /*
                         count = 0;
                         boolean flag = false;
                         for (int day=0;day<=dday;day++){
@@ -266,11 +277,11 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                                     count++;
                                 }
                                 if (count == needTime){
-                                    startTime += (86400000 * day + (3600000*(time+1-count)));
-                                    endTime = startTime + 3600000*count;
+                                    startTimeMs += (86400000 * day + (3600000*(time+1-count)));
+                                    endTimeMs = startTimeMs + 3600000 * count;
 
-                                    String nextStart = sdf2.format(new Date(startTime));
-                                    String nextEnd = sdf2.format(new Date(endTime));
+                                    String nextStart = sdf2.format(new Date(startTimeMs));
+                                    String nextEnd = sdf2.format(new Date(endTimeMs));
 
                                     scheduledStatic = new MyData(0, selectedData.get(i).mTitle, selectedData.get(i).mLocation, false, false, nextStart+"."+nextEnd+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
                                     scheduledStaticList.add(scheduledStatic);
@@ -289,6 +300,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                                 break;
                             }
                         }
+                        */
 
                         break;
 
@@ -335,6 +347,16 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
         showAnimationAndExit();
     }
+
+    private String getTimeByIndex(long currentMs, int day, int time, int needtime){
+        long startTimeMs = currentMs;
+        startTimeMs += (86400000 * day + (3600000*time));
+        long endTimeMs = startTimeMs + 3600000 * needtime;
+        return sdf2.format(new Date(startTimeMs))+":"+sdf2.format(new Date(endTimeMs));
+    }
+
+
+
     private void showAnimationAndExit(){
         final AnimationDrawable drawable = (AnimationDrawable) binding.ivScheduling.getBackground();
         drawable.start();
