@@ -149,12 +149,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 long staticEnd = Long.valueOf(staticEndString);
                 binding.tvTest.append("\n\nstatic Start:\t"+staticStart+"\nstatic End:\t"+staticEnd+"//\n\n");
 
-                // currentTime  :   201905111401
-                // Static start :   201905112000
-                // Static end   :   201905112300
-                // Deadline     :   201905170000
-
-
                 for (int day=0;day<=dday;day++){
                     for (int time=0;time<24;time++){
                         String year_day = String.valueOf(Integer.valueOf(gti.getCurrentDate().substring(0, 8))+day);
@@ -215,6 +209,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 }
             }
             int sum = 0;
+            binding.tvTest.append("===== SURPLUS =====\n");
             for (int t=0;t<surplus.size();t++){
                 binding.tvTest.append(surplus.get(t)+"/\n");
                 sum+=Integer.valueOf(surplus.get(t).split(":")[2]);
@@ -242,20 +237,62 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                         // needtime
 
                         int unit = (int) Math.ceil((double)needTime / (double)surplus.size());
-                        int needtime_cal = needTime;
+                        int need_time_cal = needTime;
+                        int unit_cal;
+                        ArrayList<String> surplus_cal = new ArrayList<>();
+                        surplus_cal.addAll(surplus);
 
-                        for (int i=0;i<surplus.size();i++){
+                        ArrayList<String> surplus_selected = new ArrayList<>();;
 
+//<<<
+                        binding.tvTest.append("\n== surplus_cal ==\n");
+                        for(int i=0; i<surplus_cal.size();i++){
+                            binding.tvTest.append(surplus_cal.get(i)+"//\n");
+                        }
+                        binding.tvTest.append("\n");
 
+                        binding.tvTest.append("\n== unit ==\n"+unit+"\n");
+//<<<
 
+                        // 쪼개진 needtime (unit) 들에 대해
+                        while(need_time_cal >= 0){
+                            binding.tvTest.append("=> need_time_cal :\n"+need_time_cal+"\n");
 
-                            if(needtime_cal == 0){
+                            if (need_time_cal >= unit){
+                                unit_cal = unit;
+                            }else{
+                                unit_cal = need_time_cal;
+                            }
+
+                            boolean isSet = false;
+
+                            // Surplus들에 대해
+                            for(int i=0;i<surplus_cal.size();i++){
+                                // surplus에 배치가 가능한 경우
+                                if(Integer.valueOf(surplus_cal.get(i).split(":")[2]) >= unit_cal){
+                                    surplus_selected.add(surplus_cal.get(i)+":"+unit_cal);
+                                    isSet = true;
+                                    int new_surplus = Integer.valueOf(surplus_cal.get(i).split(":")[2]) - unit_cal;
+                                    surplus_cal.set(i, surplus_cal.get(i).split(":")[0]+":"+surplus_cal.get(i).split(":")[1]+":"+new_surplus);
+                                    break;
+                                }
+                            }
+                            // surplus 에 배치가 안 된 경우
+                            if(!isSet){
+                                isError = true;
                                 break;
                             }
+                            need_time_cal -= unit;
                         }
 
+                        binding.tvTest.append("\n=== Selected Surplus ===\n");
+                        for(int i=0; i<surplus_selected.size();i++){
+                            binding.tvTest.append(surplus_selected.get(i)+"//\n");
+                        }
+                        binding.tvTest.append("\n\n");
 
 
+/*
 
                         MyData scheduledStatic;
                         int dd = 1;
@@ -276,7 +313,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                         // -- 스케줄 된 일정
                         binding.tvTest.append("\n\n=== 스케줄 된 일정 === ");
                         binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]);
-
+*/
                         break;
 
                     // MODE 2)
