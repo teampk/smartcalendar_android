@@ -35,11 +35,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE TODOLIST (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT," +
+        db.execSQL("CREATE TABLE IF NOT EXISTS TODOLIST (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT," +
                 " isDynamic BOOLEAN, isAllday BOOLEAN, time TEXT, category TEXT, memo TEXT, needTime TEXT, repeatId INTEGER, scheduleId INTEGER);");
 
         // 카테고리 내부 Database
-        db.execSQL("CREATE TABLE CATEGORY (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS CATEGORY (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg1 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg2 + "');");
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg3 + "');");
@@ -47,16 +47,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO CATEGORY VALUES(null, '" + basicCg5 + "');");
 
         // 반복 id 설정 내부 Database
-        db.execSQL("CREATE TABLE USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, repeatId INTEGER);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, repeatId INTEGER);");
         db.execSQL("INSERT INTO USERINFO VALUES(null, '" + 0 + "');");
 
         // 수면시간 내부 Database
-        db.execSQL("CREATE TABLE SLEEPTIME (_id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS SLEEPTIME (_id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT);");
         db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeStart+ "');");
         db.execSQL("INSERT INTO SLEEPTIME VALUES(null, '" +basicSleepTimeEnd+ "');");
 
         // 스케줄링 모드 Database
-        db.execSQL("CREATE TABLE SCMODE (_id INTEGER PRIMARY KEY AUTOINCREMENT, scheduleMode INTEGER);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS SCMODE (_id INTEGER PRIMARY KEY AUTOINCREMENT, scheduleMode INTEGER);");
         db.execSQL("INSERT INTO SCMODE VALUES(null, '" + 1 +"');");
 
     }
@@ -263,7 +263,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return sleepList;
     }
-
     public void sleepTimeUpdate(String startTime, String endTime){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE SLEEPTIME SET time='"+startTime+"' WHERE _id='" + 1 + "';");

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ScheduleItemProgressActivity extends AppCompatActivity{
-    static final String TAG = "TimeSpoon";
+    static final String TAG = "TimeSpoonLOG";
     static final int SPLASH_DISPLAY_LENGTH = 3000;
     ActivityScheduleItemProgressBinding binding;
     DBHelper dbHelper;
@@ -82,7 +82,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
         binding.tvTest.append("===== 수면 시간 =====\n");
         binding.tvTest.append(sleepStart+"/"+sleepEnd+"\n\n");
         binding.tvTest.append("===== 스케줄링 모드 =====\n"+schedulingMode+"\n\n");
-        binding.tvTest.append("===== 스케줄링 할 데이터 list =====\n\n");
+        binding.tvTest.append("===== 스케줄링 할 Dynamic list =====\n\n");
         binding.tvTest.append(scheduledDataList+"\n");
         // >>>>>>>>>>>>
 
@@ -93,11 +93,11 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
 
         // 선택된 데이터에 대하여 스케줄링
-        for (int i=0; i<selectedData.size(); i++){
+        for (int index=0; index<selectedData.size(); index++){
 
             // 선택된 항목의 데이터 불러오기
-            int needTime = selectedData.get(i).mNeedTime;
-            String timeDeadline = selectedData.get(i).mTime.split("\\.")[2];
+            int needTime = selectedData.get(index).mNeedTime;
+            String timeDeadline = selectedData.get(index).mTime.split("\\.")[2];
             long timeDeadlineLong = Long.valueOf(timeDeadline);
             int dday = gti.getDdayInt(timeDeadline) * (-1);
             int dMinute = gti.getdTimeInt(timeDeadline) * (-1);
@@ -108,7 +108,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
 
             // tvTest >>>>>
-            binding.tvTest.append("\n\n===== 선택된 Dynamic 일정 ("+ i +") =====\n\nid:"+selectedData.get(i).mId + " //deadline:" + timeDeadline + "\n//필요시간:" + selectedData.get(i).mNeedTime + "///\nD-day:" + dday + "///D-Minute:" + dMinute + "///D-Minute:" + dHour +"\n\n");
+            binding.tvTest.append("\n\n===== 선택된 Dynamic 일정 ("+ index +") =====\n\nid:"+selectedData.get(index).mId + " //deadline:" + timeDeadline + "\n//필요시간:" + selectedData.get(index).mNeedTime + "///\nD-day:" + dday + "///D-Minute:" + dMinute + "///D-Minute:" + dHour +"\n\n");
             // >>>>>>>>>>>>
 
 
@@ -177,28 +177,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
             // -- 남은 일정들 보여줘
             binding.tvTest.append("\n\n");
-            binding.tvTest.append("===== 남은 일정 Scheduled =====\n");
-            String occupied= "";
-
-            for (int day=0; day<dday+1;day++){
-                int theDay = Integer.valueOf(gti.getCurrentDate().substring(6, 8)) + day;
-                occupied += "day:"+theDay+"일\n";
-                for (int time = 0; time<24;time++){
-                    if (time % 6 == 0){
-                        occupied += gti.timeZeroProblem(String.valueOf(time))+"~"+gti.timeZeroProblem(String.valueOf(time+5))+":\t";
-                    }
-                    if (occupiedTime[day][time]){
-                        occupied += " X /";
-                    }else{
-                        occupied += " O /";
-                    }
-                    if (time % 6 == 5){
-                        occupied += "\n";
-                    }
-                }
-                occupied += "\n";
-            }
-            binding.tvTest.append(occupied);
+            binding.tvTest.append("===== OCCUPIED STATUS =====\n");
+            binding.tvTest.append(showOccupied(occupiedTime, dday));
 
 
             // -- 비어있는 시간들을 배열로 정리
@@ -213,7 +193,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 e.printStackTrace();
             }
 
-            ArrayList<String> a = new ArrayList<>();
+            // surplus format = day:time:surplus
+            ArrayList<String> surplus = new ArrayList<>();
             int count = 0;
             int day_start = 0;
             int time_start = 0;
@@ -226,7 +207,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                         }
                         count++;
                     }else if (occupiedTime[day][time] && count!=0){
-                        a.add(day_start+":"+time_start+":"+count);
+                        surplus.add(day_start+":"+time_start+":"+count);
                         day_start=0;
                         time_start=0;
                         count=0;
@@ -234,80 +215,80 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 }
             }
             int sum = 0;
-            for (int t=0;t<a.size();t++){
-                binding.tvTest.append(a.get(t)+"/\n");
-                sum+=Integer.valueOf(a.get(t).split(":")[2]);
+            for (int t=0;t<surplus.size();t++){
+                binding.tvTest.append(surplus.get(t)+"/\n");
+                sum+=Integer.valueOf(surplus.get(t).split(":")[2]);
             }
             binding.tvTest.append("sum:"+sum+"\n\n");
-
 
 
             // 비어있는 시간에 스케줄링 진행
             if(sum<needTime){
                 // 남은 모든 시간의 합이 needtime 보다 적은 경우
                 // 스케줄링을 수행하지 않는다.
+                Log.d(TAG, "ERROR 1");
                 Intent errorIntent = new Intent();
-                errorIntent.putExtra("error", selectedData.get(i).mId);
+                errorIntent.putExtra("error", selectedData.get(index).mId);
                 setResult(RESULT_OK, errorIntent);
                 isError = true;
-
             }else{
                 switch(dbHelper.getSchedulingMode()){
 
-                    // mode1) needtime 만큼 비는 시간이 있으면 바로 넣어준다.
+                    // MODE 1)
                     case 1:
-                        MyData scheduledStatic;
+                        Log.d(TAG, "MODE 1");
 
-                        String time[] = getTimeByIndex(startTimeMs, 2, 13, 5).split(":");
+                        // surplus
+                        // needtime
 
-                        scheduledStatic = new MyData(0, selectedData.get(i).mTitle, selectedData.get(i).mLocation, false, false, time[0]+"."+time[1]+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
-                        scheduledStaticList.add(scheduledStatic);
-                        dbHelper.todoDataInsert(scheduledStatic);
+                        int unit = (int) Math.ceil((double)needTime / (double)surplus.size());
+                        int needtime_cal = needTime;
 
-                        // -- 스케줄 된 일정
-                        binding.tvTest.append("\n\n");
-                        binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]);
+                        for (int i=0;i<surplus.size();i++){
 
-                        /*
-                        count = 0;
-                        boolean flag = false;
-                        for (int day=0;day<=dday;day++){
-                            for (int time=0;time<24;time++){
-                                if (!occupiedTime[day][time]){
-                                    count++;
-                                }
-                                if (count == needTime){
-                                    startTimeMs += (86400000 * day + (3600000*(time+1-count)));
-                                    endTimeMs = startTimeMs + 3600000 * count;
 
-                                    String nextStart = sdf2.format(new Date(startTimeMs));
-                                    String nextEnd = sdf2.format(new Date(endTimeMs));
 
-                                    scheduledStatic = new MyData(0, selectedData.get(i).mTitle, selectedData.get(i).mLocation, false, false, nextStart+"."+nextEnd+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
-                                    scheduledStaticList.add(scheduledStatic);
-                                    dbHelper.todoDataInsert(scheduledStatic);
 
-                                    // -- 스케줄 된 일정
-                                    binding.tvTest.append("\n\n");
-                                    binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]);
-
-                                    flag = true;
-                                    break;
-
-                                }
-                            }
-                            if (flag){
+                            if(needtime_cal == 0){
                                 break;
                             }
                         }
-                        */
+
+
+
+
+                        MyData scheduledStatic;
+                        int dd = 1;
+                        int tt = 13;
+                        int nn = 5;
+
+                        String time[] = getTimeByIndex(startTimeMs, dd, tt, nn).split(":");
+
+                        scheduledStatic = new MyData(0, selectedData.get(index).mTitle, selectedData.get(index).mLocation, false, false, time[0]+"."+time[1]+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
+                        scheduledStaticList.add(scheduledStatic);
+
+                        for (int q = 0 ; q < nn ; q++){
+                            occupiedTime[dd][tt+q] = true;
+                        }
+
+
+                        // -- 스케줄 된 일정
+                        binding.tvTest.append("\n\n=== 스케줄 된 일정 === ");
+                        binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]);
 
                         break;
 
+                    // MODE 2)
                     case 2:
+                        Log.d(TAG, "MODE 2");
+
                         break;
 
+
+                    // MODE 3)
                     case 3:
+                        Log.d(TAG, "MODE 3");
+
                         break;
                 }
             }
@@ -316,27 +297,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
             // -- 남은 일정들 보여줘
             binding.tvTest.append("\n\n");
             binding.tvTest.append("===== 남은 일정 Scheduled =====\n");
-            occupied= "";
+            binding.tvTest.append(showOccupied(occupiedTime, dday));
 
-            for (int day=0; day<dday+1;day++){
-                int theDay = Integer.valueOf(gti.getCurrentDate().substring(6, 8)) + day;
-                occupied += "day:"+theDay+"일\n";
-                for (int time = 0; time<24;time++){
-                    if (time % 6 == 0){
-                        occupied += gti.timeZeroProblem(String.valueOf(time))+"~"+gti.timeZeroProblem(String.valueOf(time+5))+":\t";
-                    }
-                    if (occupiedTime[day][time]){
-                        occupied += " X /";
-                    }else{
-                        occupied += " O /";
-                    }
-                    if (time % 6 == 5){
-                        occupied += "\n";
-                    }
-                }
-                occupied += "\n\n";
-            }
-            binding.tvTest.append(occupied);
 
 
 
@@ -353,6 +315,30 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
         startTimeMs += (86400000 * day + (3600000*time));
         long endTimeMs = startTimeMs + 3600000 * needtime;
         return sdf2.format(new Date(startTimeMs))+":"+sdf2.format(new Date(endTimeMs));
+    }
+
+    private String showOccupied(boolean[][] occupiedTime, int dday){
+        String occupied= "";
+
+        for (int day=0; day<dday+1;day++){
+            int theDay = Integer.valueOf(gti.getCurrentDate().substring(6, 8)) + day;
+            occupied += "day:"+theDay+"일\n";
+            for (int time = 0; time<24;time++){
+                if (time % 6 == 0){
+                    occupied += gti.timeZeroProblem(String.valueOf(time))+"~"+gti.timeZeroProblem(String.valueOf(time+5))+":\t";
+                }
+                if (occupiedTime[day][time]){
+                    occupied += " X /";
+                }else{
+                    occupied += " O /";
+                }
+                if (time % 6 == 5){
+                    occupied += "\n";
+                }
+            }
+            occupied += "\n";
+        }
+        return occupied;
     }
 
 
