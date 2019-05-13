@@ -264,7 +264,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
                         String time[] = getTimeByIndex(startTimeMs, dd, tt, nn).split(":");
 
-                        scheduledStatic = new MyData(0, selectedData.get(index).mTitle, selectedData.get(index).mLocation, false, false, time[0]+"."+time[1]+".000000000000", selectedData.get(i).mCategory, selectedData.get(i).mMemo, 0, 0, selectedData.get(i).mId);
+                        scheduledStatic = new MyData(0, selectedData.get(index).mTitle, selectedData.get(index).mLocation, false, false,
+                                time[0]+"."+time[1]+".000000000000", selectedData.get(index).mCategory, selectedData.get(index).mMemo, 0, 0, selectedData.get(index).mId);
                         scheduledStaticList.add(scheduledStatic);
 
                         for (int q = 0 ; q < nn ; q++){
