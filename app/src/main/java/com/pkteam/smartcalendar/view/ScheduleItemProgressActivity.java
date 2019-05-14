@@ -170,6 +170,8 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 }
             }
 
+            /////// 이 전의 for문에서 배치한 scheduling한 static 일정 true
+
             // -- 남은 일정들 보여줘
             binding.tvTest.append("\n===== OCCUPIED STATUS =====\n");
             binding.tvTest.append(showOccupied(occupiedTime, dday));
