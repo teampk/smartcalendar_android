@@ -81,6 +81,11 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ArrayList<MyData> mDataSet = new ArrayList<>();
     private Context mContext;
 
+    public ArrayList<Integer> getSelectedId() {
+        return selectedId;
+    }
+    private ArrayList<Integer> selectedId;
+
     public RecyclerMainAdapter(Context context, ArrayList<MyData> searchDataSet) {
         this.mDataSet = searchDataSet;
         this.mContext = context;
@@ -107,6 +112,8 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return 13;
         else if (mDataSet.get(position).getMode() == 111)
             return 111;
+        else if (mDataSet.get(position).getMode() == 112)
+            return 112;
         else
             return 13;
 
@@ -152,7 +159,11 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem_calendar_explain, parent, false);
             return new MyViewHolderHeader(view);
-        } else if (viewType == 111) // show Scheduled
+        } else if (viewType == 111){
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.layout_listitem_scheduling, parent, false);
+            return new MyViewHolderDynamic(view);
+        } else if (viewType == 112) // show Scheduled
         {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.layout_listitem_show_scheduled, parent, false);
@@ -182,7 +193,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 MyViewHolderStatic viewHolder = (MyViewHolderStatic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
                 viewHolder.itemTitle.setText(selectedData.mTitle);
-                viewHolder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), 1));
+                viewHolder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 1));
                 viewHolder.setIsRecyclable(false);
 
                 viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +214,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 MyViewHolderDynamic viewHolder = (MyViewHolderDynamic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
                 viewHolder.itemTitle.setText(selectedData.mTitle);
-                viewHolder.itemDeadline.setText(getShowingTime(selectedData.mTime.split("\\."), 2));
+                viewHolder.itemDeadline.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 2));
                 viewHolder.setIsRecyclable(false);
 
                 viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -228,11 +239,44 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             case 111:{
                 final MyData selectedData = this.mDataSet.get(position);
+                final MyViewHolderDynamic viewHolder = (MyViewHolderDynamic) holder;
+                selectedId = new ArrayList<>();
+                viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
+                viewHolder.itemTitle.setText(selectedData.mTitle);
+                viewHolder.itemDeadline.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 111));
+                selectedData.selected = false;
+                viewHolder.itemParent.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        if(!selectedData.isSelected()){
+                            viewHolder.itemParent.setBackgroundResource(R.drawable.layout_item_rounded_selected);
+                            selectedData.selected = true;
+                            selectedId.add(selectedData.mId);
+                        }else{
+                            viewHolder.itemParent.setBackgroundResource(R.drawable.layout_item_rounded);
+                            selectedData.selected = false;
+                            for (int i=0; i<getSelectedId().size();i++){
+                                if(getSelectedId().get(i) == selectedData.mId){
+                                    selectedId.remove(i);
+                                }
+                            }
+                        }
+
+                    }
+                });
+
+                viewHolder.setIsRecyclable(false);
+
+            }
+
+            break;
+            case 112:{
+                final MyData selectedData = this.mDataSet.get(position);
                 MyViewHolderShowScheduled viewHolder = (MyViewHolderShowScheduled) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
                 viewHolder.itemTitle.setText(selectedData.mTitle);
-                viewHolder.itemTimeStart.setText(getShowingTime(selectedData.mTime.split("\\."), 1111));
-                viewHolder.itemTimeEnd.setText(getShowingTime(selectedData.mTime.split("\\."), 1112));
+                viewHolder.itemTimeStart.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 1121));
+                viewHolder.itemTimeEnd.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 1122));
                 viewHolder.setIsRecyclable(false);
             }
 
@@ -248,7 +292,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    private String getShowingTime(String[] input, int mode) {
+    private String getShowingTime(String[] input, int needTime,  int mode) {
 
         GetTimeInformation timeInformation = new GetTimeInformation();
 
@@ -281,10 +325,14 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         else if (mode == 2 || mode == 4) {
             return timeInformation.getDday(input[2]);
         }
-        else if(mode == 1111){
+        else if (mode == 111){
+            return "데드라인 : " + input[2].substring(0,4)+"년 "+input[2].substring(4,6)+"월 "+input[2].substring(6,8)+"일 "+input[2].substring(8,10)+":"
+                    +input[2].substring(10)+"  (" +timeInformation.getDday(input[2])+")\n필요시간 : " + needTime + " 시간";
+        }
+        else if(mode == 1121){
             return input[0].substring(4,6) + "월 " + input[0].substring(6,8)+"일 "+ input[0].substring(8,10)+":"+input[0].substring(10, 12);
         }
-        else if(mode == 1112){
+        else if(mode == 1122){
             return input[1].substring(4,6) + "월 " + input[1].substring(6,8)+"일 "+ input[1].substring(8,10)+":"+input[1].substring(10, 12);
         }
         else {

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
@@ -26,6 +27,8 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_item_result);
         binding.setScheduling(this);
 
@@ -34,7 +37,7 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
 
         int sId = -1;
         for(MyData scheduled : scheduledStaticList){
-            scheduled.setMode(111);
+            scheduled.setMode(112);
             if(sId != scheduled.mScheduleId){
                 sId = scheduled.mScheduleId;
                 mDataList.add(new MyData(scheduled.mTitle, 0));

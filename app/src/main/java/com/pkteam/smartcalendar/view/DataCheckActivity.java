@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.model.MyData;
 
@@ -25,7 +26,7 @@ public class DataCheckActivity extends AppCompatActivity{
     ArrayList<MyData> allData;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
-    private RecyclerViewAdapter mAdapter;
+    private RecyclerMainAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +63,10 @@ public class DataCheckActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.scrollToPosition(0);
-        mAdapter = new RecyclerViewAdapter(getApplicationContext(), allData,1);
+        for (MyData data : allData){
+            data.setMode(1);
+        }
+        mAdapter = new RecyclerMainAdapter(getApplicationContext(), allData);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#60BEC5</color>
     <color name="colorPrimaryDark">#E3DEDE</color>
     <color name="colorAccent">#E8697C</color>
+    <color name="colorPrimaryLight">#EEEEEE</color>
 
     <color name="colorFab">#E8697C</color>
     <color name="colorFabPressed">#CC0000</color>

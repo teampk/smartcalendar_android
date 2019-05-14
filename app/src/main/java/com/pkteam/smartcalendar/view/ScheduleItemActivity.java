@@ -15,6 +15,7 @@ import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.GetTimeInformation;
 import com.pkteam.smartcalendar.R;
+import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
@@ -26,7 +27,7 @@ public class ScheduleItemActivity extends AppCompatActivity {
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
     ActivityScheduleItemBinding binding;
     private ArrayList<MyData> dynamicData;
-    RecyclerViewAdapter rcAdapter;
+    RecyclerMainAdapter rcAdapter;
     DBHelper dbHelper;
     GetTimeInformation gti;
 
@@ -54,7 +55,12 @@ public class ScheduleItemActivity extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         binding.recyclerView.scrollToPosition(0);
-        rcAdapter = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromNow(dynamicData), 5);
+        ArrayList<MyData> returnList = new ArrayList<>(arrayListSorting.sortingForDynamicFromNow(dynamicData));
+        for (MyData mList : returnList){
+            mList.setMode(111);
+        }
+        rcAdapter = new RecyclerMainAdapter (mView.getContext(), returnList);
+
         binding.recyclerView.setAdapter(rcAdapter);
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
