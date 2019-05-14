@@ -16,10 +16,8 @@ import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.GetTimeInformation;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
-import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
-import com.singh.daman.gentletoast.GentleToast;
 
 import java.util.ArrayList;
 
@@ -106,6 +104,8 @@ public class ScheduleItemActivity extends AppCompatActivity {
                 default:
                     break;
             }
+        }else if (resultCode == RESULT_CANCELED){
+            finish();
         }
     }
 }

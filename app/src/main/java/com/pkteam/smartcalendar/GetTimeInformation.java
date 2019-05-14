@@ -156,5 +156,13 @@ public class GetTimeInformation {
         return time;
     }
 
+    public String getDateFromTime(long time){
+        // yyyy-MM-dd hh:mm:ss
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMdd");
+
+        return simpleDate.format(new Date(time));
+
+    }
+
 
 }

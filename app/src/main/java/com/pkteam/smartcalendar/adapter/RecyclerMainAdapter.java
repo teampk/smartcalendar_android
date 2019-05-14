@@ -80,6 +80,7 @@ class MyViewHolderShowScheduled extends RecyclerView.ViewHolder {
 public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<MyData> mDataSet = new ArrayList<>();
     private Context mContext;
+    private long mSelectedTime;
 
     public ArrayList<Integer> getSelectedId() {
         return selectedId;
@@ -89,6 +90,12 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerMainAdapter(Context context, ArrayList<MyData> searchDataSet) {
         this.mDataSet = searchDataSet;
         this.mContext = context;
+    }
+
+    public RecyclerMainAdapter(Context context, ArrayList<MyData> searchDataSet, long time) {
+        this.mDataSet = searchDataSet;
+        this.mContext = context;
+        this.mSelectedTime = time;
     }
 
 
@@ -187,13 +194,31 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             break;
 
-            case 1:
-            case 11:{
+            case 1:{
                 final MyData selectedData = this.mDataSet.get(position);
                 MyViewHolderStatic viewHolder = (MyViewHolderStatic) holder;
                 viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
                 viewHolder.itemTitle.setText(selectedData.mTitle);
                 viewHolder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 1));
+                viewHolder.setIsRecyclable(false);
+
+                viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(), AddItemActivity.class);
+                        intent.putExtra("mode", 2);
+                        intent.putExtra("id", selectedData.mId);
+                        view.getContext().startActivity(intent);
+                    }
+                });
+            }
+            break;
+            case 11:{
+                final MyData selectedData = this.mDataSet.get(position);
+                MyViewHolderStatic viewHolder = (MyViewHolderStatic) holder;
+                viewHolder.itemCategory.setImageDrawable(getCategoryDrawable(selectedData.mCategory));
+                viewHolder.itemTitle.setText(selectedData.mTitle);
+                viewHolder.itemTime.setText(getShowingTime(selectedData.mTime.split("\\."), selectedData.mNeedTime, 11));
                 viewHolder.setIsRecyclable(false);
 
                 viewHolder.itemParent.setOnClickListener(new View.OnClickListener() {
@@ -302,22 +327,34 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String startTime, endTime;
 
             // 여러 날짜에 걸친 일정 처리
-            /*
             if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(timeInformation.getCurrentDate())){
                 startTime = "0000";
             }else{
-                startTime = input[0].substring(8,12);
+                startTime = input[0].substring(8, 12);
             }
 
             if(Long.parseLong(timeInformation.getCurrentDate()) < Long.parseLong(input[1].substring(0,8))){
                 endTime = "2400";
             }else{
-                endTime = input[1].substring(8,12);
+                endTime = input[1].substring(8, 12);
             }
-            */
 
-            startTime = input[0].substring(8, 12);
-            endTime = input[1].substring(8, 12);
+            return startTime.substring(0, 2) + ":" + startTime.substring(2, 4) + "~" + endTime.substring(0, 2) + ":" + endTime.substring(2, 4);
+        }
+        else if(mode ==11){
+            String startTime, endTime;
+
+            if(Long.parseLong(input[0].substring(0,8))<Long.parseLong(timeInformation.getDateFromTime(this.mSelectedTime))){
+                startTime = "0000";
+            }else{
+                startTime = input[0].substring(8, 12);
+            }
+
+            if(Long.parseLong(timeInformation.getDateFromTime(this.mSelectedTime)) < Long.parseLong(input[1].substring(0,8))){
+                endTime = "2400";
+            }else{
+                endTime = input[1].substring(8, 12);
+            }
 
             return startTime.substring(0, 2) + ":" + startTime.substring(2, 4) + "~" + endTime.substring(0, 2) + ":" + endTime.substring(2, 4);
         }

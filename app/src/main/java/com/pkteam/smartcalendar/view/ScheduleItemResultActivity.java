@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemResultBinding;
@@ -21,8 +22,8 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
 
     ActivityScheduleItemResultBinding binding;
     ArrayList<MyData> mDataList = new ArrayList<>();
-
-
+    ArrayList<MyData> scheduledStaticList = new ArrayList<>();
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -31,9 +32,11 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_item_result);
         binding.setScheduling(this);
+        dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
+
 
         Intent getIntent = getIntent();
-        ArrayList<MyData> scheduledStaticList = (ArrayList<MyData>) getIntent.getSerializableExtra("scheduled");
+        scheduledStaticList = (ArrayList<MyData>) getIntent.getSerializableExtra("scheduled");
 
         int sId = -1;
         for(MyData scheduled : scheduledStaticList){
@@ -62,12 +65,16 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
     }
 
     public void completeListener(View view){
+        for (MyData scheduledData : scheduledStaticList){
+            dbHelper.todoDataInsert(scheduledData);
+        }
+
         GentleToast.with(getApplicationContext()).longToast("생성 되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
-
+        finish();
     }
 
     public void finishView(View view){
+        GentleToast.with(getApplicationContext()).longToast("다시 스케줄링 해보세요!\n혹은 스케줄링 모드를 바꿔보세요!").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
         finish();
     }
 }
