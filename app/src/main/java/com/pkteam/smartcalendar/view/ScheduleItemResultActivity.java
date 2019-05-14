@@ -23,14 +23,14 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_item_result);
         binding.setScheduling(this);
 
-        binding.tvResult.setText("다음과 같이 스케줄링이 진행되었습니다.\n\n");
+        binding.tvResult.setText("다음과 같이 스케줄링이 진행되었습니다.");
 
         Intent getIntent = getIntent();
         ArrayList<MyData> scheduledStaticList = (ArrayList<MyData>) getIntent.getSerializableExtra("scheduled");
 
         for (int i=0;i<scheduledStaticList.size();i++){
             String time[] = scheduledStaticList.get(i).mTime.split("\\.");
-            binding.tvResult.append("title : "+scheduledStaticList.get(i).mTitle + "\nTime : "+time[0]+"~"+time[1]+"\nscheduledId : "+scheduledStaticList.get(i).mScheduleId);
+            binding.tvResult.append("\n\ntitle : "+scheduledStaticList.get(i).mTitle + "\nTime : "+time[0]+"~"+time[1]+"\nscheduledId : "+scheduledStaticList.get(i).mScheduleId);
         }
 
 
