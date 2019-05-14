@@ -67,6 +67,8 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
     public void completeListener(View view){
         for (MyData scheduledData : scheduledStaticList){
             dbHelper.todoDataInsert(scheduledData);
+            // id가 sid인 dynamic 스케줄의 sid를 1로 바꿔준다 (스케줄링 됨을 의미)
+            dbHelper.editSchedulingId(scheduledData.mScheduleId, 1);
         }
 
         GentleToast.with(getApplicationContext()).longToast("생성 되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();

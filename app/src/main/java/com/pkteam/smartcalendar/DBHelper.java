@@ -210,6 +210,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public void editSchedulingId(int id, int sId){
+        SQLiteDatabase dbw = getWritableDatabase();
+        dbw.execSQL("UPDATE TODOLIST SET scheduleId='" + sId +"' WHERE _id='" + id +"';");
+    }
+
 
     // --- Repeat ID Database ---
     public int getCurrentRepeatId(){

@@ -53,9 +53,12 @@ public class ScheduleItemActivity extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         binding.recyclerView.scrollToPosition(0);
-        ArrayList<MyData> returnList = new ArrayList<>(arrayListSorting.sortingForDynamicFromNow(dynamicData));
-        for (MyData mList : returnList){
-            mList.setMode(111);
+        ArrayList<MyData> returnList = new ArrayList<>();
+        for (MyData mList : new ArrayList<>(arrayListSorting.sortingForDynamicFromNow(dynamicData))){
+            if(mList.mScheduleId == 0){
+                mList.setMode(111);
+                returnList.add(mList);
+            }
         }
         rcAdapter = new RecyclerMainAdapter (mView.getContext(), returnList);
 
