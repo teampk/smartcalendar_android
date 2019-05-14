@@ -183,14 +183,6 @@ public class FragmentHome extends Fragment {
         constraintSet.applyTo(constraint); //here constraint is the name of view to which we are applying the constraintSet
     }
 
-    public String getCurrentDate(){
-        // get Current Date and Time
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String[] mDate = sdf.format(date).split("/");
-        return mDate[0]+"년 "+mDate[1]+"월 "+mDate[2]+"일";
-    }
-
     private void initSpeedDial(boolean addActionItems, View mView) {
 
         if (addActionItems) {

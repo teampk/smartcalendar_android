@@ -170,15 +170,40 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 }
             }
 
-            /////// 이 전의 for문에서 배치한 scheduling한 static 일정 true
+            // -- 이 전의 Loop에서 배치한 scheduling한 static 일정 true
+            for (int i=0;i<scheduledStaticList.size();i++){
+                String staticStartString = scheduledStaticList.get(i).mTime.split("\\.")[0];
+                String staticEndString = scheduledStaticList.get(i).mTime.split("\\.")[1];
+                long staticStart = Long.valueOf(staticStartString);
+                long staticEnd = Long.valueOf(staticEndString);
+                binding.tvTest.append("\t- static (d) Start:\t"+staticStart+"\n\t- static End:\t"+staticEnd+"//\n\n");
+
+                for (int day=0;day<=dday;day++){
+                    for (int time=0;time<24;time++){
+                        String year_day = String.valueOf(Integer.valueOf(gti.getCurrentDate().substring(0, 8))+day);
+                        long year_day_time = Long.valueOf(year_day +gti.timeZeroProblem(String.valueOf(time))+"00");
+
+                        if(staticStart <= year_day_time && year_day_time <= staticEnd){
+                            occupiedTime[day][time] = true;
+
+                            // static 끝나는 시간이 23:00 같이 정각인 경우
+                            // 23부터 비워놓을 수 있게 마지막 시간을 false로 만들어 준다.
+                            // 23:03 의 경우는 true로 한다.
+                            if(staticEndString.substring(10, 12).equals("00") && staticEnd<timeDeadlineLong){
+                                occupiedTime[gti.getDdayInt(staticEndString)*(-1)][Integer.valueOf(staticEndString.substring(8, 10))] = false;
+                            }
+
+                        }
+                    }
+                }
+            }
+
 
             // -- 남은 일정들 보여줘
-            binding.tvTest.append("\n===== OCCUPIED STATUS =====\n");
-            binding.tvTest.append(showOccupied(occupiedTime, dday));
+            binding.tvTest.append("\n===== OCCUPIED STATUS =====\n"+showOccupied(occupiedTime, dday)+"\n\n");
 
 
             // -- 비어있는 시간들을 배열로 정리
-            binding.tvTest.append("\n\n");
             long startTimeMs = 0;
             long endTimeMs = 0;
             try{
@@ -235,9 +260,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                     case 1:
                         Log.d(TAG, "MODE 1");
 
-                        // surplus
-                        // needtime
-
                         // needtime 을 쪼개기 위한 단위(unit)
                         // 잉여시간이 4 조각 나있으면
                         // ex) 올림 (10 / 4) = 3 : unit
@@ -246,8 +268,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                         int unit_cal;
                         ArrayList<String> surplus_cal = new ArrayList<>();
                         surplus_cal.addAll(surplus);
-
-                        ArrayList<String> surplus_selected = new ArrayList<>();;
+                        ArrayList<String> surplus_selected = new ArrayList<>();
 
 //<<<
                         binding.tvTest.append("\n===== surplus_cal ==\n");
@@ -259,9 +280,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
                         // 쪼개진 needtime (unit) 들에 대해
                         // ex) need_time_cal은 unit 크기만큼 계속 줄어든다.
-                        while(need_time_cal >= 0){
-
-
+                        while(need_time_cal > 0){
                             if (need_time_cal >= unit){
                                 unit_cal = unit;
                             }else{
@@ -312,8 +331,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                         }
                         binding.tvTest.append("\n\n");
 
-
-
                         for (int i=0;i<surplus_selected.size();i++){
                             MyData scheduledStatic;
                             int dd = Integer.valueOf(surplus_selected.get(i).split(":")[0]);
@@ -333,50 +350,85 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                                 }
                             }
 
-
                             // -- 스케줄 된 일정
                             binding.tvTest.append("\n\n=== 스케줄 된 일정 === \n");
                             binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]+"\n\n");
 
-
-
-
                         }
-
-
 
                         break;
 
                     // MODE 2)
                     case 2:
                         Log.d(TAG, "MODE 2");
-
                         break;
-
 
                     // MODE 3)
                     case 3:
                         Log.d(TAG, "MODE 3");
-
                         break;
                 }
             }
 
-
             // -- 남은 일정들 보여줘
-            binding.tvTest.append("\n\n");
-            binding.tvTest.append("===== 남은 일정 Scheduled =====\n");
-            binding.tvTest.append(showOccupied(occupiedTime, dday));
+            binding.tvTest.append("\n\n===== 남은 일정 Scheduled =====\n"+showOccupied(occupiedTime, dday));
+        }
+        stickScheduledData();
+        showAnimationAndExit();
+    }
 
+    // 이어진 일정에 대해 마지막 끝나는 시간을 찾기 위한 Recursive Function
+    private String findTheEnd(ArrayList<MyData> myDataList, String inputEndTime, int inputSId){
+        boolean findOne = false;
+        int index=0;
+        for(int i=0;i<myDataList.size();i++){
+            if(inputEndTime.equals(myDataList.get(i).mTime.split("\\.")[0]) && myDataList.get(i).mScheduleId == inputSId){
+                findOne = true;
+                index = i;
+                break;
+            }
+        }
+        if(findOne){
+            return findTheEnd(myDataList, myDataList.get(index).mTime.split("\\.")[1], inputSId);
+        }else {
+            return inputEndTime;
+        }
+    }
 
+    private void stickScheduledData(){
 
-
-
+        for(MyData data : scheduledStaticList){
+            Log.d(TAG, data.mId+"/"+data.mTitle+"/"+data.mTime+"/"+data.mScheduleId);
         }
 
+        ArrayList<Integer> removeIndex = new ArrayList<>();
+        for (int i=0;i<scheduledStaticList.size();i++) {
+            for (int j = 0; j < scheduledStaticList.size(); j++) {
+                String endTimeFirst = scheduledStaticList.get(i).mTime.split("\\.")[1];
+                int sIdFirst = scheduledStaticList.get(i).mScheduleId;
+                String startTimeSecond = scheduledStaticList.get(j).mTime.split("\\.")[0];
+                int sIdSecond = scheduledStaticList.get(j).mScheduleId;
+
+                if (endTimeFirst.equals(startTimeSecond) && sIdFirst == sIdSecond) {
+
+                    String endTimeFinal = findTheEnd(scheduledStaticList, endTimeFirst, sIdFirst);
+
+                    scheduledStaticList.get(i).mTime = scheduledStaticList.get(i).mTime.split("\\.")[0] + "." + endTimeFinal + ".000000000000";
 
 
-        showAnimationAndExit();
+                    removeIndex.add(j);
+                    break;
+                }
+            }
+        }
+        Log.d(TAG, "-----------------------------------------------");
+        for(int i=removeIndex.size()-1;i>=0;i--){
+            int index = removeIndex.get(i);
+            scheduledStaticList.remove(index);
+        }
+        for(MyData data : scheduledStaticList){
+            Log.d(TAG, data.mId+"/"+data.mTitle+"/"+data.mTime+"/"+data.mScheduleId);
+        }
     }
 
 

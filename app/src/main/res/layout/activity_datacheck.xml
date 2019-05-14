@@ -13,14 +13,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/colorBackGround">
+            android:background="@color/colorBlack">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="left|center"
                 android:text="ALL DATA"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/material_white_1000"
                 android:textStyle="bold"
                 android:textSize="14dp"
                 android:layout_marginLeft="5dp"/>
