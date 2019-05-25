@@ -129,6 +129,8 @@ public class AddItemActivity extends AppCompatActivity {
             binding.tvTimeEnd.setText(date[1]);
             binding.tvDateDeadline.setText(date[0]);
             binding.tvTimeDeadline.setText(date[1]);
+            item10_scheduleId = 0;
+
         }
         // 수정하는 경우
         else if (isEdit==EDIT_MODE){
@@ -137,6 +139,7 @@ public class AddItemActivity extends AppCompatActivity {
             binding.llRepeatTotal.setVisibility(View.GONE);
             binding.btnAdd.setText("수정");
             setViewFromId(dataId);
+
         }
 
         binding.swStaticDynamic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -176,6 +179,7 @@ public class AddItemActivity extends AppCompatActivity {
         ArrayList<String> categoryList = dbHelper.getAllCategory();
         binding.tvCategory.setText(categoryList.get(categoryMode - 1));
         binding.ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
+        item10_scheduleId = itemElement.mScheduleId;
 
         binding.etMemo.setText(itemElement.mMemo);
         String timeSplit[] = itemElement.mTime.split("\\.");
@@ -642,7 +646,6 @@ public class AddItemActivity extends AppCompatActivity {
         if (checkItem()){
             item1_title = binding.etTitle.getText().toString();
             item2_loc = binding.etLoc.getText().toString();
-            item10_scheduleId = 0;
             // Static Mode 일 때
             if (modeStaticDynamic == STATIC_MODE){
                 item3_isDynamic = false;
@@ -824,6 +827,7 @@ public class AddItemActivity extends AppCompatActivity {
                     .setPositiveButton("삭제",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.editSchedulingId(item10_scheduleId, 0);
                                     dbHelper.deleteTodoDataById(item0_id);
                                     GentleToast.with(getApplicationContext()).longToast("일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                                     finish();

@@ -9,7 +9,7 @@
     <string name="top_bar_detail">다음 일정까지 남은 시간 : 2h\n다음 할 일까지 남은 시간 : 32h\n할 일들 총 필요시간 : 35h</string>
 
     <string name="string_static">오늘 일정</string>
-    <string name="string_dynamic" translatable="false">할 일</string>
+    <string name="string_dynamic">할 일</string>
     <string name="string_no_data_static">\t\t\t\t오늘은 일정이 없습니다 :)</string>
     <string name="string_no_data_dynamic">\t\t\t\t할 일이 없습니다 :)\n\n\t\t\t\t아래 + 버튼을 통해 할 일을 추가해주세요!</string>
     <string name="string_no_data_calendar_static">\t\t\t\t일정이 없습니다 :)</string>
@@ -21,6 +21,9 @@
 
     <string name="bt_submit">완료</string>
     <string name="bt_cancel">취소</string>
+
+    <string name="bt_scheduling_complete">이대로\n진행합시다!</string>
+    <string name="bt_scheduling_cancel">맘에\n안들어요..</string>
 
     <!-- REPEAT -->
     <string name="repeat_mode_1">안 함</string>
@@ -89,10 +92,15 @@
 
     <string name="scheduling_explain_1">스케줄링을 진행할 할 일들을 선택해주세요.</string>
     <string name="scheduling_explain_2">스케줄링은 할 일들의 필요시간에 맞춰\n언제 해야할 지를 일정에 추가하는 작업이며,\n수면시간과 현재 설정된 일정들을 제외한 시간에\n사용자의 타입에 따라 자동으로 배치됩니다.</string>
+    <string name="scheduling_result">스케줄링한 결과가 다음과 같습니다.\n계속 진행하시겠습니까?</string>
 
     <string name="example_recycler_view_title">찬일이랑 밥먹기</string>
     <string name="example_recycler_view_subtitle">데드라인 : 2019년 3월 6일 15:00 (D-3)</string>
     <string name="example_recycler_view_time">18:00~20:00</string>
+    <string name="example_recycler_view_scheduled_start">05월 15일 18:00</string>
+    <string name="example_recycler_view_scheduled_end">05월 16일 01:00</string>
+
+
     <string name="example_name">팽진욱</string>
     <string name="example_email">paeng875@gmail.com</string>
 

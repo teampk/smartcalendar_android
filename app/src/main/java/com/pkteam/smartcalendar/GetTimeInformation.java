@@ -28,9 +28,9 @@ public class GetTimeInformation {
         return sdf.format(date);
     }
 
-    public String getCurrentDate(long time){
+    public String getDateByMs(long time){
         // yyyy-MM-dd hh:mm:ss
-        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         return simpleDate.format(new Date(time));
 
@@ -149,11 +149,21 @@ public class GetTimeInformation {
 
     }
 
+
+
     public String timeZeroProblem(String time){
         if(Integer.valueOf(time)<10){
             time = "0"+time;
         }
         return time;
+    }
+
+    public String getDateFromTime(long time){
+        // yyyy-MM-dd hh:mm:ss
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMdd");
+
+        return simpleDate.format(new Date(time));
+
     }
 
 

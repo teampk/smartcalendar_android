@@ -15,10 +15,9 @@ import com.pkteam.smartcalendar.ArrayListSorting;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.GetTimeInformation;
 import com.pkteam.smartcalendar.R;
-import com.pkteam.smartcalendar.adapter.RecyclerViewAdapter;
+import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
-import com.singh.daman.gentletoast.GentleToast;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ public class ScheduleItemActivity extends AppCompatActivity {
     private ArrayListSorting arrayListSorting = new ArrayListSorting();
     ActivityScheduleItemBinding binding;
     private ArrayList<MyData> dynamicData;
-    RecyclerViewAdapter rcAdapter;
+    RecyclerMainAdapter rcAdapter;
     DBHelper dbHelper;
     GetTimeInformation gti;
 
@@ -54,7 +53,15 @@ public class ScheduleItemActivity extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         binding.recyclerView.scrollToPosition(0);
-        rcAdapter = new RecyclerViewAdapter(mView.getContext(), arrayListSorting.sortingForDynamicFromNow(dynamicData), 5);
+        ArrayList<MyData> returnList = new ArrayList<>();
+        for (MyData mList : new ArrayList<>(arrayListSorting.sortingForDynamicFromNow(dynamicData))){
+            if(mList.mScheduleId == 0){
+                mList.setMode(111);
+                returnList.add(mList);
+            }
+        }
+        rcAdapter = new RecyclerMainAdapter (mView.getContext(), returnList);
+
         binding.recyclerView.setAdapter(rcAdapter);
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -100,6 +107,8 @@ public class ScheduleItemActivity extends AppCompatActivity {
                 default:
                     break;
             }
+        }else if (resultCode == RESULT_CANCELED){
+            finish();
         }
     }
 }

@@ -23,12 +23,15 @@
     <dimen name="height_element">60dp</dimen>
     <dimen name="height_element_short">40dp</dimen>
     <dimen name="height_background">20dp</dimen>
+    <dimen name="height_button">60dp</dimen>
 
     <dimen name="height_image_view">50dp</dimen>
 
     <dimen name="padding_element">20dp</dimen>
 
     <dimen name="margin_top_bar">5dp</dimen>
+
+
 
 
 

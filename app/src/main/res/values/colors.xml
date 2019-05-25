@@ -3,6 +3,7 @@
     <color name="colorPrimary">#60BEC5</color>
     <color name="colorPrimaryDark">#E3DEDE</color>
     <color name="colorAccent">#E8697C</color>
+    <color name="colorPrimaryLight">#EEEEEE</color>
 
     <color name="colorFab">#E8697C</color>
     <color name="colorFabPressed">#CC0000</color>
@@ -14,8 +15,6 @@
 
     <color name="colorFacebook">#3B5997</color>
     <color name="colorGoogle">#DC4A38</color>
-
-    <color name="colorBackGround">#F0EFF5</color>
 
     <color name="textBlack">#FF000000</color>
     <color name="textGray">#747481</color>
