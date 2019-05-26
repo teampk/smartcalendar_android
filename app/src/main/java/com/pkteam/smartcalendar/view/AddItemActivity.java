@@ -819,8 +819,74 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void onClickFooter(View view){
-        // 반복 아닌 일정 삭제
-        if (itemElement.mRepeatId==0){
+        // 반복 일정 삭제
+        if (itemElement.mRepeatId!=0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+            builder.setTitle("일정 삭제")
+                    .setMessage("반복된 일정을 삭제하시겠습니까?")
+                    .setPositiveButton("취소",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                    .setNeutralButton("모든 일정에도 적용",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataByRepeatId(itemElement.mRepeatId);
+                                    GentleToast.with(getApplicationContext()).longToast("모든 반복 일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton("이 일정에만 적용",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataById(itemElement.mId);
+                                    GentleToast.with(getApplicationContext()).longToast("일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
+                                    finish();
+                                }
+                            });
+            AlertDialog dialog = builder.create();    // 알림창 객체 생성
+            dialog.show();
+        }
+        // 스케줄링 된 일정 삭제
+        else if (itemElement.mScheduleId!=0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+            builder.setTitle("일정 삭제")
+                    .setMessage("스케줄링 된 일정을 삭제하시겠습니까?")
+                    .setPositiveButton("취소",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                    .setNeutralButton("같이 스케줄링 된 모든 일정에 적용",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataByScheduledId(itemElement.mScheduleId);
+                                    GentleToast.with(getApplicationContext()).longToast("같이 스케줄링된 모든 일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                                    dbHelper.editSchedulingId(itemElement.mScheduleId, 0);
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton("이 일정에만 적용",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper.deleteTodoDataById(itemElement.mId);
+                                    GentleToast.with(getApplicationContext()).longToast("일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+                                    ArrayList<MyData> sidData = dbHelper.getTodoSchedulingId(itemElement.mScheduleId);
+                                    if (sidData.size()==0){
+                                        dbHelper.editSchedulingId(itemElement.mScheduleId, 0);
+                                    }
+                                    finish();
+                                }
+                            });
+            AlertDialog dialog = builder.create();    // 알림창 객체 생성
+            dialog.show();
+        }
+        else{
             AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
             builder.setTitle("일정 삭제")
                     .setMessage("일정을 삭제하시겠습니까?")
@@ -837,38 +903,6 @@ public class AddItemActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
-            AlertDialog dialog = builder.create();    // 알림창 객체 생성
-            dialog.show();
-        }
-        // 반복 일정 삭제
-        else{
-            AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
-            builder.setTitle("일정 삭제")
-                    .setMessage("반복된 일정을 삭제하시겠습니까?")
-                    .setPositiveButton("취소",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                    .setNeutralButton("모든 일정에도 적용",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dbHelper.deleteTodoDataByRepeatId(itemElement.mId, itemElement.mRepeatId, itemElement.mTime);
-                                    GentleToast.with(getApplicationContext()).longToast("모든 반복 일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
-                                    finish();
-                                }
-                            })
-                    .setNegativeButton("이 일정에만 적용",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dbHelper.deleteTodoDataById(itemElement.mId);
-                                    GentleToast.with(getApplicationContext()).longToast("일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
-                                    finish();
                                 }
                             });
             AlertDialog dialog = builder.create();    // 알림창 객체 생성

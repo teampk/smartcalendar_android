@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.pkteam.smartcalendar.DBHelper;
 import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.databinding.FragmentSettingSchedulingModeBinding;
+import com.singh.daman.gentletoast.GentleToast;
 
 import java.util.ArrayList;
 
@@ -53,25 +54,42 @@ public class SettingSchedulingMode extends AppCompatActivity {
         binding.ivScheduling1.setVisibility(View.VISIBLE);
         binding.ivScheduling2.setVisibility(View.INVISIBLE);
         binding.ivScheduling3.setVisibility(View.INVISIBLE);
+        binding.llScheduling1Explain.setVisibility(View.VISIBLE);
+        binding.llScheduling2Explain.setVisibility(View.GONE);
+        binding.llScheduling3Explain.setVisibility(View.GONE);
     }
     public void modeSelectListener2(View view){
         selectedSchedulingMode=2;
         binding.ivScheduling1.setVisibility(View.INVISIBLE);
         binding.ivScheduling2.setVisibility(View.VISIBLE);
         binding.ivScheduling3.setVisibility(View.INVISIBLE);
+        binding.llScheduling1Explain.setVisibility(View.GONE);
+        binding.llScheduling2Explain.setVisibility(View.VISIBLE);
+        binding.llScheduling3Explain.setVisibility(View.GONE);
     }
     public void modeSelectListener3(View view){
         selectedSchedulingMode=3;
         binding.ivScheduling1.setVisibility(View.INVISIBLE);
         binding.ivScheduling2.setVisibility(View.INVISIBLE);
         binding.ivScheduling3.setVisibility(View.VISIBLE);
+
+        binding.llScheduling1Explain.setVisibility(View.GONE);
+        binding.llScheduling2Explain.setVisibility(View.GONE);
+        binding.llScheduling3Explain.setVisibility(View.VISIBLE);
     }
 
     public void completeListener(View view){
 
-        dbHelper.updateSchedulingMode(selectedSchedulingMode);
-        Toast.makeText(this, "스케줄링 모드"+String.valueOf(selectedSchedulingMode), Toast.LENGTH_SHORT).show();
-        finish();
+        if(selectedSchedulingMode == 3){
+            GentleToast.with(getApplicationContext()).longToast("MODE 3는 준비중입니다...").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+
+        }else{
+            dbHelper.updateSchedulingMode(selectedSchedulingMode);
+            GentleToast.with(getApplicationContext()).longToast("Scheduling Mode : "+selectedSchedulingMode).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
+            finish();
+        }
+
+
     }
 
 }

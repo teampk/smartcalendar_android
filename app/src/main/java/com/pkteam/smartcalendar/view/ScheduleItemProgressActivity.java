@@ -254,29 +254,79 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 setResult(RESULT_OK, errorIntent);
                 isError = true;
             }else{
-                switch(dbHelper.getSchedulingMode()){
+                int need_time_cal = needTime;
+                ArrayList<String> surplus_cal = new ArrayList<>();
+                surplus_cal.addAll(surplus);
+                ArrayList<String> surplus_selected = new ArrayList<>();
 
+                binding.tvTest.append("\n===== surplus_cal ==\n");
+                for(int i=0; i<surplus_cal.size();i++){
+                    binding.tvTest.append(surplus_cal.get(i)+"//\n");
+                }
+
+                switch(dbHelper.getSchedulingMode()){
                     // MODE 1)
                     case 1:
                         Log.d(TAG, "MODE 1");
+                        int turn_num = 0;
 
+                        while(need_time_cal > 0){
+                            boolean isSet = false;
+
+                            for(int i = turn_num;i<turn_num+surplus_cal.size();i++) {
+                                int turn = i % surplus_cal.size();
+                                if (Integer.valueOf(surplus_cal.get(turn).split(":")[2]) >= 1) {
+                                    surplus_selected.add(surplus_cal.get(i)+":"+1);
+                                    turn_num = i+1;
+                                    isSet = true;
+                                    binding.tvTest.append("--------> "+surplus_cal.get(i)+"\n");
+
+                                    int new_surplus = Integer.valueOf(surplus_cal.get(i).split(":")[2]) - 1;
+                                    int new_time = Integer.valueOf(surplus_cal.get(i).split(":")[1]) + 1;
+                                    int new_day = Integer.valueOf(surplus_cal.get(i).split(":")[0]);
+
+                                    // 일정을 넣고 새로운 surplus time이 하루를 넘어갈 때
+                                    if (new_time>=24){
+                                        new_time = new_time % 24;
+                                        new_day += 1;
+                                    }
+
+                                    surplus_cal.set(i, new_day+":"+new_time+":"+new_surplus);
+                                    binding.tvTest.append("=====> "+surplus_cal.get(i)+"\n");
+
+                                    break;
+                                }
+
+                            }
+
+
+                            if(turn_num >= surplus_cal.size()){
+                                turn_num = turn_num % surplus_cal.size();
+                            }
+
+                            // surplus 에 배치가 안 된 경우
+                            if(!isSet){
+                                isError = true;
+                                break;
+                            }
+
+                            need_time_cal -= 1;
+                        }
+
+
+
+                        break;
+
+                    // MODE 2)
+                    // 앞 시간에 몰아서 하는 Type
+                    case 2:
+                        Log.d(TAG, "MODE 2");
                         // needtime 을 쪼개기 위한 단위(unit)
                         // 잉여시간이 4 조각 나있으면
                         // ex) 올림 (10 / 4) = 3 : unit
                         int unit = (int) Math.ceil((double)needTime / (double)surplus.size());
-                        int need_time_cal = needTime;
                         int unit_cal;
-                        ArrayList<String> surplus_cal = new ArrayList<>();
-                        surplus_cal.addAll(surplus);
-                        ArrayList<String> surplus_selected = new ArrayList<>();
-
-//<<<
-                        binding.tvTest.append("\n===== surplus_cal ==\n");
-                        for(int i=0; i<surplus_cal.size();i++){
-                            binding.tvTest.append(surplus_cal.get(i)+"//\n");
-                        }
                         binding.tvTest.append("\n===== unit ==\n"+unit+"\n\n");
-//<<<
 
                         // 쪼개진 needtime (unit) 들에 대해
                         // ex) need_time_cal은 unit 크기만큼 계속 줄어든다.
@@ -325,48 +375,45 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                             need_time_cal -= unit;
                         }
 
-                        binding.tvTest.append("\n=== Selected Surplus ===\n");
-                        for(int i=0; i<surplus_selected.size();i++){
-                            binding.tvTest.append(surplus_selected.get(i)+"//\n");
-                        }
-                        binding.tvTest.append("\n\n");
 
-                        for (int i=0;i<surplus_selected.size();i++){
-                            MyData scheduledStatic;
-                            int dd = Integer.valueOf(surplus_selected.get(i).split(":")[0]);
-                            int tt = Integer.valueOf(surplus_selected.get(i).split(":")[1]);
-                            int nn = Integer.valueOf(surplus_selected.get(i).split(":")[3]);
-                            String time[] = getTimeByIndex(startTimeMs, dd, tt, nn).split(":");
-
-                            scheduledStatic = new MyData(0, selectedData.get(index).mTitle, selectedData.get(index).mLocation, false, false,
-                                    time[0]+"."+time[1]+".000000000000", selectedData.get(index).mCategory, selectedData.get(index).mMemo, 0, 0, selectedData.get(index).mId);
-                            scheduledStaticList.add(scheduledStatic);
-
-                            for (int q = 0 ; q < nn ; q++){
-                                if (tt+q >=24){
-                                    occupiedTime[dd+1][(tt+q)%24] = true;
-                                }else{
-                                    occupiedTime[dd][tt+q] = true;
-                                }
-                            }
-
-                            // -- 스케줄 된 일정
-                            binding.tvTest.append("\n\n=== 스케줄 된 일정 === \n");
-                            binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]+"\n\n");
-
-                        }
-
-                        break;
-
-                    // MODE 2)
-                    case 2:
-                        Log.d(TAG, "MODE 2");
                         break;
 
                     // MODE 3)
                     case 3:
                         Log.d(TAG, "MODE 3");
                         break;
+                }
+
+                // 선택한 surplus들 static list에 넣기
+                binding.tvTest.append("\n=== Selected Surplus ===\n");
+                for(int i=0; i<surplus_selected.size();i++){
+                    binding.tvTest.append(surplus_selected.get(i)+"//\n");
+                }
+                binding.tvTest.append("\n\n");
+
+                for (int i=0;i<surplus_selected.size();i++){
+                    MyData scheduledStatic;
+                    int dd = Integer.valueOf(surplus_selected.get(i).split(":")[0]);
+                    int tt = Integer.valueOf(surplus_selected.get(i).split(":")[1]);
+                    int nn = Integer.valueOf(surplus_selected.get(i).split(":")[3]);
+                    String time[] = getTimeByIndex(startTimeMs, dd, tt, nn).split(":");
+
+                    scheduledStatic = new MyData(0, selectedData.get(index).mTitle, selectedData.get(index).mLocation, false, false,
+                            time[0]+"."+time[1]+".000000000000", selectedData.get(index).mCategory, selectedData.get(index).mMemo, 0, 0, selectedData.get(index).mId);
+                    scheduledStaticList.add(scheduledStatic);
+
+                    for (int q = 0 ; q < nn ; q++){
+                        if (tt+q >=24){
+                            occupiedTime[dd+1][(tt+q)%24] = true;
+                        }else{
+                            occupiedTime[dd][tt+q] = true;
+                        }
+                    }
+
+                    // -- 스케줄 된 일정
+                    binding.tvTest.append("\n\n=== 스케줄 된 일정 === \n");
+                    binding.tvTest.append(scheduledStatic.mTitle+"/"+scheduledStatic.mTime.split("\\.")[0]+"~"+scheduledStatic.mTime.split("\\.")[1]+"\n\n");
+
                 }
             }
 

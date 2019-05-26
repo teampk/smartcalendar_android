@@ -190,8 +190,33 @@ public class DBHelper extends SQLiteOpenHelper {
             );
         }
         return dataElement;
-
     }
+    public ArrayList<MyData> getTodoSchedulingId(int sId){
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<MyData> alMyData = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM TODOLIST WHERE scheduleId = '" + sId + "';", null);
+
+        while (cursor.moveToNext()){
+            MyData dataElement = new MyData(
+                    Integer.valueOf(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    Boolean.valueOf(cursor.getString(3)),
+                    Boolean.valueOf(cursor.getString(4)),
+                    cursor.getString(5),
+                    Integer.valueOf(cursor.getString(6)),
+                    cursor.getString(7),
+                    Integer.valueOf(cursor.getString(8)),
+                    Integer.valueOf(cursor.getString(9)),
+                    Integer.valueOf(cursor.getString(10))
+            );
+            alMyData.add(dataElement);
+
+        }
+
+        return alMyData;
+    }
+
     public void deleteTodoDataAll(){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM TODOLIST;");
@@ -202,14 +227,19 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM TODOLIST WHERE _id = '" + id + "';");
         db.close();
     }
-    public void deleteTodoDataByRepeatId(int id, int repeatId, String date){
+    public void deleteTodoDataByRepeatId(int repeatId){
         // 201905301030.201905301130.000000000000
         SQLiteDatabase db=  getWritableDatabase();
         db.execSQL("DELETE FROM TODOLIST WHERE repeatId = '" + repeatId + "';");
         db.close();
 
     }
+    public void deleteTodoDataByScheduledId(int scheduledId){
+        SQLiteDatabase db=  getWritableDatabase();
+        db.execSQL("DELETE FROM TODOLIST WHERE scheduleId = '" + scheduledId + "';");
+        db.close();
 
+    }
     public void editSchedulingId(int id, int sId){
         SQLiteDatabase dbw = getWritableDatabase();
         dbw.execSQL("UPDATE TODOLIST SET scheduleId='" + sId +"' WHERE _id='" + id +"';");

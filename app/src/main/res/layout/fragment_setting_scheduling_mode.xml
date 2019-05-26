@@ -89,6 +89,25 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_scheduling_1_explain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/scheduling_mode_1_explain"
+                        android:textSize="@dimen/text_size_small"/>
+
+
+
+                </LinearLayout>
+
                 <!--divider-->
                 <ImageView
                     android:layout_width="match_parent"
@@ -139,6 +158,26 @@
                         android:gravity="center|end"
                         android:visibility="invisible"
                         app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_scheduling_2_explain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/scheduling_mode_2_explain"
+                        android:textSize="@dimen/text_size_small"/>
+
 
 
                 </LinearLayout>
@@ -194,6 +233,26 @@
                         android:gravity="center|end"
                         android:visibility="invisible"
                         app:srcCompat="@drawable/ic_expand_more_primary_24dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_scheduling_3_explain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/scheduling_mode_3_explain"
+                        android:textSize="@dimen/text_size_small"/>
+
 
 
                 </LinearLayout>

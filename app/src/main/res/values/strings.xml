@@ -46,6 +46,10 @@
     <string name="scheduling_mode_4">MODE4</string>
     <string name="scheduling_mode_5">MODE5</string>
 
+    <string name="scheduling_mode_1_explain">MODE 1은\n스케줄을 남은 날짜를 고려하여 고르게 배치합니다.\n일을 날짜에 나눠 고르게 마치고 싶은 분들께 추천드립니다!</string>
+    <string name="scheduling_mode_2_explain">MODE 2는\n스케줄을 남은 날짜 중 앞부분의 시간에 배치합니다.\n미리미리 일을 끝내고 싶은 분들께 추천드립니다!</string>
+    <string name="scheduling_mode_3_explain">MODE 3는\n준비중입니다.\n유저분들의 피드백을 항상 기다립니다!</string>
+
     <!-- SETTING -->
     <string name="setting_name">홍길동</string>
     <string name="setting">설정</string>
