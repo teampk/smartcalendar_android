@@ -34,7 +34,6 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
         binding.setScheduling(this);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
 
-
         Intent getIntent = getIntent();
         scheduledStaticList = (ArrayList<MyData>) getIntent.getSerializableExtra("scheduled");
 
@@ -50,17 +49,12 @@ public class ScheduleItemResultActivity extends AppCompatActivity {
             }
         }
 
-
-
         binding.recyclerScheduled.setHasFixedSize(true);
         binding.recyclerScheduled.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         binding.recyclerScheduled.scrollToPosition(0);
         RecyclerMainAdapter adapter = new RecyclerMainAdapter(getApplicationContext(), mDataList);
         binding.recyclerScheduled.setAdapter(adapter);
         binding.recyclerScheduled.setItemAnimator(new DefaultItemAnimator());
-
-
-
 
     }
 

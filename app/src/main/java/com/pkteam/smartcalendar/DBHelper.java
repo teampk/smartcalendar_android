@@ -15,8 +15,8 @@ import com.pkteam.smartcalendar.model.MyData;
 import java.util.ArrayList;
 
 
-// 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
-// 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)    10.scheduleId(Int)
+// 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)  5.isNotAnniversary(boolean)
+// 6.time(String)    7.category(Int)     8.Memo(String)  9.NeedTime(int)    10.repeatId(Int)   11.scheduleId(Int)
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String basicCg1 = "기본";
@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS TODOLIST (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT," +
-                " isDynamic BOOLEAN, isAllday BOOLEAN, time TEXT, category TEXT, memo TEXT, needTime TEXT, repeatId INTEGER, scheduleId INTEGER);");
+                " isDynamic BOOLEAN, isAllday BOOLEAN, isNotAnniversary BOOLEAN, time TEXT, category TEXT, memo TEXT, needTime TEXT, repeatId INTEGER, scheduleId INTEGER);");
 
         // 카테고리 내부 Database
         db.execSQL("CREATE TABLE IF NOT EXISTS CATEGORY (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
@@ -67,22 +67,23 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // --- to do Data Database ---
-    public void todoDataInsert(String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId, int scheduleId){
+    public void todoDataInsert(String title, String location, boolean isDynamic, boolean isAllday, boolean isNotAnniversary, String time, int category, String memo, int needTime, int repeatId, int scheduleId){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + title + "', '" + location + "', '" + isDynamic + "' , '"+isAllday+"' , '"+time+"', '"+category+"', '"+memo+"','"+needTime+"', '"+repeatId+"', '"+scheduleId+"');");
+        db.execSQL("INSERT INTO TODOLIST VALUES(null, '"+title+"', '"+location+"', '"+isDynamic+"' , '"+isAllday+"' , '"+isNotAnniversary+"' , '"+time+"', '"+category+"', '"+memo+"','"+needTime+"', '"+repeatId+"', '"+scheduleId+"');");
         db.close();
     }
     public void todoDataInsert(MyData data){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO TODOLIST VALUES(null, '" + data.mTitle + "', '" + data.mLocation + "', '" + data.mIsDynamic + "' , '"+data.mIsAllday+"' , '"+data.mTime+"', '"+data.mCategory+"', '"+data.mMemo+"','"+data.mNeedTime+"', '"+data.mRepeatId+"', '"+data.mScheduleId+"');");
+        db.execSQL("INSERT INTO TODOLIST VALUES(null, '"+data.mTitle+"', '"+data.mLocation+"', '"+data.mIsDynamic+"' , '"+data.mIsAllday+"' , '"+data.mIsNotAnniversary +"' , '"+data.mTime+"', '"+data.mCategory+"', '"+data.mMemo+"','"+data.mNeedTime+"', '"+data.mRepeatId+"', '"+data.mScheduleId+"');");
         db.close();
     }
-    public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, String time, int category, String memo, int needTime, int repeatId, int scheduleId) {
+    public void todoDataUpdate(int id, String title, String location, boolean isDynamic, boolean isAllday, boolean isNotAnniversary, String time, int category, String memo, int needTime, int repeatId, int scheduleId) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE TODOLIST SET title='" + title + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET location='" + location + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET isDynamic='" + isDynamic + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET isAllday='" + isAllday + "' WHERE _id='" + id + "';");
+        db.execSQL("UPDATE TODOLIST SET isNotAnniversary='" + isNotAnniversary + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET time='" + time + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET category='" + category + "' WHERE _id='" + id + "';");
         db.execSQL("UPDATE TODOLIST SET memo='" + memo + "' WHERE _id='" + id + "';");
@@ -104,12 +105,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     Boolean.valueOf(cursor.getString(3)),
                     Boolean.valueOf(cursor.getString(4)),
-                    cursor.getString(5),
-                    Integer.valueOf(cursor.getString(6)),
-                    cursor.getString(7),
-                    Integer.valueOf(cursor.getString(8)),
+                    Boolean.valueOf(cursor.getString(5)),
+                    cursor.getString(6),
+                    Integer.valueOf(cursor.getString(7)),
+                    cursor.getString(8),
                     Integer.valueOf(cursor.getString(9)),
-                    Integer.valueOf(cursor.getString(10))
+                    Integer.valueOf(cursor.getString(10)),
+                    Integer.valueOf(cursor.getString(11))
 
             );
             alMyData.add(dataElement);
@@ -131,12 +133,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     Boolean.valueOf(cursor.getString(3)),
                     Boolean.valueOf(cursor.getString(4)),
-                    cursor.getString(5),
-                    Integer.valueOf(cursor.getString(6)),
-                    cursor.getString(7),
-                    Integer.valueOf(cursor.getString(8)),
+                    Boolean.valueOf(cursor.getString(5)),
+                    cursor.getString(6),
+                    Integer.valueOf(cursor.getString(7)),
+                    cursor.getString(8),
                     Integer.valueOf(cursor.getString(9)),
-                    Integer.valueOf(cursor.getString(10))
+                    Integer.valueOf(cursor.getString(10)),
+                    Integer.valueOf(cursor.getString(11))
             );
             alMyData.add(dataElement);
 
@@ -157,12 +160,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     Boolean.valueOf(cursor.getString(3)),
                     Boolean.valueOf(cursor.getString(4)),
-                    cursor.getString(5),
-                    Integer.valueOf(cursor.getString(6)),
-                    cursor.getString(7),
-                    Integer.valueOf(cursor.getString(8)),
+                    Boolean.valueOf(cursor.getString(5)),
+                    cursor.getString(6),
+                    Integer.valueOf(cursor.getString(7)),
+                    cursor.getString(8),
                     Integer.valueOf(cursor.getString(9)),
-                    Integer.valueOf(cursor.getString(10))
+                    Integer.valueOf(cursor.getString(10)),
+                    Integer.valueOf(cursor.getString(11))
             );
             alMyData.add(dataElement);
 
@@ -181,12 +185,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     Boolean.valueOf(cursor.getString(3)),
                     Boolean.valueOf(cursor.getString(4)),
-                    cursor.getString(5),
-                    Integer.valueOf(cursor.getString(6)),
-                    cursor.getString(7),
-                    Integer.valueOf(cursor.getString(8)),
+                    Boolean.valueOf(cursor.getString(5)),
+                    cursor.getString(6),
+                    Integer.valueOf(cursor.getString(7)),
+                    cursor.getString(8),
                     Integer.valueOf(cursor.getString(9)),
-                    Integer.valueOf(cursor.getString(10))
+                    Integer.valueOf(cursor.getString(10)),
+                    Integer.valueOf(cursor.getString(11))
             );
         }
         return dataElement;
@@ -203,12 +208,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     Boolean.valueOf(cursor.getString(3)),
                     Boolean.valueOf(cursor.getString(4)),
-                    cursor.getString(5),
-                    Integer.valueOf(cursor.getString(6)),
-                    cursor.getString(7),
-                    Integer.valueOf(cursor.getString(8)),
+                    Boolean.valueOf(cursor.getString(5)),
+                    cursor.getString(6),
+                    Integer.valueOf(cursor.getString(7)),
+                    cursor.getString(8),
                     Integer.valueOf(cursor.getString(9)),
-                    Integer.valueOf(cursor.getString(10))
+                    Integer.valueOf(cursor.getString(10)),
+                    Integer.valueOf(cursor.getString(11))
             );
             alMyData.add(dataElement);
 

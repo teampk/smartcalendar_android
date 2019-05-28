@@ -15,12 +15,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent){
         int id = intent.getIntExtra("id", 0);
-        Log.d(TAG, String.valueOf(id));
+        Log.d(TAG, "id"+id);
 
 
         NotificationHelper notificationHelper = new NotificationHelper(context, id);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
-        notificationHelper.getManager().notify(1, nb.build());
+        notificationHelper.getManager().notify(id, nb.build());
 
     }
 

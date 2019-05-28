@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
@@ -36,7 +37,6 @@ public class NotificationHelper extends ContextWrapper {
     @TargetApi(Build.VERSION_CODES.O)
     private void createChannel() {
         NotificationChannel channel = new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH);
-
         getManager().createNotificationChannel(channel);
     }
 
@@ -44,7 +44,6 @@ public class NotificationHelper extends ContextWrapper {
         if (mManager == null) {
             mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
-
         return mManager;
     }
 
@@ -55,7 +54,8 @@ public class NotificationHelper extends ContextWrapper {
 
                 .setContentText(mData.mTime.split("\\.")[0].substring(8,10)+":"+mData.mTime.split("\\.")[0].substring(10,12)
                         +" ~ "+mData.mTime.split("\\.")[1].substring(8,10)+":"+mData.mTime.split("\\.")[1].substring(10,12))
-                .setSmallIcon(R.drawable.logo_ts);
+                .setSmallIcon(R.drawable.logo_sc)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo_ts));
     }
     private Drawable getCategoryDrawable(int category){
         Drawable categoryDrawable = null;

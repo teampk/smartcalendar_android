@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
             return true;
         }
     };
@@ -59,16 +58,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
 
         // Bottom Navigation Bar
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new FragmentHome()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
         gti = new GetTimeInformation();
     }
 
@@ -110,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 c[i].add(Calendar.DATE, 1);
             }
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c[i].getTimeInMillis(), sender);
-            Log.d(TAG, gti.getDateByMs(c[i].getTimeInMillis()));
+            Log.d(TAG, "noti test" + gti.getDateByMs(c[i].getTimeInMillis()));
         }
     }
 
@@ -118,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     long pressTime;
     @Override
     public void onBackPressed() {
-        if(System.currentTimeMillis() - pressTime <3000){
+        if(System.currentTimeMillis() - pressTime < 3000){
             finish();
             return;
         }

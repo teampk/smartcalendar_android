@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TimeSpoon</string>
-    <string name="title_1">Home</string>
-    <string name="title_2">Calendar</string>
-    <string name="title_3">Setting</string>
+    <string name="title_1">홈</string>
+    <string name="title_2">캘린더</string>
+    <string name="title_3">설정</string>
     <string name="current_date">2018년 8월 15일</string>
     <string name="current_time">2019년 3월 27일 22시 30분</string>
 
@@ -59,6 +59,7 @@
     <string name="setting_category">카테고리 설정</string>
     <string name="setting_sleep_time">수면시간 설정</string>
     <string name="setting_app_info">어플리케이션 정보</string>
+    <string name="setting_notice">공지사항</string>
     <string name="setting_scheduling_mode">스케줄링 모드 설정</string>
 
     <!-- SIGN IN -->

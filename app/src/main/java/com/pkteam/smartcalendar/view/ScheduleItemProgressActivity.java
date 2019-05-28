@@ -360,13 +360,11 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                                         new_time = new_time % 24;
                                         new_day += 1;
                                     }
-
                                     surplus_cal.set(i, new_day+":"+new_time+":"+new_surplus);
                                     binding.tvTest.append("=====> "+surplus_cal.get(i)+"\n");
                                     break;
                                 }
                             }
-
                             // surplus 에 배치가 안 된 경우
                             if(!isSet){
                                 isError = true;
@@ -374,8 +372,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                             }
                             need_time_cal -= unit;
                         }
-
-
                         break;
 
                     // MODE 3)
@@ -398,7 +394,7 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                     int nn = Integer.valueOf(surplus_selected.get(i).split(":")[3]);
                     String time[] = getTimeByIndex(startTimeMs, dd, tt, nn).split(":");
 
-                    scheduledStatic = new MyData(0, selectedData.get(index).mTitle, selectedData.get(index).mLocation, false, false,
+                    scheduledStatic = new MyData(0, selectedData.get(index).mTitle, selectedData.get(index).mLocation, false, false, false,
                             time[0]+"."+time[1]+".000000000000", selectedData.get(index).mCategory, selectedData.get(index).mMemo, 0, 0, selectedData.get(index).mId);
                     scheduledStaticList.add(scheduledStatic);
 

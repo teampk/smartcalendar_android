@@ -4,8 +4,8 @@ package com.pkteam.smartcalendar.model;
  * Created by paeng on 2018. 7. 5..
  */
 
-// 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)
-// 5.time(String)   6.repeatId(Int)     7.category(Int)     8.Memo(String)  9.NeedTime(int)    10.RepeatId(int)
+// 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)  5.isNotAnniversary(boolean)
+// 6.time(String)    7.category(Int)     8.Memo(String)  9.NeedTime(int)    10.repeatId(Int)   11.scheduleId(Int)
 
 import java.io.Serializable;
 
@@ -15,6 +15,7 @@ public class MyData implements Serializable {
     public String mLocation;
     public boolean mIsDynamic;
     public boolean mIsAllday;
+    public boolean mIsNotAnniversary;
     public String mTime;
     public int mCategory;
     public String mMemo;
@@ -34,13 +35,14 @@ public class MyData implements Serializable {
     }
 
 
-    public MyData(int id, String title, String location, boolean isDynamic, boolean isAllday,
+    public MyData(int id, String title, String location, boolean isDynamic, boolean isAllday, boolean isNotAnniversary,
                   String time, int category, String memo, int needTime, int repeatId, int scheduleId){
         this.mId = id;
         this.mTitle = title;
         this.mLocation = location;
         this.mIsDynamic = isDynamic;
         this.mIsAllday = isAllday;
+        this.mIsNotAnniversary = isNotAnniversary;
         this.mTime = time;
         this.mCategory = category;
         this.mMemo = memo;

@@ -67,19 +67,20 @@ public class AddItemActivity extends AppCompatActivity {
     private int modeAddEdit;
     private MyData itemElement;
 
-    // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
-    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
+    // 0.id(Int)    1.title(String)  2.loc(String)   3.isDynamic(boolean)  4.isAllday(boolean)  5.isNotAnniversary(boolean)
+    // 6.time(String)    7.category(Int)     8.Memo(String)  9.NeedTime(int)    10.repeatId(Int)   11.scheduleId(Int)
     private int item0_id;
     private String item1_title;
     private String item2_loc;
     private boolean item3_isDynamic;
     private boolean item4_isAllDay;
-    private String item5_time;
-    private int item6_category;
-    private String item7_Memo;
-    private int item8_needTime;
-    private int item9_repeatId;
-    private int item10_scheduleId;
+    private boolean item5_isNotAnniversary;
+    private String item6_time;
+    private int item7_category;
+    private String item8_memo;
+    private int item9_need_time;
+    private int item10_repeatId;
+    private int item11_scheduleId;
 
     private int repeatMode, categoryMode;
     private int repeatPeriod, repeatTimes;
@@ -101,6 +102,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         bindingView();
         Intent getIntent = getIntent();
+        // add mode 인지 edit mode 인지
         modeAddEdit = getIntent.getIntExtra("mode",0);
         int id = getIntent.getIntExtra("id", 0);
         initSet(modeAddEdit, id);
@@ -115,6 +117,7 @@ public class AddItemActivity extends AppCompatActivity {
         repeatTimes = 0;
         item3_isDynamic = false;
         item4_isAllDay = false;
+        item5_isNotAnniversary = false;
 
         // 추가하는 경우
         if(isEdit==ADD_MODE){
@@ -129,7 +132,7 @@ public class AddItemActivity extends AppCompatActivity {
             binding.tvTimeEnd.setText(date[1]);
             binding.tvDateDeadline.setText(date[0]);
             binding.tvTimeDeadline.setText(date[1]);
-            item10_scheduleId = 0;
+            item11_scheduleId = 0;
 
         }
         // 수정하는 경우
@@ -138,7 +141,7 @@ public class AddItemActivity extends AppCompatActivity {
             binding.linFooterView.setVisibility(View.VISIBLE);
             binding.llRepeatTotal.setVisibility(View.GONE);
             binding.btnAdd.setText("수정");
-            setViewFromId(dataId);
+            settingInEditMode(dataId);
 
         }
 
@@ -175,10 +178,8 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
 
-    // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
-    // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
     // 수정하는 경우 데이터 받아오는 함수
-    public void setViewFromId(int id){
+    public void settingInEditMode(int id){
         item0_id =id;
         itemElement = dbHelper.getDataById(id);
 
@@ -189,7 +190,7 @@ public class AddItemActivity extends AppCompatActivity {
         ArrayList<String> categoryList = dbHelper.getAllCategory();
         binding.tvCategory.setText(categoryList.get(categoryMode - 1));
         binding.ivCategory.setImageDrawable(getCategoryDrawable(itemElement.mCategory));
-        item10_scheduleId = itemElement.mScheduleId;
+        item11_scheduleId = itemElement.mScheduleId;
 
         binding.etMemo.setText(itemElement.mMemo);
         String timeSplit[] = itemElement.mTime.split("\\.");
@@ -220,16 +221,13 @@ public class AddItemActivity extends AppCompatActivity {
         binding.tvTopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // GentleToast.with(getApplicationContext()).longToast(String.valueOf(binding.etTitle.getText().toString().getBytes().length)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
-                // 1.id(Int)    2.title(String)  3.loc(String)   4.isDynamic(boolean)  5.isAllday(boolean)
-                // 6.time(String)   7.category(Int)     8.Memo(String)  9.NeedTime(int)   10.repeatId(Int)  11.ScheduleId(int)
                 Log.d(TAG,
                         itemElement.mId+"/"
                         +itemElement.mTitle+"/"
                         +itemElement.mLocation+"/"
                         +itemElement.mIsDynamic+"/"
                         +itemElement.mIsAllday+"/"
+                        +itemElement.mIsNotAnniversary+"/"
                         +itemElement.mTime+"/"
                         +itemElement.mCategory+"/"
                         +itemElement.mMemo+"/"
@@ -288,14 +286,19 @@ public class AddItemActivity extends AppCompatActivity {
         modeAllDay = NOT_ALL_DAY_MODE;
     }
 
+    private void setSwitchToNotAnniversary(){
+        item5_isNotAnniversary = true;
+
+    }
+
+
     private void setSwitchToAnniversary(){
 
-    }
-
-    private void setSwitchToNotAnniversary(){
+        item5_isNotAnniversary = false;
 
     }
 
+    
     private void setupConcealerNSV() {
         // if you're setting header and footer views at the very start of the layout creation (onCreate),
         // as the views are not drawn yet, the library cant get their correct sizes, so you have to do this:
@@ -661,8 +664,6 @@ public class AddItemActivity extends AppCompatActivity {
     };
 
     public void onSubmit(View view){
-        // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
-        // 5.time(String)    6.category(Int)     7.Memo(String)  8.NeedTime(int)    9.repeatId(Int)
         if (checkItem()){
             item1_title = binding.etTitle.getText().toString();
             item2_loc = binding.etLoc.getText().toString();
@@ -673,38 +674,39 @@ public class AddItemActivity extends AppCompatActivity {
                 if (modeAllDay == ALL_DAY_MODE){
                     item4_isAllDay = true;
                     //201807110000.201807120000.000000000000
-                    item5_time = getTimeData(binding.tvDateStart)+"0000."
+                    item6_time = getTimeData(binding.tvDateStart)+"0000."
                             +getTimeData(binding.tvDateEnd)+"0000.000000000000";
                 }
                 // All Day Mode 아닐 때
                 else if (modeAllDay == NOT_ALL_DAY_MODE){
                     item4_isAllDay = false;
                     //201807110430.201807120630.000000000000
-                    item5_time = getTimeData(binding.tvDateStart)
+                    item6_time = getTimeData(binding.tvDateStart)
                             +getTimeData(binding.tvTimeStart)
                             +"."+getTimeData(binding.tvDateEnd)
                             +getTimeData(binding.tvTimeEnd)
                             +".000000000000";
                 }
-                item8_needTime = 0;
+                item9_need_time = 0;
 
             }
             // Dynamic Mode 일 때
             else if (modeStaticDynamic == DYNAMIC_MODE){
                 item3_isDynamic = true;
                 item4_isAllDay = false;
+                item5_isNotAnniversary = false;
                 //000000000000.000000000000.201807120630
-                item5_time = "000000000000.000000000000."
+                item6_time = "000000000000.000000000000."
                         +getTimeData(binding.tvDateDeadline)+getTimeData(binding.tvTimeDeadline);
-                item8_needTime = Integer.parseInt(binding.etNeedtime.getText().toString());
+                item9_need_time = Integer.parseInt(binding.etNeedtime.getText().toString());
             }
             else{
                 GentleToast.with(getApplicationContext()).longToast("에러가 발생했습니다. (ERROR CODE : 1111)").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
                 finish();
             }
-            item6_category = categoryMode;
-            item7_Memo = binding.etMemo.getText().toString();
+            item7_category = categoryMode;
+            item8_memo = binding.etMemo.getText().toString();
             long nextTime_s;
             long nextTime_e;
             if (modeAddEdit == ADD_MODE){
@@ -712,20 +714,20 @@ public class AddItemActivity extends AppCompatActivity {
 
                     // 반복 없음
                     case 1:
-                        item9_repeatId = 0;
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                        item10_repeatId = 0;
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, item6_time, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
                         GentleToast.with(getApplicationContext()).longToast("일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         finish();
                         break;
                     // 매일 반복
                     case 2:
                         dbHelper.updateRepeatId();
-                        item9_repeatId = dbHelper.getCurrentRepeatId();
-                        // item5_time : 201901070700.201901071000.000000000000
+                        item10_repeatId = dbHelper.getCurrentRepeatId();
+                        // item6_time : 201901070700.201901071000.000000000000
 
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
-                        nextTime_s = getMsByDate(item5_time, 1);
-                        nextTime_e = getMsByDate(item5_time, 2);
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, item6_time, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
+                        nextTime_s = getMsByDate(item6_time, 1);
+                        nextTime_e = getMsByDate(item6_time, 2);
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
@@ -735,7 +737,7 @@ public class AddItemActivity extends AppCompatActivity {
                         for (int i=0;i<repeatTimes-1;i++){
                             nextTime_s += (86400000 * repeatPeriod);
                             nextTime_e += (86400000 * repeatPeriod);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, getNextTimeByMs(nextTime_s, nextTime_e), item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
                         }
 
                         GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
@@ -746,12 +748,12 @@ public class AddItemActivity extends AppCompatActivity {
                     // 매주 반복
                     case 3:
                         dbHelper.updateRepeatId();
-                        item9_repeatId = dbHelper.getCurrentRepeatId();
-                        // item5_time : 201901070700.201901071000.000000000000
+                        item10_repeatId = dbHelper.getCurrentRepeatId();
+                        // item6_time : 201901070700.201901071000.000000000000
 
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
-                        nextTime_s = getMsByDate(item5_time, 1);
-                        nextTime_e = getMsByDate(item5_time, 2);
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, item6_time, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
+                        nextTime_s = getMsByDate(item6_time, 1);
+                        nextTime_e = getMsByDate(item6_time, 2);
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
@@ -761,7 +763,7 @@ public class AddItemActivity extends AppCompatActivity {
                         for (int i=0;i<repeatTimes-1;i++){
                             nextTime_s += (86400000 * 7 * repeatPeriod);
                             nextTime_e += (86400000 * 7 * repeatPeriod);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, getNextTimeByMs(nextTime_s, nextTime_e), item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, getNextTimeByMs(nextTime_s, nextTime_e), item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
                         }
 
                         GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
@@ -773,10 +775,10 @@ public class AddItemActivity extends AppCompatActivity {
                     case 4:
 
                         dbHelper.updateRepeatId();
-                        item9_repeatId = dbHelper.getCurrentRepeatId();
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                        item10_repeatId = dbHelper.getCurrentRepeatId();
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, item6_time, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
 
-                        String nextMonth = item5_time;
+                        String nextMonth = item6_time;
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
@@ -784,7 +786,7 @@ public class AddItemActivity extends AppCompatActivity {
                         }
                         for (int i=0;i<repeatTimes-1;i++){
                             nextMonth = getNextMonth(nextMonth);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextMonth, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, nextMonth, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
                         }
                         GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                         finish();
@@ -795,10 +797,10 @@ public class AddItemActivity extends AppCompatActivity {
                     case 5:
 
                         dbHelper.updateRepeatId();
-                        item9_repeatId = dbHelper.getCurrentRepeatId();
-                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                        item10_repeatId = dbHelper.getCurrentRepeatId();
+                        dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, item6_time, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
 
-                        String nextYear = item5_time;
+                        String nextYear = item6_time;
 
                         // 반복 종료가 없으면
                         if (repeatTimes==0){
@@ -806,7 +808,7 @@ public class AddItemActivity extends AppCompatActivity {
                         }
                         for (int i=0;i<repeatTimes-1;i++){
                             nextYear = getNextYear(nextYear);
-                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, nextYear, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                            dbHelper.todoDataInsert(item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, nextYear, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
                         }
 
                         GentleToast.with(getApplicationContext()).longToast("반복 일정이 등록되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
@@ -820,7 +822,7 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }else if (modeAddEdit == EDIT_MODE){
                 GentleToast.with(getApplicationContext()).longToast("일정이 수정되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-                dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_time, item6_category, item7_Memo, item8_needTime, item9_repeatId, item10_scheduleId);
+                dbHelper.todoDataUpdate(item0_id, item1_title, item2_loc, item3_isDynamic, item4_isAllDay, item5_isNotAnniversary, item6_time, item7_category, item8_memo, item9_need_time, item10_repeatId, item11_scheduleId);
                 finish();
             }
         }
@@ -913,7 +915,7 @@ public class AddItemActivity extends AppCompatActivity {
                     .setPositiveButton("삭제",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    dbHelper.editSchedulingId(item10_scheduleId, 0);
+                                    dbHelper.editSchedulingId(item11_scheduleId, 0);
                                     dbHelper.deleteTodoDataById(item0_id);
                                     GentleToast.with(getApplicationContext()).longToast("일정이 삭제되었습니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
                                     finish();
