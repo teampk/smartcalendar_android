@@ -163,6 +163,16 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }
         });
+        binding.swAnniversary.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    setSwitchToNotAnniversary();
+                }else{
+                    setSwitchToAnniversary();
+                }
+            }
+        });
     }
 
     // 0.id(Int)    1.title(String)  2.loc(String)   3.isStatic(boolean)  4.isAllday(boolean)
@@ -265,6 +275,7 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToAllDay(){
         binding.tvTimeStart.setVisibility(View.GONE);
         binding.tvTimeEnd.setVisibility(View.GONE);
+        binding.llAnniversary.setVisibility(View.VISIBLE);
         item4_isAllDay = true;
         modeAllDay = ALL_DAY_MODE;
     }
@@ -272,8 +283,17 @@ public class AddItemActivity extends AppCompatActivity {
     private void setSwitchToNotAllDay(){
         binding.tvTimeStart.setVisibility(View.VISIBLE);
         binding.tvTimeEnd.setVisibility(View.VISIBLE);
+        binding.llAnniversary.setVisibility(View.GONE);
         item4_isAllDay = false;
         modeAllDay = NOT_ALL_DAY_MODE;
+    }
+
+    private void setSwitchToAnniversary(){
+
+    }
+
+    private void setSwitchToNotAnniversary(){
+
     }
 
     private void setupConcealerNSV() {

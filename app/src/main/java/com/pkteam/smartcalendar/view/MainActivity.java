@@ -64,19 +64,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new DBHelper(getApplicationContext(), "SmartCal.db", null, 1);
 
-
         // Bottom Navigation Bar
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FragmentHome()).commit();
-
         gti = new GetTimeInformation();
-
-
-
-
-
     }
 
     @Override
@@ -100,10 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
             calendar[i] = Calendar.getInstance();
             calendar[i].set(year, month-1, date, hour, minute, 0);
-
         }
         startAlarm(calendar);
-
     }
 
     private void startAlarm(Calendar[] c) {
@@ -112,36 +103,27 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent sender;
 
-
         for (int i=0; i<c.length;i++){
             intent.putExtra("id", staticDataList.get(i).mId);
             sender = PendingIntent.getBroadcast(this, i+1, intent, 0);
-
             if (c[i].before(Calendar.getInstance())) {
                 c[i].add(Calendar.DATE, 1);
             }
-
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c[i].getTimeInMillis(), sender);
             Log.d(TAG, gti.getDateByMs(c[i].getTimeInMillis()));
-
         }
-
-
     }
 
 
     long pressTime;
     @Override
     public void onBackPressed() {
-
         if(System.currentTimeMillis() - pressTime <3000){
             finish();
             return;
         }
         GentleToast.with(getApplicationContext()).longToast("한 번 더 누르시면 앱이 종료됩니다.").setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
-
         pressTime = System.currentTimeMillis();
-
     }
 
 

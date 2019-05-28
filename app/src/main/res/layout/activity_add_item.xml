@@ -300,6 +300,40 @@
 
                         </LinearLayout>
 
+                        <!-- 기념일 -->
+                        <LinearLayout
+                            android:id="@+id/ll_anniversary"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_element"
+                            android:layout_marginLeft="@dimen/padding_element"
+                            android:layout_marginRight="@dimen/padding_element"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="start|center"
+                                android:text="기념일"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            </RelativeLayout>
+
+                            <Switch
+                                android:id="@+id/sw_anniversary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center" />
+
+
+                        </LinearLayout>
+
 
                         <!-- 시작 -->
                         <LinearLayout
