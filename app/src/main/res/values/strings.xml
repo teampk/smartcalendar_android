@@ -6,6 +6,12 @@
     <string name="current_date">2018년 8월 15일</string>
     <string name="current_time">2019년 3월 27일 22시 30분</string>
 
+    <string name="home_detail_element1">현재 일정 종료</string>
+    <string name="home_detail_element2">다음 일정</string>
+    <string name="home_detail_element3">다음 할 일</string>
+    <string name="home_detail_element4">할 일 총 시간</string>
+    <string name="home_detail_value">0h 0m</string>
+
     <string name="top_bar_detail">다음 일정까지 남은 시간 : 2h\n다음 할 일까지 남은 시간 : 32h\n할 일들 총 필요시간 : 35h</string>
 
     <string name="string_static">오늘 일정</string>

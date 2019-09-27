@@ -62,7 +62,7 @@ public class FragmentHome extends Fragment {
         initSpeedDial(savedInstanceState == null, mView);
 
 
-        binding.tvTime.setOnClickListener(new View.OnClickListener() {
+        binding.clTopBarListener.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(show)
@@ -72,7 +72,7 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        binding.tvTime.setOnLongClickListener(new View.OnLongClickListener(){
+        binding.clTopBarListener.setOnLongClickListener(new View.OnLongClickListener(){
 
             @Override
             public boolean onLongClick(View v) {
@@ -154,7 +154,7 @@ public class FragmentHome extends Fragment {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(getContext(), R.layout.fragment_home_detail);
 
-        binding.tvTime.setText(getString(R.string.top_bar_detail));
+        // binding.tvTime.setText(getString(R.string.top_bar_detail));
 
 
         ChangeBounds transition = new ChangeBounds();

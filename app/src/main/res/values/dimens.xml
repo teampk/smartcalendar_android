@@ -7,6 +7,7 @@
 
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size">16sp</dimen>
+    <dimen name="text_size_big">18sp</dimen>
 
 
     <dimen name="text_size_title">30sp</dimen>
@@ -17,7 +18,7 @@
     <dimen name="height_blank_behind_top_bar">100dp</dimen>
     <dimen name="height_blank_below_top_bar">20dp</dimen>
 
-    <dimen name="height_top_bar_detail">200dp</dimen>
+    <dimen name="height_top_bar_detail">250dp</dimen>
     <dimen name="height_top_bar_main">120dp</dimen>
     <dimen name="height_blank_behind_top_bar_main">160dp</dimen>
     <dimen name="height_element">60dp</dimen>
