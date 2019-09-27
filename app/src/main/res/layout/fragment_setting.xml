@@ -408,63 +408,52 @@
 
                 </android.support.constraint.ConstraintLayout>
 
+                <!-- subtitle -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    >
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TESTING"
+                        android:textColor="@color/textGray"
+                        android:textSize="@dimen/text_size_small"
+                        />
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        >
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorLightGrayDivider"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/testing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone"
                     >
-
-                    <!-- 테스팅 -->
-                    <LinearLayout
-                        android:id="@+id/ll_testing"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_element"
-                        android:background="#ffffff"
-                        android:orientation="horizontal"
-                        android:onClick="@{setting::testingListener}"
-                        >
-
-                        <!-- category item -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="10dp"
-                                app:srcCompat="@drawable/ic_face_black_24dp"
-
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center|end"
-                                android:text="테스팅"
-                                android:textColor="#000000"
-                                android:textSize="@dimen/text_size" />
-
-                        </LinearLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                        </RelativeLayout>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center|end"
-                            app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
-
-                    </LinearLayout>
 
                     <!-- 데이터 체크 -->
                     <LinearLayout
@@ -494,6 +483,54 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center|end"
                                 android:text="모든 일정 데이터 보기"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/text_size" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+
+                    </LinearLayout>
+
+                    <!-- 테스팅 -->
+                    <LinearLayout
+                        android:id="@+id/ll_testing"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_element"
+                        android:background="#ffffff"
+                        android:orientation="horizontal"
+                        android:onClick="@{setting::testingListener}"
+                        >
+
+                        <!-- category item -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="10dp"
+                                app:srcCompat="@drawable/ic_face_black_24dp"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center|end"
+                                android:text="테스팅"
                                 android:textColor="#000000"
                                 android:textSize="@dimen/text_size" />
 

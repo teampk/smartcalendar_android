@@ -18,6 +18,30 @@ public class ArrayListSorting {
 
     }
 
+    public ArrayList<MyData> sortingForStatic(ArrayList<MyData> inputAl){
+        ArrayList<MyData> outputAl = new ArrayList<>();
+        outputAl.addAll(inputAl);
+
+        String element1, element2;
+        for (int i=0; i<outputAl.size();i++){
+            for (int j=0; j<outputAl.size() - 1; j++){
+                element1 = outputAl.get(j).getmTime().split("\\.")[0];
+                element2 = outputAl.get(j+1).getmTime().split("\\.")[0];
+
+
+                if (Long.parseLong(element1)>Long.parseLong(element2)){
+                    MyData buffer1, buffer2;
+                    buffer1 = outputAl.get(j);
+                    buffer2 = outputAl.get(j+1);
+                    outputAl.set(j,buffer2);
+                    outputAl.set(j+1, buffer1);
+                }
+
+            }
+        }
+        return outputAl;
+    }
+
     // MODE 1 (for main)
     public ArrayList<MyData> sortingForStaticForToday(ArrayList<MyData> inputAl){
         ArrayList<MyData> outputAl = new ArrayList<>();

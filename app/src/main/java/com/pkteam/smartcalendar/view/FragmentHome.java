@@ -13,6 +13,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.pkteam.smartcalendar.model.MyData;
 import com.pkteam.smartcalendar.R;
 import com.singh.daman.gentletoast.GentleToast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +50,7 @@ public class FragmentHome extends Fragment {
     GetTimeInformation gti;
 
     ArrayList<MyData> mDataList = new ArrayList<>();
+    ArrayList<MyData> dynamicForElement = new ArrayList<>();
 
     @Nullable
     @Override
@@ -77,8 +80,11 @@ public class FragmentHome extends Fragment {
             @Override
             public boolean onLongClick(View v) {
                 Date date = new Date(System.currentTimeMillis());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                GentleToast.with(getContext()).longToast(sdf.format(date)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_sc).show();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm ");
+                String currentTime = sdf.format(date);
+                GentleToast.with(getContext()).longToast(currentTime).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_sc).show();
+
+
                 return true;
             }
         });
@@ -119,6 +125,8 @@ public class FragmentHome extends Fragment {
         binding.recyclerTotal.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerTotal.scrollToPosition(0);
 
+        dynamicForElement.clear();
+
         mDataList.clear();
         mDataList.add(new MyData(getString(R.string.string_static), 0));
 
@@ -136,6 +144,7 @@ public class FragmentHome extends Fragment {
             mDataList.add(new MyData(getString(R.string.string_no_data_dynamic), 3));
         }else{
             mDataList.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
+            dynamicForElement.addAll(arrayListSorting.sortingForDynamicFromNow(dynamicData));
         }
 
         mDataList.add(new MyData("", 0));
@@ -145,6 +154,103 @@ public class FragmentHome extends Fragment {
 
         binding.recyclerTotal.setAdapter(mainAdapter);
         binding.recyclerTotal.setItemAnimator(new DefaultItemAnimator());
+
+
+        //////////
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+        long currentTimeLong = date.getTime();
+
+
+
+
+
+
+
+        long nextDate = 0;
+
+        if (arrayListSorting.sortingForStatic(staticData).size() == 0){
+            binding.tvElement1.setText("-");
+            binding.tvElement2.setText("-");
+        }else{
+            // element 1
+            for(MyData mData:arrayListSorting.sortingForStatic(staticData)){
+                Date dStart = null;
+                Date dEnd = null;
+                try{
+                    dStart = sdf.parse(mData.mTime.split("\\.")[0]);
+                    dEnd = sdf.parse(mData.mTime.split("\\.")[1]);
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                long elementTimeStartLong = dStart.getTime();
+                long elementTimeEndLong = dEnd.getTime();
+
+                if (elementTimeStartLong < currentTimeLong && currentTimeLong < elementTimeEndLong){
+
+                    long timeRemain = (elementTimeEndLong - currentTimeLong)/1000/60;
+                    long timeRemainHour = timeRemain/60;
+                    long timeRemainMinute = timeRemain%60;
+                    String elementString1 = timeRemainHour + "h " + timeRemainMinute + "m";
+                    binding.tvElement1.setText(elementString1);
+                    break;
+                }else{
+                    binding.tvElement1.setText("-");
+                }
+            }
+
+            // element 2
+            for(MyData mData:arrayListSorting.sortingForStatic(staticData)){
+                Date dStart = null;
+                Date dEnd = null;
+                try{
+                    dStart = sdf.parse(mData.mTime.split("\\.")[0]);
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                long elementTimeStartLong = dStart.getTime();
+
+                if (currentTimeLong < elementTimeStartLong){
+                    nextDate = elementTimeStartLong - currentTimeLong;
+                    break;
+                }
+            }
+            long timeRemain = nextDate/1000/60;
+            long timeRemainHour = timeRemain/60;
+            long timeRemainMinute = timeRemain%60;
+            String elementString2 = timeRemainHour + "h " + timeRemainMinute + "m";
+            binding.tvElement2.setText(elementString2);
+        }
+
+
+        // element3
+        String elementTime = dynamicForElement.get(0).mTime.split("\\.")[2];
+        Date d = null;
+        try{
+            d = sdf.parse(elementTime);
+        } catch(ParseException e){
+            e.printStackTrace();
+        }
+        long elementTimeLong = d.getTime();
+
+        long timeRemain = (elementTimeLong - currentTimeLong)/1000/60;
+        long timeRemainHour = timeRemain/60;
+        long timeRemainMinute = timeRemain%60;
+        String elementString3 = timeRemainHour + "h " + timeRemainMinute + "m";
+        binding.tvElement3.setText(elementString3);
+
+
+        // element4
+        int needTimeTotal = 0;
+        for(MyData mData:dynamicForElement){
+            needTimeTotal += mData.mNeedTime;
+        }
+        String elementString4 = needTimeTotal + "h";
+        binding.tvElement4.setText(elementString4);
+
+
+
+
 
     }
 
