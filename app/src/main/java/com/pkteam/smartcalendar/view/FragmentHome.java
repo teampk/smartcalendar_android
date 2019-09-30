@@ -222,36 +222,35 @@ public class FragmentHome extends Fragment {
             binding.tvElement2.setText(elementString2);
         }
 
+        if(dynamicForElement.size()==0){
+            binding.tvElement3.setText("-");
+            binding.tvElement4.setText("-");
+        }else{
+            // element3
+            String elementTime = dynamicForElement.get(0).mTime.split("\\.")[2];
+            Date d = null;
+            try{
+                d = sdf.parse(elementTime);
+            } catch(ParseException e){
+                e.printStackTrace();
+            }
+            long elementTimeLong = d.getTime();
 
-        // element3
-        String elementTime = dynamicForElement.get(0).mTime.split("\\.")[2];
-        Date d = null;
-        try{
-            d = sdf.parse(elementTime);
-        } catch(ParseException e){
-            e.printStackTrace();
+            long timeRemain = (elementTimeLong - currentTimeLong)/1000/60;
+            long timeRemainHour = timeRemain/60;
+            long timeRemainMinute = timeRemain%60;
+            String elementString3 = timeRemainHour + "h " + timeRemainMinute + "m";
+            binding.tvElement3.setText(elementString3);
+
+
+            // element4
+            int needTimeTotal = 0;
+            for(MyData mData:dynamicForElement){
+                needTimeTotal += mData.mNeedTime;
+            }
+            String elementString4 = needTimeTotal + "h";
+            binding.tvElement4.setText(elementString4);
         }
-        long elementTimeLong = d.getTime();
-
-        long timeRemain = (elementTimeLong - currentTimeLong)/1000/60;
-        long timeRemainHour = timeRemain/60;
-        long timeRemainMinute = timeRemain%60;
-        String elementString3 = timeRemainHour + "h " + timeRemainMinute + "m";
-        binding.tvElement3.setText(elementString3);
-
-
-        // element4
-        int needTimeTotal = 0;
-        for(MyData mData:dynamicForElement){
-            needTimeTotal += mData.mNeedTime;
-        }
-        String elementString4 = needTimeTotal + "h";
-        binding.tvElement4.setText(elementString4);
-
-
-
-
-
     }
 
     private void showComponents(View mView){
