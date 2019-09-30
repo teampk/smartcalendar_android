@@ -14,6 +14,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!--
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -31,16 +33,28 @@
         </ScrollView>
 
 
-
-
-        <ImageView
-            android:id="@+id/iv_scheduling"
+        -->
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="@drawable/animation"
+            android:layout_height="match_parent"
 
-            />
+            >
+            <ImageView
+                android:id="@+id/iv_scheduling"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
 
 
 

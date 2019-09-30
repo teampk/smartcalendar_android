@@ -3,6 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="false">
 
+    <item android:drawable="@drawable/ani1"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani2"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani3"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani4"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani5"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani6"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani7"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani8"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani9"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani10"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani11"
+        android:duration="40"></item>
+    <item android:drawable="@drawable/ani12"
+        android:duration="40"></item>
+
+<!--
     <item android:drawable="@drawable/ani30"
         android:duration="40"></item>
     <item android:drawable="@drawable/ani31"
@@ -35,5 +61,5 @@
         android:duration="40"></item>
     <item android:drawable="@drawable/ani45"
         android:duration="40"></item>
-
+-->
 </animation-list>
