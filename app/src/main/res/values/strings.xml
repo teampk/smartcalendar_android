@@ -56,6 +56,8 @@
     <string name="scheduling_mode_2_explain">MODE 2는\n스케줄을 남은 날짜 중 앞부분의 시간에 배치합니다.\n미리미리 일을 끝내고 싶은 분들께 추천드립니다!</string>
     <string name="scheduling_mode_3_explain">MODE 3는\n준비중입니다.\n유저분들의 피드백을 항상 기다립니다!</string>
 
+    <string name="scheduling_selected_nothing">스케줄링을 진행할 할 일을 선택해주세요!</string>
+
     <!-- SETTING -->
     <string name="setting_name">홍길동</string>
     <string name="setting">설정</string>
@@ -93,6 +95,8 @@
     <string name="error_duplicate">계정이 이미 존재하는 이메일입니다.</string>
     <string name="error_format_sign_up">이메일 형식으로 등록해주세요.</string>
     <string name="error_weak_pw">비밀번호는 6자 이상으로 입력해주세요.</string>
+
+
 
     <string name="sleep_time">수면시간 설정</string>
     <string name="sleep_time_start">잠드는 시간</string>

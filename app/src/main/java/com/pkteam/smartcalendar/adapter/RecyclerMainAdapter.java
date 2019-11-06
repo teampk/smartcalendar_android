@@ -321,7 +321,7 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         GetTimeInformation timeInformation = new GetTimeInformation();
 
-        // home Static
+        // 1. home Static
         if (mode == 1) {
             //201807082130
             String startTime, endTime;
@@ -338,8 +338,12 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else{
                 endTime = input[1].substring(8, 12);
             }
-
-            return startTime.substring(0, 2) + ":" + startTime.substring(2, 4) + "~" + endTime.substring(0, 2) + ":" + endTime.substring(2, 4);
+            String showingTime = startTime.substring(0, 2) + ":" + startTime.substring(2, 4) + "~" + endTime.substring(0, 2) + ":" + endTime.substring(2, 4);
+            if (showingTime.equals("00:00~00:00") || showingTime.equals("00:00~24:00")){
+                return "하루종일";
+            }else{
+                return showingTime;
+            }
         }
         else if(mode ==11){
             String startTime, endTime;
@@ -355,10 +359,14 @@ public class RecyclerMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else{
                 endTime = input[1].substring(8, 12);
             }
-
-            return startTime.substring(0, 2) + ":" + startTime.substring(2, 4) + "~" + endTime.substring(0, 2) + ":" + endTime.substring(2, 4);
+            String showingTime = startTime.substring(0, 2) + ":" + startTime.substring(2, 4) + "~" + endTime.substring(0, 2) + ":" + endTime.substring(2, 4);
+            if (showingTime.equals("00:00~00:00") || showingTime.equals("00:00~24:00")){
+                return "하루종일";
+            }else{
+                return showingTime;
+            }
         }
-        // D-day가 나오게 (Dynamic)
+        // 2. D-day가 나오게 (Dynamic)
         else if (mode == 2 || mode == 4) {
             return timeInformation.getDday(input[2]);
         }

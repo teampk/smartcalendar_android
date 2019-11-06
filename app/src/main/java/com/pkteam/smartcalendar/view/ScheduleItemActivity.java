@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -18,6 +19,7 @@ import com.pkteam.smartcalendar.R;
 import com.pkteam.smartcalendar.adapter.RecyclerMainAdapter;
 import com.pkteam.smartcalendar.databinding.ActivityScheduleItemBinding;
 import com.pkteam.smartcalendar.model.MyData;
+import com.singh.daman.gentletoast.GentleToast;
 
 import java.util.ArrayList;
 
@@ -73,10 +75,14 @@ public class ScheduleItemActivity extends AppCompatActivity {
     }
 
     public void onClickFooter(View view){
+        if (rcAdapter.getSelectedId().size() == 0){
+            GentleToast.with(getApplicationContext()).shortToast(getString(R.string.scheduling_selected_nothing)).setTextColor(R.color.material_white_1000).setBackgroundColor(R.color.colorPrimary).setBackgroundRadius(100).setImage(R.drawable.logo_ts).show();
 
-        Intent mIntent = new Intent(getApplicationContext(), ScheduleItemProgressActivity.class);
-        mIntent.putExtra("selectedDynamic", rcAdapter.getSelectedId());
-        startActivityForResult(mIntent, 3000);
+        }else{
+            Intent mIntent = new Intent(getApplicationContext(), ScheduleItemProgressActivity.class);
+            mIntent.putExtra("selectedDynamic", rcAdapter.getSelectedId());
+            startActivityForResult(mIntent, 3000);
+        }
     }
 
     @Override

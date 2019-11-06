@@ -251,7 +251,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
             if(sum<needTime){
                 // 남은 모든 시간의 합이 needtime 보다 적은 경우
                 // 스케줄링을 수행하지 않는다.
-                Log.d(TAG, "ERROR 1");
                 Intent errorIntent = new Intent();
                 errorIntent.putExtra("error", selectedData.get(index).mId);
                 setResult(RESULT_OK, errorIntent);
@@ -273,7 +272,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 switch(dbHelper.getSchedulingMode()){
                     // MODE 1)
                     case 1:
-                        Log.d(TAG, "MODE 1");
                         int turn_num = 0;
 
                         while(need_time_cal > 0){
@@ -326,7 +324,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                     // MODE 2)
                     // 앞 시간에 몰아서 하는 Type
                     case 2:
-                        Log.d(TAG, "MODE 2");
                         // needtime 을 쪼개기 위한 단위(unit)
                         // 잉여시간이 4 조각 나있으면
                         // ex) 올림 (10 / 4) = 3 : unit
@@ -450,10 +447,6 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
 
     private void stickScheduledData(){
 
-        for(MyData data : scheduledStaticList){
-            Log.d(TAG, data.mId+"/"+data.mTitle+"/"+data.mTime+"/"+data.mScheduleId);
-        }
-
         ArrayList<Integer> removeIndex = new ArrayList<>();
         for (int i=0;i<scheduledStaticList.size();i++) {
             for (int j = 0; j < scheduledStaticList.size(); j++) {
@@ -474,13 +467,9 @@ public class ScheduleItemProgressActivity extends AppCompatActivity{
                 }
             }
         }
-        Log.d(TAG, "-----------------------------------------------");
         for(int i=removeIndex.size()-1;i>=0;i--){
             int index = removeIndex.get(i);
             scheduledStaticList.remove(index);
-        }
-        for(MyData data : scheduledStaticList){
-            Log.d(TAG, data.mId+"/"+data.mTitle+"/"+data.mTime+"/"+data.mScheduleId);
         }
     }
 
